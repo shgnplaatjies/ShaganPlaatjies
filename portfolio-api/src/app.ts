@@ -1,10 +1,15 @@
-import dotenv from "dotenv";
+import { config } from "dotenv";
 import express from "express";
 import session from "express-session";
+import morgan from "morgan";
+import passport from "passport";
+import authRoutes from "./routes/authRoutes";
 
-dotenv.config();
+config();
 
 const app = express();
+
+app.use(morgan(process.env.ENVIRONMENT !== "prod" ? "dev" : "prod"));
 
 app.use(
   session({
@@ -15,7 +20,12 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => res.send("<h1>Hello, World</h1>"));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/auth", authRoutes);
+
+app.get("/", (req, res) => res.send("<span>Welcome!</span>"));
 
 const PORT = process.env.PORT ?? 3000;
 
