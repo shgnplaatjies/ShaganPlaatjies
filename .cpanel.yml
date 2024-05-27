@@ -1,0 +1,24 @@
+deployment:
+  tasks:
+    - echo "Starting deployment for $CI_BRANCH branch"
+
+    - if [ -n "$CI_BRANCH"]; then
+        if ["$CI_BRANCH" = "main"]; then
+          export DEPLOY_PATH=$PROD_DEPLOY_PATH
+        elif ["$CI_BRANCH" = "stg"]; then
+          export DEPLOY_PATH=$STG_DEPLOY_PATH
+        fi
+
+        cd $DEPLOY_PATH
+        git pull origin $CI_BRANCH
+
+        npm install
+        npm run build
+        pm2 restart all
+
+        echo "Deployment completed for $CI_BRANCH branch"
+      
+      else
+        echo "Invalid request - branch information not available. Skipping deployment..."
+  
+      fi

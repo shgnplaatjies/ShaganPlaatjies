@@ -1,0 +1,43 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - stg
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Set CI_BRANCH variable
+        id: set_ci_branch
+        run: echo "CI_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+
+      - name: Set deployment URL
+        id: set_deployment_vars
+        run: |
+          if [ $CI_BRANCH == "main" ]; then
+            echo "APP_HOST_URL=${{ env.APP_HOST_URL}}" >> $GITHUB_ENV
+            echo "DEPLOY_PATH=${{ secrets.DEPLOY_PATH }}" >> $GITHUB_ENV
+
+          elif [ $CI_BRANCH == "stg" ]; then
+            echo "APP_HOST_URL=${{ env.APP_HOST_URL}}" >> $GITHUB_ENV
+            echo "DEPLOY_PATH=${{ secrets.DEPLOY_PATH }}" >> $GITHUB_ENV
+
+          else
+            echo "APP_HOST_URL="
+            echo "DEPLOY_PATH="
+          fi
+
+      - name: Send payload to cPanel
+        if: env.APP_HOST_URL != ''
+        run: |
+          curl -X POST \
+          -H 'Content-type: application/json' \
+          -d "{\"branch\": \"$CI_BRANCH\"}" \
+          $APP_HOST_URL/.cpanel/deploy
