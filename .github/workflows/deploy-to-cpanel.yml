@@ -39,5 +39,4 @@ jobs:
         run: |
           curl -X POST \
           -H 'Content-type: application/json' \
-          -d "{\"branch\": \"$CI_BRANCH\"}" \
           $APP_HOST_URL/.cpanel/deploy
