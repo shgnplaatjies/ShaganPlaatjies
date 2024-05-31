@@ -18,7 +18,7 @@ jobs:
           elif [[ ${{ github.ref_name }}  == 'stg' ]]; then
             echo "ENV=stg" >> $GITHUB_ENV
           else
-            echo "No valid environment found, exiting..." || exit 1
+            echo "ENV=" >> $GITHUB_ENV|| exit 1
           fi
 
   build:
