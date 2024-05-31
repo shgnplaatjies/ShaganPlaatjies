@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: List files
+        run: ls
+
       - name: Install dependencies
         run: ${{ secrets.NPM_PATH_STG }} ci
 
