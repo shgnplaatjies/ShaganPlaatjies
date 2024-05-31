@@ -24,7 +24,10 @@ jobs:
         run: npm ci
 
       - name: Generate build
-        run: npm run build
+        run: npm run
+
+      - name: List files recursively
+        run: ls -R
 
       - name: Upload .next folder
         uses: actions/upload-artifact@v4
