@@ -24,7 +24,7 @@ jobs:
         run: npm ci
 
       - name: Generate build
-        run: npm run
+        run: npm run build
 
       - name: List files recursively
         run: ls -R
