@@ -12,10 +12,10 @@ jobs:
       
       steps:
           - name: Clone repository
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
 
           - name: Use Node.js 20.x
-            uses: actions/setup-node@v3
+            uses: actions/setup-node@v4
             with:
               node-version: 20
 
@@ -38,11 +38,11 @@ jobs:
 
       steps:
           - name: Clone repository
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
 
           - name: Creating restart file
             run: |
-              mkdir tmp && touch tmp/restart.txt 
+              mkdir tmp && touch tmp/restart.txt
               echo $RANDOM > tmp/restart.txt
 
           - name: download .next folder
