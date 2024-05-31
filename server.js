@@ -12,8 +12,8 @@ app.prepare().then(() => {
     return nextHandler(req, res);
   });
 
-  server.listen(4444, (err) => {
+  server.listen(process.env.APP_PORT, (err) => {
     if (err) throw err;
-    console.log("> Ready on http://localhost:4444");
+    console.log(`> Ready on http://localhost:${process.env.APP_PORT}`);
   });
 });
