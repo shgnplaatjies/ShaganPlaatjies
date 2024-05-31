@@ -1,5 +1,5 @@
-import express from "express";
-import nextjs from "next";
+const express = require("express");
+const nextjs = require("next");
 
 const dev = process.env.NODE_ENV !== "prod";
 const app = nextjs({ dev });
