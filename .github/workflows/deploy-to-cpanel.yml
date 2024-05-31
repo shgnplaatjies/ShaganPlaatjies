@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Activate Virtual Environment
+        run: source /home/dextertu/nodevenv/shaganplaatjies.co.za/20/bin/activate
+
       - name: Install dependencies
         run: npm ci
 
