@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "@bitc/cnad": "^1.1.0",
+    "@radix-ui/themes": "^3.0.5",
     "@stitches/react": "^1.2.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "next": "14.2.3",
     "radix-ui": "^1.0.1",
     "react": "^18",
