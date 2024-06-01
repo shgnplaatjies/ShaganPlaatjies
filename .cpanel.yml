@@ -1,0 +1,30 @@
+deployment:
+  tasks:
+    - echo "Starting deployment for $CI_BRANCH branch"
+
+    - if [[ -n "$CI_BRANCH" ]]; then
+        if [[ "$CI_BRANCH" = "main" ]]; then
+          export DEPLOY_PATH=$PROD_DEPLOY_PATH
+          export REMOTE_NAME=$PROD_REMOTE_NAME_URL
+          export CLONE_URL=$PROD_CLONE_URL
+
+        elif [[ "$CI_BRANCH" = "stg" ]]; then
+          export DEPLOY_PATH=$STG_DEPLOY_PATH
+          export REMOTE_NAME=$STG_REMOTE_NAME_URL
+          export CLONE_URL=$STG_CLONE_URL
+        fi
+
+        cd $DEPLOY_PATH || exit 1
+
+        git pull origin $CI_BRANCH || exit 1
+
+        npm ci || exit 1
+        npm run build || exit 1
+        pm2 restart all || exit 1
+
+        echo "Deployment completed for $CI_BRANCH branch"
+      
+      else
+        echo "Invalid request - branch information not available. Skipping deployment..."
+  
+      fi
