@@ -84,7 +84,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: ./next/
+          server-dir: ./.next/
           dangerous-clean-slate: true
           protocol: ftps
 
