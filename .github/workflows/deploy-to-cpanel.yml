@@ -17,9 +17,9 @@ jobs:
         id: set-env
         run: |
           if [[ ${{ github.ref_name }}  == 'main' ]]; then
-            echo "ENV=prod." >> "$GITHUB_OUTPUT"
+            echo "ENV=prod" >> "$GITHUB_OUTPUT"
             elif [[ ${{ github.ref_name }}  == 'stg' ]]; then
-            echo "ENV=stg." >> "$GITHUB_OUTPUT"
+            echo "ENV=stg" >> "$GITHUB_OUTPUT"
             else
             echo "Invalid environment." || exit 1
           fi
