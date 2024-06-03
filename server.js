@@ -2,9 +2,15 @@ const express = require("express");
 const nextjs = require("next");
 const cnad = require("@bitc/cnad");
 
-cnad.config(process.env.NODE_DIR);
-cnad.watch([process.env.RESTART_FILE_PATH]);
-cnad.start();
+if (
+  process.env.NODE_ENV === "staging" ||
+  process.env.NODE_ENV === "development" ||
+  process.env.NODE_ENV === "production"
+) {
+  cnad.config(process.env.NODE_DIR);
+  cnad.watch([process.env.RESTART_FILE_PATH]);
+  cnad.start();
+}
 
 const dev = process.env.NODE_ENV !== "production";
 const app = nextjs({ dev });
