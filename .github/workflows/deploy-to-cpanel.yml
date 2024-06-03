@@ -78,6 +78,12 @@ jobs:
           name: dot_next_folder
           path: .next
 
+      - name: Clear target directory on server
+        run: |
+          lftp - u "${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }}" ${{ secrets.FTP_HOST }} << EOF
+          mirror --reverse --delete --verbose .next/ .next/
+          EOF
+
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
