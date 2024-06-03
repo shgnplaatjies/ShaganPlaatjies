@@ -61,7 +61,8 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     needs: [build, set-environment]
-    environment: ${{ needs.set-environment.outputs.ENV }}
+    environment:
+      name: ${{ needs.set-environment.outputs.ENV }}
 
     steps:
       - name: Clone repository
