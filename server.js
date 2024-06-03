@@ -1,6 +1,6 @@
 const express = require("express");
 const nextjs = require("next");
-const cnad = require("cnad");
+const cnad = require("@bitc/cnad");
 
 cnad.config(process.env.NODE_DIR);
 cnad.watch([process.env.RESTART_FILE_PATH]);
