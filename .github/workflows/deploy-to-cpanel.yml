@@ -83,7 +83,7 @@ jobs:
 
       - name: Clear target directory on server
         run: |
-          lftp - u "${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }}" ${{ secrets.FTP_HOST }} << EOF
+          lftp -u "${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }}" ${{ secrets.FTP_HOST }} << EOF
           mirror --reverse --delete --verbose .next/ .next/
           EOF
 
