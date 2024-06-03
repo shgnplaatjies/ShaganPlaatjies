@@ -78,14 +78,15 @@ jobs:
           name: dot_next_folder
           path: .next
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: Clear target directory on server
-        run: |
-          lftp -u "${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }}" ${{ secrets.FTP_HOST }} << EOF
-          mirror --reverse --delete --verbose .next/ .next/
-          EOF
+      - name: 📂 Clear old build files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: ./next/
+          dangerous-clean-slate: true
+          protocol: ftps
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -93,6 +94,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
           exclude: |
             **/.next/cache/**
             **/.github/**
