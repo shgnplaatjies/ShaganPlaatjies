@@ -78,16 +78,6 @@ jobs:
           name: dot_next_folder
           path: .next
 
-      - name: 📂 Clear old build files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          server-dir: ./.next/
-          dangerous-clean-slate: true
-          protocol: ftps
-
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
