@@ -11,7 +11,7 @@ const IconList: React.FC<IconListProps> = ({ icons }) => {
       {icons.map(({ icon, label, href }) => (
         <li key={href}>
           <Link href={href}>
-            {React.cloneElement(icon, { "aria-Label": label })}
+            {React.cloneElement(icon, { "aria-label": label })}
           </Link>
         </li>
       ))}
