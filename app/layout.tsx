@@ -2,7 +2,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
+import "./styles/globals.css";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
