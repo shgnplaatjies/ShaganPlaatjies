@@ -1,9 +1,20 @@
-import { Heading } from "@radix-ui/themes";
+import MainLayout from "./components/layout/Main/layout";
+import AboutSection from "./components/sections/AboutSection";
+import ContactSection from "./components/sections/ContactSection";
+import LandingSection from "./components/sections/LandingSection";
+import ProjectsSection from "./components/sections/ProjectsSection";
+import SkillsSection from "./components/sections/SkillsSection";
 
-export default function Home() {
+const HomePage: React.FC = () => {
   return (
-    <Heading as="h1" className="mb-3 text-2xl font-semibold">
-      Shagan Plaatjies{" "}
-    </Heading>
+    <MainLayout>
+      <LandingSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <AboutSection />
+      <ContactSection />
+    </MainLayout>
   );
-}
+};
+
+export default HomePage;
