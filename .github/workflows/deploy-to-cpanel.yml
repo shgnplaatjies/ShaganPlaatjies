@@ -78,6 +78,9 @@ jobs:
           name: dot_next_folder
           path: .next
 
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Clear target directory on server
         run: |
           lftp - u "${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }}" ${{ secrets.FTP_HOST }} << EOF
