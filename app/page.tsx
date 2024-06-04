@@ -1,4 +1,4 @@
-import MainLayout from "./components/layout/Main/layout";
+import MainLayout from "./components/layout/main/layout";
 import AboutSection from "./components/sections/AboutSection";
 import ContactSection from "./components/sections/ContactSection";
 import LandingSection from "./components/sections/LandingSection";
