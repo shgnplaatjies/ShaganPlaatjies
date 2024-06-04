@@ -1,8 +1,6 @@
 const express = require("express");
 const nextjs = require("next");
 const cnad = require("@bitc/cnad");
-const cors = require("cors");
-
 if (
   process.env.NODE_ENV === "staging" ||
   process.env.NODE_ENV === "development" ||
@@ -19,8 +17,6 @@ const nextHandler = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-
-  server.use(cors());
 
   server.get("*", (req, res) => {
     return nextHandler(req, res);
