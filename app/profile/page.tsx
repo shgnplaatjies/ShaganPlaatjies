@@ -1,4 +1,4 @@
-import MainLayout from "@/app/components/layout/main/layout";
+import MainLayout from "@/app/components/layout/Main/layout";
 import { useUser } from "@clerk/nextjs";
 import { Heading, Text } from "@radix-ui/themes";
 

@@ -1,4 +1,4 @@
-import MainLayout from "@/app/components/layout/main/layout";
+import MainLayout from "@/app/components/layout/Main/layout";
 import { Heading, Text } from "@radix-ui/themes";
 
 const BlogPage: React.FC = () => {
