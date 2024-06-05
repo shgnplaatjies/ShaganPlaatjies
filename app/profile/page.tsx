@@ -1,51 +1,53 @@
+"use client";
 import MainLayout from "@/app/components/layout/Main/layout";
 import { useUser } from "@clerk/nextjs";
-import { Heading, Text } from "@radix-ui/themes";
+import { Heading, Table, Text } from "@radix-ui/themes";
 
 const BlogPage: React.FC = () => {
   const { user } = useUser();
 
-  if (!user) return null;
+  if (!user) {
+    return <MainLayout>Loading...</MainLayout>;
+  }
 
   return (
     <MainLayout>
       <section>
         <Heading as="h1">
-          Hello <span className="text-blue-900">{user.firstName}</span>!
+          Hello <span className="text-blue-900">{user.username}</span>!
         </Heading>
-        <Heading as="h2">Profile Page.</Heading>
-        <table>
-          <thead>
-            <tr>
-              <th>
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeaderCell>
                 <Text as="label">Field</Text>
-              </th>
-              <th>
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>
                 <Text as="label">Value</Text>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
+              </Table.ColumnHeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.RowHeaderCell>
                 <Text as="label">Name:</Text>
-              </td>
-              <td>
+              </Table.RowHeaderCell>
+              <Table.Cell>
                 <Text>{user.fullName}</Text>
-              </td>
-            </tr>
+              </Table.Cell>
+            </Table.Row>
             {user.primaryEmailAddress && (
-              <tr>
-                <td>
+              <Table.Row>
+                <Table.RowHeaderCell>
                   <Text as="label">Email:</Text>
-                </td>
-                <td>
+                </Table.RowHeaderCell>
+                <Table.Cell>
                   <Text>{user.primaryEmailAddress.emailAddress}</Text>
-                </td>
-              </tr>
+                </Table.Cell>
+              </Table.Row>
             )}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table.Root>
       </section>
     </MainLayout>
   );
