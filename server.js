@@ -1,18 +1,17 @@
 const express = require("express");
 const nextjs = require("next");
 const cnad = require("@bitc/cnad");
-if (
-  process.env.NODE_ENV === "staging" ||
-  process.env.NODE_ENV === "development" ||
-  process.env.NODE_ENV === "production"
-) {
+
+const env = env;
+if (env === "staging" || env === "development" || env === "production") {
   cnad.config(process.env.NODE_DIR);
   cnad.watch([process.env.RESTART_FILE_PATH]);
   cnad.start();
 }
 
-const dev = process.env.NODE_ENV !== "production";
+const dev = env !== "production";
 const app = nextjs({ dev });
+
 const nextHandler = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -22,7 +21,9 @@ app.prepare().then(() => {
     return nextHandler(req, res);
   });
 
-  server.listen(process.env.APP_PORT, (err) => {
+  const port = process.env.APP_PORT;
+
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${process.env.APP_PORT}`);
   });
