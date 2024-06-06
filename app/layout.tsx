@@ -3,6 +3,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import MainLayout from "./components/layout/Main/layout";
 import "./styles/globals.css";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
@@ -21,7 +22,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={poppins.className}>
-          <Theme>{children}</Theme>
+          <Theme
+            accentColor="green"
+            radius="small"
+            panelBackground="translucent"
+          >
+            <MainLayout>{children}</MainLayout>
+          </Theme>
         </body>
       </html>
     </ClerkProvider>
