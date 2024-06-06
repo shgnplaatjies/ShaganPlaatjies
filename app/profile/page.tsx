@@ -6,15 +6,19 @@ import { Heading, Table, Text } from "@radix-ui/themes";
 const BlogPage: React.FC = () => {
   const { user } = useUser();
 
-  if (!user) {
-    return <MainLayout>Loading...</MainLayout>;
-  }
-
   return (
     <MainLayout>
       <section>
         <Heading as="h1">
-          Hello <span className="text-blue-900">{user.username}</span>!
+          {user ? (
+            <>
+              Hello <span className="text-blue-900">{user.username}</span>!
+            </>
+          ) : (
+            <>
+              Loading <span className="text-blue-900">your profile</span>.
+            </>
+          )}
         </Heading>
         <Table.Root>
           <Table.Header>
@@ -33,10 +37,10 @@ const BlogPage: React.FC = () => {
                 <Text as="label">Name:</Text>
               </Table.RowHeaderCell>
               <Table.Cell>
-                <Text>{user.fullName}</Text>
+                <Text>{user ? user.fullName : "Loading..."}</Text>
               </Table.Cell>
             </Table.Row>
-            {user.primaryEmailAddress && (
+            {user?.primaryEmailAddress && (
               <Table.Row>
                 <Table.RowHeaderCell>
                   <Text as="label">Email:</Text>
