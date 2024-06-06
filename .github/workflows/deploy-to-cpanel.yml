@@ -84,18 +84,19 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
           exclude: |
             **/.next/cache/**
             **/.github/**
             **/.git/**
-            **/pages/**
-            **/css/**
-            **/layouts/**
-            **/components/**
-            **/lib/**
-            **/sitedata/**
-            **/postcss.config.js
-            **/tailwind.config.js
-            **/README.md
-            **/.gitignore
-            **/.eslintrc.json
+            pages/**
+            css/**
+            layouts/**
+            components/**
+            lib/**
+            sitedata/**
+            postcss.config.js
+            tailwind.config.js
+            README.md
+            .gitignore
+            .eslintrc.json
