@@ -30,7 +30,8 @@ jobs:
     needs: [set-environment]
     environment: ${{ needs.set-environment.outputs.ENV }}
     env:
-      NODE_DIR: ${{ secrets.NODE_DIR }}
+      NODE_DIR: ${{ secrets.NODE_DIR }};
+      ALLOWED_ORIGIN: ${{ secrets.ALLOWED_ORIGIN }}
       RESTART_FILE_PATH: ${{ secrets.RESTART_FILE_PATH }}
 
     steps:
