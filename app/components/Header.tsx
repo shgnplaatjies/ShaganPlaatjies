@@ -7,7 +7,9 @@ const Header: React.FC = () => {
   return (
     <Flex direction="row" height="2rem" overflow={"visible"} justify="between">
       <CodeIcon />
-      <Text as="p">Shagan Plaatjies</Text>
+      <Text as="p">
+        shagan<span className="text-green-500">{"<plaatjies>"}</span>
+      </Text>
       <NavButton />
     </Flex>
   );
