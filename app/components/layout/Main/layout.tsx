@@ -1,4 +1,4 @@
-import { Box, Card, Flex, ScrollArea } from "@radix-ui/themes";
+import { Card, Container, Flex, Inset, ScrollArea } from "@radix-ui/themes";
 import React from "react";
 import Footer from "../../Footer";
 import Header from "../../Header";
@@ -7,27 +7,25 @@ const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   return (
-    <Flex direction="column" overflow="hidden" m="2">
+    <Flex direction="column" flexGrow="1" m="2">
       <Card>
-        <ScrollArea>
-          <header className="sticky top-0">
-            <Box>
-              <Card variant="surface">
-                <Header />
-              </Card>
-            </Box>
-          </header>
-          <main>
-            <Flex direction="column" overflow="hidden">
-              {children}
-            </Flex>
-          </main>
-          <footer className="sticky bottom-0">
-            <Box>
+        <header>
+          <Container align="center">
+            <Header />
+          </Container>
+        </header>
+        <main>
+          <Flex height="90vh" direction="column">
+            <ScrollArea>{children}</ScrollArea>
+          </Flex>
+        </main>
+        <Inset>
+          <footer>
+            <Container align="center" height="5vh">
               <Footer />
-            </Box>
+            </Container>
           </footer>
-        </ScrollArea>
+        </Inset>
       </Card>
     </Flex>
   );
