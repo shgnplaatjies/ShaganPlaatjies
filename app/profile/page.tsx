@@ -1,7 +1,7 @@
 "use client";
 import MainLayout from "@/app/components/layout/Main/layout";
 import { useUser } from "@clerk/nextjs";
-import { Heading, Table, Text } from "@radix-ui/themes";
+import { DataList, Heading, Text } from "@radix-ui/themes";
 
 const BlogPage: React.FC = () => {
   const { user } = useUser();
@@ -20,38 +20,26 @@ const BlogPage: React.FC = () => {
             </>
           )}
         </Heading>
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell>
-                <Text as="label">Field</Text>
-              </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>
-                <Text as="label">Value</Text>
-              </Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.RowHeaderCell>
-                <Text as="label">Name:</Text>
-              </Table.RowHeaderCell>
-              <Table.Cell>
-                <Text>{user ? user.fullName : "Loading..."}</Text>
-              </Table.Cell>
-            </Table.Row>
-            {user?.primaryEmailAddress && (
-              <Table.Row>
-                <Table.RowHeaderCell>
-                  <Text as="label">Email:</Text>
-                </Table.RowHeaderCell>
-                <Table.Cell>
-                  <Text>{user.primaryEmailAddress.emailAddress}</Text>
-                </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table.Root>
+        <DataList.Root>
+          <DataList.Item>
+            <DataList.Label>
+              <Text as="label">Name:</Text>
+            </DataList.Label>
+            <DataList.Value>
+              <Text>{user ? user.fullName : "Loading..."}</Text>
+            </DataList.Value>
+          </DataList.Item>
+          {user?.primaryEmailAddress && (
+            <DataList.Item>
+              <DataList.Label>
+                <Text as="label">Email:</Text>
+              </DataList.Label>
+              <DataList.Value>
+                <Text>{user.primaryEmailAddress.emailAddress}</Text>
+              </DataList.Value>
+            </DataList.Item>
+          )}
+        </DataList.Root>
       </section>
     </MainLayout>
   );
