@@ -8,34 +8,47 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import Link from "next/link";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@radix-ui/react-navigation-menu";
 import React from "react";
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
 
   return (
-    <nav>
-      <ul className="grid grid-cols-4 justify-center justify-items-center">
-        <li className="">
-          <Link href="/">{user ? <UserButton /> : "Home"}</Link>
-        </li>
-        <li>
-          <Link href="/contact">Contact</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
+    <NavigationMenu>
+      <NavigationMenuList className="grid grid-cols-4 justify-center justify-items-center">
+        <NavigationMenuItem className="">
+          <NavigationMenuLink href="/">
+            {user ? (
+              <div className="m-0">
+                <UserButton />
+              </div>
+            ) : (
+              "Home"
+            )}
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink href="/contact">Contact</NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink href="/about">About</NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <SignedOut>
             <SignInButton />
           </SignedOut>
           <SignedIn>
             <SignOutButton />
           </SignedIn>
-        </li>
-      </ul>
-    </nav>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 
