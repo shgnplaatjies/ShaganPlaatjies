@@ -1,7 +1,7 @@
 import { CodeIcon } from "@radix-ui/react-icons";
 import { Heading, Text } from "@radix-ui/themes";
 import CTAButton from "../CTAButton";
-import WindowLayout from "../layout/Window/layout";
+import WindowLayout from "../Window";
 
 const AboutSection: React.FC = () => {
   return (
