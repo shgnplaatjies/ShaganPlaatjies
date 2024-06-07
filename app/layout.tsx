@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { Theme } from "@radix-ui/themes";
+import { Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -27,7 +27,9 @@ export default function RootLayout({
             radius="small"
             panelBackground="translucent"
           >
-            <MainLayout>{children}</MainLayout>
+            <Flex direction="column" height="100vh" width="100vw">
+              <MainLayout>{children}</MainLayout>
+            </Flex>
           </Theme>
         </body>
       </html>

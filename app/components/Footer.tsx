@@ -1,43 +1,16 @@
-import {
-  EnvelopeClosedIcon,
-  GitHubLogoIcon,
-  LinkedInLogoIcon,
-} from "@radix-ui/react-icons";
+import { DotFilledIcon } from "@radix-ui/react-icons";
+import { Flex, Link } from "@radix-ui/themes";
 import React from "react";
-import CTAButton from "./CTAButton";
-import IconList from "./IconList";
-type FooterProps = { href: string; text: string };
+import IconList from "./SocialIcons";
 
-const Footer: React.FC<FooterProps> = ({ href, text }) => {
-  const socialIcons = [
-    {
-      href: "https://github.com/shgnplaatjies",
-      icon: <GitHubLogoIcon />,
-      label: "GitHub",
-    },
-    {
-      href: "https://linkedin.com/in/shaganplaatjies",
-      icon: <LinkedInLogoIcon />,
-      label: "LinkedIn",
-    },
-    {
-      href: "mailto:hello@shaganplaatjies.co.za",
-      icon: <EnvelopeClosedIcon />,
-      label: "Email",
-    },
-  ];
-
+const Footer: React.FC = () => {
   return (
-    <footer>
-      <ul>
-        <li>
-          <CTAButton href={href} text={text} />
-        </li>
-        <li>
-          <IconList icons={socialIcons} />
-        </li>
-      </ul>
-    </footer>
+    <Flex justify="between" className="sticky bottom-0">
+      <Link my="2" content="center" href="/contact">
+        <DotFilledIcon width="1.25rem" height="1.25rem" />
+      </Link>
+      <IconList />
+    </Flex>
   );
 };
 export default Footer;
