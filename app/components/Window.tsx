@@ -2,12 +2,17 @@ import { Cross1Icon, MinusIcon, SquareIcon } from "@radix-ui/react-icons";
 import { Card, Container, Flex, Inset, Text } from "@radix-ui/themes";
 import React from "react";
 
-const WindowLayout: React.FC<{
+const WindowLayout = ({
+  LogoIcon,
+  title,
+  padded,
+  children,
+}: {
   LogoIcon?: React.JSX.Element;
   title?: string;
   padded?: boolean;
   children: React.ReactNode;
-}> = ({ LogoIcon, title, padded, children }) => {
+}) => {
   return (
     <Card>
       <Flex direction="column">
@@ -22,7 +27,7 @@ const WindowLayout: React.FC<{
         </Inset>
         <Inset>
           <Container
-            className={`${padded ? "p-2" : ""} border-t border-gray-700`}
+            className={`${padded ? "px-2 pb-1" : ""} border-t border-gray-700`}
             mt="5"
           >
             {children}
