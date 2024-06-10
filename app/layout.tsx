@@ -3,12 +3,17 @@ import { Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Poppins } from "next/font/google";
+import { Ubuntu_Mono } from "next/font/google";
 import PulsingCircle from "./components/animations/PulsingCircle";
 import MainLayout from "./components/layout/Main/layout";
 import "./styles/globals.css";
 
-const poppins = Poppins({ weight: "400", subsets: ["latin"] });
+const ubuntuMono = Ubuntu_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ubuntu-mono",
+});
 
 export const metadata: Metadata = {
   title: "Shagan Plaatjies",
@@ -21,10 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pulseDuration = 8000;
+
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={poppins.className}>
+        <body className={ubuntuMono.className}>
           <ThemeProvider attribute="media">
             <Theme
               appearance="dark"
