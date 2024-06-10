@@ -23,7 +23,7 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
       <style>
         {`
           #pulsingCircle {
-            animation: pulsingCircle__pulse ${duration} linear infinite normal forwards;
+            animation: pulsingCircle__pulse ${duration}ms linear infinite normal forwards;
           }
           @keyframes pulsingCircle__pulse {
             0% {transform: scale(1)}
