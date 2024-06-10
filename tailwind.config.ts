@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
+import themeConfig from "./tailwind.theme.config";
 
 const config: Config = {
+  ...themeConfig,
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
