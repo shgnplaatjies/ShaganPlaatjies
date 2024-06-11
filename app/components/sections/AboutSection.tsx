@@ -1,11 +1,11 @@
 import { CodeIcon } from "@radix-ui/react-icons";
-import { Heading, Text } from "@radix-ui/themes";
+import { Heading, Section, Text } from "@radix-ui/themes";
 import CTAButton from "../CTAButton";
 import WindowLayout from "../Window";
 
 const AboutSection: React.FC = () => {
   return (
-    <section>
+    <Section>
       <Heading as="h2" className="mb-3 font-semibold">
         Let&apos;s get to know each other
       </Heading>
@@ -22,7 +22,7 @@ const AboutSection: React.FC = () => {
         </ul>
       </WindowLayout>
       <CTAButton href="/about" text="About Me" />
-    </section>
+    </Section>
   );
 };
 

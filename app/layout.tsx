@@ -1,12 +1,12 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { Flex, Theme } from "@radix-ui/themes";
+import { Box, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Ubuntu_Mono } from "next/font/google";
+import "../public/styles/globals.css";
 import PulsingCircle from "./components/animations/PulsingCircle";
 import MainLayout from "./components/layout/Main/layout";
-import "./styles/globals.css";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
@@ -25,7 +25,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pulseDuration = 8000;
+  const pulseDuration = 10000;
 
   return (
     <ClerkProvider>
@@ -37,26 +37,24 @@ export default function RootLayout({
               accentColor="green"
               radius="small"
               panelBackground="translucent"
+              className="flex flex-col h-screen w-screen"
             >
-              <Flex direction="column" height="100vh" width="100vw">
-                <Flex
-                  height="100%"
-                  width="100%"
-                  px="3"
-                  justify="between"
-                  position="absolute"
-                >
-                  <PulsingCircle
-                    duration={pulseDuration}
-                    className="flex h-1/2 place-self-end"
-                  />
-                  <PulsingCircle
-                    duration={pulseDuration * 0.75}
-                    className="flex h-1/2"
-                  />
-                </Flex>
-                <MainLayout>{children}</MainLayout>
-              </Flex>
+              <Box className="flex h-full w-full p-3 justify-between absolute">
+                <PulsingCircle
+                  duration={pulseDuration}
+                  className="flex w-1/2 h-1/2 place-self-end"
+                />
+
+                <PulsingCircle
+                  duration={pulseDuration * 0.75}
+                  className="flex w-1/2 h-1/2"
+                />
+              </Box>
+              <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
+                <Box className="flex w-full h-full p-3">
+                  <MainLayout>{children}</MainLayout>
+                </Box>
+              </Box>
             </Theme>
           </ThemeProvider>
         </body>

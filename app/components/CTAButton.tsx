@@ -9,7 +9,9 @@ type CTAButtonProps =
 const CTAButton: React.FC<CTAButtonProps> = ({ href, text, Icon }) => {
   return (
     <Link href={href}>
-      <Button type="button">{Icon ? Icon && <>{Icon}</> : text}</Button>
+      <Button className="m-2" type="button">
+        {Icon ? Icon && <>{Icon}</> : text}
+      </Button>
     </Link>
   );
 };

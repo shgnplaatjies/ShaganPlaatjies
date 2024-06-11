@@ -1,41 +1,41 @@
 import React from "react";
 
 type PulsingCircleProps = {
-  color?: string;
   className?: string;
+  color?: string;
   duration?: number;
 };
 
 const PulsingCircle: React.FC<PulsingCircleProps> = ({
-  color = "#42984d",
   className = "",
+  color = "#42984d",
   duration = 5000,
 }: PulsingCircleProps) => {
   return (
-    <svg
-      id="pulsingCircle"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="-100 -100 100 100"
-      shapeRendering="geometricPrecision"
-      textRendering="geometricPrecision"
-      className={`${className}`}
-    >
-      <style>
-        {`
-          #pulsingCircle {
-            animation: pulsingCircle__pulse ${duration}ms linear infinite normal forwards;
+    <div className={className}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="-50 -50 100 100"
+        shapeRendering="geometricPrecision"
+        textRendering="geometricPrecision"
+      >
+        <style>
+          {`
+          .pulsing-circle {
+            animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
           }
-          @keyframes pulsingCircle__pulse {
+          @keyframes pulsing-circle__pulse {
             0% {transform: scale(1)}
             50% {transform: scale(0.75)}
             100% {transform: scale(1)}
           }
-        `}
-      </style>
-      <g id="pulsingCircle">
-        <ellipse rx="100" ry="100" fill={`${color}`} strokeWidth="0" />
-      </g>
-    </svg>
+          `}
+        </style>
+        <g className="pulsing-circle">
+          <ellipse rx="50" ry="50" fill={`${color}`} strokeWidth="0" />
+        </g>
+      </svg>
+    </div>
   );
 };
 

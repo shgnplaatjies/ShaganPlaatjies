@@ -1,16 +1,23 @@
 import { DotFilledIcon } from "@radix-ui/react-icons";
-import { Flex, Link } from "@radix-ui/themes";
+import Link from "next/link";
 import React from "react";
 import IconList from "./SocialIcons";
 
-const Footer: React.FC = () => {
+type FooterProps = {
+  className: string;
+};
+
+const Footer: React.FC<FooterProps> = ({ className = "" }: FooterProps) => {
   return (
-    <Flex justify="between" className="sticky bottom-0">
-      <Link my="2" content="center" href="/contact">
-        <DotFilledIcon width="1.25rem" height="1.25rem" />
-      </Link>
-      <IconList />
-    </Flex>
+    <footer className={className}>
+      <div className="flex w-full place-items-center justify-between">
+        <Link href="/contact">
+          <DotFilledIcon color="green" width="1.25rem" height="1.25rem" />
+        </Link>
+
+        <IconList />
+      </div>
+    </footer>
   );
 };
 export default Footer;
