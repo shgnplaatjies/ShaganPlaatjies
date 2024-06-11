@@ -4,7 +4,7 @@ import {
   GitHubLogoIcon,
   LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
-import { Box, Flex, Link } from "@radix-ui/themes";
+import { Link } from "@radix-ui/themes";
 import React from "react";
 import { SOCIAL_LINKS } from "../lib/constants";
 
@@ -34,15 +34,13 @@ const getSocialIcons = () => [
 const SocialIcons: React.FC = () => {
   const icons = getSocialIcons();
   return (
-    <Flex direction="row" gap="2">
+    <div className="flex gap-2">
       {icons.map(({ Icon, label, href }) => (
-        <Box asChild key={label}>
-          <Link key={label} my="2" content="center" href={href}>
-            <Icon width="1.25rem" height="1.25rem" />
-          </Link>
-        </Box>
+        <Link key={label} content="center" href={href}>
+          <Icon width="1.25rem" height="1.25rem" />
+        </Link>
       ))}
-    </Flex>
+    </div>
   );
 };
 

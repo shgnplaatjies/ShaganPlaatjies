@@ -1,9 +1,9 @@
-import { Heading, Text } from "@radix-ui/themes";
+import { Heading, Section, Text } from "@radix-ui/themes";
 import CTAButton from "../CTAButton";
 
 const ProjectsSection: React.FC = () => {
   return (
-    <section>
+    <Section>
       <Heading as="h2" className="mb-3 font-semibold">
         My Projects
       </Heading>
@@ -11,7 +11,7 @@ const ProjectsSection: React.FC = () => {
         Have a look at some of my projects and work I have done.
       </Text>
       <CTAButton href="/projects" text="View All" />
-    </section>
+    </Section>
   );
 };
 
