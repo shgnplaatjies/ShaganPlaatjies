@@ -2,7 +2,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Box, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Ubuntu_Mono } from "next/font/google";
 import "../public/styles/globals.css";
 import PulsingCircle from "./components/animations/PulsingCircle";
@@ -31,32 +30,30 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={ubuntuMono.className}>
-          <ThemeProvider attribute="media">
-            <Theme
-              appearance="dark"
-              accentColor="green"
-              radius="small"
-              panelBackground="translucent"
-              className="flex flex-col h-screen w-screen"
-            >
-              <Box className="flex h-full w-full p-3 justify-between absolute">
-                <PulsingCircle
-                  duration={pulseDuration}
-                  className="flex w-1/2 h-1/2 place-self-end"
-                />
+          <Theme
+            appearance="dark"
+            accentColor="green"
+            radius="small"
+            panelBackground="translucent"
+            className="flex flex-col h-screen w-screen"
+          >
+            <Box className="flex h-full w-full p-3 justify-between absolute">
+              <PulsingCircle
+                duration={pulseDuration}
+                className="flex w-1/2 h-1/2 place-self-end"
+              />
 
-                <PulsingCircle
-                  duration={pulseDuration * 0.75}
-                  className="flex w-1/2 h-1/2"
-                />
+              <PulsingCircle
+                duration={pulseDuration * 0.75}
+                className="flex w-1/2 h-1/2"
+              />
+            </Box>
+            <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
+              <Box className="flex w-full h-full p-3">
+                <MainLayout>{children}</MainLayout>
               </Box>
-              <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
-                <Box className="flex w-full h-full p-3">
-                  <MainLayout>{children}</MainLayout>
-                </Box>
-              </Box>
-            </Theme>
-          </ThemeProvider>
+            </Box>
+          </Theme>
         </body>
       </html>
     </ClerkProvider>
