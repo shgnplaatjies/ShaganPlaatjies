@@ -13,4 +13,4 @@ export const CacheBustParam = {
 export const isHTMLElementRef = (
   ref: any
 ): ref is MutableRefObject<HTMLElement> =>
-  ref !== null && ref.current instanceof HTMLElement;
+  ref !== null && ref.current && ref.current instanceof HTMLElement;
