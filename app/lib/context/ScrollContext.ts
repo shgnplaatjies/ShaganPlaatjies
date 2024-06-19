@@ -1,6 +1,6 @@
 "use client";
 import { MutableRefObject, createContext } from "react";
 
-export const ScrollContext = createContext<
-  MutableRefObject<HTMLDivElement> | undefined
->(undefined);
+export type ScrollAreaContext = MutableRefObject<HTMLElement | null> | null;
+
+export const ScrollContext = createContext<ScrollAreaContext>(null);

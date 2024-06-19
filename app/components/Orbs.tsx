@@ -4,6 +4,7 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { animated, useScroll } from "@react-spring/web";
 import React, { useContext } from "react";
 import { ScrollContext } from "../lib/context/ScrollContext";
+import { isHTMLElementRef } from "../lib/utils";
 import PulsingCircle from "./animations/PulsingCircle";
 
 type OrbProps = {
@@ -16,8 +17,9 @@ const Orbs: React.FC<OrbProps> = ({
   pulseDuration = 5000,
 }: OrbProps) => {
   const scrollAreaRef = useContext(ScrollContext);
+
   const { scrollYProgress } = useScroll({
-    container: scrollAreaRef,
+    container: isHTMLElementRef(scrollAreaRef) ? scrollAreaRef : undefined,
   });
 
   return (
