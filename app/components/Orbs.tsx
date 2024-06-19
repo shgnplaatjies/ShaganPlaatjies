@@ -23,7 +23,7 @@ const Orbs: React.FC<OrbProps> = ({
 
   return (
     <div className={className}>
-      <Box className="flex h-full w-full p-4 justify-between absolute">
+      <Box className="flex h-full w-full justify-between">
         <animated.div
           className="flex w-1/2 h-2/5 justify-center place-self-end"
           style={{
