@@ -1,6 +1,5 @@
 "use client";
 import { Box } from "@radix-ui/themes";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { animated, useScroll } from "@react-spring/web";
 import React, { useContext } from "react";
 import { ScrollContext } from "../lib/context/ScrollContext";
@@ -23,39 +22,30 @@ const Orbs: React.FC<OrbProps> = ({
   });
 
   return (
-    <Parallax pages={3}>
-      <ParallaxLayer speed={0.8}>
-        <div className={className}>
-          <Box className="flex h-full w-full p-4 justify-between absolute">
-            <animated.div
-              style={{
-                scrollPaddingBottom: scrollYProgress.to(
-                  (progress) => `${progress * 50}%`
-                ),
-              }}
-            >
-              <PulsingCircle
-                duration={pulseDuration}
-                className="flex w-1/2 h-2/5 justify-center place-self-end"
-              />
-            </animated.div>
+    <div className={className}>
+      <Box className="flex h-full w-full p-4 justify-between absolute">
+        <animated.div
+          className="flex w-1/2 h-2/5 justify-center place-self-end"
+          style={{
+            marginBottom: scrollYProgress.to((progress) => `${progress * 80}%`),
+          }}
+        >
+          <PulsingCircle duration={pulseDuration} className="w-full h-full" />
+        </animated.div>
 
-            <animated.div
-              style={{
-                scrollPaddingTop: scrollYProgress.to(
-                  (progress) => `${progress * 50}%`
-                ),
-              }}
-            >
-              <PulsingCircle
-                duration={pulseDuration * 0.66}
-                className="flex w-1/2 h-2/5 justify-center"
-              />
-            </animated.div>
-          </Box>
-        </div>
-      </ParallaxLayer>
-    </Parallax>
+        <animated.div
+          className="flex w-1/2 h-2/5 justify-center"
+          style={{
+            marginTop: scrollYProgress.to((progress) => `${progress * 80}%`),
+          }}
+        >
+          <PulsingCircle
+            duration={pulseDuration * 0.66}
+            className="w-full h-full"
+          />
+        </animated.div>
+      </Box>
+    </div>
   );
 };
 export default Orbs;
