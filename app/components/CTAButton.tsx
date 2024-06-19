@@ -1,3 +1,4 @@
+import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,9 @@ type CTAButtonProps =
 const CTAButton: React.FC<CTAButtonProps> = ({ href, text, Icon }) => {
   return (
     <Link href={href}>
-      <button type="button">{Icon ? Icon && <>{Icon}</> : text}</button>
+      <Button className="m-2" type="button">
+        {Icon ? Icon && <>{Icon}</> : text}
+      </Button>
     </Link>
   );
 };
