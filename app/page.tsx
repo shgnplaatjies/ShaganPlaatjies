@@ -1,5 +1,5 @@
 "use client";
-import { ScrollArea } from "@radix-ui/themes";
+import { Box, ScrollArea } from "@radix-ui/themes";
 import { useRef } from "react";
 import Orbs from "./components/Orbs";
 import AboutSection from "./components/sections/AboutSection";
@@ -16,11 +16,13 @@ const HomePage: React.FC = () => {
     <ScrollContext.Provider value={scrollAreaRef}>
       <ScrollArea ref={scrollAreaRef}>
         <Orbs pulseDuration={10000} className="flex w-full h-full absolute" />
-        <LandingSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ContactSection />
+        <Box className="h-full backdrop-blur-3xl bg-gradient-to-br">
+          <LandingSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <AboutSection />
+          <ContactSection />
+        </Box>
       </ScrollArea>
     </ScrollContext.Provider>
   );
