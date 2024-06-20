@@ -1,33 +1,33 @@
 "use client";
 import { Box } from "@radix-ui/themes";
 import { animated, useScroll } from "@react-spring/web";
-import React, { useContext } from "react";
-import { ScrollContext } from "../lib/context/ScrollContext";
-import { isHTMLElementRef } from "../lib/utils";
+import React, { MutableRefObject } from "react";
 import PulsingCircle from "./animations/PulsingCircle";
 
 type OrbProps = {
   className?: string;
   pulseDuration?: number;
+  scrollRef: MutableRefObject<HTMLDivElement | null>;
 };
 
 const Orbs: React.FC<OrbProps> = ({
   className = "",
   pulseDuration = 5000,
+  scrollRef,
 }: OrbProps) => {
-  const scrollAreaRef = useContext(ScrollContext);
-
   const { scrollYProgress } = useScroll({
-    container: isHTMLElementRef(scrollAreaRef) ? scrollAreaRef : undefined,
+    container: scrollRef as MutableRefObject<HTMLElement>,
   });
 
   return (
-    <div className={className}>
+    <Box className={className}>
       <Box className="flex h-full w-full justify-between">
         <animated.div
           className="flex w-1/2 h-2/5 justify-center place-self-end"
           style={{
-            marginBottom: scrollYProgress.to((progress) => `${progress * 80}%`),
+            marginBottom: scrollYProgress.to(
+              (progress) => `${progress * 50}vh`
+            ),
           }}
         >
           <PulsingCircle duration={pulseDuration} className="w-full h-full" />
@@ -36,7 +36,7 @@ const Orbs: React.FC<OrbProps> = ({
         <animated.div
           className="flex w-1/2 h-2/5 justify-center"
           style={{
-            marginTop: scrollYProgress.to((progress) => `${progress * 80}%`),
+            marginTop: scrollYProgress.to((progress) => `${progress * 50}vh`),
           }}
         >
           <PulsingCircle
@@ -45,7 +45,7 @@ const Orbs: React.FC<OrbProps> = ({
           />
         </animated.div>
       </Box>
-    </div>
+    </Box>
   );
 };
 export default Orbs;
