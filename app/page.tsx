@@ -2,6 +2,7 @@
 import { Box, ScrollArea } from "@radix-ui/themes";
 import { useRef } from "react";
 import Orbs from "./components/Orbs";
+
 import AboutSection from "./components/sections/AboutSection";
 import ContactSection from "./components/sections/ContactSection";
 import LandingSection from "./components/sections/LandingSection";
