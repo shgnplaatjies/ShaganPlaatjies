@@ -2,16 +2,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Box, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
-import { Ubuntu_Mono } from "next/font/google";
 import "../public/styles/globals.css";
 import MainLayout from "./components/layout/Main/layout";
-
-const ubuntuMono = Ubuntu_Mono({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-ubuntu-mono",
-});
+import { UbuntuMono } from "./lib/fonts";
 
 export const metadata: Metadata = {
   title: "Shagan Plaatjies",
@@ -26,7 +19,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={ubuntuMono.className}>
+        <body className={UbuntuMono.className}>
           <Theme
             appearance="dark"
             accentColor="green"
