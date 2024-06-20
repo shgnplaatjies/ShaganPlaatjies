@@ -1,4 +1,5 @@
-import { DataList, Grid, Heading, Text } from "@radix-ui/themes";
+import AccentedHeading from "@/app/components/AccentedHeading";
+import { DataList, Grid, Text } from "@radix-ui/themes";
 
 export default async () => {
   const policies = [
@@ -7,7 +8,13 @@ export default async () => {
 
   return (
     <article>
-      <Heading as="h1">Privacy Policy</Heading>
+      <AccentedHeading
+        textAs="h1"
+        size="9"
+        preText="My "
+        accentedText="Privacy "
+        postText="Policy."
+      />
       <DataList.Root>
         {policies.map(({ content, title }) => (
           <DataList.Item key={title}>

@@ -1,14 +1,18 @@
 import { CodeIcon } from "@radix-ui/react-icons";
-import { Heading, Section, Text } from "@radix-ui/themes";
+import { Section, Text } from "@radix-ui/themes";
+import AccentedHeading from "../AccentedHeading";
 import CTAButton from "../CTAButton";
 import WindowLayout from "../Window";
 
 const AboutSection: React.FC = () => {
   return (
     <Section>
-      <Heading as="h2" className="mb-3 font-semibold">
-        Let&apos;s get to know each other
-      </Heading>
+      <AccentedHeading
+        textAs="h2"
+        size="8"
+        preText="My "
+        accentedText="Story."
+      />
       <Text as="p">
         Allow me to introduce myself, my work and my journey in software.
       </Text>

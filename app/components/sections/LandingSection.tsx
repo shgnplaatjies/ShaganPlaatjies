@@ -1,4 +1,5 @@
-import { Flex, Heading, Section, Text } from "@radix-ui/themes";
+import { Flex, Section, Text } from "@radix-ui/themes";
+import AccentedHeading from "../AccentedHeading";
 import CTAButton from "../CTAButton";
 
 const LandingSection: React.FC = () => {
@@ -11,10 +12,15 @@ const LandingSection: React.FC = () => {
         align="center"
         flexGrow="1"
       >
-        <Heading as="h1" className="mb-3 font-semibold">
-          Shagan Plaatjies
-        </Heading>
-        <Text wrap="balance" as="p" align="center">
+        <AccentedHeading
+          textAs="h1"
+          align="center"
+          size="9"
+          preText="Hi. I'm Shagan, "
+          accentedText="Full Stack "
+          postText="Developer."
+        />
+        <Text wrap="balance" as="p" className="py-4" align="center">
           Welcome to my personal portfolio. Home to my software development
           projects.
         </Text>

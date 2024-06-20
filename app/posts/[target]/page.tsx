@@ -1,5 +1,6 @@
+import AccentedHeading from "@/app/components/AccentedHeading";
 import { fetchWpPost } from "@/app/lib/server-lib";
-import { Heading, Text } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
 
 interface WpPostParams {
   target: string | number;
@@ -21,7 +22,12 @@ export default async ({ params }: { params: WpPostParams }) => {
 
   return (
     <article>
-      <Heading as="h1">{title.rendered}</Heading>
+      <AccentedHeading
+        textAs="h1"
+        size="9"
+        preText={title.rendered}
+        accentedText=""
+      />
       <Text as="p">{new Date(date).toLocaleDateString("en-US")}</Text>
       <Text as="p">{content.rendered}</Text>
     </article>

@@ -1,7 +1,8 @@
 "use client";
 import MainLayout from "@/app/components/layout/Main/layout";
 import { useUser } from "@clerk/nextjs";
-import { DataList, Heading, Text } from "@radix-ui/themes";
+import { DataList, Text } from "@radix-ui/themes";
+import AccentedHeading from "../components/AccentedHeading";
 
 const BlogPage: React.FC = () => {
   const { user } = useUser();
@@ -9,17 +10,12 @@ const BlogPage: React.FC = () => {
   return (
     <MainLayout>
       <section>
-        <Heading as="h1">
-          {user ? (
-            <>
-              Hello <span className="text-blue-900">{user.username}</span>!
-            </>
-          ) : (
-            <>
-              Loading <span className="text-blue-900">your profile</span>.
-            </>
-          )}
-        </Heading>
+        <AccentedHeading
+          textAs="h1"
+          size="9"
+          preText={`${user ? "Hello" : "Your"} `}
+          accentedText={`${user ? user.username : "Profile"}!`}
+        />
         <DataList.Root>
           <DataList.Item>
             <DataList.Label>
