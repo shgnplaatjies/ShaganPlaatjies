@@ -12,7 +12,9 @@ const MainLayout: React.FC<{
 
       <main className="flex flex-col overflow-hidden">{children}</main>
 
-      <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
+      <footer>
+        <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
+      </footer>
     </Box>
   );
 };
