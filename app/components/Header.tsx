@@ -1,8 +1,8 @@
 import { CodeIcon } from "@radix-ui/react-icons";
-import { Box, Text } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 import React from "react";
-import { FixedSys } from "../lib/fonts";
 import NavButton from "./NavButton";
+import StylizedTextLogo from "./StylizedTextLogo";
 
 type HeaderProps = { className: string };
 
@@ -14,12 +14,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
           <CodeIcon />
         </Box>
         <Box className="flex flex-col">
-          <Text as="p" size="4" className={`${FixedSys.className}`}>
-            shagan
-            <Text as="span" className="text-green-500">
-              {"<plaatjies>"}
-            </Text>
-          </Text>
+          <StylizedTextLogo />
         </Box>
         <Box className="flex flex-col">
           <NavButton />
