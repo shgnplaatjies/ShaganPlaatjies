@@ -1,6 +1,6 @@
-import { CodeIcon } from "@radix-ui/react-icons";
 import { Box } from "@radix-ui/themes";
 import React from "react";
+import Logo from "./Logo";
 import NavButton from "./NavButton";
 import StylizedTextLogo from "./StylizedTextLogo";
 
@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
     <header className={className}>
       <Box className="flex w-full justify-between place-items-center overflow-visible">
         <Box className="flex flex-col">
-          <CodeIcon />
+          <Logo />
         </Box>
         <Box className="flex flex-col">
           <StylizedTextLogo />
