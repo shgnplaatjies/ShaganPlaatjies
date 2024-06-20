@@ -1,6 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import React from "react";
-import Footer from "../../Footer";
+import FootPanel from "../../FootPanel";
 import Header from "../../Header";
 
 const MainLayout: React.FC<{
@@ -12,7 +12,7 @@ const MainLayout: React.FC<{
 
       <main className="flex flex-col overflow-hidden">{children}</main>
 
-      <Footer className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
+      <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
     </Box>
   );
 };
