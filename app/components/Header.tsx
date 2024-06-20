@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
           <CodeIcon />
         </Box>
         <Box className="flex flex-col">
-          <Text as="p" className={`${FixedSys.className} text-lg`}>
+          <Text as="p" size="4" className={`${FixedSys.className}`}>
             shagan
             <Text as="span" className="text-green-500">
               {"<plaatjies>"}

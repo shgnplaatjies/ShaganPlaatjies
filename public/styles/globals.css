@@ -18,6 +18,11 @@ body {
   }
 }
 
+.radix-themes {
+  --default-font-family: var(--font-space-mono);
+  --heading-font-family: var(--font-chakra-petch);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
