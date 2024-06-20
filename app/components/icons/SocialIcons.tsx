@@ -5,8 +5,9 @@ import {
   LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
 import { SOCIAL_LINKS } from "../../lib/constants";
+import { SocialIconProps } from "../IconsList";
 
-export const getSocialIcons = () => [
+export const getSocialIcons = (): SocialIconProps[] => [
   {
     href: SOCIAL_LINKS.github,
     Icon: GitHubLogoIcon,
