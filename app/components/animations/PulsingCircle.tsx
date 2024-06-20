@@ -12,15 +12,15 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
   duration = 5000,
 }: PulsingCircleProps) => {
   return (
-    <div className={className}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="-50 -50 100 100"
-        shapeRendering="geometricPrecision"
-        textRendering="geometricPrecision"
-      >
-        <style>
-          {`
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-50 -50 100 100"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
+    >
+      <style>
+        {`
           .pulsing-circle {
             animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
           }
@@ -30,12 +30,11 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
             100% {transform: scale(1)}
           }
           `}
-        </style>
-        <g className="pulsing-circle">
-          <ellipse rx="50" ry="50" fill={`${color}`} strokeWidth="0" />
-        </g>
-      </svg>
-    </div>
+      </style>
+      <g className="pulsing-circle">
+        <ellipse rx="50" ry="50" fill={`${color}`} strokeWidth="0" />
+      </g>
+    </svg>
   );
 };
 
