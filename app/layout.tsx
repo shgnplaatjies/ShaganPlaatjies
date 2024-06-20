@@ -25,7 +25,7 @@ export default function RootLayout({
         <body>
           <Theme
             appearance="dark"
-            accentColor="green"
+            accentColor="grass"
             radius="small"
             className="flex flex-col h-screen w-screen"
             panelBackground="translucent"
