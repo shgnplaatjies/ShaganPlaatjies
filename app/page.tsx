@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
         className="w-full h-full absolute"
         scrollRef={scrollAreaRef}
       />
-      <Box className="backdrop-blur-3xl bg-gradient-to-br">
+      <Box className="backdrop-blur-3xl bg-gradient-to-br px-4">
         <LandingSection />
         <SkillsSection />
         <ProjectsSection />
