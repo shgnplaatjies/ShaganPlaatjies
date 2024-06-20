@@ -1,12 +1,16 @@
-import { Heading, Section, Text } from "@radix-ui/themes";
+import { Section, Text } from "@radix-ui/themes";
+import AccentedHeading from "../AccentedHeading";
 import CTAButton from "../CTAButton";
 
 const ContactSection: React.FC = () => {
   return (
     <Section>
-      <Heading as="h2" className="mb-3 font-semibold">
-        Get in touch!
-      </Heading>
+      <AccentedHeading
+        textAs="h2"
+        size="8"
+        preText="Reach "
+        accentedText="Out."
+      />
       <Text as="p">
         Do you have a project in mind? Want to work together? Or just want to
         have a chat? Reach out to me below, let&apos;s connect!
