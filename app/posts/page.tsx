@@ -1,5 +1,6 @@
-import { DataList, Grid, Heading, Text } from "@radix-ui/themes";
+import { DataList, Grid, Text } from "@radix-ui/themes";
 import { Suspense } from "react";
+import AccentedHeading from "../components/AccentedHeading";
 import { WpPost, fetchWpPosts } from "../lib/server-lib";
 import { cutOffText } from "../lib/utils";
 
@@ -25,7 +26,12 @@ export default async () => {
 
   return (
     <article>
-      <Heading as="h1">My Dev Blog</Heading>
+      <AccentedHeading
+        textAs="h1"
+        size="9"
+        preText="My "
+        accentedText="Dev Blog."
+      />
       <DataList.Root>
         <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
           {posts === 1 ? (

@@ -43,3 +43,6 @@ server.js.del
 deployment.log
 
 certificates
+
+.vscode
+.vscode/settings.json
