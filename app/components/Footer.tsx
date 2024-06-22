@@ -1,11 +1,11 @@
 import { Box, Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "../components/Logo";
-import StylizedTextLogo from "../components/StylizedTextLogo";
-import { getNavIcons } from "../components/icons/NavIcons";
+import Logo from "./Logo";
+import StylizedTextLogo from "./StylizedTextLogo";
+import { getNavIcons } from "./icons/NavIcons";
 
-const FooterSection: React.FC = () => {
+const Footer: React.FC = () => {
   const navIcons = getNavIcons();
   const pathName = usePathname();
 
@@ -79,4 +79,4 @@ const FooterSection: React.FC = () => {
   );
 };
 
-export default FooterSection;
+export default Footer;
