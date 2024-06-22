@@ -1,30 +1,25 @@
-import { CodeIcon } from "@radix-ui/react-icons";
-import { Box, Text } from "@radix-ui/themes";
+import { Flex, Grid } from "@radix-ui/themes";
 import React from "react";
-import { FixedSys } from "../lib/fonts";
-import NavButton from "./NavButton";
+import Logo from "./Logo";
+import StylizedTextLogo from "./StylizedTextLogo";
+import WindowControls from "./WindowControls";
 
 type HeaderProps = { className: string };
 
 const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   return (
     <header className={className}>
-      <Box className="flex w-full justify-between place-items-center overflow-visible">
-        <Box className="flex flex-col">
-          <CodeIcon />
-        </Box>
-        <Box className="flex flex-col">
-          <Text as="p" size="4" className={`${FixedSys.className}`}>
-            shagan
-            <Text as="span" className="text-green-500">
-              {"<plaatjies>"}
-            </Text>
-          </Text>
-        </Box>
-        <Box className="flex flex-col">
-          <NavButton />
-        </Box>
-      </Box>
+      <Grid width="100%" columns="3">
+        <Flex justify="start" className="-ml-2" align="center">
+          <Logo />
+        </Flex>
+        <Flex justify="center" align="center">
+          <StylizedTextLogo />
+        </Flex>
+        <Flex justify="end" align="center">
+          <WindowControls className="opacity-50" gap="4" />
+        </Flex>
+      </Grid>
     </header>
   );
 };

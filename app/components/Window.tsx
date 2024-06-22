@@ -1,6 +1,6 @@
-import { Cross1Icon, MinusIcon, SquareIcon } from "@radix-ui/react-icons";
 import { Card, Container, Flex, Inset, Text } from "@radix-ui/themes";
 import React from "react";
+import WindowControls from "./WindowControls";
 
 const WindowLayout = ({
   LogoIcon,
@@ -20,9 +20,7 @@ const WindowLayout = ({
           <Flex align="center" justify="between" px="2">
             {LogoIcon && <>{LogoIcon}</>}
             <Text as="p">{title}</Text>
-            <Flex gap="2">
-              <MinusIcon /> <SquareIcon /> <Cross1Icon />
-            </Flex>
+            <WindowControls />
           </Flex>
         </Inset>
         <Inset>

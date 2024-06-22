@@ -1,40 +1,15 @@
 import { Heading, Text } from "@radix-ui/themes";
 import React from "react";
-
-type RADIX_HEADING_TYPES = "h1" | "h2" | "h3" | "h4";
-type RADIX_HEADING_SIZES = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
-type RADIX_HEADING_COLORS =
-  | "gray"
-  | "gold"
-  | "bronze"
-  | "brown"
-  | "yellow"
-  | "amber"
-  | "orange"
-  | "tomato"
-  | "red"
-  | "ruby"
-  | "crimson"
-  | "pink"
-  | "plum"
-  | "purple"
-  | "violet"
-  | "iris"
-  | "indigo"
-  | "blue"
-  | "cyan"
-  | "teal"
-  | "jade"
-  | "green"
-  | "grass"
-  | "lime"
-  | "mint"
-  | "sky";
+import {
+  RADIX_COLORS,
+  RADIX_HEADING_SIZES,
+  RADIX_HEADING_TYPES,
+} from "../lib/constants";
 
 type AccentedHeadingProps = {
   textAs: RADIX_HEADING_TYPES;
   size: RADIX_HEADING_SIZES;
-  color?: RADIX_HEADING_COLORS;
+  color?: RADIX_COLORS;
   preText?: string;
   accentedText: string;
   postText?: string;
@@ -55,7 +30,7 @@ const AccentedHeading: React.FC<AccentedHeadingProps> = ({
   return (
     <Heading wrap={wrap} align={align} as={textAs} size={size}>
       {preText}
-      <Text as="span" size={size} color={color}>
+      <Text as="span" size={size} style={{ color: "var(--accent-11)" }}>
         {accentedText}
       </Text>
       {postText}
