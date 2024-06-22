@@ -10,14 +10,20 @@ type StylizedTextLogoProps = {
 
 const StylizedTextLogo: React.FC<StylizedTextLogoProps> = ({
   size = "4",
-  color = "grass",
+  color,
 }: StylizedTextLogoProps) => {
   return (
     <Text as="p" size={size} className={`${FixedSys.className}`}>
       shagan
-      <Text as="span" color={color}>
-        {"<plaatjies>"}
-      </Text>
+      {color ? (
+        <Text as="span" color={color}>
+          {"<plaatjies>"}
+        </Text>
+      ) : (
+        <Text as="span" style={{ color: "var(--accent-11)" }}>
+          {"<plaatjies>"}
+        </Text>
+      )}
     </Text>
   );
 };

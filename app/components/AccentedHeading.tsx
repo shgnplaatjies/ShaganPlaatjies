@@ -30,7 +30,7 @@ const AccentedHeading: React.FC<AccentedHeadingProps> = ({
   return (
     <Heading wrap={wrap} align={align} as={textAs} size={size}>
       {preText}
-      <Text as="span" size={size} color={color}>
+      <Text as="span" size={size} style={{ color: "var(--accent-11)" }}>
         {accentedText}
       </Text>
       {postText}
