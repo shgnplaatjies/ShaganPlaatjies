@@ -31,7 +31,7 @@ const MainLayout: React.FC<{
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-opacity-10 border-white" />
 
         <main className="flex flex-grow flex-row overflow-hidden">
-          <SidePanel className="w-auto px-4 py-4 place-content-center border-r border-opacity-10 border-white" />
+          <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-opacity-10 border-white" />
 
           <ScrollArea ref={scrollAreaRef}>
             <Orbs

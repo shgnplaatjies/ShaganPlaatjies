@@ -1,10 +1,10 @@
 "use client";
-import AboutSection from "./components/sections/AboutSection";
-import ContactSection from "./components/sections/ContactSection";
-import FooterSection from "./components/sections/FooterSection";
-import LandingSection from "./components/sections/LandingSection";
-import ProjectsSection from "./components/sections/ProjectsSection";
-import SkillsSection from "./components/sections/SkillsSection";
+import Footer from "./components/Footer";
+import AboutSection from "./sections/AboutSection";
+import ContactSection from "./sections/ContactSection";
+import LandingSection from "./sections/LandingSection";
+import ProjectsSection from "./sections/ProjectsSection";
+import SkillsSection from "./sections/SkillsSection";
 
 const HomePage: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
       <ProjectsSection />
       <AboutSection />
       <ContactSection />
-      <FooterSection />
+      <Footer />
     </>
   );
 };
