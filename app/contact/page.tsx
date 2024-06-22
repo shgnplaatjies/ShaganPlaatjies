@@ -1,14 +1,15 @@
 "use client";
 import { Section } from "@radix-ui/themes";
+import ContactForm from "../components/ContactForm";
 import Footer from "../components/Footer";
-import LandingSection from "../contact/sections/LandingSection";
-import ContactSection from "../sections/ContactSection";
-
+import LandingSection from "../sections/LandingSection";
 const ContactPage: React.FC = () => {
   return (
     <>
       <LandingSection />
-      <ContactSection />
+      <Section>
+        <ContactForm />
+      </Section>
       <Section>
         <Footer />
       </Section>
