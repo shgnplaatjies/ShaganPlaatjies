@@ -26,7 +26,11 @@ const IconsList: React.FC<IconsListProps> = ({ icons, className = "" }) => {
           asChild
         >
           <NextLink href={href}>
-            <Icon width="1rem" height="1rem" />
+            <Icon
+              className="hover:scale-125 transition duration-300 ease-in-out"
+              width="1rem"
+              height="1rem"
+            />
           </NextLink>
         </Link>
       ))}
