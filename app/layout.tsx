@@ -29,10 +29,8 @@ export default function RootLayout({
             radius="small"
             panelBackground="translucent"
           >
-            <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
-              <Box className="flex w-full h-full p-3">
-                <MainLayout>{children}</MainLayout>
-              </Box>
+            <Box className=" flex flex-col h-full p-3 w-full backdrop-blur-3xl bg-gradient-to-br">
+              <MainLayout>{children}</MainLayout>
             </Box>
           </Theme>
         </body>
