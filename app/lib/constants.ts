@@ -18,3 +18,44 @@ export const NAV_LINKS = {
   posts: { href: "/posts", label: "Blog" },
   contact: { href: "/contact", label: "Contact" },
 };
+
+export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time
+
+export type RADIX_HEADING_TYPES = "h1" | "h2" | "h3" | "h4";
+export type RADIX_HEADING_SIZES =
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9";
+export type RADIX_HEADING_COLORS =
+  | "gray"
+  | "gold"
+  | "bronze"
+  | "brown"
+  | "yellow"
+  | "amber"
+  | "orange"
+  | "tomato"
+  | "red"
+  | "ruby"
+  | "crimson"
+  | "pink"
+  | "plum"
+  | "purple"
+  | "violet"
+  | "iris"
+  | "indigo"
+  | "blue"
+  | "cyan"
+  | "teal"
+  | "jade"
+  | "green"
+  | "grass"
+  | "lime"
+  | "mint"
+  | "sky";
