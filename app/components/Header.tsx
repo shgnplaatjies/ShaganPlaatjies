@@ -1,3 +1,4 @@
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Flex, Grid } from "@radix-ui/themes";
 import React from "react";
 import AnimatedIconStack from "./AnimatedIconStack";
@@ -15,24 +16,21 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
     <header className={className}>
       <Grid width="100%" columns="3">
         <Flex justify="start" className="-ml-2" align="center">
-          <Logo
-            className="hidden sm:block opacity-70"
-            width="2rem"
-            height="2rem"
-          />
-          <AnimatedIconStack
-            direction="right"
-            Icon={Logo}
-            iconList={navIcons}
-            buttonClassName="flex justify-end sm:hidden place-self-end"
-            popoverClassName="top-12 left-1 mt-1 z-10"
-          />
+          <Logo className=" opacity-70" width="2rem" height="2rem" />
         </Flex>
         <Flex justify="center" align="center">
           <StylizedTextLogo />
         </Flex>
         <Flex justify="end" align="center">
-          <WindowControls className="opacity-50" gap="4" />
+          <WindowControls className="opacity-50 hidden sm:block" gap="4" />
+          <AnimatedIconStack
+            directionX="left"
+            directionY="down"
+            Icon={HamburgerMenuIcon}
+            iconList={navIcons}
+            buttonClassName="flex place-self-center sm:hidden"
+            popoverClassName="top-12 right-1 mt-1 z-10"
+          />
         </Flex>
       </Grid>
     </header>
