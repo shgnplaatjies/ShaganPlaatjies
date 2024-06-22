@@ -4,11 +4,11 @@ import {
   GlobeIcon,
   IconJarLogoIcon,
 } from "@radix-ui/react-icons";
-import { Button, Select, TextArea, TextField } from "@radix-ui/themes";
+import { Button, Flex, Select, TextArea, TextField } from "@radix-ui/themes";
 
 const ServiceSelector: React.FC = () => {
   return (
-    <Select.Root>
+    <Select.Root defaultValue="cross-platform-dev">
       <Select.Trigger />
       <Select.Content>
         <Select.Group>
@@ -44,57 +44,62 @@ const ServiceSelector: React.FC = () => {
 const ContactForm: React.FC = () => {
   return (
     <form>
-      <label>
-        name*:{" "}
-        <TextField.Root placeholder="Enter your full name..." type="text">
-          <TextField.Slot>
-            <IconJarLogoIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </label>
-      <label>
-        service: <ServiceSelector />
-      </label>
-      <label>
-        company:{" "}
-        <TextField.Root placeholder="Enter your company name..." type="text">
-          <TextField.Slot>
-            <BackpackIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </label>
-      <label>
-        website:{" "}
-        <TextField.Root
-          placeholder="Enter your company website's url..."
-          type="url"
-        >
-          <TextField.Slot>
-            <GlobeIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </label>
-      <label>
-        email*:{" "}
-        <TextField.Root placeholder="Enter your email address..." type="email">
-          <TextField.Slot>
-            <EnvelopeOpenIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </label>
-      <label>
-        phone-number:{" "}
-        <TextField.Root placeholder="Enter your email address..." type="tel">
-          <TextField.Slot>
-            <EnvelopeOpenIcon />
-          </TextField.Slot>
-        </TextField.Root>
-      </label>
-      <label>
-        message:{" "}
-        <TextArea size="2" placeholder="Enter your message..."></TextArea>
-      </label>
-      <Button type="submit">Submit</Button>
+      <Flex direction="column" gap="2">
+        <label>
+          name*:{" "}
+          <TextField.Root placeholder="Enter your full name..." type="text">
+            <TextField.Slot>
+              <IconJarLogoIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </label>
+        <label>
+          service: <ServiceSelector />
+        </label>
+        <label>
+          company:{" "}
+          <TextField.Root placeholder="Enter your company name..." type="text">
+            <TextField.Slot>
+              <BackpackIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </label>
+        <label>
+          website:{" "}
+          <TextField.Root
+            placeholder="Enter your company website's url..."
+            type="url"
+          >
+            <TextField.Slot>
+              <GlobeIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </label>
+        <label>
+          email*:{" "}
+          <TextField.Root
+            placeholder="Enter your email address..."
+            type="email"
+          >
+            <TextField.Slot>
+              <EnvelopeOpenIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </label>
+        <label>
+          phone-number:{" "}
+          <TextField.Root placeholder="Enter your email address..." type="tel">
+            <TextField.Slot>
+              <EnvelopeOpenIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </label>
+        <label>
+          message:{" "}
+          <TextArea size="2" placeholder="Enter your message..."></TextArea>
+        </label>
+        <Button type="submit">Submit</Button>
+      </Flex>
     </form>
   );
 };
