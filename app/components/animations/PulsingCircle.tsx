@@ -32,7 +32,13 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
           `}
       </style>
       <g className="pulsing-circle">
-        <ellipse rx="50" ry="50" fill={`${color}`} strokeWidth="0" />
+        <ellipse
+          rx="50"
+          ry="50"
+          fill={`${color.startsWith("#") ? color : ""}`}
+          className={`${!color.startsWith("#") ? color : ""}`}
+          strokeWidth="0"
+        />
       </g>
     </svg>
   );
