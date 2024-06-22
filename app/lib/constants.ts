@@ -32,7 +32,7 @@ export type RADIX_HEADING_SIZES =
   | "7"
   | "8"
   | "9";
-export type RADIX_HEADING_COLORS =
+export type RADIX_COLORS =
   | "gray"
   | "gold"
   | "bronze"

@@ -1,7 +1,7 @@
 import { Heading, Text } from "@radix-ui/themes";
 import React from "react";
 import {
-  RADIX_HEADING_COLORS,
+  RADIX_COLORS,
   RADIX_HEADING_SIZES,
   RADIX_HEADING_TYPES,
 } from "../lib/constants";
@@ -9,7 +9,7 @@ import {
 type AccentedHeadingProps = {
   textAs: RADIX_HEADING_TYPES;
   size: RADIX_HEADING_SIZES;
-  color?: RADIX_HEADING_COLORS;
+  color?: RADIX_COLORS;
   preText?: string;
   accentedText: string;
   postText?: string;

@@ -1,11 +1,11 @@
 import { Text } from "@radix-ui/themes";
 import React from "react";
-import { RADIX_HEADING_COLORS, RADIX_HEADING_SIZES } from "../lib/constants";
+import { RADIX_COLORS, RADIX_HEADING_SIZES } from "../lib/constants";
 import { FixedSys } from "../lib/fonts";
 
 type StylizedTextLogoProps = {
   size?: RADIX_HEADING_SIZES;
-  color?: RADIX_HEADING_COLORS;
+  color?: RADIX_COLORS;
 };
 
 const StylizedTextLogo: React.FC<StylizedTextLogoProps> = ({
