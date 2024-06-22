@@ -1,25 +1,25 @@
-import { Box } from "@radix-ui/themes";
+import { Flex, Grid } from "@radix-ui/themes";
 import React from "react";
 import Logo from "./Logo";
-import NavButton from "./NavButton";
 import StylizedTextLogo from "./StylizedTextLogo";
+import WindowControls from "./WindowControls";
 
 type HeaderProps = { className: string };
 
 const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   return (
     <header className={className}>
-      <Box className="flex w-full justify-between place-items-center overflow-visible">
-        <Box className="flex flex-col">
+      <Grid width="100%" columns="3">
+        <Flex justify="start" className="-ml-2" align="center">
           <Logo />
-        </Box>
-        <Box className="flex flex-col">
+        </Flex>
+        <Flex justify="center" align="center">
           <StylizedTextLogo />
-        </Box>
-        <Box className="flex flex-col">
-          <NavButton />
-        </Box>
-      </Box>
+        </Flex>
+        <Flex justify="end" align="center">
+          <WindowControls className="opacity-50" gap="4" />
+        </Flex>
+      </Grid>
     </header>
   );
 };
