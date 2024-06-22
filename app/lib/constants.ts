@@ -19,6 +19,37 @@ export const NAV_LINKS = {
   contact: { href: "/contact", label: "Contact" },
 };
 
+export type OrbColorOnPageType = {
+  path: string;
+  color: string;
+  radixColor: RADIX_COLORS;
+};
+
+export type OrbColorOnPagesConfigType = {
+  [key: string]: OrbColorOnPageType;
+};
+
+export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
+  home: { path: "/", color: "fill-primary-border-3", radixColor: "grass" },
+  about: { path: "/about", color: "fill-red-400", radixColor: "tomato" },
+  projects: {
+    path: "/experience",
+    color: "fill-yellow-300",
+    radixColor: "lime",
+  },
+  experiments: {
+    path: "/experiments",
+    color: "fill-blue-500",
+    radixColor: "cyan",
+  },
+  blog: {
+    path: "/posts",
+    color: "fill-purple-500",
+    radixColor: "violet",
+  },
+  contact: { path: "/contact", color: "fill-slate-500", radixColor: "sky" },
+};
+
 export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time
 
 export type RADIX_HEADING_TYPES = "h1" | "h2" | "h3" | "h4";
