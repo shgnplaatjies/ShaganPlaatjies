@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
+import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../Logo";
 import StylizedTextLogo from "../StylizedTextLogo";
@@ -20,22 +21,31 @@ const FooterSection: React.FC = () => {
           </Box>
           <StylizedTextLogo size="5" />
         </Flex>
-        <Flex className="lg:justify-self-center">
-          {navIcons.map(({ Icon, label, href }) => (
+        <Flex
+          wrap="wrap"
+          gap="2"
+          className="justify-self-center justify-center"
+        >
+          {navIcons.map(({ Icon, label, href }, i) => (
             <Link
               key={label}
               content="center"
               color={pathName !== href ? "gray" : undefined}
               asChild
             >
-              <Text>{label}</Text>
+              <NextLink href={href}>
+                <Text>
+                  {i < navIcons.length && "·"}
+                  {label}
+                </Text>
+              </NextLink>
             </Link>
           ))}
         </Flex>
       </Grid>
 
       <Grid columns={{ sm: "1", md: "2" }}>
-        <Grid columns={{ sm: "1", md: "2" }}>
+        <Grid pb="6" columns={{ sm: "1", md: "2" }}>
           <Text as="p" className="text-center lg:justify-self-end">
             <Link href="/">&copy; 2024</Link> All rights reserved.
           </Text>
@@ -43,21 +53,22 @@ const FooterSection: React.FC = () => {
             | Full Stack Web Developer
           </Text>
         </Grid>
-        <Grid columns={{ sm: "1", md: "2" }}>
+        <Grid gap="2" columns={{ sm: "1", md: "2" }}>
           <Link
             content="center"
             color="gray"
             className="text-center lg:justify-self-end"
             asChild
           >
-            <Text>Privacy Policy</Text>
+            <NextLink href="/privacy-policy">
+              <Text>Privacy Policy</Text>
+            </NextLink>
           </Link>
 
           <Link
             content="center"
             color="gray"
             className="text-center lg:justify-self-start"
-            href="#"
             asChild
           >
             <Text>Cookie Free Website</Text>
