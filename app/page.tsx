@@ -1,8 +1,4 @@
 "use client";
-import { Box, ScrollArea } from "@radix-ui/themes";
-import { useRef } from "react";
-import Orbs from "./components/Orbs";
-
 import AboutSection from "./components/sections/AboutSection";
 import ContactSection from "./components/sections/ContactSection";
 import FooterSection from "./components/sections/FooterSection";
@@ -11,24 +7,15 @@ import ProjectsSection from "./components/sections/ProjectsSection";
 import SkillsSection from "./components/sections/SkillsSection";
 
 const HomePage: React.FC = () => {
-  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
-
   return (
-    <ScrollArea ref={scrollAreaRef}>
-      <Orbs
-        pulseDuration={10000}
-        className="w-full h-full absolute"
-        scrollRef={scrollAreaRef}
-      />
-      <Box className="backdrop-blur-3xl bg-gradient-to-br px-4">
-        <LandingSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ContactSection />
-        <FooterSection />
-      </Box>
-    </ScrollArea>
+    <>
+      <LandingSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <AboutSection />
+      <ContactSection />
+      <FooterSection />
+    </>
   );
 };
 
