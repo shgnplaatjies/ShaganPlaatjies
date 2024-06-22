@@ -98,7 +98,9 @@ const ContactForm: React.FC = () => {
           message:{" "}
           <TextArea size="2" placeholder="Enter your message..."></TextArea>
         </label>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="cursor-pointer">
+          Submit
+        </Button>
       </Flex>
     </form>
   );
