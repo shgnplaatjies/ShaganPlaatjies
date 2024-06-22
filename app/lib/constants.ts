@@ -19,6 +19,8 @@ export const NAV_LINKS = {
   contact: { href: "/contact", label: "Contact" },
 };
 
+export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time
+
 export type RADIX_HEADING_TYPES = "h1" | "h2" | "h3" | "h4";
 export type RADIX_HEADING_SIZES =
   | "1"
