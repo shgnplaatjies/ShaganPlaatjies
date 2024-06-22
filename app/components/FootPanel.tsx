@@ -3,6 +3,7 @@ import { DotFilledIcon } from "@radix-ui/react-icons";
 import { Box, Grid, Link } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import { POLLING_INTERVAL } from "../lib/constants";
+import AnimatedIconStack from "./AnimatedIconStack";
 import IconList from "./IconsList";
 import { getSocialIcons } from "./icons/SocialIcons";
 
@@ -40,7 +41,14 @@ const FootPanel: React.FC<FootPanelProps> = ({
         <p className="flex text-nowrap justify-center opacity-60 text-sm">
           Johannesburg {currentTime}
         </p>
-        <IconList className="flex justify-end" icons={socialIcons} />
+        <IconList
+          className="sm:flex justify-end hidden sm:visible place-self-end"
+          icons={socialIcons}
+        />
+        <AnimatedIconStack
+          buttonClassName="flex justify-end sm:hidden place-self-end"
+          popoverClassName="bottom-11 right-1 mb-1"
+        />
       </Grid>
     </Box>
   );
