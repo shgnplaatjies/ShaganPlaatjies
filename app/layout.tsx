@@ -30,7 +30,7 @@ export default function RootLayout({
             className="flex flex-col h-screen w-screen"
             panelBackground="translucent"
           >
-            <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
+            <Box className=" flex flex-col h-screen w-screen backdrop-blur-3xl bg-gradient-to-br">
               <Box className="flex w-full h-full p-3">
                 <MainLayout>{children}</MainLayout>
               </Box>
