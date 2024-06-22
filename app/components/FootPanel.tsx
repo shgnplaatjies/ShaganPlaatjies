@@ -22,7 +22,7 @@ const FootPanel: React.FC<FootPanelProps> = ({
       minute: "2-digit",
     });
 
-  const [currentTime, setCurrentTime] = useState<string>(getTime());
+  const [currentTime, setCurrentTime] = useState<string>("");
 
   useEffect(() => {
     const interval = setInterval(() => {
