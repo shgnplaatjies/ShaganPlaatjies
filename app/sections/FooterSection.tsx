@@ -1,9 +1,9 @@
 import { Box, Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "../Logo";
-import StylizedTextLogo from "../StylizedTextLogo";
-import { getNavIcons } from "../icons/NavIcons";
+import Logo from "../components/Logo";
+import StylizedTextLogo from "../components/StylizedTextLogo";
+import { getNavIcons } from "../components/icons/NavIcons";
 
 const FooterSection: React.FC = () => {
   const navIcons = getNavIcons();
