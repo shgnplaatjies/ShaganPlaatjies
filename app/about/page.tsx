@@ -1,18 +1,21 @@
-import { Text } from "@radix-ui/themes";
-import AccentedHeading from "../components/AccentedHeading";
+"use client";
+import { Section } from "@radix-ui/themes";
+import Footer from "../components/Footer";
+import AboutSection from "../sections/AboutSection";
+import LandingSection from "./sections/LandingSection";
+import TechStackSection from "./sections/TechStackSection";
 
-const BlogPage: React.FC = () => {
+const AboutPage: React.FC = () => {
   return (
-    <section>
-      <AccentedHeading
-        textAs="h1"
-        size="9"
-        preText="More "
-        accentedText="About Me."
-      />
-      <Text as="p">ABOUT PAGE.</Text>
-    </section>
+    <>
+      <LandingSection />
+      <AboutSection />
+      <TechStackSection />
+      <Section>
+        <Footer />
+      </Section>
+    </>
   );
 };
 
-export default BlogPage;
+export default AboutPage;

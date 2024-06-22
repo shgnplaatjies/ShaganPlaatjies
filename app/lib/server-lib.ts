@@ -22,11 +22,11 @@ export const fetchWpPosts = cache(async () => {
     const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
     const res = await fetch(wpPostsUri);
 
-    if (!res.ok) return 1;
+    if (!res.ok) return false;
 
     return await res.json();
   } catch (error) {
-    return 1;
+    return false;
   }
 });
 
@@ -39,7 +39,7 @@ const fetchWpPostById = cache(async (target: number) => {
 
     return await res.json();
   } catch (error) {
-    return 1;
+    return false;
   }
 });
 
@@ -54,11 +54,11 @@ const fetchWpPostBySlug = cache(async (target: string | number) => {
 
     const post = posts.find(condition);
 
-    if (!post) return 1;
+    if (!post) return false;
 
     return post;
   } catch (error) {
-    return 1;
+    return false;
   }
 });
 

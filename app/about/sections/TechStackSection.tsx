@@ -1,8 +1,8 @@
 import { Section, Text } from "@radix-ui/themes";
-import AccentedHeading from "../AccentedHeading";
-import CTAButton from "../CTAButton";
+import AccentedHeading from "../../components/AccentedHeading";
+import CTAButton from "../../components/CTAButton";
 
-const ProjectsSection: React.FC = () => {
+const TechStackSection: React.FC = () => {
   return (
     <Section>
       <AccentedHeading
@@ -19,4 +19,4 @@ const ProjectsSection: React.FC = () => {
   );
 };
 
-export default ProjectsSection;
+export default TechStackSection;

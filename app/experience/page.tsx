@@ -2,13 +2,13 @@
 import { Section } from "@radix-ui/themes";
 import Footer from "../components/Footer";
 import LandingSection from "../contact/sections/LandingSection";
-import ContactSection from "../sections/ContactSection";
+import ProjectsSection from "../sections/ProjectsSection";
 
-const ContactPage: React.FC = () => {
+const ExperiencePage: React.FC = () => {
   return (
     <>
       <LandingSection />
-      <ContactSection />
+      <ProjectsSection />
       <Section>
         <Footer />
       </Section>
@@ -16,4 +16,4 @@ const ContactPage: React.FC = () => {
   );
 };
 
-export default ContactPage;
+export default ExperiencePage;

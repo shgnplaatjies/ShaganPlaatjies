@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-export type SocialIconProps = {
+export type HyperMediaIconProps = {
   href: string;
   Icon: React.ForwardRefExoticComponent<
     IconProps & React.RefAttributes<SVGSVGElement>
@@ -12,7 +12,10 @@ export type SocialIconProps = {
   label: string;
 };
 
-export type IconsListProps = { icons: SocialIconProps[]; className?: string };
+export type IconsListProps = {
+  icons: HyperMediaIconProps[];
+  className?: string;
+};
 
 const IconsList: React.FC<IconsListProps> = ({ icons, className = "" }) => {
   const pathName = usePathname();

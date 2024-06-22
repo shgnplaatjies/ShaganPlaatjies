@@ -11,9 +11,12 @@ export default async ({ params }: { params: WpPostParams }) => {
 
   const post = await fetchWpPost(target);
 
-  if (!post) return <Text as="p">Post not found.</Text>;
+  if (!post && typeof target === "number")
+    return <Text as="p">No post found with post id: "{target}".</Text>;
+  else if (!post && typeof target === "string")
+    return <Text as="p">No post found with post slug: "{target}".</Text>;
 
-  if (post === 1)
+  if (!post)
     return (
       <Text as="p">An unexpected error occurred. Please try again later.</Text>
     );
