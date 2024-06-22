@@ -1,17 +1,19 @@
-import { Text } from "@radix-ui/themes";
-import React from "react";
-import AccentedHeading from "../components/AccentedHeading";
+"use client";
+import { Section } from "@radix-ui/themes";
+import Footer from "../components/Footer";
+import LandingSection from "../contact/sections/LandingSection";
+import ContactSection from "../sections/ContactSection";
 
-export default function ContactPage(): React.ReactElement {
+const ContactPage: React.FC = () => {
   return (
-    <section>
-      <AccentedHeading
-        textAs="h1"
-        size="9"
-        preText="Get in "
-        accentedText="Touch."
-      />
-      <Text as="p">CONTACT PAGE.</Text>
-    </section>
+    <>
+      <LandingSection />
+      <ContactSection />
+      <Section>
+        <Footer />
+      </Section>
+    </>
   );
-}
+};
+
+export default ContactPage;
