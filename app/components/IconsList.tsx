@@ -12,12 +12,12 @@ export type SocialIconProps = {
   label: string;
 };
 
-export type IconsListProps = { icons: SocialIconProps[] };
+export type IconsListProps = { icons: SocialIconProps[]; className?: string };
 
-const IconsList: React.FC<IconsListProps> = ({ icons }) => {
+const IconsList: React.FC<IconsListProps> = ({ icons, className = "" }) => {
   const pathName = usePathname();
   return (
-    <Flex gap="4" align="center">
+    <Flex gap="4" align="center" className={className}>
       {icons.map(({ Icon, label, href }) => (
         <Link
           key={label}
