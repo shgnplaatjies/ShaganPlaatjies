@@ -9,20 +9,25 @@ type AnimatedIconStackProps = {
   buttonClassName?: string;
   popoverClassName: string;
   iconList: HyperMediaIconProps[];
-  direction: "left" | "right";
+  directionX: "left" | "right";
+  directionY: "up" | "down";
   Icon?: React.FC;
 };
 
 const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
   buttonClassName = "",
   popoverClassName,
-  direction = "left",
+  directionX = "left",
+  directionY = "up",
   iconList,
   Icon,
 }: AnimatedIconStackProps) => {
   const [iconsVisible, setIconsVisible] = useState<boolean>(false);
 
   const toggleIconsVisibility = () => setIconsVisible(!iconsVisible);
+
+  const isLeft = directionX === "left";
+  const isUp = directionY === "up";
 
   return (
     <Box className={buttonClassName}>
@@ -44,23 +49,13 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
       <AnimatePresence>
         {iconsVisible && (
           <motion.div
-            initial={
-              direction === "left"
-                ? {
-                    x: "-10%",
-                    y: "50%",
-                    opacity: 0,
-                    rotateZ: "10deg",
-                    scaleY: 0,
-                  }
-                : {
-                    x: "10%",
-                    y: "-50%",
-                    opacity: 0,
-                    rotateZ: "-10deg",
-                    scaleY: 0,
-                  }
-            }
+            initial={{
+              x: isLeft ? "-10%" : "10%",
+              y: isUp ? "50%" : "-50%",
+              opacity: 0,
+              rotateZ: isLeft ? "10deg" : "-10deg",
+              scaleY: 0,
+            }}
             animate={{
               x: "0",
               y: "0%",
@@ -68,23 +63,13 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
               rotateZ: "0deg",
               scaleY: 1,
             }}
-            exit={
-              direction === "left"
-                ? {
-                    x: "-10%",
-                    y: "50%",
-                    opacity: 0,
-                    rotateZ: "10deg",
-                    scaleY: 0,
-                  }
-                : {
-                    x: "10%",
-                    y: "-50%",
-                    opacity: 0,
-                    rotateZ: "-10deg",
-                    scaleY: 0,
-                  }
-            }
+            exit={{
+              x: isLeft ? "-10%" : "10%",
+              y: isUp ? "50%" : "-50%",
+              opacity: 0,
+              rotateZ: isLeft ? "10deg" : "-10deg",
+              scaleY: 0,
+            }}
             transition={{ duration: 0.3 }}
             className={`${popoverClassName} p-3 absolute rounded bg-black bg-opacity-10 border border-white border-opacity-20`}
           >
