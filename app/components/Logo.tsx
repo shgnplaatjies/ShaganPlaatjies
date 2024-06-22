@@ -3,17 +3,23 @@ import React from "react";
 type LogoProps = {
   className?: string;
   color?: string;
+  height?: string;
+  width?: string;
 };
 
 const Logo: React.FC<LogoProps> = ({
   className = "w-8 h-8",
   color = "#ffffff",
+  height = "100%",
+  width = "100%",
 }: LogoProps) => {
   return (
     <svg
       className={className}
       viewBox="0 0 24 24"
       fill="none"
+      width={width}
+      height={height}
       xmlns="http://www.w3.org/2000/svg"
       transform="rotate(90)matrix(1, 0, 0, -1, 0, 0)"
     >
