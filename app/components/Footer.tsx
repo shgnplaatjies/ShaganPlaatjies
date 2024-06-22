@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
   const pathName = usePathname();
 
   return (
-    <Section>
+    <Section className="border-t border-white border-opacity-20">
       <Grid
         className="h-60 w-full place-items-center"
         columns={{ sm: "1", md: "2" }}
