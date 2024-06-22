@@ -4,7 +4,7 @@ import { RADIX_HEADING_COLORS, RADIX_HEADING_SIZES } from "../lib/constants";
 import { FixedSys } from "../lib/fonts";
 
 type StylizedTextLogoProps = {
-  size: RADIX_HEADING_SIZES;
+  size?: RADIX_HEADING_SIZES;
   color?: RADIX_HEADING_COLORS;
 };
 
