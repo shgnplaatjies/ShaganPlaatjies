@@ -1,19 +1,56 @@
-import { Box } from "@radix-ui/themes";
-import React from "react";
+"use client";
+import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
+import { Box, ScrollArea, Theme } from "@radix-ui/themes";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
+import Orbs from "../../Orbs";
+import SidePanel from "../../SidePanel";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const pathName = usePathname();
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
+
+  const defaultConfig = OrbColorOnPagesConfig.home;
+  const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
+
+  useEffect(() => {
+    setOrbColor(
+      Object.values(OrbColorOnPagesConfig).find(
+        (orb) => orb.path === pathName
+      ) ?? defaultConfig
+    );
+  }, [pathName]);
+
   return (
-    <Box className="flex flex-col flex-grow w-full h-full border rounded-md border-white border-opacity-20 backdrop-blur-3xl bg-gradient-to-br shadow-inner shadow-slate-700">
-      <Header className="h-auto py-3 px-4 flex place-content-center border-b border-opacity-10 border-white" />
+    <Theme accentColor={orbColor.radixColor} className="w-full h-full">
+      <Box className="flex flex-col flex-grow w-full h-full border rounded-md border-white border-opacity-20 backdrop-blur-3xl bg-gradient-to-br shadow-inner shadow-slate-700">
+        <Header className="h-auto py-2 px-4 flex place-content-center border-b border-opacity-10 border-white" />
 
-      <main className="flex flex-col overflow-hidden">{children}</main>
+        <main className="flex flex-grow flex-row overflow-hidden">
+          <SidePanel className="w-auto px-4 py-4 place-content-center border-r border-opacity-10 border-white" />
 
-      <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
-    </Box>
+          <ScrollArea ref={scrollAreaRef}>
+            <Orbs
+              pulseDuration={10000}
+              className="w-full h-full absolute"
+              scrollRef={scrollAreaRef}
+              color={orbColor.color}
+            />
+            <Box className="w-full h-full backdrop-blur-3xl bg-gradient-to-br px-4">
+              <Box className="w-full h-full">{children}</Box>
+            </Box>
+          </ScrollArea>
+        </main>
+
+        <footer>
+          <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
+        </footer>
+      </Box>
+    </Theme>
   );
 };
 

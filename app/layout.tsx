@@ -22,12 +22,11 @@ export default function RootLayout({
         lang="en"
         className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable}`}
       >
-        <body>
+        <body className="flex flex-col h-screen w-screen">
           <Theme
             appearance="dark"
             accentColor="grass"
             radius="small"
-            className="flex flex-col h-screen w-screen"
             panelBackground="translucent"
           >
             <Box className=" flex flex-col h-full w-full backdrop-blur-3xl bg-gradient-to-br">
