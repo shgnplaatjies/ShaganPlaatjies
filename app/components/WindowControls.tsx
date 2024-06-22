@@ -16,7 +16,7 @@ const WindowControls: React.FC<WindowControlsProps> = ({
   onClose,
 }: WindowControlsProps) => {
   return (
-    <Flex gap="2">
+    <Flex className={className} gap="2">
       <MinusIcon onClick={onMinimize} />
       <SquareIcon onClick={onMaximize} />
       <Cross1Icon onClick={onClose} />
