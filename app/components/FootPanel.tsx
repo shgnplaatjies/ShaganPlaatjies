@@ -46,6 +46,9 @@ const FootPanel: React.FC<FootPanelProps> = ({
           icons={socialIcons}
         />
         <AnimatedIconStack
+          iconList={socialIcons}
+          directionX="right"
+          directionY="up"
           buttonClassName="flex justify-end sm:hidden place-self-end"
           popoverClassName="bottom-11 right-1 mb-1"
         />

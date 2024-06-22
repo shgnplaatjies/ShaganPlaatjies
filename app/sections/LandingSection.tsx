@@ -1,6 +1,6 @@
 import { Flex, Section, Text } from "@radix-ui/themes";
-import AccentedHeading from "../AccentedHeading";
-import CTAButton from "../CTAButton";
+import AccentedHeading from "../components/AccentedHeading";
+import CTAButton from "../components/CTAButton";
 
 const LandingSection: React.FC = () => {
   return (

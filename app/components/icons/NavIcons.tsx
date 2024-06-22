@@ -7,11 +7,11 @@ import {
   RocketIcon,
 } from "@radix-ui/react-icons";
 import { NAV_LINKS } from "../../lib/constants";
-import { SocialIconProps } from "../IconsList";
+import { HyperMediaIconProps } from "../IconsList";
 
 const { home, about, experience, experiments, posts, contact } = NAV_LINKS;
 
-export const getNavIcons = (): SocialIconProps[] => [
+export const getNavIcons = (): HyperMediaIconProps[] => [
   {
     href: home.href,
     Icon: HomeIcon,
