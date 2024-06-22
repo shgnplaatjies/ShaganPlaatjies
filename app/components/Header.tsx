@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
             Icon={Logo}
             iconList={navIcons}
             buttonClassName="flex justify-end sm:hidden place-self-end"
-            popoverClassName="top-12 left-1 mt-1"
+            popoverClassName="top-12 left-1 mt-1 z-10"
           />
         </Flex>
         <Flex justify="center" align="center">
