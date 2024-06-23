@@ -30,7 +30,7 @@ export type OrbColorOnPagesConfigType = {
 };
 
 export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
-  default: { path: "", color: "fill-slate-500", radixColor: "gray" },
+  default: { path: "", color: "fill-slate-700", radixColor: "gray" },
   home: { path: "/", color: "fill-primary-border-3", radixColor: "grass" },
   about: { path: "/about", color: "fill-red-400", radixColor: "tomato" },
   projects: {
