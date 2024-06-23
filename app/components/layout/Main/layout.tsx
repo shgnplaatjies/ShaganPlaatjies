@@ -1,6 +1,6 @@
 "use client";
 import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
-import { Box, ScrollArea, Theme } from "@radix-ui/themes";
+import { Box, Flex, ScrollArea, Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import FootPanel from "../../FootPanel";
@@ -27,7 +27,7 @@ const MainLayout: React.FC<{
 
   return (
     <Theme accentColor={orbColor.radixColor} className="w-full h-full">
-      <Box className="flex flex-col flex-grow w-full h-full border rounded-md border-white border-opacity-20 backdrop-blur-3xl bg-gradient-to-br shadow-inner shadow-slate-700">
+      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-white border-opacity-20 backdrop-blur-3xl bg-gradient-to-br shadow-inner shadow-slate-700">
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-opacity-10 border-white" />
 
         <main className="flex flex-grow flex-row overflow-hidden">
@@ -49,7 +49,7 @@ const MainLayout: React.FC<{
         <footer>
           <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
         </footer>
-      </Box>
+      </Flex>
     </Theme>
   );
 };
