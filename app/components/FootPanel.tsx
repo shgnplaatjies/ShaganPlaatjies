@@ -1,6 +1,6 @@
 "use client";
 import { DotFilledIcon } from "@radix-ui/react-icons";
-import { Box, Grid, Link } from "@radix-ui/themes";
+import { Box, Flex, Grid, Link } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import { POLLING_INTERVAL } from "../lib/constants";
 import AnimatedIconStack from "./AnimatedIconStack";
@@ -35,9 +35,11 @@ const FootPanel: React.FC<FootPanelProps> = ({
   return (
     <Box className={className}>
       <Grid width="100%" columns="3">
-        <Link href="/contact" asChild>
-          <DotFilledIcon color="green" width="1.25rem" height="1.25rem" />
-        </Link>
+        <Flex align="center">
+          <Link href="/contact" asChild>
+            <DotFilledIcon width="1.15rem" height="1.15rem" />
+          </Link>
+        </Flex>
         <p className="flex text-nowrap justify-center opacity-60 text-sm">
           Johannesburg {currentTime}
         </p>
@@ -45,13 +47,15 @@ const FootPanel: React.FC<FootPanelProps> = ({
           className="sm:flex justify-end hidden sm:visible place-self-end"
           icons={socialIcons}
         />
-        <AnimatedIconStack
-          iconList={socialIcons}
-          directionX="right"
-          directionY="up"
-          buttonClassName="flex justify-end sm:hidden place-self-end"
-          popoverClassName="bottom-11 right-1 mb-1"
-        />
+        <Flex justify="end" align="center">
+          <AnimatedIconStack
+            iconList={socialIcons}
+            directionX="right"
+            directionY="up"
+            buttonClassName="flex justify-end sm:hidden"
+            popoverClassName="bottom-12 right-1.5 mb-1"
+          />
+        </Flex>
       </Grid>
     </Box>
   );

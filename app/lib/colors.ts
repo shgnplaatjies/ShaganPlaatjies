@@ -1,6 +1,17 @@
-export const PrimaryColor = "#42984d";
-
-export const PrimaryRadixColor = "grass";
+export const AccentPrimaryColors = {
+  1: "var(--accent-1)",
+  2: "var(--accent-2)",
+  3: "var(--accent-3)",
+  4: "var(--accent-4)",
+  5: "var(--accent-5)",
+  6: "var(--accent-6)",
+  7: "var(--accent-7)",
+  8: "var(--accent-8)",
+  9: "var(--accent-9)",
+  10: "var(--accent-10)",
+  11: "var(--accent-11)",
+  12: "var(--accent-12)",
+};
 
 export const LightPrimaryColors = {
   1: "#ECF0EC",
@@ -66,6 +77,12 @@ export const DarkGrayColors = {
 
 export const DarkBackgroundColor = "#1A211E";
 
+// Above this line is cosmetic, below is functional
+
+export const AccentColors = {
+  accent: AccentPrimaryColors,
+};
+
 export const DarkModeColors = {
   primary: DarkPrimaryColors,
   gray: DarkGrayColors,
@@ -76,6 +93,31 @@ export const LightModeColors = {
   primary: LightPrimaryColors,
   gray: LightGrayColors,
   background: LightBackgroundColor,
+};
+
+export const AccentTailwindColors = {
+  bg: {
+    1: AccentColors.accent[1],
+    2: AccentColors.accent[1],
+  },
+  interactive: {
+    1: AccentColors.accent[3],
+    2: AccentColors.accent[4],
+    3: AccentColors.accent[5],
+  },
+  border: {
+    1: AccentColors.accent[6],
+    2: AccentColors.accent[7],
+    3: AccentColors.accent[8],
+  },
+  solid: {
+    1: AccentColors.accent[9],
+    2: AccentColors.accent[10],
+  },
+  text: {
+    1: AccentColors.accent[11],
+    2: AccentColors.accent[12],
+  },
 };
 
 export const DarkModeTailwindColors = {
