@@ -22,7 +22,7 @@ export default function RootLayout({
         lang="en"
         className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable}`}
       >
-        <body className="flex flex-col h-screen w-screen overflow-hidden">
+        <body className="flex flex-col h-dvh w-dvh overflow-hidden">
           <Theme
             appearance="dark"
             accentColor="grass"
