@@ -11,6 +11,7 @@ type AnimatedIconStackProps = {
   iconList: HyperMediaIconProps[];
   directionX: "left" | "right";
   directionY: "up" | "down";
+  background: "solid" | "translucent";
   Icon?: React.FC;
 };
 
@@ -19,6 +20,7 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
   popoverClassName,
   directionX = "left",
   directionY = "up",
+  background = "translucent",
   iconList,
   Icon,
 }: AnimatedIconStackProps) => {
@@ -66,8 +68,15 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
                 rotateZ: isLeft ? "10deg" : "-10deg",
                 scaleY: 0,
               }}
+              style={{
+                background:
+                  background === "translucent"
+                    ? "var(--color-panel-translucent)"
+                    : "var(--color-panel-solid)",
+                backdropFilter: "blur(10px)",
+              }}
               transition={{ duration: 0.3 }}
-              className={`${popoverClassName} p-3 absolute rounded bg-black bg-opacity-10 border border-white border-opacity-20`}
+              className={`${popoverClassName}  p-3 absolute rounded border border-white border-opacity-20`}
             >
               <IconList
                 className="flex justify-end place-self-end flex-col "
