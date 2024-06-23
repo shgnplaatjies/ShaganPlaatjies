@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import {
+  AccentTailwindColors,
   DarkGrayTailwindColors,
   DarkModeTailwindColors,
 } from "./app/lib/colors";
@@ -29,6 +30,13 @@ const config: Config = {
           border: { ...DarkGrayTailwindColors.border },
           solid: { ...DarkGrayTailwindColors.solid },
           text: { ...DarkGrayTailwindColors.text },
+        },
+        accent: {
+          bg: { ...AccentTailwindColors.bg },
+          interactive: { ...AccentTailwindColors.interactive },
+          border: { ...AccentTailwindColors.border },
+          solid: { ...AccentTailwindColors.solid },
+          text: { ...AccentTailwindColors.text },
         },
       },
     },
