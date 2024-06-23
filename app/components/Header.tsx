@@ -22,14 +22,14 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
           <StylizedTextLogo />
         </Flex>
         <Flex justify="end" align="center">
-          <WindowControls className="opacity-50 hidden sm:block" gap="4" />
+          <WindowControls className="opacity-50 hidden sm:flex" gap="4" />
           <AnimatedIconStack
             directionX="left"
             directionY="down"
             Icon={HamburgerMenuIcon}
             iconList={navIcons}
             buttonClassName="flex place-self-center sm:hidden"
-            popoverClassName="top-12 right-1 mt-1 z-10"
+            popoverClassName="top-12 right-1.5 mt-2 z-10"
           />
         </Flex>
       </Grid>
