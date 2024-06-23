@@ -11,7 +11,7 @@ type AnimatedIconStackProps = {
   iconList: HyperMediaIconProps[];
   directionX: "left" | "right";
   directionY: "up" | "down";
-  background: "solid" | "translucent";
+  background?: "solid" | "translucent";
   Icon?: React.FC;
 };
 
