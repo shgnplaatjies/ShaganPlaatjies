@@ -109,14 +109,12 @@ export const LightModeColors = {
 };
 
 export const ShadowShadeTailwindUtils = {
-  shadow: {
-    1: ShadowShadeValues[1],
-    2: ShadowShadeValues[2],
-    3: ShadowShadeValues[3],
-    4: ShadowShadeValues[4],
-    5: ShadowShadeValues[5],
-    6: ShadowShadeValues[6],
-  },
+  "level-1": ShadowShadeValues[1],
+  "level-2": ShadowShadeValues[2],
+  "level-3": ShadowShadeValues[3],
+  "level-4": ShadowShadeValues[4],
+  "level-5": ShadowShadeValues[5],
+  "level-6": ShadowShadeValues[6],
 };
 
 export const AccentTailwindUtils = {
