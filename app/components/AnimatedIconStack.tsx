@@ -2,7 +2,7 @@
 import { GlobeIcon } from "@radix-ui/react-icons";
 import { Box, Button, Flex } from "@radix-ui/themes";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IconList, { HyperMediaIconProps } from "./IconsList";
 
 type AnimatedIconStackProps = {
@@ -25,14 +25,28 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
   Icon,
 }: AnimatedIconStackProps) => {
   const [iconsVisible, setIconsVisible] = useState<boolean>(false);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   const toggleIconsVisibility = () => setIconsVisible(!iconsVisible);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+      setIconsVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const isLeft = directionX === "left";
   const isUp = directionY === "up";
 
   return (
-    <Box className={buttonClassName}>
+    <Box className={buttonClassName} ref={boxRef}>
       <Flex className="hover:scale-125 transition duration-200 ease-in-out opacity-70 active:scale-90">
         <Button
           onClick={toggleIconsVisibility}
@@ -79,7 +93,7 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
               className={`${popoverClassName} p-3 absolute rounded border border-gray-interactive-2 border-opacity-50`}
             >
               <IconList
-                className="flex justify-end place-self-end flex-col "
+                className="flex justify-end place-self-end flex-col"
                 icons={iconList}
               />
             </motion.div>
