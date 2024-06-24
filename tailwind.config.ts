@@ -1,8 +1,9 @@
 import type { Config } from "tailwindcss";
 import {
-  AccentTailwindColors,
-  DarkGrayTailwindColors,
-  DarkModeTailwindColors,
+  AccentTailwindUtils,
+  DarkGrayTailwindUtils,
+  DarkModeTailwindUtils,
+  ShadowShadeTailwindUtils,
 } from "./app/lib/colors";
 import themeConfig from "./tailwind.theme.config";
 
@@ -18,25 +19,28 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          bg: { ...DarkModeTailwindColors.bg },
-          interactive: { ...DarkModeTailwindColors.interactive },
-          border: { ...DarkModeTailwindColors.border },
-          solid: { ...DarkModeTailwindColors.solid },
-          text: { ...DarkModeTailwindColors.text },
+          bg: { ...DarkModeTailwindUtils.bg },
+          interactive: { ...DarkModeTailwindUtils.interactive },
+          border: { ...DarkModeTailwindUtils.border },
+          solid: { ...DarkModeTailwindUtils.solid },
+          text: { ...DarkModeTailwindUtils.text },
         },
         gray: {
-          bg: { ...DarkGrayTailwindColors.bg },
-          interactive: { ...DarkGrayTailwindColors.interactive },
-          border: { ...DarkGrayTailwindColors.border },
-          solid: { ...DarkGrayTailwindColors.solid },
-          text: { ...DarkGrayTailwindColors.text },
+          bg: { ...DarkGrayTailwindUtils.bg },
+          interactive: { ...DarkGrayTailwindUtils.interactive },
+          border: { ...DarkGrayTailwindUtils.border },
+          solid: { ...DarkGrayTailwindUtils.solid },
+          text: { ...DarkGrayTailwindUtils.text },
         },
         accent: {
-          bg: { ...AccentTailwindColors.bg },
-          interactive: { ...AccentTailwindColors.interactive },
-          border: { ...AccentTailwindColors.border },
-          solid: { ...AccentTailwindColors.solid },
-          text: { ...AccentTailwindColors.text },
+          bg: { ...AccentTailwindUtils.bg },
+          interactive: { ...AccentTailwindUtils.interactive },
+          border: { ...AccentTailwindUtils.border },
+          solid: { ...AccentTailwindUtils.solid },
+          text: { ...AccentTailwindUtils.text },
+        },
+        shadow: {
+          level: { ...ShadowShadeTailwindUtils.shadow },
         },
       },
     },

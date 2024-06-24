@@ -1,4 +1,4 @@
-import { DarkModeTailwindColors } from "@/app/lib/colors";
+import { DarkModeTailwindUtils } from "@/app/lib/colors";
 import React from "react";
 
 type PulsingCircleProps = {
@@ -9,7 +9,7 @@ type PulsingCircleProps = {
 
 const PulsingCircle: React.FC<PulsingCircleProps> = ({
   className = "",
-  color = DarkModeTailwindColors.solid[1],
+  color = DarkModeTailwindUtils.solid[1],
   duration = 5000,
 }: PulsingCircleProps) => {
   return (

@@ -14,7 +14,7 @@ const MainLayout: React.FC<{
   const pathName = usePathname();
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
 
-  const defaultConfig = OrbColorOnPagesConfig.home;
+  const defaultConfig = OrbColorOnPagesConfig.default;
   const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
 
   useEffect(() => {
