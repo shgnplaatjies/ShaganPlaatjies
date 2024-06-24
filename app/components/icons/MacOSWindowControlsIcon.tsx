@@ -1,3 +1,4 @@
+import { Flex } from "@radix-ui/themes";
 import React from "react";
 
 type MacOSWindowControlsIconProps = {
@@ -19,9 +20,11 @@ const MacOSWindowControlsIcon: React.FC<MacOSWindowControlsIconProps> = ({
   };
 
   return (
-    <svg>
-      <circle cx="50%" cy="50%" r="5" fill={getColor()} />
-    </svg>
+    <Flex>
+      <svg width="1rem" height="1rem">
+        <circle cx="50%" cy="50%" r="5" fill={getColor()} />
+      </svg>
+    </Flex>
   );
 };
 

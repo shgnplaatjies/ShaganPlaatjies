@@ -1,13 +1,14 @@
 import { Cross1Icon, MinusIcon, SquareIcon } from "@radix-ui/react-icons";
+import { Flex } from "@radix-ui/themes";
 import React from "react";
 
-type MacOSWindowControlsIconProps = {
+type WindowsOSWindowControlsIconProps = {
   type: "close" | "minimize" | "maximize";
 };
 
-const MacOSWindowControlsIcon: React.FC<MacOSWindowControlsIconProps> = ({
-  type,
-}) => {
+const WindowsOSWindowControlsIcon: React.FC<
+  WindowsOSWindowControlsIconProps
+> = ({ type }) => {
   const getIcon = () => {
     switch (type) {
       case "close":
@@ -19,7 +20,7 @@ const MacOSWindowControlsIcon: React.FC<MacOSWindowControlsIconProps> = ({
     }
   };
 
-  return <svg>{getIcon()}</svg>;
+  return <Flex>{getIcon()}</Flex>;
 };
 
-export default MacOSWindowControlsIcon;
+export default WindowsOSWindowControlsIcon;
