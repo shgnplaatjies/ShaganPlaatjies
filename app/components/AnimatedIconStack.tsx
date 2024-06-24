@@ -30,16 +30,13 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
   const toggleIconsVisibility = () => setIconsVisible(!iconsVisible);
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+    if (boxRef.current && !boxRef.current.contains(event.target as Node))
       setIconsVisible(false);
-    }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const isLeft = directionX === "left";
