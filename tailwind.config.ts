@@ -3,6 +3,7 @@ import {
   AccentTailwindUtils,
   DarkGrayTailwindUtils,
   DarkModeTailwindUtils,
+  RadixBaseColorTailwindUtils,
   ShadowShadeTailwindUtils,
 } from "./app/lib/colors";
 import themeConfig from "./tailwind.theme.config";
@@ -38,6 +39,11 @@ const config: Config = {
           border: { ...AccentTailwindUtils.border },
           solid: { ...AccentTailwindUtils.solid },
           text: { ...AccentTailwindUtils.text },
+        },
+        radix: {
+          base: {
+            ...RadixBaseColorTailwindUtils,
+          },
         },
       },
       boxShadow: {
