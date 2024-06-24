@@ -76,7 +76,7 @@ const AnimatedIconStack: React.FC<AnimatedIconStackProps> = ({
                 backdropFilter: "blur(10px)",
               }}
               transition={{ duration: 0.3 }}
-              className={`${popoverClassName}  p-3 absolute rounded border border-white border-opacity-20`}
+              className={`${popoverClassName}  p-3 absolute rounded border border-gray-border-1`}
             >
               <IconList
                 className="flex justify-end place-self-end flex-col "
