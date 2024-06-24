@@ -1,4 +1,13 @@
-export const AccentPrimaryColors = {
+export const ShadowShadeValues = {
+  1: "var(--shadow-1)",
+  2: "var(--shadow-2)",
+  3: "var(--shadow-3)",
+  4: "var(--shadow-4)",
+  5: "var(--shadow-5)",
+  6: "var(--shadow-6)",
+};
+
+export const AccentColorValues = {
   1: "var(--accent-1)",
   2: "var(--accent-2)",
   3: "var(--accent-3)",
@@ -13,7 +22,7 @@ export const AccentPrimaryColors = {
   12: "var(--accent-12)",
 };
 
-export const LightPrimaryColors = {
+export const LightColorValues = {
   1: "#ECF0EC",
   2: "#E6EBE6",
   3: "#D8E6D9",
@@ -45,7 +54,7 @@ export const LightGrayColors = {
 
 export const LightBackgroundColor = "#E9F6E9";
 
-export const DarkPrimaryColors = {
+export const DarkColorValues = {
   1: "#1B211B",
   2: "#1F251F",
   3: "#243526",
@@ -79,20 +88,35 @@ export const DarkBackgroundColor = "#1A211E";
 
 // Above this line is cosmetic, below is functional
 
+export const ShadowShades = {
+  shadow: ShadowShadeValues,
+};
+
 export const AccentColors = {
-  accent: AccentPrimaryColors,
+  accent: AccentColorValues,
 };
 
 export const DarkModeColors = {
-  primary: DarkPrimaryColors,
+  primary: DarkColorValues,
   gray: DarkGrayColors,
   background: DarkBackgroundColor,
 };
 
 export const LightModeColors = {
-  primary: LightPrimaryColors,
+  primary: LightColorValues,
   gray: LightGrayColors,
   background: LightBackgroundColor,
+};
+
+export const ShadowShadeTailwindColors = {
+  shadow: {
+    1: ShadowShadeValues[1],
+    2: ShadowShadeValues[2],
+    3: ShadowShadeValues[3],
+    4: ShadowShadeValues[4],
+    5: ShadowShadeValues[5],
+    6: ShadowShadeValues[6],
+  },
 };
 
 export const AccentTailwindColors = {

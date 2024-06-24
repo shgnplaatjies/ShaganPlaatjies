@@ -3,6 +3,7 @@ import {
   AccentTailwindColors,
   DarkGrayTailwindColors,
   DarkModeTailwindColors,
+  ShadowShadeTailwindColors,
 } from "./app/lib/colors";
 import themeConfig from "./tailwind.theme.config";
 
@@ -37,6 +38,9 @@ const config: Config = {
           border: { ...AccentTailwindColors.border },
           solid: { ...AccentTailwindColors.solid },
           text: { ...AccentTailwindColors.text },
+        },
+        shadow: {
+          level: { ...ShadowShadeTailwindColors.shadow },
         },
       },
     },
