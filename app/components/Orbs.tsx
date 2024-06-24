@@ -2,7 +2,7 @@
 import { Box } from "@radix-ui/themes";
 import { animated, useScroll } from "@react-spring/web";
 import React, { MutableRefObject } from "react";
-import { DarkModeTailwindColors } from "../lib/colors";
+import { DarkModeTailwindUtils } from "../lib/colors";
 import PulsingCircle from "./animations/PulsingCircle";
 
 type OrbProps = {
@@ -16,7 +16,7 @@ const Orbs: React.FC<OrbProps> = ({
   className = "",
   pulseDuration = 5000,
   scrollRef,
-  color = DarkModeTailwindColors.solid[1],
+  color = DarkModeTailwindUtils.solid[1],
 }: OrbProps) => {
   const { scrollYProgress } = useScroll({
     container: scrollRef as MutableRefObject<HTMLElement>,

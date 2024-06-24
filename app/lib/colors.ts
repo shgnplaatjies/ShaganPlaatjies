@@ -108,7 +108,7 @@ export const LightModeColors = {
   background: LightBackgroundColor,
 };
 
-export const ShadowShadeTailwindColors = {
+export const ShadowShadeTailwindUtils = {
   shadow: {
     1: ShadowShadeValues[1],
     2: ShadowShadeValues[2],
@@ -119,7 +119,7 @@ export const ShadowShadeTailwindColors = {
   },
 };
 
-export const AccentTailwindColors = {
+export const AccentTailwindUtils = {
   bg: {
     1: AccentColors.accent[1],
     2: AccentColors.accent[1],
@@ -144,7 +144,7 @@ export const AccentTailwindColors = {
   },
 };
 
-export const DarkModeTailwindColors = {
+export const DarkModeTailwindUtils = {
   bg: {
     1: DarkModeColors.background,
     2: DarkModeColors.primary[1],
@@ -170,7 +170,7 @@ export const DarkModeTailwindColors = {
   },
 };
 
-export const DarkGrayTailwindColors = {
+export const DarkGrayTailwindUtils = {
   bg: {
     2: DarkModeColors.gray[1],
     3: DarkModeColors.gray[2],
@@ -195,7 +195,7 @@ export const DarkGrayTailwindColors = {
   },
 };
 
-export const LightModeTailwindColors = {
+export const LightModeTailwindUtils = {
   bg: {
     1: LightModeColors.background,
     2: LightModeColors.primary[1],
@@ -221,7 +221,7 @@ export const LightModeTailwindColors = {
   },
 };
 
-export const LightGrayTailwindColors = {
+export const LightGrayTailwindUtils = {
   bg: {
     2: LightModeColors.gray[1],
     3: LightModeColors.gray[2],
