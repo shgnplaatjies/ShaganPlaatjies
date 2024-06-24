@@ -39,9 +39,9 @@ const config: Config = {
           solid: { ...AccentTailwindUtils.solid },
           text: { ...AccentTailwindUtils.text },
         },
-        shadow: {
-          level: { ...ShadowShadeTailwindUtils.shadow },
-        },
+      },
+      boxShadow: {
+        ...ShadowShadeTailwindUtils,
       },
     },
   },

@@ -27,11 +27,11 @@ const MainLayout: React.FC<{
 
   return (
     <Theme accentColor={orbColor.radixColor} className="w-full h-full">
-      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-white border-opacity-20 backdrop-blur-3xl bg-gradient-to-br shadow-inner shadow-slate-700">
-        <Header className="h-auto py-2 px-4 flex place-content-center border-b border-opacity-10 border-white" />
+      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 backdrop-blur-3xl">
+        <Header className="h-auto py-2 px-4 flex place-content-center border-b border-gray-border-1" />
 
         <main className="flex flex-grow flex-row overflow-hidden">
-          <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-opacity-10 border-white" />
+          <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-gray-border-1" />
 
           <ScrollArea ref={scrollAreaRef}>
             <Orbs
@@ -47,7 +47,7 @@ const MainLayout: React.FC<{
         </main>
 
         <footer>
-          <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-white border-opacity-10 sticky bottom-0 " />
+          <FootPanel className="h-auto py-3 px-4 flex place-content-center border-t border-gray-border-1 sticky bottom-0" />
         </footer>
       </Flex>
     </Theme>
