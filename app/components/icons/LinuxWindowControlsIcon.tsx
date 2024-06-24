@@ -1,3 +1,5 @@
+import { Flex } from "@radix-ui/themes";
+
 type LinuxWindowControlsIconProps = {
   type: "close" | "minimize" | "maximize";
 };
@@ -15,9 +17,11 @@ const LinuxWindowControlsIcon: React.FC<LinuxWindowControlsIconProps> = ({
     }
   };
   return (
-    <svg>
-      <circle cx="50%" cy="50%" r="5" fill={getColor()} />
-    </svg>
+    <Flex>
+      <svg width="1rem" height="1rem">
+        <circle cx="50%" cy="50%" r="5" fill={getColor()} />
+      </svg>
+    </Flex>
   );
 };
 
