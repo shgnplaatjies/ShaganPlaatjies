@@ -287,35 +287,114 @@ export interface WpPostApiResponse {
   };
 }
 
-export const fetchWpPosts = cache(async () => {
-  try {
-    const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
-    const res = await fetch(wpPostsUri);
+export const fetchWpAllCategories = cache(
+  async (): Promise<WpCategoryApiResponse[] | false> => {
+    try {
+      const wpCategoriesUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/categories`;
+      const res = await fetch(wpCategoriesUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-});
+);
 
-const fetchWpPostById = cache(async (target: number) => {
-  try {
-    const wpPostUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}${target}`;
-    const res = await fetch(wpPostUri);
+export const fetchWpAllTags = cache(
+  async (): Promise<WpTagApiResponse[] | false> => {
+    try {
+      const wpTagsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/tags`;
+      const res = await fetch(wpTagsUri);
 
-    if (!res.ok) return 1;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-});
+);
 
-const fetchWpPostBySlug = cache(async (target: string | number) => {
+export const fetchWpTags = cache(
+  async (ids: number[]): Promise<WpTagApiResponse[] | false> => {
+    try {
+      const tags = await fetchWpAllTags();
+
+      if (!tags) return false;
+
+      return tags.filter((tag) => ids.includes(tag.id));
+    } catch (error) {
+      return false;
+    }
+  }
+);
+
+export const fetchWpCategories = cache(
+  async (ids: number[]): Promise<WpCategoryApiResponse[] | false> => {
+    try {
+      const categories = await fetchWpAllCategories();
+
+      if (!categories) return false;
+
+      return categories.filter((category) => ids.includes(category.id));
+    } catch (error) {
+      return false;
+    }
+  }
+);
+
+export const fetchSingleWpMedia = cache(
+  async (id: number): Promise<WpMediaApiResponse | false> => {
+    try {
+      const wpMediaUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/media/${id}`;
+      const res = await fetch(wpMediaUri);
+
+      if (!res.ok) return false;
+
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
+  }
+);
+
+export const fetchWpPosts = cache(
+  async (): Promise<WpPostApiResponse[] | false> => {
+    try {
+      const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
+      const res = await fetch(wpPostsUri);
+
+      if (!res.ok) return false;
+
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
+  }
+);
+
+const fetchWpPostById = cache(
+  async (target: number): Promise<WpPostApiResponse | false> => {
+    try {
+      const wpPostUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}${target}`;
+      const res = await fetch(wpPostUri);
+
+      if (!res.ok) return false;
+
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
+  }
+);
+
+const fetchSingleWpPost = cache(async (target: string | number) => {
   try {
-    const posts: WpPostApiResponse[] = await fetchWpPosts();
+    const posts: WpPostApiResponse[] | false = await fetchWpPosts();
+
+    if (!posts) return false;
 
     const condition =
       typeof target === "number"
@@ -334,7 +413,7 @@ const fetchWpPostBySlug = cache(async (target: string | number) => {
 
 export const fetchWpPost = cache(async (target: string | number) => {
   if (typeof target === "number") return fetchWpPostById(target);
-  else return fetchWpPostBySlug(target);
+  else return fetchSingleWpPost(target);
 });
 
 export const preload = (target: string | number) => {
