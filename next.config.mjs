@@ -16,7 +16,7 @@ export default {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: `${process.env.WP_DOMAIN}`,
+        hostname: process.env.WP_DOMAIN,
         pathname: "/wp-content/uploads/**",
       },
     ],
