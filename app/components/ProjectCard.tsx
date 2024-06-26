@@ -9,10 +9,9 @@ export type BlogPostExcerpt = {
   status: string;
   link: string;
   titleRendered: string;
-  excerptRendered: string;
   featuredMedia: number;
-  categories: number[];
-  tags: number[];
+  categories?: string[];
+  tags?: string[];
 };
 
 export type ProjectCardProps = { post: BlogPostExcerpt };
@@ -39,7 +38,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     status,
     link,
     titleRendered,
-    excerptRendered,
     featuredMedia,
     categories,
     tags,
