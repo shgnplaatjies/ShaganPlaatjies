@@ -1,3 +1,6 @@
+export const DefaultFeaturedImage =
+  "/images/default-project-featured-image.webp";
+
 export const CONTACT_INFO = {
   email: "hello@shaganplaatjies.co.za",
   phone: "+27765527856",
