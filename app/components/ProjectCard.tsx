@@ -9,7 +9,7 @@ export type BlogPostExcerpt = {
   status: string;
   link: string;
   titleRendered: string;
-  featuredMedia: number;
+  featuredMedia?: string; // url
   categories?: string[];
   tags?: string[];
 };
@@ -38,7 +38,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     status,
     link,
     titleRendered,
-    featuredMedia,
+    featuredMedia = DefaultFeaturedImage,
     categories,
     tags,
   },
