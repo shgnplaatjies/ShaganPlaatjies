@@ -2,12 +2,32 @@ import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
 import { Flex, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";
-import { WpPostApiResponse, fetchWpPosts } from "../../lib/server-lib";
+import {
+  WpCategoryApiResponse,
+  WpPostApiResponse,
+  WpTagApiResponse,
+  fetchWpAllCategories,
+  fetchWpAllTags,
+  fetchWpPosts,
+} from "../../lib/server-lib";
 
 export const revalidate = 3600; // 1 hour
 
 const PostsSection: React.FC = async () => {
   const posts: WpPostApiResponse[] | false = await fetchWpPosts();
+  const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
+  const categories: WpCategoryApiResponse[] | false =
+    await fetchWpAllCategories();
+
+  if (!posts || !tags || !categories) return <PlaceholderPost />;
+
+  const getTaxonomyNamesByIds = (
+    ids: number[],
+    taxonomy: WpCategoryApiResponse[] | WpTagApiResponse[]
+  ) =>
+    ids
+      .map((id) => taxonomy.find((tax) => tax.id === id)?.name)
+      .filter(Boolean) as string[] | undefined;
 
   return (
     <Section>
@@ -37,8 +57,11 @@ const PostsSection: React.FC = async () => {
                   link: post.link,
                   titleRendered: post.title.rendered,
                   featuredMedia: post.featured_media,
-                  categories: post.categories,
-                  tags: post.tags,
+                  categories: getTaxonomyNamesByIds(
+                    post.categories,
+                    categories
+                  ),
+                  tags: getTaxonomyNamesByIds(post.tags, tags),
                 }}
               />
             ))
