@@ -317,7 +317,7 @@ export const fetchWpAllTags = cache(
   }
 );
 
-export const fetchWpTags = cache(
+export const fetchWpTagsById = cache(
   async (ids: number[]): Promise<WpTagApiResponse[] | false> => {
     try {
       const tags = await fetchWpAllTags();
@@ -331,7 +331,7 @@ export const fetchWpTags = cache(
   }
 );
 
-export const fetchWpCategories = cache(
+export const fetchWpCategoriesById = cache(
   async (ids: number[]): Promise<WpCategoryApiResponse[] | false> => {
     try {
       const categories = await fetchWpAllCategories();
