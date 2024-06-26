@@ -33,6 +33,7 @@ jobs:
       NODE_DIR: ${{ secrets.NODE_DIR }};
       ALLOWED_ORIGIN: ${{ secrets.ALLOWED_ORIGIN }}
       RESTART_FILE_PATH: ${{ secrets.RESTART_FILE_PATH }}
+      WP_DOMAIN: ${{ secrets.WP_DOMAIN }}
 
     steps:
       - name: Clone repository

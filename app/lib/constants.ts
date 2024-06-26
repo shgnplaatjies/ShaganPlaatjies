@@ -1,3 +1,6 @@
+export const DefaultFeaturedImage =
+  "/images/default-project-featured-image.webp";
+
 export const CONTACT_INFO = {
   email: "hello@shaganplaatjies.co.za",
   phone: "+27765527856",
@@ -30,24 +33,33 @@ export type OrbColorOnPagesConfigType = {
 };
 
 export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
-  home: { path: "/", color: "fill-primary-border-3", radixColor: "grass" },
-  about: { path: "/about", color: "fill-red-400", radixColor: "tomato" },
+  default: { path: "", color: "fill-radix-base-gray", radixColor: "gray" },
+  home: { path: "/", color: "fill-radix-base-grass", radixColor: "grass" },
+  about: {
+    path: "/about",
+    color: "fill-radix-base-tomato",
+    radixColor: "tomato",
+  },
   projects: {
     path: "/experience",
-    color: "fill-yellow-300",
+    color: "fill-radix-base-lime",
     radixColor: "lime",
   },
   experiments: {
     path: "/experiments",
-    color: "fill-blue-500",
+    color: "fill-radix-base-cyan",
     radixColor: "cyan",
   },
   blog: {
     path: "/posts",
-    color: "fill-purple-500",
+    color: "fill-radix-base-violet",
     radixColor: "violet",
   },
-  contact: { path: "/contact", color: "fill-slate-500", radixColor: "sky" },
+  contact: {
+    path: "/contact",
+    color: "fill-radix-base-sky",
+    radixColor: "sky",
+  },
 };
 
 export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time

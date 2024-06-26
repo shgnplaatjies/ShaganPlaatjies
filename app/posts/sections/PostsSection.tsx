@@ -1,38 +1,47 @@
-import { Box, DataList, Grid, Section, Text } from "@radix-ui/themes";
+import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
+import { Flex, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";
-import { WpPost, fetchWpPosts } from "../../lib/server-lib";
-import { cutOffText } from "../../lib/utils";
+import {
+  WpCategoryApiResponse,
+  WpPostApiResponse,
+  WpTagApiResponse,
+  fetchSingleWpMedia,
+  fetchWpAllCategories,
+  fetchWpAllTags,
+  fetchWpPosts,
+} from "../../lib/server-lib";
 
 export const revalidate = 3600; // 1 hour
 
-const PlaceholderPost = ({
-  text = "Loading blog posts..",
-  title = "Loading...",
-}: {
-  text?: string;
-  title?: string;
-}) => (
-  <DataList.Item>
-    <DataList.Label>{title}</DataList.Label>
-    <DataList.Value>
-      <Text as="p">{text}</Text>
-    </DataList.Value>
-  </DataList.Item>
-);
-
 const PostsSection: React.FC = async () => {
-  const posts: WpPost[] | false = await fetchWpPosts();
+  const posts: WpPostApiResponse[] | false = await fetchWpPosts();
+  const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
+  const categories: WpCategoryApiResponse[] | false =
+    await fetchWpAllCategories();
+
+  if (!posts || !tags || !categories) return <PlaceholderPost />;
+
+  const getTaxonomyNamesByIds = (
+    ids: number[],
+    taxonomy: WpCategoryApiResponse[] | WpTagApiResponse[]
+  ) =>
+    ids
+      .map((id) => taxonomy.find((tax) => tax.id === id)?.name)
+      .filter(Boolean) as string[] | undefined;
 
   return (
     <Section>
       <AccentedHeading
+        className="mb-9"
+        wrap="balance"
+        align="center"
         textAs="h1"
         size="9"
         preText="View my "
         accentedText="Blog Posts"
       />
-      <Box>
+      <Flex direction="column" gap="2">
         <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
           {!posts ? (
             <PlaceholderPost
@@ -40,24 +49,31 @@ const PostsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map(({ id, excerpt, date, title }) => (
-              <Grid columns="4" key={id}>
-                <Text as="p" wrap="balance">
-                  {id}
-                </Text>
-                <Text wrap="balance">{title.rendered}</Text>
-
-                <Text as="p" wrap="balance">
-                  {cutOffText(excerpt.rendered, 100)}
-                </Text>
-                <Text as="p" wrap="balance">
-                  {new Date(date).toLocaleDateString()}
-                </Text>
-              </Grid>
+            posts.map(async (post, i) => (
+              <ProjectCard
+                key={post.id}
+                post={{
+                  id: i + 1,
+                  dateGmt: post.date_gmt,
+                  modifiedGmt: post.modified_gmt,
+                  slug: post.slug,
+                  status: post.status,
+                  link: post.link,
+                  titleRendered: post.title.rendered,
+                  featuredMedia: await fetchSingleWpMedia(
+                    post.featured_media
+                  ).then((res) => (res ? res.source_url : undefined)),
+                  categories: getTaxonomyNamesByIds(
+                    post.categories,
+                    categories
+                  ),
+                  tags: getTaxonomyNamesByIds(post.tags, tags),
+                }}
+              />
             ))
           )}
         </Suspense>
-      </Box>
+      </Flex>
     </Section>
   );
 };

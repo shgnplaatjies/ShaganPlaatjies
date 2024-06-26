@@ -1,4 +1,42 @@
-export const AccentPrimaryColors = {
+export const RadixBaseColorValues = {
+  gray: "var(--gray-9)",
+  gold: "var(--gold-9)",
+  bronze: "var(--bronze-9)",
+  brown: "var(--brown-9)",
+  yellow: "var(--yellow-9)",
+  amber: "var(--amber-9)",
+  orange: "var(--orange-9)",
+  tomato: "var(--tomato-9)",
+  red: "var(--red-9)",
+  ruby: "var(--ruby-9)",
+  crimson: "var(--crimson-9)",
+  pink: "var(--pink-9)",
+  plum: "var(--plum-9)",
+  purple: "var(--purple-9)",
+  violet: "var(--violet-9)",
+  iris: "var(--iris-9)",
+  indigo: "var(--indigo-9)",
+  blue: "var(--blue-9)",
+  cyan: "var(--cyan-9)",
+  teal: "var(--teal-9)",
+  jade: "var(--jade-9)",
+  green: "var(--green-9)",
+  grass: "var(--grass-9)",
+  lime: "var(--lime-9)",
+  mint: "var(--mint-9)",
+  sky: "var(--sky-9)",
+};
+
+export const ShadowShadeValues = {
+  1: "var(--shadow-1)",
+  2: "var(--shadow-2)",
+  3: "var(--shadow-3)",
+  4: "var(--shadow-4)",
+  5: "var(--shadow-5)",
+  6: "var(--shadow-6)",
+};
+
+export const AccentColorValues = {
   1: "var(--accent-1)",
   2: "var(--accent-2)",
   3: "var(--accent-3)",
@@ -13,7 +51,7 @@ export const AccentPrimaryColors = {
   12: "var(--accent-12)",
 };
 
-export const LightPrimaryColors = {
+export const LightColorValues = {
   1: "#ECF0EC",
   2: "#E6EBE6",
   3: "#D8E6D9",
@@ -45,7 +83,7 @@ export const LightGrayColors = {
 
 export const LightBackgroundColor = "#E9F6E9";
 
-export const DarkPrimaryColors = {
+export const DarkColorValues = {
   1: "#1B211B",
   2: "#1F251F",
   3: "#243526",
@@ -79,23 +117,42 @@ export const DarkBackgroundColor = "#1A211E";
 
 // Above this line is cosmetic, below is functional
 
+export const RadixBaseColors = {
+  color: RadixBaseColorValues,
+};
+
+export const ShadowShades = {
+  shadow: ShadowShadeValues,
+};
+
 export const AccentColors = {
-  accent: AccentPrimaryColors,
+  accent: AccentColorValues,
 };
 
 export const DarkModeColors = {
-  primary: DarkPrimaryColors,
+  primary: DarkColorValues,
   gray: DarkGrayColors,
   background: DarkBackgroundColor,
 };
 
 export const LightModeColors = {
-  primary: LightPrimaryColors,
+  primary: LightColorValues,
   gray: LightGrayColors,
   background: LightBackgroundColor,
 };
 
-export const AccentTailwindColors = {
+export const RadixBaseColorTailwindUtils = { ...RadixBaseColors.color };
+
+export const ShadowShadeTailwindUtils = {
+  "theme-inset": ShadowShadeValues[1],
+  "theme-classic-1": ShadowShadeValues[2],
+  "theme-classic-2": ShadowShadeValues[3],
+  "theme-sm-1": ShadowShadeValues[4],
+  "theme-sm-2": ShadowShadeValues[5],
+  "theme-large": ShadowShadeValues[6],
+};
+
+export const AccentTailwindUtils = {
   bg: {
     1: AccentColors.accent[1],
     2: AccentColors.accent[1],
@@ -120,7 +177,7 @@ export const AccentTailwindColors = {
   },
 };
 
-export const DarkModeTailwindColors = {
+export const DarkModeTailwindUtils = {
   bg: {
     1: DarkModeColors.background,
     2: DarkModeColors.primary[1],
@@ -146,7 +203,7 @@ export const DarkModeTailwindColors = {
   },
 };
 
-export const DarkGrayTailwindColors = {
+export const DarkGrayTailwindUtils = {
   bg: {
     2: DarkModeColors.gray[1],
     3: DarkModeColors.gray[2],
@@ -171,7 +228,7 @@ export const DarkGrayTailwindColors = {
   },
 };
 
-export const LightModeTailwindColors = {
+export const LightModeTailwindUtils = {
   bg: {
     1: LightModeColors.background,
     2: LightModeColors.primary[1],
@@ -197,7 +254,7 @@ export const LightModeTailwindColors = {
   },
 };
 
-export const LightGrayTailwindColors = {
+export const LightGrayTailwindUtils = {
   bg: {
     2: LightModeColors.gray[1],
     3: LightModeColors.gray[2],
