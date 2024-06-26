@@ -1,5 +1,5 @@
 import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
-import { Box, Section } from "@radix-ui/themes";
+import { Flex, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";
 import { WpPost, fetchWpPosts } from "../../lib/server-lib";
@@ -17,7 +17,7 @@ const PostsSection: React.FC = async () => {
         preText="View my "
         accentedText="Blog Posts"
       />
-      <Box>
+      <Flex direction="column" gap="2">
         <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
           {!posts ? (
             <PlaceholderPost
@@ -25,18 +25,17 @@ const PostsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map((WpPost) => (
+            posts.map((WpPost, i) => (
               <ProjectCard
                 key={WpPost.id}
                 post={{
-                  id: WpPost.id,
+                  id: i + 1,
                   dateGmt: WpPost.date_gmt,
                   modifiedGmt: WpPost.modified_gmt,
                   slug: WpPost.slug,
                   status: WpPost.status,
                   link: WpPost.link,
                   titleRendered: WpPost.title.rendered,
-                  excerptRendered: WpPost.excerpt.rendered,
                   featuredMedia: WpPost.featured_media,
                   categories: WpPost.categories,
                   tags: WpPost.tags,
@@ -45,7 +44,7 @@ const PostsSection: React.FC = async () => {
             ))
           )}
         </Suspense>
-      </Box>
+      </Flex>
     </Section>
   );
 };
