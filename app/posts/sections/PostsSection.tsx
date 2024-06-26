@@ -1,25 +1,10 @@
-import { Box, DataList, Grid, Section, Text } from "@radix-ui/themes";
+import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
+import { Box, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";
 import { WpPost, fetchWpPosts } from "../../lib/server-lib";
-import { cutOffText } from "../../lib/utils";
 
 export const revalidate = 3600; // 1 hour
-
-const PlaceholderPost = ({
-  text = "Loading blog posts..",
-  title = "Loading...",
-}: {
-  text?: string;
-  title?: string;
-}) => (
-  <DataList.Item>
-    <DataList.Label>{title}</DataList.Label>
-    <DataList.Value>
-      <Text as="p">{text}</Text>
-    </DataList.Value>
-  </DataList.Item>
-);
 
 const PostsSection: React.FC = async () => {
   const posts: WpPost[] | false = await fetchWpPosts();
@@ -40,20 +25,23 @@ const PostsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map(({ id, excerpt, date, title }) => (
-              <Grid columns="4" key={id}>
-                <Text as="p" wrap="balance">
-                  {id}
-                </Text>
-                <Text wrap="balance">{title.rendered}</Text>
-
-                <Text as="p" wrap="balance">
-                  {cutOffText(excerpt.rendered, 100)}
-                </Text>
-                <Text as="p" wrap="balance">
-                  {new Date(date).toLocaleDateString()}
-                </Text>
-              </Grid>
+            posts.map((WpPost) => (
+              <ProjectCard
+                key={WpPost.id}
+                post={{
+                  id: WpPost.id,
+                  dateGmt: WpPost.date_gmt,
+                  modifiedGmt: WpPost.modified_gmt,
+                  slug: WpPost.slug,
+                  status: WpPost.status,
+                  link: WpPost.link,
+                  titleRendered: WpPost.title.rendered,
+                  excerptRendered: WpPost.excerpt.rendered,
+                  featuredMedia: WpPost.featured_media,
+                  categories: WpPost.categories,
+                  tags: WpPost.tags,
+                }}
+              />
             ))
           )}
         </Suspense>
