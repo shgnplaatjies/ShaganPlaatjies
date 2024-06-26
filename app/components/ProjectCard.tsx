@@ -25,9 +25,8 @@ export const PlaceholderPost = ({
   title?: string;
 }) => (
   <Flex>
-    <p>Loading...</p>
-    <h1>Loading...</h1>
-    <p>Loading...</p>
+    <h1>{title}</h1>
+    <p>{text}</p>
   </Flex>
 );
 
