@@ -12,4 +12,13 @@ export default {
       ],
     },
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: process.env.WP_DOMAIN,
+        pathname: "/wp-content/uploads/**",
+      },
+    ],
+  },
 };
