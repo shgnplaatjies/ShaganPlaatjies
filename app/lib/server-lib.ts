@@ -3,18 +3,108 @@ import "server-only";
 
 export interface WpPost {
   id: number;
-  title: {
-    rendered: string;
+  date: string; // DateTimeString,
+  date_gmt: string; // DateTimeString (GMT)
+  guid: {
+    rendered: string; // Pattern:  "https:\/\/{process.NODE_BLOG_DOMAIN}/?p={id}"
   };
+  modified: string; // DateTimeString,
+  modified_gmt: string; // DateTimeString (GMT)
+  slug: string; // url friendly slug,
   status: "publish" | "draft" | "pending" | "private" | "trash";
+  type:
+    | "post"
+    | "page"
+    | "attachment"
+    | "revision"
+    | "nav_menu_item"
+    | "custom_css"
+    | "customize_changeset"
+    | "oembed_cache"
+    | "user_request"
+    | "wp_block"
+    | "acf-field"
+    | "acf-field-group";
+  link: string; // Pattern: "https:\/\/{process.NODE_BLOG_DOMAIN}/*"
+  title: {
+    rendered: string; // HTML Code
+  };
   content: {
-    rendered: string;
+    rendered: string; // HTML Code
+    protected: boolean;
   };
   excerpt: {
-    rendered: string;
+    rendered: string; // HTML Code
+    protected: boolean;
   };
-  date: string;
-  slug: string;
+  author: number;
+  featured_media: number;
+  comment_status: "open" | "closed";
+  ping_status: "open" | "closed";
+  sticky: boolean;
+  template: string;
+  format:
+    | "standard"
+    | "aside"
+    | "chat"
+    | "gallery"
+    | "link"
+    | "image"
+    | "quote"
+    | "status"
+    | "video"
+    | "audio";
+  meta: {
+    _acf_changed: boolean;
+    footnotes: string;
+  };
+  categories: number[];
+  tags: number[];
+  acf: any[];
+  _links: {
+    self: {
+      href: string;
+    }[];
+    collection: {
+      href: string;
+    }[];
+    about: {
+      href: string;
+    }[];
+    author: {
+      embeddable: boolean;
+      href: string;
+    }[];
+    replies: {
+      embeddable: boolean;
+      href: string;
+    }[];
+    "version-history": {
+      count: number;
+      href: string;
+    }[];
+    "predecessor-version": {
+      id: number;
+      href: string;
+    }[];
+    "wp:featuredmedia": {
+      embeddable: boolean;
+      href: string;
+    }[];
+    "wp:attachment": {
+      href: string;
+    }[];
+    "wp:term": {
+      taxonomy: "category" | "post_tag";
+      embeddable: boolean;
+      href: string;
+    }[];
+    curies: {
+      name: string;
+      href: string;
+      templated: boolean;
+    }[];
+  };
 }
 
 export const fetchWpPosts = cache(async () => {
