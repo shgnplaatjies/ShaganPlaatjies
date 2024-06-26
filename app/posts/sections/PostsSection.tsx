@@ -6,6 +6,7 @@ import {
   WpCategoryApiResponse,
   WpPostApiResponse,
   WpTagApiResponse,
+  fetchSingleWpMedia,
   fetchWpAllCategories,
   fetchWpAllTags,
   fetchWpPosts,
@@ -45,7 +46,7 @@ const PostsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map((post, i) => (
+            posts.map(async (post, i) => (
               <ProjectCard
                 key={post.id}
                 post={{
@@ -56,7 +57,9 @@ const PostsSection: React.FC = async () => {
                   status: post.status,
                   link: post.link,
                   titleRendered: post.title.rendered,
-                  featuredMedia: post.featured_media,
+                  featuredMedia: await fetchSingleWpMedia(
+                    post.featured_media
+                  ).then((res) => (res ? res.source_url : undefined)),
                   categories: getTaxonomyNamesByIds(
                     post.categories,
                     categories
