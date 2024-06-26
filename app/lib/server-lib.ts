@@ -1,7 +1,199 @@
 import { cache } from "react";
 import "server-only";
 
-export interface WpPost {
+type WpMimeType =
+  | "image/jpeg"
+  | "image/png"
+  | "image/gif"
+  | "video/mp4"
+  | "audio/mpeg"
+  | "application/pdf"
+  | "text/plain";
+
+type WpMediaType = "image" | "video" | "audio" | "application" | "text";
+
+type WpStatus =
+  | "inherit"
+  | "publish"
+  | "future"
+  | "draft"
+  | "pending"
+  | "private"
+  | "trash";
+
+type WpPostTypes =
+  | "post"
+  | "page"
+  | "attachment"
+  | "revision"
+  | "nav_menu_item"
+  | "custom_css"
+  | "customize_changeset"
+  | "oembed_cache"
+  | "user_request"
+  | "wp_block"
+  | "acf-field"
+  | "acf-field-group";
+
+export interface WpMediaVersion {
+  file: string;
+  width: number;
+  height: number;
+  filesize: number;
+  mime_type: WpMimeType;
+  source_url: string;
+}
+
+export interface WpTagApiResponse {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+  meta: any[];
+  _links: {
+    self: {
+      href: string;
+    }[];
+    collection: {
+      href: string;
+    }[];
+    about: {
+      href: string;
+    }[];
+    "wp:post_type": {
+      href: string;
+    }[];
+    curies: {
+      name: string;
+      href: string;
+      templated: boolean;
+    }[];
+  };
+}
+
+export interface WpCategoryApiResponse {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+  parent: number;
+  meta: any[];
+  acf: any[];
+  _links: {
+    self: {
+      href: string;
+    }[];
+    collection: {
+      href: string;
+    }[];
+    about: {
+      href: string;
+    }[];
+    "wp:post_type": {
+      href: string;
+    }[];
+    curies: {
+      name: string;
+      href: string;
+      templated: boolean;
+    }[];
+  };
+}
+
+export interface WpMediaApiResponse {
+  id: number;
+  date: string; // date
+  date_gmt: string; // date
+  guid: {
+    rendered: string; // url
+  };
+  modified: string; // date
+  modified_gmt: string; // date
+  slug: string; // url friendly
+  status: WpStatus;
+  type: "attachment" | WpMediaType;
+  link: string; // url
+  title: {
+    rendered: string;
+  };
+  author: number;
+  featured_media: number;
+  comment_status: "open" | "closed";
+  ping_status: "open" | "closed";
+  template: string;
+  meta: {
+    _acf_changed: boolean;
+  };
+  acf: any[];
+  description: {
+    rendered: string;
+  };
+  caption: {
+    rendered: string;
+  };
+  alt_text: string;
+  media_type: WpMediaType;
+  mime_type: WpMimeType;
+  media_details: {
+    width: number;
+    height: number;
+    file: string;
+    filesize: number;
+    sizes: {
+      medium: WpMediaVersion;
+      large: WpMediaVersion;
+      thumbnail: WpMediaVersion;
+      medium_large: WpMediaVersion;
+      "1536x1536": WpMediaVersion;
+      "2048x2048": WpMediaVersion;
+      full: WpMediaVersion;
+    };
+    image_meta: {
+      aperture: string;
+      credit: string;
+      camera: string;
+      caption: string;
+      created_timestamp: string;
+      copyright: string;
+      focal_length: string;
+      iso: string;
+      shutter_speed: string;
+      title: string;
+      orientation: string;
+      keywords: string[];
+    };
+    original_image: string;
+  };
+  post: number;
+  source_url: string;
+  _links: {
+    self: {
+      href: string;
+    }[];
+    collection: {
+      href: string;
+    }[];
+    about: {
+      href: string;
+    }[];
+    author: {
+      embeddable: boolean;
+      href: string;
+    }[];
+    replies: {
+      embeddable: boolean;
+      href: string;
+    }[];
+  };
+}
+
+export interface WpPostApiResponse {
   id: number;
   date: string; // DateTimeString,
   date_gmt: string; // DateTimeString (GMT)
@@ -11,20 +203,8 @@ export interface WpPost {
   modified: string; // DateTimeString,
   modified_gmt: string; // DateTimeString (GMT)
   slug: string; // url friendly slug,
-  status: "publish" | "draft" | "pending" | "private" | "trash";
-  type:
-    | "post"
-    | "page"
-    | "attachment"
-    | "revision"
-    | "nav_menu_item"
-    | "custom_css"
-    | "customize_changeset"
-    | "oembed_cache"
-    | "user_request"
-    | "wp_block"
-    | "acf-field"
-    | "acf-field-group";
+  status: WpStatus;
+  type: WpPostTypes;
   link: string; // Pattern: "https:\/\/{process.NODE_BLOG_DOMAIN}/*"
   title: {
     rendered: string; // HTML Code
@@ -135,12 +315,12 @@ const fetchWpPostById = cache(async (target: number) => {
 
 const fetchWpPostBySlug = cache(async (target: string | number) => {
   try {
-    const posts: WpPost[] = await fetchWpPosts();
+    const posts: WpPostApiResponse[] = await fetchWpPosts();
 
     const condition =
       typeof target === "number"
-        ? (post: WpPost) => post.id === target
-        : (post: WpPost) => post.slug === target;
+        ? (post: WpPostApiResponse) => post.id === target
+        : (post: WpPostApiResponse) => post.slug === target;
 
     const post = posts.find(condition);
 

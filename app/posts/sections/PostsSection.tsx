@@ -2,12 +2,12 @@ import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
 import { Flex, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";
-import { WpPost, fetchWpPosts } from "../../lib/server-lib";
+import { WpPostApiResponse, fetchWpPosts } from "../../lib/server-lib";
 
 export const revalidate = 3600; // 1 hour
 
 const PostsSection: React.FC = async () => {
-  const posts: WpPost[] | false = await fetchWpPosts();
+  const posts: WpPostApiResponse[] | false = await fetchWpPosts();
 
   return (
     <Section>
@@ -25,20 +25,20 @@ const PostsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map((WpPost, i) => (
+            posts.map((post, i) => (
               <ProjectCard
-                key={WpPost.id}
+                key={post.id}
                 post={{
                   id: i + 1,
-                  dateGmt: WpPost.date_gmt,
-                  modifiedGmt: WpPost.modified_gmt,
-                  slug: WpPost.slug,
-                  status: WpPost.status,
-                  link: WpPost.link,
-                  titleRendered: WpPost.title.rendered,
-                  featuredMedia: WpPost.featured_media,
-                  categories: WpPost.categories,
-                  tags: WpPost.tags,
+                  dateGmt: post.date_gmt,
+                  modifiedGmt: post.modified_gmt,
+                  slug: post.slug,
+                  status: post.status,
+                  link: post.link,
+                  titleRendered: post.title.rendered,
+                  featuredMedia: post.featured_media,
+                  categories: post.categories,
+                  tags: post.tags,
                 }}
               />
             ))
