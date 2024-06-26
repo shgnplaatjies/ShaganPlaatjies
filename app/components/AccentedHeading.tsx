@@ -1,4 +1,4 @@
-import { Heading, Text } from "@radix-ui/themes";
+import { Flex, Heading, Text } from "@radix-ui/themes";
 import React from "react";
 import { RADIX_HEADING_SIZES, RADIX_HEADING_TYPES } from "../lib/constants";
 
@@ -11,6 +11,7 @@ type AccentedHeadingProps = {
   postText?: string;
   wrap?: "balance" | "wrap" | "nowrap" | "pretty";
   align?: "left" | "center" | "right";
+  className?: string;
 };
 
 const AccentedHeading: React.FC<AccentedHeadingProps> = ({
@@ -22,15 +23,18 @@ const AccentedHeading: React.FC<AccentedHeadingProps> = ({
   preText = "",
   accentedText = "",
   postText = "",
+  className = "",
 }: AccentedHeadingProps) => {
   return (
-    <Heading wrap={wrap} align={align} as={textAs} size={size}>
-      {preText}
-      <Text as="span" size={size} style={{ color: color }}>
-        {accentedText}
-      </Text>
-      {postText}
-    </Heading>
+    <Flex className={className}>
+      <Heading wrap={wrap} align={align} as={textAs} size={size}>
+        {preText}
+        <Text as="span" size={size} style={{ color: color }}>
+          {accentedText}
+        </Text>
+        {postText}
+      </Heading>
+    </Flex>
   );
 };
 
