@@ -33,6 +33,9 @@ const PostsSection: React.FC = async () => {
   return (
     <Section>
       <AccentedHeading
+        className="mb-9"
+        wrap="balance"
+        align="center"
         textAs="h1"
         size="9"
         preText="View my "
