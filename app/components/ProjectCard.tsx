@@ -58,8 +58,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <Image
             className="rounded border border-gray-border-1"
             src={featuredMedia}
-            width={400}
-            height={200}
+            width={200}
+            height={100}
             alt={"Some Image and stuff"}
           />
         </Flex>
