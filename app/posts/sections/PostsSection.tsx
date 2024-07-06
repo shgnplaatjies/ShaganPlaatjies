@@ -12,9 +12,10 @@ import {
   fetchWpPosts,
 } from "../../lib/server-lib";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 10; // 1 hour
 
 const PostsSection: React.FC = async () => {
+  "use server";
   const posts: WpPostApiResponse[] | false = await fetchWpPosts();
   const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
   const categories: WpCategoryApiResponse[] | false =
