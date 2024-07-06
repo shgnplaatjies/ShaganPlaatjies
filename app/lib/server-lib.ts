@@ -1,5 +1,5 @@
+import { cache } from "react";
 import "server-only";
-import { STANDARD_CACHE_TTL } from "./constants";
 
 type WpMimeType =
   | "image/jpeg"
@@ -287,116 +287,110 @@ export interface WpPostApiResponse {
   };
 }
 
-export const fetchWpAllCategories = async (): Promise<
-  WpCategoryApiResponse[] | false
-> => {
-  try {
-    const wpCategoriesUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/categories`;
-    const res = await fetch(wpCategoriesUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+export const fetchWpAllCategories = cache(
+  async (): Promise<WpCategoryApiResponse[] | false> => {
+    try {
+      const wpCategoriesUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/categories`;
+      const res = await fetch(wpCategoriesUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchWpAllTags = async (): Promise<WpTagApiResponse[] | false> => {
-  try {
-    const wpTagsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/tags`;
-    const res = await fetch(wpTagsUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+export const fetchWpAllTags = cache(
+  async (): Promise<WpTagApiResponse[] | false> => {
+    try {
+      const wpTagsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/tags`;
+      const res = await fetch(wpTagsUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchWpTagsById = async (
-  ids: number[]
-): Promise<WpTagApiResponse[] | false> => {
-  try {
-    const tags = await fetchWpAllTags();
+export const fetchWpTagsById = cache(
+  async (ids: number[]): Promise<WpTagApiResponse[] | false> => {
+    try {
+      const tags = await fetchWpAllTags();
 
-    if (!tags) return false;
+      if (!tags) return false;
 
-    return tags.filter((tag) => ids.includes(tag.id));
-  } catch (error) {
-    return false;
+      return tags.filter((tag) => ids.includes(tag.id));
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchWpCategoriesById = async (
-  ids: number[]
-): Promise<WpCategoryApiResponse[] | false> => {
-  try {
-    const categories = await fetchWpAllCategories();
+export const fetchWpCategoriesById = cache(
+  async (ids: number[]): Promise<WpCategoryApiResponse[] | false> => {
+    try {
+      const categories = await fetchWpAllCategories();
 
-    if (!categories) return false;
+      if (!categories) return false;
 
-    return categories.filter((category) => ids.includes(category.id));
-  } catch (error) {
-    return false;
+      return categories.filter((category) => ids.includes(category.id));
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchSingleWpMedia = async (
-  id: number
-): Promise<WpMediaApiResponse | false> => {
-  try {
-    const wpMediaUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/media/${id}`;
-    const res = await fetch(wpMediaUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+export const fetchSingleWpMedia = cache(
+  async (id: number): Promise<WpMediaApiResponse | false> => {
+    try {
+      const wpMediaUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/media/${id}`;
+      const res = await fetch(wpMediaUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-export const fetchWpPosts = async (): Promise<WpPostApiResponse[] | false> => {
-  try {
-    const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
-    const res = await fetch(wpPostsUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+export const fetchWpPosts = cache(
+  async (): Promise<WpPostApiResponse[] | false> => {
+    try {
+      const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
+      const res = await fetch(wpPostsUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-const fetchWpPostById = async (
-  target: number
-): Promise<WpPostApiResponse | false> => {
-  try {
-    const wpPostUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}${target}`;
-    const res = await fetch(wpPostUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+const fetchWpPostById = cache(
+  async (target: number): Promise<WpPostApiResponse | false> => {
+    try {
+      const wpPostUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}${target}`;
+      const res = await fetch(wpPostUri);
 
-    if (!res.ok) return false;
+      if (!res.ok) return false;
 
-    return await res.json();
-  } catch (error) {
-    return false;
+      return await res.json();
+    } catch (error) {
+      return false;
+    }
   }
-};
+);
 
-const fetchSingleWpPost = async (target: string | number) => {
+const fetchSingleWpPost = cache(async (target: string | number) => {
   try {
     const posts: WpPostApiResponse[] | false = await fetchWpPosts();
 
@@ -415,9 +409,13 @@ const fetchSingleWpPost = async (target: string | number) => {
   } catch (error) {
     return false;
   }
-};
+});
 
-export const fetchWpPost = async (target: string | number) => {
+export const fetchWpPost = cache(async (target: string | number) => {
   if (typeof target === "number") return fetchWpPostById(target);
   else return fetchSingleWpPost(target);
+});
+
+export const preload = (target: string | number) => {
+  void fetchWpPost(target);
 };
