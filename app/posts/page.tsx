@@ -1,4 +1,4 @@
-import LandingSection from "../contact/sections/LandingSection";
+import LandingSection from "../sections/LandingSection";
 import PostsSection from "./sections/PostsSection";
 
 const PostsPage: React.FC = () => {
