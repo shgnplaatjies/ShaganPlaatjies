@@ -1,8 +1,8 @@
+import { DefaultFeaturedImage } from "@/app/lib/constants";
 import { Box, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import React from "react";
-import { DefaultFeaturedImage } from "../lib/constants";
-import TaxonomyList from "./TaxonomyList";
+import TaxonomyList from "../TaxonomyList";
 
 export type BlogPostExcerpt = {
   id: number;
