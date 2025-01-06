@@ -1,4 +1,5 @@
-import ProjectCard, { PlaceholderPost } from "@/app/components/ProjectCard";
+import { PlaceholderPost } from "@/app/components/ProjectCard/PlaceholderProject";
+import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
 import { Flex, Section } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../../components/AccentedHeading";

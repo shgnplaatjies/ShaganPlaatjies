@@ -17,22 +17,7 @@ export type BlogPostExcerpt = {
   tags?: string[];
 };
 
-export type ProjectCardProps = { post: BlogPostExcerpt };
-
-export const PlaceholderPost = ({
-  text = "Loading blog posts..",
-  title = "Loading...",
-}: {
-  text?: string;
-  title?: string;
-}) => (
-  <Flex>
-    <h1>{title}</h1>
-    <p>{text}</p>
-  </Flex>
-);
-
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
   post: {
     id,
     dateGmt,
