@@ -16,7 +16,7 @@ const LandingSection: React.FC = () => {
           textAs="h1"
           align="center"
           size="9"
-          preText="Let’s "
+          preText="Let's "
           accentedText="get to know "
           postText="each other."
         />
