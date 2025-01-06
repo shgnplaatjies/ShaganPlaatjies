@@ -20,35 +20,69 @@ const WindowControls: React.FC<WindowControlsProps> = ({
   gap = "2",
 }: WindowControlsProps) => {
   const buttons: Record<
-    string,
+    ReturnType<typeof getOs>,
     ["close" | "minimize" | "maximize", (() => void) | undefined][]
   > = {
-    darwin: [
+    iOS: [
       ["close", onClose],
       ["minimize", onMinimize],
       ["maximize", onMaximize],
     ],
-    win32: [
+    macOS: [
+      ["close", onClose],
+      ["minimize", onMinimize],
+      ["maximize", onMaximize],
+    ],
+    Linux: [
+      ["close", onClose],
+      ["minimize", onMinimize],
+      ["maximize", onMaximize],
+    ],
+    Unknown: [
       ["minimize", onMinimize],
       ["maximize", onMaximize],
       ["close", onClose],
     ],
-    linux: [
+    Android: [
+      ["minimize", onMinimize],
+      ["maximize", onMaximize],
+      ["close", onClose],
+    ],
+    Windows: [
       ["minimize", onMinimize],
       ["maximize", onMaximize],
       ["close", onClose],
     ],
   };
 
-  const os = process.platform;
+  const userAgent = window.navigator.userAgent;
+
+  const getOs = (userAgentString: string) => {
+    if (/Mac/i.test(userAgent)) {
+      return "macOS";
+    } else if (/Win/i.test(userAgent)) {
+      return "Windows";
+    } else if (/Linux/i.test(userAgent)) {
+      return "Linux";
+    } else if (/Android/i.test(userAgent)) {
+      return "Android";
+    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      return "iOS";
+    } else {
+      return "Unknown";
+    }
+  };
 
   const getIcon = (type: "close" | "minimize" | "maximize") => {
-    switch (os) {
-      case "darwin":
+    switch (getOs(userAgent)) {
+      case "iOS":
+      case "macOS":
         return <MacOSWindowControlsIcon type={type} />;
-      case "win32":
+      case "Android":
+      case "Windows":
         return <WindowsOSWindowControlsIcon type={type} />;
-      case "linux":
+      case "Linux":
+      case "Unknown":
         return <LinuxWindowControlsIcon type={type} />;
       default:
         return <WindowsOSWindowControlsIcon type={type} />;
@@ -57,7 +91,7 @@ const WindowControls: React.FC<WindowControlsProps> = ({
 
   return (
     <Flex className={className} gap={gap}>
-      {buttons[os].map(([type, onClick]) => (
+      {buttons[getOs(userAgent)].map(([type, onClick]) => (
         <Box key={type} onClick={onClick}>
           {getIcon(type)}
         </Box>
