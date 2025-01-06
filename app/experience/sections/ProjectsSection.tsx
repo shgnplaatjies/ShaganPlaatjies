@@ -14,7 +14,10 @@ const AboutSection: React.FC = () => {
         accentedText="Story."
       />
       <Text as="p">
-        Allow me to introduce myself, my work and my journey in software.
+        Through over half a decade of software development experience, I've
+        acquired extensive experience working on softaware projects across
+        several industries, from telecommunications, lending, e-commerce, to
+        insurance.
       </Text>
       <WindowLayout title="about me" padded LogoIcon={<CodeIcon />}>
         <Text as="p">Technologies</Text>
