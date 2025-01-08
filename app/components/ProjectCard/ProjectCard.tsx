@@ -1,8 +1,8 @@
+import { DefaultFeaturedImage } from "@/app/lib/constants";
 import { Box, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import React from "react";
-import { DefaultFeaturedImage } from "../lib/constants";
-import TaxonomyList from "./TaxonomyList";
+import TaxonomyList from "../TaxonomyList";
 
 export type BlogPostExcerpt = {
   id: number;
@@ -17,22 +17,7 @@ export type BlogPostExcerpt = {
   tags?: string[];
 };
 
-export type ProjectCardProps = { post: BlogPostExcerpt };
-
-export const PlaceholderPost = ({
-  text = "Loading blog posts..",
-  title = "Loading...",
-}: {
-  text?: string;
-  title?: string;
-}) => (
-  <Flex>
-    <h1>{title}</h1>
-    <p>{text}</p>
-  </Flex>
-);
-
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
   post: {
     id,
     dateGmt,
@@ -58,8 +43,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <Image
             className="rounded border border-gray-border-1"
             src={featuredMedia}
-            width={400}
-            height={200}
+            width={200}
+            height={100}
             alt={"Some Image and stuff"}
           />
         </Flex>
