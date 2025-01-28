@@ -1,8 +1,8 @@
 import { Box, Flex } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
-import LinuxWindowControlsIcon from "./icons/LinuxWindowControlsIcon";
-import MacOSWindowControlsIcon from "./icons/MacOSWindowControlsIcon";
-import WindowsOSWindowControlsIcon from "./icons/WindowsOSWindowControlsIcon";
+import LinuxWindowControlsIcon from "../icons/LinuxWindowControlsIcon";
+import MacOSWindowControlsIcon from "../icons/MacOSWindowControlsIcon";
+import WindowsOSWindowControlsIcon from "../icons/WindowsOSWindowControlsIcon";
 
 type WindowControlsProps = {
   className?: string;
