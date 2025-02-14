@@ -21,6 +21,7 @@ const Footer: React.FC = () => {
           </Box>
           <StylizedTextLogo size="5" />
         </Flex>
+
         <Flex
           wrap="wrap"
           gap="2"
@@ -33,11 +34,8 @@ const Footer: React.FC = () => {
               color={pathName !== href ? "gray" : undefined}
               asChild
             >
-              <NextLink href={href}>
-                <Text>
-                  {i < navIcons.length && "·"}
-                  {label}
-                </Text>
+              <NextLink href={href} className="px-2">
+                <Text>{label}</Text>
               </NextLink>
             </Link>
           ))}
