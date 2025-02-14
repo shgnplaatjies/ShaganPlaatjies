@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import TaxonomyList from "../TaxonomyList";
+import TaxonomyList from "../widgets/TaxonomyList";
 
 export type BlogPostExcerpt = {
   id: number;
@@ -20,10 +20,10 @@ export type BlogPostExcerpt = {
 
 const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
   <Image
-    className="rounded border border-gray-border-1 -rotate-3"
+    className="rounded border border-gray-border-1"
     src={src}
-    width={200}
-    height={100}
+    width={600}
+    height={600}
     alt={alt}
   />
 );
@@ -37,7 +37,7 @@ const ProjectDate: React.FC<{ date: string }> = ({ date }) => (
 );
 
 const ProjectTitle: React.FC<{ title: string }> = ({ title }) => (
-  <Heading wrap="wrap" as="h2">
+  <Heading className="pb-4 text-balance" as="h2">
     {title}
   </Heading>
 );
@@ -66,10 +66,15 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex justify="center" mt={"-8"} mb="4" height="10rem">
-      {mediaSrc && <ProjectImage src={mediaSrc} alt={title} />}
+    <Flex
+      justify="center"
+      mt={"-8"}
+      mb="4"
+      className=" max-h-48 overflow-hidden"
+    >
+      <ProjectImage src={mediaSrc} alt={title} />
     </Flex>
-    <Flex direction="column" gap="3" mx="3">
+    <Flex direction="column" gap="3" mx="3" className="pb-8">
       <Flex justify="between" className="opacity-60">
         <ProjectId id={id} />
         <ProjectDate date={date} />
@@ -79,8 +84,59 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
     </Flex>
   </>
 );
-const ProjectMediumScreen: React.FC<BlogPostExcerpt> = () => <></>;
-const ProjectLargeScreen: React.FC<BlogPostExcerpt> = () => <></>;
+
+const ProjectMediumScreen: React.FC<ProjectCardInternalProps> = ({
+  date,
+  id,
+  labels,
+  mediaSrc,
+  title,
+}) => (
+  <div className="pb-10">
+    <Flex className="justify-end max-h-96" mt={"-8"} mb="4">
+      <div className="flex justify-self-end max-w-[40%] -rotate-3">
+        <ProjectImage src={mediaSrc} alt={title} />
+      </div>
+    </Flex>
+    <Flex direction="column" gap="3" mx="3">
+      <Flex justify="between" className="opacity-60">
+        <ProjectId id={id} />
+        <ProjectDate date={date} />
+      </Flex>
+      <ProjectTitle title={title} />
+      <ProjectLabels labels={labels} />
+    </Flex>
+  </div>
+);
+
+const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
+  date,
+  id,
+  labels,
+  mediaSrc,
+  title,
+}) => (
+  <>
+    <Flex gapX={"2"} justify={"between"} className="py-12">
+      <Box className="w-10 overflow-hidden transition-[max-width] duration-300 ease-in-out group-hover:max-w-0">
+        <ProjectId id={id} />
+      </Box>
+
+      <Box>
+        <ProjectTitle title={title} />
+        <Flex>
+          <ProjectLabels labels={labels} />
+        </Flex>
+      </Box>
+
+      <Box className="-rotate-3 min-h-fit opacity-0 w-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:w-full group-hover:opacity-90 ">
+        <ProjectImage src={mediaSrc} alt={title} />
+      </Box>
+
+      <ProjectDate date={date} />
+    </Flex>
+  </>
+);
 
 const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
   post: {
@@ -105,16 +161,23 @@ const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
   };
   return (
     <Box mt={"8"} asChild>
-      <Link href={link}>
-        <Flex
-          direction="column"
-          px="3"
-          className="rounded border border-gray-border-1"
-          pb="5"
-        >
-          <ProjectSmallScreen {...projectProps} />
-        </Flex>
-      </Link>
+      <Flex
+        direction="column"
+        px="3"
+        className="flex self-center rounded border border-gray-border-1 lg:max-w-[70%]"
+      >
+        <Link href={link} className="group">
+          <div className="block sm:hidden">
+            <ProjectSmallScreen {...projectProps} />
+          </div>
+          <div className="hidden sm:block md:hidden">
+            <ProjectMediumScreen {...projectProps} />
+          </div>
+          <div className="hidden md:flex self-center">
+            <ProjectLargeScreen {...projectProps} />
+          </div>
+        </Link>
+      </Flex>
     </Box>
   );
 };
