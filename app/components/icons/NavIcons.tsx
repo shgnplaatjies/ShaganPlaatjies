@@ -1,10 +1,7 @@
 import {
-  BackpackIcon,
   EnvelopeClosedIcon,
   HomeIcon,
   PersonIcon,
-  QuoteIcon,
-  RocketIcon,
 } from "@radix-ui/react-icons";
 import { NAV_LINKS } from "../../lib/constants";
 import { HyperMediaIconProps } from "../IconsList";
@@ -21,21 +18,6 @@ export const getNavIcons = (): HyperMediaIconProps[] => [
     href: about.href,
     Icon: PersonIcon,
     label: about.label,
-  },
-  {
-    href: experience.href,
-    Icon: BackpackIcon,
-    label: experience.label,
-  },
-  {
-    href: experiments.href,
-    Icon: RocketIcon,
-    label: experiments.label,
-  },
-  {
-    href: posts.href,
-    Icon: QuoteIcon,
-    label: posts.label,
   },
   {
     href: contact.href,
