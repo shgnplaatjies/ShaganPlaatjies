@@ -1,8 +1,10 @@
-import { PlaceholderPost } from "@/app/components/ProjectCard/PlaceholderProject";
-import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
-import { Flex, Section } from "@radix-ui/themes";
-import { Suspense } from "react";
-import AccentedHeading from "../../components/AccentedHeading";
+"use client";
+import { Box, Section } from "@radix-ui/themes";
+import { Suspense, useEffect, useState } from "react";
+import AccentedHeading from "../components/AccentedHeading";
+import CTAButton from "../components/CTAButton";
+import { PlaceholderPost } from "../components/ProjectCard/PlaceholderProject";
+import ProjectCard from "../components/ProjectCard/ProjectCard";
 import {
   WpCategoryApiResponse,
   WpPostApiResponse,
@@ -11,19 +13,11 @@ import {
   fetchWpAllTags,
   fetchWpMediaById,
   fetchWpPosts,
-} from "../../lib/server-lib";
+} from "../lib/server-lib";
 
-export const revalidate = 10; // 1 hour
+const revalidate = 10; // 1 hour
 
-const PostsSection: React.FC = async () => {
-  "use server";
-  const posts: WpPostApiResponse[] | false = await fetchWpPosts();
-  const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
-  const categories: WpCategoryApiResponse[] | false =
-    await fetchWpAllCategories();
-
-  if (!posts || !tags || !categories) return <PlaceholderPost />;
-
+const ProjectsWidget: React.FC = async () => {
   const getTaxonomyNamesByIds = (
     ids: number[],
     taxonomy: WpCategoryApiResponse[] | WpTagApiResponse[]
@@ -32,18 +26,33 @@ const PostsSection: React.FC = async () => {
       .map((id) => taxonomy.find((tax) => tax.id === id)?.name)
       .filter(Boolean) as string[] | undefined;
 
+  useEffect(() => {
+    const getProjectDetails = async () => {
+      setTags(await fetchWpAllTags());
+      setCategories(await fetchWpAllCategories());
+      setPosts(await fetchWpPosts());
+    };
+
+    getProjectDetails();
+  }, []);
+
+  const [posts, setPosts] = useState<WpPostApiResponse[] | false>();
+  const [tags, setTags] = useState<WpTagApiResponse[] | false>();
+  const [categories, setCategories] = useState<
+    WpCategoryApiResponse[] | false
+  >();
+
+  if (!posts || !tags || !categories) return <PlaceholderPost />;
+
   return (
     <Section>
       <AccentedHeading
-        className="mb-9"
-        wrap="balance"
-        align="center"
-        textAs="h1"
+        textAs="h2"
         size="9"
-        preText="View my "
-        accentedText="Blog Posts"
+        preText="Projects & "
+        accentedText="Experience"
       />
-      <Flex direction="column" gap="2">
+      <Box maxWidth={"75%"}>
         <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
           {!posts ? (
             <PlaceholderPost
@@ -75,9 +84,10 @@ const PostsSection: React.FC = async () => {
             ))
           )}
         </Suspense>
-      </Flex>
+      </Box>
+      <CTAButton href="/projects" text="View All" />
     </Section>
   );
 };
 
-export default PostsSection;
+export default ProjectsWidget;
