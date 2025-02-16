@@ -1,11 +1,12 @@
 "use client";
-import { Flex, Section, Text } from "@radix-ui/themes";
+import { Section, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import AccentedHeading from "./components/AccentedHeading";
 import CTAButton from "./components/CTAButton";
 import Footer from "./components/Footer";
 import WindowLayout from "./components/WindowCard/Window";
 import ProjectsWidget from "./components/widgets/ProjectsWidget";
+import { LandingSection } from "./sections/LandingSection";
 
 const HomePage: React.FC = () => {
   return (
