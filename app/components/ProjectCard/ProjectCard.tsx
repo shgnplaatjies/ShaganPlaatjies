@@ -117,28 +117,32 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex gapX={"2"} justify={"between"} className="py-12">
-      <Box className="w-10 overflow-hidden transition-[max-width] duration-300 ease-in-out group-hover:max-w-0">
+    <Flex gapX={"2"} justify={"between"} className="py-12 min-w-full">
+      <Box className="ml-8 w-10 overflow-hidden transition-[max-width] duration-300 ease-in-out group-hover:max-w-0">
         <ProjectId id={id} />
       </Box>
 
-      <Box>
+      <Box className="max-w-[66%]">
         <ProjectTitle title={title} />
         <Flex>
           <ProjectLabels labels={labels} />
         </Flex>
       </Box>
 
-      <Box className="-rotate-3 min-h-fit opacity-0 w-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:w-full group-hover:opacity-90 ">
+      <Box className="-rotate-3 max-w-48 h-28 opacity-0 w-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:w-full group-hover:opacity-90 ">
         <ProjectImage src={mediaSrc} alt={title} />
       </Box>
 
-      <ProjectDate date={date} />
+      <Box className="px-10">
+        <ProjectDate date={date} />
+      </Box>
     </Flex>
   </>
 );
 
-const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
+const ProjectCard: React.FC<{
+  post: BlogPostExcerpt & { labels?: string[] };
+}> = ({
   post: {
     id,
     dateGmt,
@@ -150,6 +154,7 @@ const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
     featuredMedia = DefaultFeaturedImage,
     categories,
     tags,
+    labels,
   },
 }) => {
   const projectProps: ProjectCardInternalProps = {
@@ -157,14 +162,14 @@ const ProjectCard: React.FC<{ post: BlogPostExcerpt }> = ({
     mediaSrc: featuredMedia,
     title: titleRendered,
     id,
-    labels: [...(categories ?? []), ...(tags ?? [])],
+    labels: labels ?? [...(categories ?? []), ...(tags ?? [])],
   };
   return (
     <Box mt={"8"} asChild>
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded border border-gray-border-1 lg:max-w-[70%]"
+        className="flex self-center rounded border border-gray-border-1 w-[70%] lg:max-w-[70%]"
       >
         <Link href={link} className="group">
           <div className="block sm:hidden">
