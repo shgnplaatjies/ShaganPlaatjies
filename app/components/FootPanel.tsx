@@ -34,10 +34,19 @@ const FootPanel: React.FC<FootPanelProps> = ({
 
   return (
     <Box className={className}>
-      <Grid width="100%" columns="3">
+      <Grid
+        width="100%"
+        columns="3"
+      >
         <Flex align="center">
-          <Link href="/contact" asChild>
-            <DotFilledIcon width="1.15rem" height="1.15rem" />
+          <Link
+            href="/contact"
+            asChild
+          >
+            <DotFilledIcon
+              width="1.15rem"
+              height="1.15rem"
+            />
           </Link>
         </Flex>
         <p className="flex text-nowrap justify-center opacity-60 text-sm">
@@ -47,7 +56,10 @@ const FootPanel: React.FC<FootPanelProps> = ({
           className="sm:flex justify-end hidden sm:visible place-self-end"
           icons={socialIcons}
         />
-        <Flex justify="end" align="center">
+        <Flex
+          justify="end"
+          align="center"
+        >
           <AnimatedIconStack
             iconList={socialIcons}
             directionX="right"
