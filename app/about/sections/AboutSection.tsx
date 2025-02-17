@@ -2,7 +2,7 @@ import { CodeIcon } from "@radix-ui/react-icons";
 import { Section, Text } from "@radix-ui/themes";
 import AccentedHeading from "../../components/AccentedHeading";
 import CTAButton from "../../components/CTAButton";
-import WindowLayout from "../../components/Window";
+import WindowLayout from "../../components/WindowCard/Window";
 
 const AboutSection: React.FC = () => {
   return (

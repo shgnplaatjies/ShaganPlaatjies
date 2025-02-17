@@ -16,7 +16,7 @@ const WindowLayout = ({
   return (
     <Card>
       <Flex direction="column">
-        <Inset>
+        <Inset className="bg-accent-bg-2 bg-opacity-10">
           <Flex align="center" justify="between" px="2">
             {LogoIcon && <>{LogoIcon}</>}
             <Text as="p">{title}</Text>

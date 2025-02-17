@@ -1,19 +1,13 @@
 "use client";
 import Footer from "./components/Footer";
-import AboutSection from "./sections/AboutSection";
-import ContactSection from "./sections/ContactSection";
-import LandingSection from "./sections/LandingSection";
-import ProjectsSection from "./sections/ProjectsSection";
-import SkillsSection from "./sections/SkillsSection";
+import { AboutMeSection } from "./sections/AboutMeSection";
+import { LandingSection } from "./sections/LandingSection";
 
 const HomePage: React.FC = () => {
   return (
     <>
       <LandingSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <AboutSection />
-      <ContactSection />
+      <AboutMeSection />
       <Footer />
     </>
   );

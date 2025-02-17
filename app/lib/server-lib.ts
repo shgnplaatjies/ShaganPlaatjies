@@ -288,7 +288,7 @@ export interface WpPostApiResponse {
 }
 
 export const fetchWpAllCategories = async (): Promise<
-  WpCategoryApiResponse[] | false
+  WpCategoryApiResponse[]
 > => {
   try {
     const wpCategoriesUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/categories`;
@@ -296,26 +296,26 @@ export const fetchWpAllCategories = async (): Promise<
       next: { revalidate: STANDARD_CACHE_TTL },
     });
 
-    if (!res.ok) return false;
+    if (!res.ok) return [];
 
     return await res.json();
   } catch (error) {
-    return false;
+    return [];
   }
 };
 
-export const fetchWpAllTags = async (): Promise<WpTagApiResponse[] | false> => {
+export const fetchWpAllTags = async (): Promise<WpTagApiResponse[]> => {
   try {
     const wpTagsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/tags`;
     const res = await fetch(wpTagsUri, {
       next: { revalidate: STANDARD_CACHE_TTL },
     });
 
-    if (!res.ok) return false;
+    if (!res.ok) return [];
 
     return await res.json();
   } catch (error) {
-    return false;
+    return [];
   }
 };
 
@@ -347,7 +347,7 @@ export const fetchWpCategoriesById = async (
   }
 };
 
-export const fetchSingleWpMedia = async (
+export const fetchWpMediaById = async (
   id: number
 ): Promise<WpMediaApiResponse | false> => {
   try {
@@ -396,7 +396,7 @@ const fetchWpPostById = async (
   }
 };
 
-const fetchSingleWpPost = async (target: string | number) => {
+const fetchWpPostWithIdOrSlug = async (target: string | number) => {
   try {
     const posts: WpPostApiResponse[] | false = await fetchWpPosts();
 
@@ -419,5 +419,5 @@ const fetchSingleWpPost = async (target: string | number) => {
 
 export const fetchWpPost = async (target: string | number) => {
   if (typeof target === "number") return fetchWpPostById(target);
-  else return fetchSingleWpPost(target);
+  else return fetchWpPostWithIdOrSlug(target);
 };

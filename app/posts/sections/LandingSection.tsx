@@ -21,8 +21,9 @@ const LandingSection: React.FC = () => {
           postText="Developer."
         />
         <Text wrap="balance" as="p" className="py-4" align="center">
-          Welcome to my personal portfolio. Home to my software development
-          projects.
+          Providing value to software engineering projects by merging my
+          experience as an individual contributor with my project management
+          expertise to drive delivery.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

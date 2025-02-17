@@ -16,13 +16,15 @@ const LandingSection: React.FC = () => {
           textAs="h1"
           align="center"
           size="9"
-          preText="Hi. I'm Shagan, "
-          accentedText="Full Stack "
-          postText="Developer."
+          preText="A collection of "
+          accentedText="my best "
+          postText="best projects."
         />
         <Text wrap="balance" as="p" className="py-4" align="center">
-          Welcome to my personal portfolio. Home to my software development
-          projects.
+          Through over half a decade of software development experience, I've
+          acquired extensive experience working on softaware projects across
+          several industries, from telecommunications, lending, e-commerce, to
+          insurance.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

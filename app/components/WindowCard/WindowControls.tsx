@@ -1,8 +1,8 @@
 import { Box, Flex } from "@radix-ui/themes";
-import React from "react";
-import LinuxWindowControlsIcon from "./icons/LinuxWindowControlsIcon";
-import MacOSWindowControlsIcon from "./icons/MacOSWindowControlsIcon";
-import WindowsOSWindowControlsIcon from "./icons/WindowsOSWindowControlsIcon";
+import React, { useEffect, useState } from "react";
+import LinuxWindowControlsIcon from "../icons/LinuxWindowControlsIcon";
+import MacOSWindowControlsIcon from "../icons/MacOSWindowControlsIcon";
+import WindowsOSWindowControlsIcon from "../icons/WindowsOSWindowControlsIcon";
 
 type WindowControlsProps = {
   className?: string;
@@ -55,7 +55,11 @@ const WindowControls: React.FC<WindowControlsProps> = ({
     ],
   };
 
-  const userAgent = window.navigator.userAgent;
+  const [userAgent, setUserAgent] = useState("Unknown");
+
+  useEffect(() => {
+    setUserAgent(window.navigator.userAgent);
+  }, [userAgent]);
 
   const getOs = (userAgentString: string) => {
     if (/Mac/i.test(userAgent)) {

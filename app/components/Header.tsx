@@ -4,7 +4,7 @@ import React from "react";
 import AnimatedIconStack from "./AnimatedIconStack";
 import Logo from "./Logo";
 import StylizedTextLogo from "./StylizedTextLogo";
-import WindowControls from "./WindowControls";
+import WindowControls from "./WindowCard/WindowControls";
 import { getNavIcons } from "./icons/NavIcons";
 
 type HeaderProps = { className: string };

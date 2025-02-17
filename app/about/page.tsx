@@ -1,7 +1,7 @@
 "use client";
 import { Section } from "@radix-ui/themes";
 import Footer from "../components/Footer";
-import AboutSection from "../sections/AboutSection";
+import AboutSection from "./sections/AboutSection";
 import LandingSection from "./sections/LandingSection";
 import TechStackSection from "./sections/TechStackSection";
 

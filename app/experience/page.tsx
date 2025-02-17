@@ -1,14 +1,14 @@
 "use client";
 import { Section } from "@radix-ui/themes";
 import Footer from "../components/Footer";
-import LandingSection from "../contact/sections/LandingSection";
-import ProjectsSection from "../sections/ProjectsSection";
+import ProjectsWidget from "../sections/ProjectsSection";
+import LandingSection from "./sections/LandingSection";
 
 const ExperiencePage: React.FC = () => {
   return (
     <>
       <LandingSection />
-      <ProjectsSection />
+      <ProjectsWidget />
       <Section>
         <Footer />
       </Section>

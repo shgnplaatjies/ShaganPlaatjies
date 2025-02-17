@@ -7,9 +7,9 @@ import {
   WpCategoryApiResponse,
   WpPostApiResponse,
   WpTagApiResponse,
-  fetchSingleWpMedia,
   fetchWpAllCategories,
   fetchWpAllTags,
+  fetchWpMediaById,
   fetchWpPosts,
 } from "../../lib/server-lib";
 
@@ -62,7 +62,7 @@ const PostsSection: React.FC = async () => {
                   status: post.status,
                   link: post.link,
                   titleRendered: post.title.rendered,
-                  featuredMedia: await fetchSingleWpMedia(
+                  featuredMedia: await fetchWpMediaById(
                     post.featured_media
                   ).then((res) => (res ? res.source_url : undefined)),
                   categories: getTaxonomyNamesByIds(
