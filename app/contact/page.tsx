@@ -12,9 +12,7 @@ const ContactPage: React.FC = () => {
         <ContactForm />
       </Section>
 
-      <Section>
-        <Footer />
-      </Section>
+      <Footer />
     </>
   );
 };
