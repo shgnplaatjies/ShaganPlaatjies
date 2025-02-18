@@ -15,7 +15,7 @@ import {
   fetchWpPosts,
 } from "../lib/server-lib";
 
-const ProjectsWidget: React.FC = async () => {
+const ProjectsSection: React.FC = async () => {
   const getTaxonomyNamesByIds = (
     ids: number[],
     taxonomy: WpCategoryApiResponse[] | WpTagApiResponse[]
@@ -88,4 +88,4 @@ const ProjectsWidget: React.FC = async () => {
   );
 };
 
-export default ProjectsWidget;
+export default ProjectsSection;
