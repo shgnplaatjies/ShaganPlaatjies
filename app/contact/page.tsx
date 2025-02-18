@@ -1,7 +1,7 @@
 "use client";
 import { Section } from "@radix-ui/themes";
 import ContactForm from "../components/ContactForm";
-import Footer from "../components/Footer";
+import { Footer } from "../components/Footer";
 import LandingSection from "./sections/LandingSection";
 const ContactPage: React.FC = () => {
   return (
@@ -12,9 +12,7 @@ const ContactPage: React.FC = () => {
         <ContactForm />
       </Section>
 
-      <Section>
-        <Footer />
-      </Section>
+      <Footer />
     </>
   );
 };
