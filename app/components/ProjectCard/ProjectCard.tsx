@@ -141,9 +141,6 @@ const ProjectCard: React.FC<{
   post: {
     id,
     dateGmt,
-    modifiedGmt,
-    slug,
-    status,
     link,
     titleRendered,
     featuredMedia = DefaultFeaturedImage,
