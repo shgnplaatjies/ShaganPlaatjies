@@ -15,8 +15,6 @@ import {
   fetchWpPosts,
 } from "../lib/server-lib";
 
-const revalidate = 10; // 1 hour
-
 const ProjectsWidget: React.FC = async () => {
   const getTaxonomyNamesByIds = (
     ids: number[],
