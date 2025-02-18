@@ -1,3 +1,4 @@
+"use client";
 import { Card, Container, Flex, Inset, Text } from "@radix-ui/themes";
 import React, { useState } from "react";
 import WindowControls from "./WindowControls";
