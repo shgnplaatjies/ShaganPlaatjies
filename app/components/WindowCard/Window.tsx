@@ -1,5 +1,6 @@
+"use client";
 import { Card, Container, Flex, Inset, Text } from "@radix-ui/themes";
-import React from "react";
+import React, { useState } from "react";
 import WindowControls from "./WindowControls";
 
 const WindowLayout = ({
@@ -13,19 +14,32 @@ const WindowLayout = ({
   padded?: boolean;
   children: React.ReactNode;
 }) => {
+  const [isClosed, setIsClosed] = useState(false);
+
   return (
-    <Card>
+    <Card className={`bg-black bg-opacity-70 ${isClosed ? "hidden" : ""}`}>
       <Flex direction="column">
         <Inset>
-          <Flex align="center" justify="between" px="2">
+          <Flex
+            className="bg-accent-bg-2 bg-opacity-5"
+            align="center"
+            justify="between"
+            px="2"
+          >
             {LogoIcon && <>{LogoIcon}</>}
             <Text as="p">{title}</Text>
-            <WindowControls />
+            <WindowControls
+              onClose={() => {
+                setIsClosed(!isClosed);
+              }}
+            />
           </Flex>
         </Inset>
         <Inset>
           <Container
-            className={`${padded ? "px-2 pb-1" : ""} border-t border-gray-700`}
+            className={`bg-black bg-opacity-75 ${
+              padded ? "px-2 pb-1" : ""
+            } border-t border-gray-700`}
             mt="5"
           >
             {children}

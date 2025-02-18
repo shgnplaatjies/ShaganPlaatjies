@@ -1,3 +1,4 @@
+"use server";
 import { PlaceholderPost } from "@/app/components/ProjectCard/PlaceholderProject";
 import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
 import { Flex, Section } from "@radix-ui/themes";
@@ -7,16 +8,13 @@ import {
   WpCategoryApiResponse,
   WpPostApiResponse,
   WpTagApiResponse,
-  fetchSingleWpMedia,
   fetchWpAllCategories,
   fetchWpAllTags,
+  fetchWpMediaById,
   fetchWpPosts,
 } from "../../lib/server-lib";
 
-export const revalidate = 10; // 1 hour
-
 const PostsSection: React.FC = async () => {
-  "use server";
   const posts: WpPostApiResponse[] | false = await fetchWpPosts();
   const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
   const categories: WpCategoryApiResponse[] | false =
@@ -62,7 +60,7 @@ const PostsSection: React.FC = async () => {
                   status: post.status,
                   link: post.link,
                   titleRendered: post.title.rendered,
-                  featuredMedia: await fetchSingleWpMedia(
+                  featuredMedia: await fetchWpMediaById(
                     post.featured_media
                   ).then((res) => (res ? res.source_url : undefined)),
                   categories: getTaxonomyNamesByIds(
