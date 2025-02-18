@@ -16,14 +16,14 @@ const WindowLayout = ({
   return (
     <Card>
       <Flex direction="column">
-        <Inset className="bg-accent-bg-2 bg-opacity-10">
+        <Inset className="bg-accent-bg-2 bg-opacity-5">
           <Flex align="center" justify="between" px="2">
             {LogoIcon && <>{LogoIcon}</>}
             <Text as="p">{title}</Text>
             <WindowControls />
           </Flex>
         </Inset>
-        <Inset>
+        <Inset className="bg-black bg-opacity-70">
           <Container
             className={`${padded ? "px-2 pb-1" : ""} border-t border-gray-700`}
             mt="5"
