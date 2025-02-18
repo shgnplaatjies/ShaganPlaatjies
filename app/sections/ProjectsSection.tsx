@@ -1,6 +1,5 @@
-"use client";
 import { Box, Section } from "@radix-ui/themes";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import AccentedHeading from "../components/AccentedHeading";
 import CTAButton from "../components/CTAButton";
 import { PlaceholderPost } from "../components/ProjectCard/PlaceholderProject";
@@ -24,21 +23,10 @@ const ProjectsSection: React.FC = async () => {
       .map((id) => taxonomy.find((tax) => tax.id === id)?.name)
       .filter(Boolean) as string[] | undefined;
 
-  useEffect(() => {
-    const getProjectDetails = async () => {
-      setTags(await fetchWpAllTags());
-      setCategories(await fetchWpAllCategories());
-      setPosts(await fetchWpPosts());
-    };
-
-    getProjectDetails();
-  }, []);
-
-  const [posts, setPosts] = useState<WpPostApiResponse[] | false>();
-  const [tags, setTags] = useState<WpTagApiResponse[] | false>();
-  const [categories, setCategories] = useState<
-    WpCategoryApiResponse[] | false
-  >();
+  const posts: WpPostApiResponse[] | false = await fetchWpPosts();
+  const tags: WpTagApiResponse[] | false = await fetchWpAllTags();
+  const categories: WpCategoryApiResponse[] | false =
+    await fetchWpAllCategories();
 
   if (!posts || !tags || !categories) return <PlaceholderPost />;
 
@@ -50,7 +38,7 @@ const ProjectsSection: React.FC = async () => {
         preText="Projects & "
         accentedText="Experience"
       />
-      <Box maxWidth={"75%"}>
+      <Box>
         <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
           {!posts ? (
             <PlaceholderPost
@@ -58,28 +46,38 @@ const ProjectsSection: React.FC = async () => {
               text="Error while fetching blog posts... Please try again later."
             />
           ) : (
-            posts.map(async (post, i) => (
-              <ProjectCard
-                key={post.id}
-                post={{
-                  id: i + 1,
-                  dateGmt: post.date_gmt,
-                  modifiedGmt: post.modified_gmt,
-                  slug: post.slug,
-                  status: post.status,
-                  link: post.link,
-                  titleRendered: post.title.rendered,
-                  featuredMedia: await fetchWpMediaById(
-                    post.featured_media
-                  ).then((res) => (res ? res.source_url : undefined)),
-                  categories: getTaxonomyNamesByIds(
-                    post.categories,
-                    categories
-                  ),
-                  tags: getTaxonomyNamesByIds(post.tags, tags),
-                }}
-              />
-            ))
+            posts
+              .filter((currentPost) => {
+                const projectsCategoryId = categories.filter((category) => {
+                  console.log(category.slug);
+                  return category.slug === "project";
+                });
+                return currentPost.categories.includes(
+                  projectsCategoryId[0]?.id
+                );
+              })
+              .map(async (post, i) => (
+                <ProjectCard
+                  key={post.id}
+                  post={{
+                    id: i + 1,
+                    dateGmt: post.date_gmt,
+                    modifiedGmt: post.modified_gmt,
+                    slug: post.slug,
+                    status: post.status,
+                    link: post.link,
+                    titleRendered: post.title.rendered,
+                    featuredMedia: await fetchWpMediaById(
+                      post.featured_media
+                    ).then((res) => (res ? res.source_url : undefined)),
+                    categories: getTaxonomyNamesByIds(
+                      post.categories,
+                      categories
+                    ),
+                    tags: getTaxonomyNamesByIds(post.tags, tags),
+                  }}
+                />
+              ))
           )}
         </Suspense>
       </Box>
@@ -88,4 +86,4 @@ const ProjectsSection: React.FC = async () => {
   );
 };
 
-export default ProjectsSection;
+export { ProjectsSection };

@@ -1,5 +1,5 @@
 "use client";
-import Footer from "../components/Footer";
+import { Footer } from "../components/Footer";
 import AboutSection from "./sections/AboutSection";
 import LandingSection from "./sections/LandingSection";
 import TechStackSection from "./sections/TechStackSection";

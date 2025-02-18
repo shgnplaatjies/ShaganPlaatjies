@@ -1,6 +1,6 @@
 "use client";
 import { Section } from "@radix-ui/themes";
-import Footer from "../components/Footer";
+import { Footer } from "../components/Footer";
 import ProjectsWidget from "../sections/ProjectsSection";
 import LandingSection from "./sections/LandingSection";
 
