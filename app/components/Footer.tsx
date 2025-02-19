@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -77,4 +79,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+export { Footer };

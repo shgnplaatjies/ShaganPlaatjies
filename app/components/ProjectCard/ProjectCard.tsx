@@ -44,7 +44,7 @@ const ProjectTitle: React.FC<{ title: string }> = ({ title }) => (
 
 const ProjectId: React.FC<{ id: string | number }> = ({ id }) => (
   <>
-    <Text size="2">
+    <Text size="2" className="break-keep">
       {isNaN(Number(id)) ? id : (id as number) < 10 ? `0${id}` : id}
     </Text>
   </>
@@ -66,12 +66,7 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex
-      justify="center"
-      mt={"-8"}
-      mb="4"
-      className=" max-h-48 overflow-hidden"
-    >
+    <Flex className="justify-center -mt-8 mb-4 mx-3 max-h-48 overflow-hidden">
       <ProjectImage src={mediaSrc} alt={title} />
     </Flex>
     <Flex direction="column" gap="3" mx="3" className="pb-8">
@@ -146,9 +141,6 @@ const ProjectCard: React.FC<{
   post: {
     id,
     dateGmt,
-    modifiedGmt,
-    slug,
-    status,
     link,
     titleRendered,
     featuredMedia = DefaultFeaturedImage,
@@ -169,7 +161,7 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded border border-gray-border-1 w-[70%] lg:max-w-[70%]"
+        className="flex self-center rounded border border-gray-border-1 "
       >
         <Link href={link} className="group">
           <div className="block sm:hidden">

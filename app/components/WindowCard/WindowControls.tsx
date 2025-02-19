@@ -96,7 +96,7 @@ const WindowControls: React.FC<WindowControlsProps> = ({
   return (
     <Flex className={className} gap={gap}>
       {buttons[getOs(userAgent)].map(([type, onClick]) => (
-        <Box key={type} onClick={onClick}>
+        <Box key={type} onMouseDown={onClick}>
           {getIcon(type)}
         </Box>
       ))}
