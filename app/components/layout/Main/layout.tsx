@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
-import Orbs from "../../Orbs";
 import SidePanel from "../../SidePanel";
 
 const MainLayout: React.FC<{
@@ -26,7 +25,10 @@ const MainLayout: React.FC<{
   }, [pathName]);
 
   return (
-    <Theme accentColor={orbColor.radixColor} className="w-full h-full">
+    <Theme
+      accentColor={orbColor.radixColor}
+      className="w-full h-full"
+    >
       <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 border-opacity-50 backdrop-blur-3xl">
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
 
@@ -34,12 +36,12 @@ const MainLayout: React.FC<{
           <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-gray-border-1 border-opacity-50" />
 
           <ScrollArea ref={scrollAreaRef}>
-            <Orbs
+            {/* <Orbs
               pulseDuration={10000}
               className="w-full h-full absolute"
               scrollRef={scrollAreaRef}
               color={orbColor.color}
-            />
+            /> */}
             <Box className="w-full h-full backdrop-blur-3xl px-4">
               {children}
             </Box>
