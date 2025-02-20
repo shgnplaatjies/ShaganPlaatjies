@@ -1,3 +1,4 @@
+"client-only";
 import React from "react";
 
 type PulsingCircleProps = {
@@ -13,6 +14,16 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
   duration = 5000,
   blurAmount = 0,
 }: PulsingCircleProps) => {
+  const pulsingStyle = `
+  .pulsing-circle {
+    animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
+  }
+  @keyframes pulsing-circle__pulse {
+    0% {transform: scale(1)}
+    50% {transform: scale(0.75)}
+    100% {transform: scale(1)}
+  }`;
+
   return (
     <svg
       className={className}
@@ -21,19 +32,7 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
       shapeRendering="geometricPrecision"
       textRendering="geometricPrecision"
     >
-      <style>
-        {`
-          .pulsing-circle {
-            animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
-            filter: blur(${blurAmount}px);
-          }
-          @keyframes pulsing-circle__pulse {
-            0% {transform: scale(1)}
-            50% {transform: scale(0.75)}
-            100% {transform: scale(1)}
-          }
-          `}
-      </style>
+      <style>{pulsingStyle}</style>
       <g className="pulsing-circle">
         <ellipse
           rx="50"
