@@ -31,20 +31,8 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
       viewBox="-50 -50 100 100"
       shapeRendering="geometricPrecision"
       textRendering="geometricPrecision"
-    > 
-      <style>
-        {`
-          .pulsing-circle {
-            animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
-            filter: blur(${blurAmount}px);
-          }
-          @keyframes pulsing-circle__pulse {
-            0% {transform: scale(1)}
-            50% {transform: scale(0.75)}
-            100% {transform: scale(1)}
-          }
-          `}
-      </style> 
+    >
+      <style>{pulsingStyle}</style>
       <g className="pulsing-circle">
         <ellipse
           rx="50"
