@@ -1,4 +1,4 @@
-"use client";
+"client-only";
 import { Box } from "@radix-ui/themes";
 import { animated, useScroll } from "@react-spring/web";
 import React, { MutableRefObject } from "react";

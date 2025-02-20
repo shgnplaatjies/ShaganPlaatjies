@@ -40,7 +40,7 @@ const MainLayout: React.FC<{
               scrollRef={scrollAreaRef}
               color={orbColor.color}
             />
-            <Box className="w-full h-full backdrop-blur-3xl px-4">
+            <Box className="w-full h-full backdrop-blur-[20rem] px-4">
               {children}
             </Box>
           </ScrollArea>
