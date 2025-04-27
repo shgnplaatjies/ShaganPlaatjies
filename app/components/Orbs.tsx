@@ -8,7 +8,7 @@ import PulsingCircle from "./animations/PulsingCircle";
 type OrbProps = {
   className?: string;
   pulseDuration?: number;
-  scrollRef: MutableRefObject<HTMLDivElement | null>;
+  scrollRef?: MutableRefObject<HTMLDivElement | null>;
   color?: string;
 };
 
