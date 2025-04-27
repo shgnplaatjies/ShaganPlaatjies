@@ -8,7 +8,7 @@ import PulsingCircle from "./animations/PulsingCircle";
 type OrbProps = {
   className?: string;
   pulseDuration?: number;
-  scrollRef?: MutableRefObject<HTMLDivElement>;
+  scrollRef: MutableRefObject<HTMLDivElement | null>;
   color?: string;
 };
 
@@ -18,7 +18,9 @@ const Orbs: React.FC<OrbProps> = ({
   scrollRef,
   color = OrbColorOnPagesConfig.default.color,
 }: OrbProps) => {
-  const { scrollYProgress } = useScroll({ container: scrollRef });
+  const { scrollYProgress } = useScroll({
+    container: scrollRef as MutableRefObject<HTMLElement>,
+  });
 
   return (
     <Box className={className}>
