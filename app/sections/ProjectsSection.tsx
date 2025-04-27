@@ -1,4 +1,4 @@
-import { Box, Section } from "@radix-ui/themes";
+import { Box, Flex, Section, Text } from "@radix-ui/themes";
 import { Suspense } from "react";
 import AccentedHeading from "../components/AccentedHeading";
 import CTAButton from "../components/CTAButton";
@@ -31,56 +31,67 @@ const ProjectsSection: React.FC = async () => {
   if (!posts || !tags || !categories) return <PlaceholderPost />;
 
   return (
-    <Section>
+    <Section className="mt-16">
       <AccentedHeading
         textAs="h2"
-        size="9"
-        preText="Projects & "
-        accentedText="Experience"
+        size="8"
+        preText="Technical "
+        accentedText="portfolio"
       />
-      <Box>
-        <Suspense fallback={<PlaceholderPost text="Fetching blog posts..." />}>
+
+      <Text as="p" className="mb-10 opacity-80">
+        Selected enterprise solutions, microservices, and scalable architecture
+        implementations
+      </Text>
+
+      <Box className="my-8">
+        <Suspense fallback={<PlaceholderPost text="Loading projects..." />}>
           {!posts ? (
             <PlaceholderPost
               title="Error!"
-              text="Error while fetching blog posts... Please try again later."
+              text="Error while fetching projects... Please try again later."
             />
           ) : (
-            posts
-              .filter((currentPost) => {
-                const projectsCategoryId = categories.filter(
-                  (category) => category.slug === "project"
-                );
-                return currentPost.categories.includes(
-                  projectsCategoryId[0]?.id
-                );
-              })
-              .map(async (post, i) => (
-                <ProjectCard
-                  key={post.id}
-                  post={{
-                    id: i + 1,
-                    dateGmt: post.date_gmt,
-                    modifiedGmt: post.modified_gmt,
-                    slug: post.slug,
-                    status: post.status,
-                    link: post.link,
-                    titleRendered: post.title.rendered,
-                    featuredMedia: await fetchWpMediaById(
-                      post.featured_media
-                    ).then((res) => (res ? res.source_url : undefined)),
-                    categories: getTaxonomyNamesByIds(
-                      post.categories,
-                      categories
-                    ),
-                    tags: getTaxonomyNamesByIds(post.tags, tags),
-                  }}
-                />
-              ))
+            <Flex direction="column" gap="6">
+              {posts
+                .filter((currentPost) => {
+                  const projectsCategoryId = categories.filter(
+                    (category) => category.slug === "project"
+                  );
+                  return currentPost.categories.includes(
+                    projectsCategoryId[0]?.id
+                  );
+                })
+                .map(async (post, i) => (
+                  <ProjectCard
+                    key={post.id}
+                    post={{
+                      id: i + 1,
+                      dateGmt: post.date_gmt,
+                      modifiedGmt: post.modified_gmt,
+                      slug: post.slug,
+                      status: post.status,
+                      link: post.link,
+                      titleRendered: post.title.rendered,
+                      featuredMedia: await fetchWpMediaById(
+                        post.featured_media
+                      ).then((res) => (res ? res.source_url : undefined)),
+                      categories: getTaxonomyNamesByIds(
+                        post.categories,
+                        categories
+                      ),
+                      tags: getTaxonomyNamesByIds(post.tags, tags),
+                    }}
+                  />
+                ))}
+            </Flex>
           )}
         </Suspense>
       </Box>
-      <CTAButton href="/projects" text="View All" />
+
+      <Flex justify="center" className="mt-8">
+        <CTAButton href="/projects" text="View All Projects" />
+      </Flex>
     </Section>
   );
 };

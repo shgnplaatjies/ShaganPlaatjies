@@ -12,80 +12,144 @@ const AboutMeSection: React.FC = () => {
         <AccentedHeading
           textAs="h2"
           size="8"
-          preText="My "
-          accentedText="Skills."
+          preText="Your "
+          accentedText="technical expert"
         />
 
-        <Text as="p">Allow me to introduce skills.</Text>
+        <Text as="p" className="mb-6">
+          Nice to meet you! I'm Shagan, a Full Stack Software Engineer with
+          extensive experience in various domains.
+        </Text>
 
-        <div className="md:max-w-[66%] my-5">
+        <div className="md:max-w-[80%] my-5">
           <WindowLayout title="about-me" padded>
-            <ul>
+            <ul className="space-y-4">
               <li>
-                Hi there! I'm Shagan, a{" "}
+                I'm focused on developing{" "}
                 <span className="text-radix-base-lime">
-                  Full Stack Software Engineer
+                  robust applications
+                </span>{" "}
+                with{" "}
+                <span className="text-radix-base-sky">
+                  scalable architectures
+                </span>
+                , emphasizing{" "}
+                <span className="text-radix-base-mint">
+                  security and performance
+                </span>{" "}
+                throughout the software lifecycle.
+              </li>
+              <li>
+                As a technical lead, I've mentored junior developers while
+                modernizing legacy systems into{" "}
+                <span className="text-radix-base-yellow">
+                  efficient microservices
+                </span>{" "}
+                across the{" "}
+                <span className="text-radix-base-crimson">
+                  finance and insurance sectors
+                </span>
+                , and{" "}
+                <span className="text-radix-base-violet">
+                  real-time analytics platforms
                 </span>
                 .
               </li>
               <li>
-                Full Stack Engineer with a track record in leading development
-                teams,{" "}
-                <span className="text-radix-base-mint">
-                  modernizing legacy systems
-                </span>
-                , and{" "}
-                <span className="text-radix-base-crimson">
-                  building secure, scalable{" "}
-                </span>
-                solutions.
+                My technical stack includes{" "}
+                <span className="text-radix-base-lime">.NET</span>,{" "}
+                <span className="text-radix-base-sky">React</span>,{" "}
+                <span className="text-radix-base-mint">Vue</span>,{" "}
+                <span className="text-radix-base-yellow">AWS</span>, and{" "}
+                <span className="text-radix-base-violet">SQL</span>, with a
+                focus on enterprise-grade implementations and best practices
+                like S.O.L.I.D principles.
               </li>
               <li>
-                Skilled in .NET, Vue, React, Azure, with experience across{" "}
-                <span className="text-radix-base-yellow">
-                  finance and insurance sectors
-                </span>
-                ,{" "}
-                <span className="text-radix-base-sky">
-                  real-time data analytics
-                </span>{" "}
-                solutions, and freelance projects.
+                Beyond my enterprise work, I run{" "}
+                <span className="text-radix-base-crimson">Pixelscape</span>,
+                providing data-driven web solutions, e-commerce platforms, and
+                digital marketing services to local businesses.
               </li>
             </ul>
           </WindowLayout>
         </div>
 
-        <Flex className="flex justify-center my-5 xl:mx-[10%]">
-          <Flex className="flex-row place-self-end w-3/6 lg:-m-5 lg:-my-10 xl:ml-0">
+        <Flex className="flex flex-col md:flex-row justify-between gap-6 mt-8">
+          <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="where-i-work" padded>
-              <ul>
-                <li>I'm currently based in Johannesburg, South Africa.</li>
-                <li>Available for remote collaborations world wide.</li>
+              <ul className="space-y-2">
+                <li>Currently based in Johannesburg, South Africa 🇿🇦</li>
+                <li>Available for remote collaborations worldwide 🌎</li>
+                <li>
+                  Current position: Full Stack Software Engineer at BSure
+                  Insurance Advisors
+                </li>
               </ul>
             </WindowLayout>
           </Flex>
 
-          <Flex className="flex-row place-self-center  max-w-1/3 lg:-mt-5">
-            <WindowLayout title="find-me-at" padded>
-              <ul>
-                <li>
-                  <Link href="https://www.linkedin.com/in/shaganplaatjies/">
-                    linkedin
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://github.com/shgnplaatjies">github</Link>
-                </li>
-                <li>
-                  <Link href="#">resume</Link>
-                </li>
+          <Flex className="flex-col w-full md:w-1/2">
+            <WindowLayout title="expertise" padded>
+              <ul className="space-y-2 grid grid-cols-2">
+                <li>🔒 Security</li>
+                <li>🏗️ Architectures</li>
+                <li>📊 Data Systems</li>
+                <li>☁️ Cloud Solutions</li>
               </ul>
             </WindowLayout>
           </Flex>
         </Flex>
+
+        <Flex className="mt-8">
+          <WindowLayout title="me-online" padded>
+            <ul className="flex flex-wrap gap-6 justify-center">
+              <li>
+                <Link
+                  href="https://www.linkedin.com/in/shaganplaatjies/"
+                  className="text-radix-base-blue hover:opacity-80"
+                >
+                  Linkedin
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://github.com/shgnplaatjies"
+                  className="text-radix-base-crimson hover:opacity-80"
+                >
+                  Github
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="mailto:me@shaganplaatjies.co.za"
+                  className="text-radix-base-mint hover:opacity-80"
+                >
+                  Email
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://pixelscape.co.za"
+                  className="text-radix-base-yellow hover:opacity-80"
+                >
+                  Digital Agency
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-radix-base-violet hover:opacity-80"
+                >
+                  resume
+                </Link>
+              </li>
+            </ul>
+          </WindowLayout>
+        </Flex>
       </Flex>
 
-      <Flex className="flex-row justify-center">
+      <Flex className="flex-row justify-center mt-10">
         <CTAButton href="/projects" text="My Projects" />
       </Flex>
     </Section>
