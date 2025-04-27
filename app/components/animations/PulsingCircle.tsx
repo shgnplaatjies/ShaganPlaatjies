@@ -4,12 +4,14 @@ type PulsingCircleProps = {
   className?: string;
   color: string;
   duration?: number;
+  blurAmount?: number;
 };
 
 const PulsingCircle: React.FC<PulsingCircleProps> = ({
   className = "",
   color,
   duration = 5000,
+  blurAmount = 0,
 }: PulsingCircleProps) => {
   return (
     <svg
@@ -23,6 +25,7 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
         {`
           .pulsing-circle {
             animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
+            filter: blur(${blurAmount}px);
           }
           @keyframes pulsing-circle__pulse {
             0% {transform: scale(1)}

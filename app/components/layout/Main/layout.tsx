@@ -2,7 +2,7 @@
 import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
 import { Box, Flex, ScrollArea, Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
 import Orbs from "../../Orbs";
@@ -12,7 +12,6 @@ const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
-  const scrollAreaRef = useRef(null);
 
   const defaultConfig = OrbColorOnPagesConfig.default;
   const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
