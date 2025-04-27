@@ -83,7 +83,7 @@ As an AI assistant working with the ShaganPlaatjies portfolio codebase, adhere t
 
 ## Documentation
 1. Keep code self-documenting with clear naming
-2. Add comments only when necessary for complex logic
+2. Never add comments
 3. Use TypeScript types as documentation
 
 When proposing code modifications, focus on matching the established patterns and maintain consistency with the existing codebase. Follow the Next.js and React best practices while adhering to the specific styling and component structure used in this portfolio project.

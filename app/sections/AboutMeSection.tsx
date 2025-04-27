@@ -6,6 +6,32 @@ import CTAButton from "../components/CTAButton";
 import WindowLayout from "../components/WindowCard/Window";
 
 const AboutMeSection: React.FC = () => {
+  const colorThemes = {
+    backend: {
+      primary: "var(--green-9)",
+      secondary: "var(--teal-9)",
+      accent: "var(--jade-9)",
+    },
+
+    frontend: {
+      primary: "var(--blue-9)",
+      secondary: "var(--sky-9)",
+      accent: "var(--cyan-9)",
+    },
+
+    data: {
+      primary: "var(--violet-9)",
+      secondary: "var(--iris-9)",
+      accent: "var(--indigo-9)",
+    },
+
+    business: {
+      primary: "var(--tomato-9)",
+      secondary: "var(--amber-9)",
+      accent: "var(--orange-9)",
+    },
+  };
+
   return (
     <Section>
       <Flex direction={"column"} gapY={"4"} mb={"5"}>
@@ -26,15 +52,15 @@ const AboutMeSection: React.FC = () => {
             <ul className="space-y-4">
               <li>
                 I'm focused on developing{" "}
-                <span className="text-radix-base-lime">
+                <span style={{ color: colorThemes.backend.primary }}>
                   robust applications
                 </span>{" "}
                 with{" "}
-                <span className="text-radix-base-sky">
+                <span style={{ color: colorThemes.backend.secondary }}>
                   scalable architectures
                 </span>
                 , emphasizing{" "}
-                <span className="text-radix-base-mint">
+                <span style={{ color: colorThemes.backend.accent }}>
                   security and performance
                 </span>{" "}
                 throughout the software lifecycle.
@@ -42,34 +68,63 @@ const AboutMeSection: React.FC = () => {
               <li>
                 As a technical lead, I've mentored junior developers while
                 modernizing legacy systems into{" "}
-                <span className="text-radix-base-yellow">
+                <span style={{ color: colorThemes.backend.primary }}>
                   efficient microservices
                 </span>{" "}
                 across the{" "}
-                <span className="text-radix-base-crimson">
+                <span style={{ color: colorThemes.business.primary }}>
                   finance and insurance sectors
                 </span>
                 , and{" "}
-                <span className="text-radix-base-violet">
+                <span style={{ color: colorThemes.data.primary }}>
                   real-time analytics platforms
                 </span>
                 .
               </li>
               <li>
                 My technical stack includes{" "}
-                <span className="text-radix-base-lime">.NET</span>,{" "}
-                <span className="text-radix-base-sky">React</span>,{" "}
-                <span className="text-radix-base-mint">Vue</span>,{" "}
-                <span className="text-radix-base-yellow">AWS</span>, and{" "}
-                <span className="text-radix-base-violet">SQL</span>, with a
-                focus on enterprise-grade implementations and best practices
-                like S.O.L.I.D principles.
+                <span style={{ color: colorThemes.backend.primary }}>.NET</span>
+                ,{" "}
+                <span style={{ color: colorThemes.frontend.primary }}>
+                  React
+                </span>
+                ,{" "}
+                <span style={{ color: colorThemes.frontend.secondary }}>
+                  Vue
+                </span>
+                ,{" "}
+                <span style={{ color: colorThemes.backend.secondary }}>
+                  AWS
+                </span>
+                , and{" "}
+                <span style={{ color: colorThemes.data.secondary }}>SQL</span>,
+                with a focus on enterprise-grade implementations and best
+                practices like{" "}
+                <span style={{ color: colorThemes.backend.accent }}>
+                  S.O.L.I.D
+                </span>{" "}
+                principles.
               </li>
               <li>
                 Beyond my enterprise work, I run{" "}
-                <span className="text-radix-base-crimson">Pixelscape</span>,
-                providing data-driven web solutions, e-commerce platforms, and
-                digital marketing services to local businesses.
+                <span style={{ color: colorThemes.business.primary }}>
+                  Pixelscape
+                </span>
+                , providing{" "}
+                <span style={{ color: colorThemes.data.primary }}>
+                  data-driven web solutions
+                </span>
+                ,
+                <span style={{ color: colorThemes.business.secondary }}>
+                  {" "}
+                  e-commerce platforms
+                </span>
+                , and
+                <span style={{ color: colorThemes.business.accent }}>
+                  {" "}
+                  digital marketing
+                </span>{" "}
+                services to local businesses.
               </li>
             </ul>
           </WindowLayout>
@@ -79,11 +134,26 @@ const AboutMeSection: React.FC = () => {
           <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="where-i-work" padded>
               <ul className="space-y-2">
-                <li>Currently based in Johannesburg, South Africa 🇿🇦</li>
-                <li>Available for remote collaborations worldwide 🌎</li>
                 <li>
-                  Current position: Full Stack Software Engineer at BSure
-                  Insurance Advisors
+                  Currently based in{" "}
+                  <span style={{ color: colorThemes.business.accent }}>
+                    Johannesburg, South Africa
+                  </span>{" "}
+                  🇿🇦
+                </li>
+                <li>
+                  Available for{" "}
+                  <span style={{ color: colorThemes.frontend.accent }}>
+                    remote collaborations
+                  </span>{" "}
+                  worldwide 🌎
+                </li>
+                <li>
+                  Current position:{" "}
+                  <span style={{ color: colorThemes.backend.primary }}>
+                    Full Stack Software Engineer
+                  </span>{" "}
+                  at BSure Insurance Advisors
                 </li>
               </ul>
             </WindowLayout>
@@ -92,10 +162,26 @@ const AboutMeSection: React.FC = () => {
           <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="expertise" padded>
               <ul className="space-y-2 flex-col">
-                <li>🔒 Enterprise Software</li>
-                <li>🏗️ Scalable Solutions</li>
-                <li>📊 Data-Driven Design</li>
-                <li>☁️ Cloud Architecture</li>
+                <li>
+                  <span style={{ color: colorThemes.business.primary }}>
+                    🔒 Enterprise Software
+                  </span>
+                </li>
+                <li>
+                  <span style={{ color: colorThemes.backend.secondary }}>
+                    🏗️ Scalable Solutions
+                  </span>
+                </li>
+                <li>
+                  <span style={{ color: colorThemes.data.primary }}>
+                    📊 Data-Driven Design
+                  </span>
+                </li>
+                <li>
+                  <span style={{ color: colorThemes.business.secondary }}>
+                    ☁️ Cloud Architecture
+                  </span>
+                </li>
               </ul>
             </WindowLayout>
           </Flex>
@@ -107,7 +193,11 @@ const AboutMeSection: React.FC = () => {
               <li>
                 <Link
                   href="https://www.linkedin.com/in/shaganplaatjies/"
-                  className="text-radix-base-blue hover:opacity-80"
+                  style={{
+                    color: colorThemes.business.secondary,
+                    transition: "opacity 0.2s",
+                  }}
+                  className="hover:opacity-80"
                 >
                   Linkedin
                 </Link>
@@ -115,7 +205,11 @@ const AboutMeSection: React.FC = () => {
               <li>
                 <Link
                   href="https://github.com/shgnplaatjies"
-                  className="text-radix-base-crimson hover:opacity-80"
+                  style={{
+                    color: colorThemes.frontend.primary,
+                    transition: "opacity 0.2s",
+                  }}
+                  className="hover:opacity-80"
                 >
                   Github
                 </Link>
@@ -123,7 +217,11 @@ const AboutMeSection: React.FC = () => {
               <li>
                 <Link
                   href="mailto:me@shaganplaatjies.co.za"
-                  className="text-radix-base-mint hover:opacity-80"
+                  style={{
+                    color: colorThemes.data.primary,
+                    transition: "opacity 0.2s",
+                  }}
+                  className="hover:opacity-80"
                 >
                   Email
                 </Link>
@@ -131,7 +229,11 @@ const AboutMeSection: React.FC = () => {
               <li>
                 <Link
                   href="https://pixelscape.co.za"
-                  className="text-radix-base-yellow hover:opacity-80"
+                  style={{
+                    color: colorThemes.business.primary,
+                    transition: "opacity 0.2s",
+                  }}
+                  className="hover:opacity-80"
                 >
                   Digital Agency
                 </Link>
