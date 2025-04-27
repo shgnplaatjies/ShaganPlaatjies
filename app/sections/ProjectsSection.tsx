@@ -48,10 +48,9 @@ const ProjectsSection: React.FC = async () => {
           ) : (
             posts
               .filter((currentPost) => {
-                const projectsCategoryId = categories.filter((category) => {
-                  console.log(category.slug);
-                  return category.slug === "project";
-                });
+                const projectsCategoryId = categories.filter(
+                  (category) => category.slug === "project"
+                );
                 return currentPost.categories.includes(
                   projectsCategoryId[0]?.id
                 );
