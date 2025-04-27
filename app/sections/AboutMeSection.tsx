@@ -91,11 +91,11 @@ const AboutMeSection: React.FC = () => {
 
           <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="expertise" padded>
-              <ul className="space-y-2 grid grid-cols-2">
-                <li>🔒 Security</li>
-                <li>🏗️ Architectures</li>
-                <li>📊 Data Systems</li>
-                <li>☁️ Cloud Solutions</li>
+              <ul className="space-y-2 flex-col">
+                <li>🔒 Enterprise Software</li>
+                <li>🏗️ Scalable Solutions</li>
+                <li>📊 Data-Driven Design</li>
+                <li>☁️ Cloud Architecture</li>
               </ul>
             </WindowLayout>
           </Flex>
@@ -103,7 +103,7 @@ const AboutMeSection: React.FC = () => {
 
         <Flex className="mt-8">
           <WindowLayout title="me-online" padded>
-            <ul className="flex flex-wrap gap-6 justify-center">
+            <ul className="flex-col flex-wrap gap-6 justify-center">
               <li>
                 <Link
                   href="https://www.linkedin.com/in/shaganplaatjies/"
@@ -134,14 +134,6 @@ const AboutMeSection: React.FC = () => {
                   className="text-radix-base-yellow hover:opacity-80"
                 >
                   Digital Agency
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-radix-base-violet hover:opacity-80"
-                >
-                  resume
                 </Link>
               </li>
             </ul>
