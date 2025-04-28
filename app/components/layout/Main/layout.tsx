@@ -2,7 +2,7 @@
 import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
 import { Box, Flex, ScrollArea, Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
 import Orbs from "../../Orbs";
@@ -12,7 +12,6 @@ const MainLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
-  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
 
   const defaultConfig = OrbColorOnPagesConfig.default;
   const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
@@ -33,11 +32,10 @@ const MainLayout: React.FC<{
         <main className="flex flex-grow flex-row overflow-hidden">
           <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-gray-border-1 border-opacity-50" />
 
-          <ScrollArea ref={scrollAreaRef}>
+          <ScrollArea>
             <Orbs
               pulseDuration={10000}
               className="w-full h-full absolute xs:hidden"
-              scrollRef={scrollAreaRef}
               color={orbColor.color}
             />
             <Box className="w-full h-full backdrop-blur-[20rem] px-4">

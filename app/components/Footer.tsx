@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
+import { Flex, Grid, Link, Section, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
@@ -10,71 +10,72 @@ import { getNavIcons } from "./icons/NavIcons";
 const Footer: React.FC = () => {
   const navIcons = getNavIcons();
   const pathName = usePathname();
+  const currentYear = new Date().getFullYear();
 
   return (
-    <Section className="border-t border-gray-border-1">
-      <Grid
-        className="h-60 w-full place-items-center"
-        columns={{ sm: "1", md: "2" }}
-      >
-        <Flex className="lg:justify-self-center">
-          <Box pr="2">
-            <Logo />
-          </Box>
+    <Section className="border-t border-gray-border-1 mt-16 pt-10">
+      <Flex direction="column" gap="6" align="center">
+        <Flex align="center" gap="2">
+          <Logo className="w-8 h-8" />
           <StylizedTextLogo size="5" />
         </Flex>
 
-        <Flex
-          wrap="wrap"
-          gap="2"
-          className="justify-self-center justify-center"
-        >
-          {navIcons.map(({ Icon, label, href }, i) => (
+        <Text as="p" className="text-center opacity-70 max-w-md">
+          Interested in technical collaboration or enterprise solutions? Let's
+          discuss your project.
+        </Text>
+
+        <Flex wrap="wrap" gap="4" justify="center" className="my-4">
+          {navIcons.map(({ label, href }, i) => (
             <Link
               key={label}
-              content="center"
-              color={pathName !== href ? "gray" : undefined}
               asChild
+              color={pathName !== href ? "gray" : undefined}
+              className="hover:opacity-80"
             >
-              <NextLink href={href} className="px-2">
+              <NextLink href={href}>
                 <Text>{label}</Text>
               </NextLink>
             </Link>
           ))}
         </Flex>
-      </Grid>
 
-      <Grid columns={{ sm: "1", md: "2" }}>
-        <Grid pb="6" columns={{ sm: "1", md: "2" }}>
-          <Text as="p" className="text-center lg:justify-self-end">
-            <Link href="/">&copy; 2024</Link> All rights reserved.
-          </Text>
-          <Text as="p" className="text-center lg:justify-self-start">
-            | Full Stack Web Developer
-          </Text>
-        </Grid>
-        <Grid gap="2" columns={{ sm: "1", md: "2" }}>
-          <Link
-            content="center"
-            color="gray"
-            className="text-center lg:justify-self-end"
-            asChild
-          >
-            <NextLink href="/privacy-policy">
-              <Text>Privacy Policy</Text>
-            </NextLink>
-          </Link>
+        <Grid columns={{ sm: "1", md: "1" }} className="w-full mt-8">
+          <Flex direction="column" align="center" gap="2">
+            <Flex gap="2" justify="center" wrap="wrap">
+              <Text as="p" className="text-center text-sm opacity-70">
+                © {currentYear} Shagan Plaatjies | Full Stack Software Engineer
+              </Text>
+              <Text
+                as="p"
+                className="text-center text-sm opacity-70 hidden sm:block"
+              >
+                |
+              </Text>
+              <Text as="p" className="text-center text-sm opacity-70">
+                Based in Johannesburg, South Africa
+              </Text>
+            </Flex>
 
-          <Link
-            content="center"
-            color="gray"
-            className="text-center lg:justify-self-start"
-            asChild
-          >
-            <Text>Cookie Free Website</Text>
-          </Link>
+            <Flex gap="4" justify="center" className="mt-2">
+              <Link
+                color="gray"
+                asChild
+                className="text-xs opacity-70 hover:opacity-100"
+              >
+                <NextLink href="/privacy-policy">Privacy Policy</NextLink>
+              </Link>
+
+              <Link
+                color="gray"
+                className="text-xs opacity-70 hover:opacity-100"
+              >
+                Cookie-free Website
+              </Link>
+            </Flex>
+          </Flex>
         </Grid>
-      </Grid>
+      </Flex>
     </Section>
   );
 };

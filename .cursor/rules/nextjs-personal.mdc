@@ -1,0 +1,89 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Code Style System Prompt for ShaganPlaatjies Portfolio Codebase
+
+As an AI assistant working with the ShaganPlaatjies portfolio codebase, adhere to the following code style guidelines when generating or modifying code:
+
+## Project Structure
+1. Follow Next.js App Router conventions with pages in `/app` directory
+2. Organize components in the `/app/components` directory
+3. Place utility functions in `/app/lib`
+4. Group related components in subdirectories (e.g., `/components/WindowCard`)
+5. Use sections for page-specific content in `/app/sections`
+
+## Naming Conventions
+1. Use PascalCase for React components and their files (e.g., [Header.tsx](mdc:app/components/Header.tsx), [ContactForm.tsx](mdc:app/components/ContactForm.tsx))
+2. Use camelCase for utility functions, hooks, and variables
+3. Use descriptive, semantic names that clearly indicate purpose
+4. Prefix client-side components with "use client" directive when necessary
+
+## Component Structure
+1. Define React functional components with explicit type annotations:
+   ```tsx
+   type ComponentProps = { className: string };
+   
+   const Component: React.FC<ComponentProps> = ({ className }: ComponentProps) => {
+     return (
+       // JSX here
+     );
+   };
+   ```
+2. Use default exports for main components and named exports for utilities or sub-components
+3. Keep components focused on a single responsibility
+4. Extract sub-components when appropriate for readability
+
+## TypeScript Usage
+1. Create explicit type definitions for component props 
+2. Use React.FC<PropsType> for functional components
+3. Define precise types for state variables
+4. Use type annotations for function parameters and return values
+
+## Import Organization
+1. Group imports logically:
+   - External library imports first (React, Radix UI)
+   - Internal components next
+   - Types and utilities last
+2. Use absolute imports with the `@/` prefix according to the tsconfig paths
+
+## Styling Approach
+1. Use Tailwind CSS for styling with className props
+2. Leverage Radix UI components (Box, Flex, Grid, etc.) for layout
+3. Use Grid and Flex components from Radix UI for layout structure
+4. Follow established patterns with opacity values, breakpoints (sm, md, xl)
+5. Use the configured color system (primary, gray, accent) from the tailwind configuration
+
+## State Management
+1. Use React hooks (useState, useEffect) for component state
+2. Extract complex logic into custom hooks
+3. Define constants in [constants.ts](mdc:app/lib/constants.ts)
+4. Use polling intervals consistent with the codebase (POLLING_INTERVAL)
+
+## UI Patterns
+1. Use responsive design with breakpoints:
+   ```tsx
+   className="hidden sm:flex"
+   ```
+2. Use Radix UI components for UI elements (Button, TextField, etc.)
+3. Follow design patterns with subtle opacity, blur effects, and gradients
+4. Use icons consistently from @radix-ui/react-icons
+
+## Code Organization
+1. Keep JSX clean and readable
+2. Extract utility functions for reuse
+3. Use constants for magic values
+4. Organize code in logical sections
+
+## Animation and Interactions
+1. Use the existing animation components and patterns
+2. Leverage framer-motion or react-spring for animations according to existing patterns
+3. Follow established patterns for interactive elements
+
+## Documentation
+1. Keep code self-documenting with clear naming
+2. Never add comments
+3. Use TypeScript types as documentation
+
+When proposing code modifications, focus on matching the established patterns and maintain consistency with the existing codebase. Follow the Next.js and React best practices while adhering to the specific styling and component structure used in this portfolio project.

@@ -2,18 +2,16 @@ import AccentedHeading from "@/app/components/AccentedHeading";
 import { fetchWpPost } from "@/app/lib/server-lib";
 import { Text } from "@radix-ui/themes";
 
-interface WpPostParams {
-  target: string | number;
-}
-
-export default async ({ params }: { params: WpPostParams }) => {
-  const { target } = params;
+export default async function Page(props: any) {
+  const { target } = props.params as {
+    target: string | number;
+  };
 
   const post = await fetchWpPost(target);
 
-  if (!post && typeof target === "number")
+  if (!post && !isNaN(Number(target)))
     return <Text as="p">No post found with post id: "{target}".</Text>;
-  else if (!post && typeof target === "string")
+  else if (!post)
     return <Text as="p">No post found with post slug: "{target}".</Text>;
 
   if (!post)
@@ -32,7 +30,7 @@ export default async ({ params }: { params: WpPostParams }) => {
         accentedText=""
       />
       <Text as="p">{new Date(date).toLocaleDateString("en-US")}</Text>
-      <Text as="p">{content.rendered}</Text>
+      <div dangerouslySetInnerHTML={{ __html: content.rendered }} />
     </article>
   );
-};
+}

@@ -5,12 +5,14 @@ type PulsingCircleProps = {
   className?: string;
   color: string;
   duration?: number;
+  blurAmount?: number;
 };
 
 const PulsingCircle: React.FC<PulsingCircleProps> = ({
   className = "",
   color,
   duration = 5000,
+  blurAmount = 0,
 }: PulsingCircleProps) => {
   const pulsingStyle = `
   .pulsing-circle {
@@ -29,8 +31,20 @@ const PulsingCircle: React.FC<PulsingCircleProps> = ({
       viewBox="-50 -50 100 100"
       shapeRendering="geometricPrecision"
       textRendering="geometricPrecision"
-    >
-      <style>{pulsingStyle}</style>
+    > 
+      <style>
+        {`
+          .pulsing-circle {
+            animation: pulsing-circle__pulse ${duration}ms linear infinite normal forwards;
+            filter: blur(${blurAmount}px);
+          }
+          @keyframes pulsing-circle__pulse {
+            0% {transform: scale(1)}
+            50% {transform: scale(0.75)}
+            100% {transform: scale(1)}
+          }
+          `}
+      </style> 
       <g className="pulsing-circle">
         <ellipse
           rx="50"
