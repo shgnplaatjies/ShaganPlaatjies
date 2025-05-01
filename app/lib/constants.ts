@@ -104,3 +104,15 @@ export type RADIX_COLORS =
   | "lime"
   | "mint"
   | "sky";
+
+export type ThirdPartyStrudelSampleConfig = {
+  configUrl: `${string}.json`;
+  binaryUrl: string;
+};
+
+export const ThirdPartyStrudelSamples: ThirdPartyStrudelSampleConfig[] = [
+  {
+    configUrl: "https://strudel.tidalcycles.org/tidal-drum-machines.json",
+    binaryUrl: "github:ritchse/tidal-drum-machines/main/machines/",
+  },
+];
