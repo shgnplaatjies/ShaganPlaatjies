@@ -1,13 +1,20 @@
+import React from "react";
 import { Footer } from "../components/Footer";
-import AboutSection from "./sections/AboutSection";
-import LandingSection from "./sections/LandingSection";
-import TechStackSection from "./sections/TechStackSection";
+import {
+  AboutSection,
+  LandingSection,
+  TechStackSection,
+  TestimonialsSection,
+  WorkSection,
+} from "./sections";
 
 const AboutPage: React.FC = () => (
   <>
     <LandingSection />
     <AboutSection />
     <TechStackSection />
+    <WorkSection />
+    <TestimonialsSection />
     <Footer />
   </>
 );
