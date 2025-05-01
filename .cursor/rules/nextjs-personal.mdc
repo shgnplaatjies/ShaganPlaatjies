@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Code Style System Prompt for ShaganPlaatjies Portfolio Codebase
 
@@ -50,7 +50,7 @@ As an AI assistant working with the ShaganPlaatjies portfolio codebase, adhere t
 
 ## Styling Approach
 1. Use Tailwind CSS for styling with className props
-2. Leverage Radix UI components (Box, Flex, Grid, etc.) for layout
+2. Leverage Radix UI components (Box, Flex, Grid, etc.) for layout from the node module @radix-ui/themes
 3. Use Grid and Flex components from Radix UI for layout structure
 4. Follow established patterns with opacity values, breakpoints (sm, md, xl)
 5. Use the configured color system (primary, gray, accent) from the tailwind configuration
