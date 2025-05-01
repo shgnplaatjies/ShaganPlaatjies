@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import IconList, { HyperMediaIconProps } from "./IconsList";
 
-type AnimatedIconStackProps = {
+export type AnimatedIconStackProps = {
   buttonClassName?: string;
   popoverClassName: string;
   iconList: HyperMediaIconProps[];
