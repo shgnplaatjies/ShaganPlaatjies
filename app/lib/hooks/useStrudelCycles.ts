@@ -1,42 +1,29 @@
 "use client";
-import * as strudelCyclesCore from "@strudel.cycles/core";
-import { controls, evalScope } from "@strudel.cycles/core";
-import * as strudelCyclesMini from "@strudel.cycles/mini";
-import "@strudel.cycles/react/dist/style.css";
-import * as strudelCyclesTonal from "@strudel.cycles/tonal";
-import * as strudelCyclesWebaudio from "@strudel.cycles/webaudio";
-import { initAudioOnFirstClick, samples } from "@strudel.cycles/webaudio";
-import { useEffect } from "react";
+import { repl } from "@strudel/core";
 import {
-  ThirdPartyStrudelSampleConfig,
-  ThirdPartyStrudelSamples,
-} from "../constants";
+  getAudioContext,
+  initAudioOnFirstClick,
+  webaudioOutput,
+} from "@strudel/webaudio";
 
-export const useStrudelCycles = () => {
-  const preBakeSamples = async (
-    sampleConfig: ThirdPartyStrudelSampleConfig[]
-  ) =>
-    sampleConfig.map(
-      async ({ configUrl, binaryUrl }) => await samples(configUrl, binaryUrl)
-    );
+export const useStrudelCycles = (strudelPattern: any) => {
+  initAudioOnFirstClick();
 
-  const init = async () => {
-    if (typeof window === "undefined") return;
+  const audioContext = getAudioContext();
 
-    await evalScope(
-      controls,
-      strudelCyclesCore,
-      strudelCyclesMini,
-      strudelCyclesWebaudio,
-      strudelCyclesTonal
-    );
+  const { scheduler } = repl({
+    defaultOutput: webaudioOutput,
+    getTime: () => audioContext.currentTime,
+  });
 
-    await preBakeSamples(ThirdPartyStrudelSamples);
+  scheduler.setPattern(strudelPattern);
 
-    initAudioOnFirstClick();
+  return {
+    start: () => {
+      debugger;
+
+      scheduler.start();
+    },
+    stop: () => scheduler.stop(),
   };
-
-  useEffect(() => {
-    init();
-  }, []);
 };

@@ -1,0 +1,3 @@
+// @title dash on the train @by todepond
+
+$: note("[C G], <D Fb B C A>*[0.5,2]").slow(".1275").gain(.8)
