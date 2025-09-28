@@ -1,4 +1,6 @@
-import MusicProject from "@/app/components/tidal-cycles/MusicProjects";
+"use client";
+import MusicProject from "@/app/components/tidal-cycles/MusicProject";
+import { FirstSongPattern } from "@/app/lib/strudel/cycles";
 import { Section, Text } from "@radix-ui/themes";
 import AccentedHeading from "../../components/AccentedHeading";
 import CTAButton from "../../components/CTAButton";
@@ -6,13 +8,13 @@ import CTAButton from "../../components/CTAButton";
 export type MusicProjectConfig = {
   title: string;
   description?: string;
-  tidalCyclesCode: string;
+  tidalCyclesCode: any;
 };
 
 const MusicProjects: MusicProjectConfig[] = [
   {
     title: "My first tidal cycles project",
-    tidalCyclesCode: `s("bd sd [~ bd] sd,hh*16, misc")`,
+    tidalCyclesCode: FirstSongPattern,
   },
 ];
 

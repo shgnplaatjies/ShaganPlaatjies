@@ -1,8 +1,7 @@
 "use client";
 import { MusicProjectConfig } from "@/app/experiments/sections/MusicProjectsSection";
 import { useStrudelCycles } from "@/app/lib/hooks/useStrudelCycles";
-import { Box, Text } from "@radix-ui/themes";
-import { MiniRepl } from "@strudel.cycles/react";
+import { Box, Button, Text } from "@radix-ui/themes";
 import "@strudel.cycles/react/dist/style.css";
 import WindowLayout from "../WindowCard/Window";
 
@@ -11,7 +10,7 @@ const MusicProject = ({
 }: {
   project: MusicProjectConfig;
 }) => {
-  useStrudelCycles();
+  const { start, stop } = useStrudelCycles(tidalCyclesCode);
   return (
     <WindowLayout>
       <Box className="flex-col gap-3">
@@ -22,7 +21,8 @@ const MusicProject = ({
         {description && <Text as="p">{description}</Text>}
 
         <Box>
-          <MiniRepl tune={tidalCyclesCode} />
+          <Button onMouseDown={start}>Play</Button>
+          <Button onMouseDown={stop}>Stop</Button>
         </Box>
       </Box>
     </WindowLayout>
