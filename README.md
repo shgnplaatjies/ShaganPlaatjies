@@ -1,2 +1,2 @@
 # Shagan Plaatjies
-[View Live](https://shaganplaajties.co.za)
+[View Live](https://shaganplaatjies.co.za)
