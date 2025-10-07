@@ -6,7 +6,7 @@
 
 declare module "@strudel/core" {
   export function repl(config: any): any;
-  export * from "@strudel/core";
+  export function note(...args: any[]): any;
 }
 
 declare module "@strudel/webaudio" {
