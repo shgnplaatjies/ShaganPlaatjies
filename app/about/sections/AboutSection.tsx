@@ -48,7 +48,7 @@ const AboutSection: React.FC = () => {
         <Box>
           <WindowLayout title="philosophy.md" padded LogoIcon={<CodeIcon />}>
             <Text as="p" size="5" weight="bold" className="mb-4">
-              🎯 My Engineering Philosophy
+              My Engineering Philosophy
             </Text>
 
             <Text as="p" size="3" className="mb-4">

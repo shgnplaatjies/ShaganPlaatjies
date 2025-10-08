@@ -83,7 +83,7 @@ const ImpactSection: React.FC = () => {
           <Box className="space-y-4">
             <Box>
               <Text as="p" size="3" weight="bold" className="text-radix-base-grass mb-1">
-                ⚡ Patented Technology Leadership
+                Patented Technology Leadership
               </Text>
               <Text as="p" size="2" className="opacity-70">
                 Leading development of patented systems serving global live entertainment audiences
@@ -91,7 +91,7 @@ const ImpactSection: React.FC = () => {
             </Box>
             <Box>
               <Text as="p" size="3" weight="bold" className="text-radix-base-tomato mb-1">
-                🏗️ Monolithic → Microservices Migration
+                Monolithic to Microservices Migration
               </Text>
               <Text as="p" size="2" className="opacity-70">
                 Architected and led finance division transformation at BSure Insurance
@@ -99,7 +99,7 @@ const ImpactSection: React.FC = () => {
             </Box>
             <Box>
               <Text as="p" size="3" weight="bold" className="text-radix-base-blue mb-1">
-                📊 Complete Product Redesign
+                Complete Product Redesign
               </Text>
               <Text as="p" size="2" className="opacity-70">
                 Voucher Advance rebuilt from scratch with significant UX/performance gains
@@ -107,7 +107,7 @@ const ImpactSection: React.FC = () => {
             </Box>
             <Box>
               <Text as="p" size="3" weight="bold" className="text-radix-base-violet mb-1">
-                👥 IC to Tech Lead Promotion
+                IC to Tech Lead Promotion
               </Text>
               <Text as="p" size="2" className="opacity-70">
                 Advanced within first year at BSure through demonstrated leadership
@@ -120,10 +120,7 @@ const ImpactSection: React.FC = () => {
       <WindowLayout title="technical-contributions.md" padded>
         <Grid columns={{ initial: "1", sm: "2", md: "4" }} gap="4">
           <Box className="text-center">
-            <Text as="p" size="3" className="text-radix-base-cyan mb-2">
-              ☁️
-            </Text>
-            <Text as="p" size="2" weight="bold" className="mb-1">
+            <Text as="p" size="2" weight="bold" className="mb-1 text-radix-base-cyan">
               Cloud Infrastructure
             </Text>
             <Text as="p" size="1" className="opacity-60">
@@ -131,10 +128,7 @@ const ImpactSection: React.FC = () => {
             </Text>
           </Box>
           <Box className="text-center">
-            <Text as="p" size="3" className="text-radix-base-green mb-2">
-              🔄
-            </Text>
-            <Text as="p" size="2" weight="bold" className="mb-1">
+            <Text as="p" size="2" weight="bold" className="mb-1 text-radix-base-green">
               CI/CD Pipelines
             </Text>
             <Text as="p" size="1" className="opacity-60">
@@ -142,10 +136,7 @@ const ImpactSection: React.FC = () => {
             </Text>
           </Box>
           <Box className="text-center">
-            <Text as="p" size="3" className="text-radix-base-amber mb-2">
-              🔒
-            </Text>
-            <Text as="p" size="2" weight="bold" className="mb-1">
+            <Text as="p" size="2" weight="bold" className="mb-1 text-radix-base-amber">
               Security First
             </Text>
             <Text as="p" size="1" className="opacity-60">
@@ -153,10 +144,7 @@ const ImpactSection: React.FC = () => {
             </Text>
           </Box>
           <Box className="text-center">
-            <Text as="p" size="3" className="text-radix-base-tomato mb-2">
-              📐
-            </Text>
-            <Text as="p" size="2" weight="bold" className="mb-1">
+            <Text as="p" size="2" weight="bold" className="mb-1 text-radix-base-tomato">
               Clean Architecture
             </Text>
             <Text as="p" size="1" className="opacity-60">
