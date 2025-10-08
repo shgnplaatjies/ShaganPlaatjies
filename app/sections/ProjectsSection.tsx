@@ -42,7 +42,7 @@ const ProjectsSection: React.FC = async () => {
       <Text as="p" className="mb-10 opacity-80 max-w-3xl">
         Enterprise-grade systems and scalable architectures delivered across fintech, insurance,
         telecommunications, and live entertainment. Each project represents solutions to complex
-        technical challenges—from monolithic migrations to patented global-scale platforms.
+        technical challenges, from monolithic migrations to patented global-scale platforms.
       </Text>
 
       <Box className="my-8">

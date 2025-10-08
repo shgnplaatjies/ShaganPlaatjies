@@ -28,8 +28,8 @@ const LandingSection: React.FC = () => {
           size="4"
           weight="medium"
         >
-          Over half a decade of architecting enterprise solutions—from fintech to live
-          entertainment—merging technical depth with product vision and business strategy.
+          Over half a decade of architecting enterprise solutions, from fintech to live
+          entertainment, merging technical depth with product vision and business strategy.
           I don't just write code; I build scalable systems, mentor engineering teams, and
           drive innovation at the intersection of technology and global impact.
         </Text>

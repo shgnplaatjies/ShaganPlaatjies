@@ -27,7 +27,7 @@ const LandingSection: React.FC = () => {
         >
           I architect and deliver patented technology for global audiences in live entertainment,
           having led teams and transformed legacy systems into high-performance microservices
-          across fintech, insurance, and telecommunications—solving complex problems at the
+          across fintech, insurance, and telecommunications. I solve complex problems at the
           intersection of scale, security, and innovation.
         </Text>
         <CTAButton href="/about" text="About Me" />

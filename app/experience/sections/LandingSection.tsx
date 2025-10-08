@@ -22,8 +22,8 @@ const LandingSection: React.FC = () => {
         />
         <Text wrap="balance" as="p" className="py-4 max-w-3xl" align="center">
           Over half a decade architecting and delivering mission-critical systems across
-          fintech, insurance, telecommunications, and live entertainment—from patented
-          global-scale platforms to complex microservice migrations. Each project represents
+          fintech, insurance, telecommunications, and live entertainment. From patented
+          global-scale platforms to complex microservice migrations, each project represents
           technical excellence, scalable architecture, and measurable business value.
         </Text>
         <CTAButton href="/about" text="About Me" />

@@ -60,7 +60,7 @@ const TestimonialsSection: React.FC = () => {
           position="Vodacom Financial Services"
         />
         <Testimonial
-          quote="Pixelscape delivered exactly what we needed—responsive, professional, and compliant with all requirements. Shagan guided us through each step, translating our business needs into a profitable e-commerce platform. Highly recommended for serious businesses."
+          quote="Pixelscape delivered exactly what we needed: responsive, professional, and compliant with all requirements. Shagan guided us through each step, translating our business needs into a profitable e-commerce platform. Highly recommended for serious businesses."
           author="K. Ndebele"
           position="Co-founder, EMRL"
         />
