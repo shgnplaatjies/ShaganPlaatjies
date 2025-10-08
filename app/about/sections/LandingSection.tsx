@@ -16,20 +16,22 @@ const LandingSection: React.FC = () => {
           textAs="h1"
           align="center"
           size="9"
-          preText="Let's get to "
-          accentedText="know each other"
-          postText="."
+          preText="Building "
+          accentedText="systems that scale, "
+          postText="leading teams that deliver"
         />
         <Text
           wrap="balance"
           as="p"
-          className="py-4"
+          className="py-4 max-w-3xl"
           align="center"
           size="4"
           weight="medium"
         >
-          I'm Shagan, a Frontend Engineer from South Africa. My focus is on
-          creating beautiful, functional digital experiences.
+          Over half a decade of architecting enterprise solutions—from fintech to live
+          entertainment—merging technical depth with product vision and business strategy.
+          I don't just write code; I build scalable systems, mentor engineering teams, and
+          drive innovation at the intersection of technology and global impact.
         </Text>
         <CTAButton href="#about-me" text="More About Me" />
       </Flex>

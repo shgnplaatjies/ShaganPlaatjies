@@ -35,13 +35,14 @@ const ProjectsSection: React.FC = async () => {
       <AccentedHeading
         textAs="h2"
         size="8"
-        preText="Technical "
-        accentedText="portfolio"
+        preText="Featured "
+        accentedText="projects & solutions"
       />
 
-      <Text as="p" className="mb-10 opacity-80">
-        Selected enterprise solutions, microservices, and scalable architecture
-        implementations
+      <Text as="p" className="mb-10 opacity-80 max-w-3xl">
+        Enterprise-grade systems and scalable architectures delivered across fintech, insurance,
+        telecommunications, and live entertainment. Each project represents solutions to complex
+        technical challenges—from monolithic migrations to patented global-scale platforms.
       </Text>
 
       <Box className="my-8">
@@ -90,7 +91,7 @@ const ProjectsSection: React.FC = async () => {
       </Box>
 
       <Flex justify="center" className="mt-8">
-        <CTAButton href="/projects" text="View All Projects" />
+        <CTAButton href="/experience" text="Explore Full Portfolio" />
       </Flex>
     </Section>
   );

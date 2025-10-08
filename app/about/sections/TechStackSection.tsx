@@ -11,12 +11,13 @@ const TechStackSection: React.FC = () => {
       <AccentedHeading
         textAs="h2"
         size="8"
-        preText="Tech I "
-        accentedText="Work With"
+        preText="Technical "
+        accentedText="Arsenal"
       />
 
-      <Text as="p" size="4" className="mb-8">
-        Here are some of the technologies I enjoy using in my projects.
+      <Text as="p" size="4" className="mb-8 opacity-80">
+        Enterprise-grade technologies and frameworks powering mission-critical systems
+        across multiple high-stakes industries.
       </Text>
 
       <Box className="mb-12">
@@ -29,46 +30,130 @@ const TechStackSection: React.FC = () => {
         />
       </Box>
 
-      <Grid columns={{ initial: "1", sm: "2" }} gap="6">
+      <Grid columns={{ initial: "1", sm: "2", md: "3" }} gap="6">
         <Box>
-          <Text as="p" size="5" weight="bold" className="mb-4">
-            Frontend
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-green">
+            Backend & APIs
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • React & Next.js for powerful, interactive UIs
+            • C# & ASP.NET for enterprise systems
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • TypeScript for type-safe code
+            • Django & Python for data-driven apps
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • TailwindCSS for rapid, responsive styling
+            • Node.js for JavaScript backends
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • GSAP for smooth animations
+            • Serverless architecture & Lambda
           </Text>
           <Text as="p" size="3">
-            • Modern JavaScript (ES6+)
+            • RESTful & GraphQL APIs
           </Text>
         </Box>
 
         <Box>
-          <Text as="p" size="5" weight="bold" className="mb-4">
-            Tools & Platforms
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-blue">
+            Frontend & UI
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • Git & GitHub for version control
+            • React, Vue & AngularJS
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • Figma for design collaboration
+            • Next.js for production apps
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • Vercel for hosting and deployment
+            • TypeScript for type safety
           </Text>
           <Text as="p" size="3" className="mb-2">
-            • VS Code as my editor of choice
+            • TailwindCSS & modern CSS
           </Text>
           <Text as="p" size="3">
-            • Netlify for simple site hosting
+            • Responsive & accessible design
+          </Text>
+        </Box>
+
+        <Box>
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-violet">
+            Data & Cloud
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • AWS (S3, Kafka, Lambda)
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • SQL & MSSQL databases
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Vercel for deployment
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • CI/CD automation
+          </Text>
+          <Text as="p" size="3">
+            • Microservices architecture
+          </Text>
+        </Box>
+
+        <Box>
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-amber">
+            DevOps & Monitoring
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Git & GitHub workflows
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Sentry for error tracking
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Tealium for analytics
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Jira & ClickUp for project mgmt
+          </Text>
+          <Text as="p" size="3">
+            • Automated deployment pipelines
+          </Text>
+        </Box>
+
+        <Box>
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-tomato">
+            Practices & Patterns
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • S.O.L.I.D principles
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Clean code architecture
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Test-driven development
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Code reviews & mentorship
+          </Text>
+          <Text as="p" size="3">
+            • Agile methodologies
+          </Text>
+        </Box>
+
+        <Box>
+          <Text as="p" size="5" weight="bold" className="mb-4 text-radix-base-cyan">
+            Specialized Skills
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Fintech & payment integration
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • POPIA & GDPR compliance
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • E-commerce platforms
+          </Text>
+          <Text as="p" size="3" className="mb-2">
+            • Real-time data systems
+          </Text>
+          <Text as="p" size="3">
+            • Enterprise security
           </Text>
         </Box>
       </Grid>
