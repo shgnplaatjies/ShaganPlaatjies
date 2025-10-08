@@ -94,22 +94,22 @@ const AboutMeSection: React.FC = () => {
             <WindowLayout title="core-competencies.txt" padded>
               <ul className="space-y-3">
                 <li>
-                  <span className="text-radix-base-grass">🎯 Technical Leadership</span>
+                  <span className="text-radix-base-grass">Technical Leadership</span>
                   <br />
                   <span className="text-sm opacity-80">Team mentorship, architecture design, code reviews</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-tomato">🚀 System Modernization</span>
+                  <span className="text-radix-base-tomato">System Modernization</span>
                   <br />
                   <span className="text-sm opacity-80">Legacy-to-microservices, automated deployment</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-blue">🔒 Enterprise Security</span>
+                  <span className="text-radix-base-blue">Enterprise Security</span>
                   <br />
                   <span className="text-sm opacity-80">Fintech compliance, secure payment integration</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-violet">📈 Product Strategy</span>
+                  <span className="text-radix-base-violet">Product Strategy</span>
                   <br />
                   <span className="text-sm opacity-80">Business acumen, stakeholder management</span>
                 </li>
@@ -122,17 +122,17 @@ const AboutMeSection: React.FC = () => {
           <WindowLayout title="location-and-availability.ini" padded>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <span className="text-radix-base-orange font-semibold">📍 Based in</span>
+                <span className="text-radix-base-orange font-semibold">Based in</span>
                 <br />
                 <span className="opacity-80">Johannesburg, South Africa 🇿🇦</span>
               </div>
               <div>
-                <span className="text-radix-base-cyan font-semibold">🌐 Remote Work</span>
+                <span className="text-radix-base-cyan font-semibold">Remote Work</span>
                 <br />
-                <span className="opacity-80">Global collaborations welcome</span>
+                <span className="opacity-80">Global collaborations welcome 🌎</span>
               </div>
               <div>
-                <span className="text-radix-base-grass font-semibold">💼 Current Role</span>
+                <span className="text-radix-base-grass font-semibold">Current Role</span>
                 <br />
                 <span className="opacity-80">Lead Engineer @ Broadway Media</span>
               </div>
