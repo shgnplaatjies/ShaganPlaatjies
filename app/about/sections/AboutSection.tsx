@@ -16,59 +16,67 @@ const AboutSection: React.FC = () => {
       <Grid columns={{ initial: "1", md: "2" }} gap="6" className="mt-8">
         <Box>
           <Text as="p" size="4" className="mb-6">
-            Hi, I'm Shagan, a Frontend Engineer passionate about creating
-            engaging user experiences and functional digital solutions.
+            I'm a Lead Software Engineer and Technical Product Lead with over five years
+            architecting mission-critical systems across high-stakes industries. Currently,
+            I lead development of patented technology at Broadway Media, solving complex
+            problems of performance, security, and scale for a global audience in live entertainment.
           </Text>
 
           <Text as="p" size="4" className="mb-6">
-            My focus is on modern web development: I integrate smooth animations
-            and intuitive interfaces into my projects, presenting information in
-            an engaging way that makes for a memorable user experience.
+            My approach merges deep technical expertise with product and business strategy.
+            At BSure Insurance, I elevated from individual contributor to Technical Team Lead,
+            guiding three junior developers while spearheading the finance division's migration
+            from monolithic architecture to a robust microservice solution—transforming their
+            operational capabilities and introducing automated deployment practices.
           </Text>
 
           <Text as="p" size="4" className="mb-6">
-            I strive to deliver projects that are visually compelling while
-            maintaining clean, well-structured code. I'm dedicated to optimal
-            performance and thoughtful UX/UI design in everything I build.
+            At Vodacom Financial Services, I delivered high-impact frontend solutions for four
+            VodaPay lending products, redesigning Voucher Advance from the ground up while
+            maintaining legacy support—achieving significant improvements in usability,
+            performance, and user satisfaction.
           </Text>
 
           <Text as="p" size="4">
-            My favorite technologies revolve around modern JavaScript
-            frameworks. While my primary focus is frontend development, I'm
-            comfortable working across the entire development process from
-            design to deployment.
+            I advocate for software design excellence through S.O.L.I.D principles, clean code
+            practices, and enterprise-grade implementations. Beyond corporate work, I founded
+            Pixelscape, building data-driven web solutions and e-commerce platforms with full
+            POPIA compliance for local businesses—demonstrating versatility across contexts and scales.
           </Text>
         </Box>
 
         <Box>
-          <WindowLayout title="where-i-work" padded LogoIcon={<CodeIcon />}>
-            <Text as="p" size="4" weight="bold" className="mb-4">
-              Currently based in Sandton, South Africa 🇿🇦
-            </Text>
-
-            <Text as="p" size="4" className="mb-8">
-              Available for remote collaborations across South Africa and
-              worldwide 🌎
-            </Text>
-
+          <WindowLayout title="philosophy.md" padded LogoIcon={<CodeIcon />}>
             <Text as="p" size="5" weight="bold" className="mb-4">
-              My ideal collaborations:
+              🎯 My Engineering Philosophy
             </Text>
 
-            <Text as="p" size="3" className="mb-3">
-              • Web agencies and digital design studios needing technical
-              expertise
+            <Text as="p" size="3" className="mb-4">
+              <span className="text-radix-base-grass font-semibold">Scale-First Thinking</span>
+              <br />
+              Every system I design anticipates growth. From database architecture to API design,
+              I build for tomorrow's demands, not just today's requirements.
             </Text>
-            <Text as="p" size="3" className="mb-3">
-              • Independent professionals such as designers and developers
+
+            <Text as="p" size="3" className="mb-4">
+              <span className="text-radix-base-blue font-semibold">Security as Foundation</span>
+              <br />
+              Having worked across fintech and insurance, I treat security not as an afterthought
+              but as a foundational principle embedded in every architectural decision.
             </Text>
-            <Text as="p" size="3" className="mb-3">
-              • Innovative startups looking to create exceptional digital
-              experiences
+
+            <Text as="p" size="3" className="mb-4">
+              <span className="text-radix-base-violet font-semibold">Team Elevation</span>
+              <br />
+              Technical leadership means growing others. Through code reviews, mentorship, and
+              knowledge sharing, I elevate entire teams' capabilities and confidence.
             </Text>
+
             <Text as="p" size="3">
-              • Established companies seeking to modernize their digital
-              presence
+              <span className="text-radix-base-amber font-semibold">Business-Aligned Engineering</span>
+              <br />
+              Technology serves business goals. I bridge the gap between stakeholder needs and
+              technical implementation, ensuring solutions deliver measurable impact.
             </Text>
           </WindowLayout>
         </Box>
