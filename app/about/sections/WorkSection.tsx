@@ -9,7 +9,7 @@ const WorkSection: React.FC = () => {
       <AccentedHeading textAs="h2" size="8" preText="Career " accentedText="Timeline" />
 
       <Text as="p" size="4" className="mb-8 opacity-80">
-        From frontend developer to technical lead—five years of delivering enterprise solutions
+        From frontend developer to technical lead: five years of delivering enterprise solutions
         across fintech, insurance, telecommunications, and live entertainment.
       </Text>
 

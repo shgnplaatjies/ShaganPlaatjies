@@ -26,14 +26,14 @@ const AboutSection: React.FC = () => {
             My approach merges deep technical expertise with product and business strategy.
             At BSure Insurance, I elevated from individual contributor to Technical Team Lead,
             guiding three junior developers while spearheading the finance division's migration
-            from monolithic architecture to a robust microservice solution—transforming their
+            from monolithic architecture to a robust microservice solution, transforming their
             operational capabilities and introducing automated deployment practices.
           </Text>
 
           <Text as="p" size="4" className="mb-6">
             At Vodacom Financial Services, I delivered high-impact frontend solutions for four
             VodaPay lending products, redesigning Voucher Advance from the ground up while
-            maintaining legacy support—achieving significant improvements in usability,
+            maintaining legacy support, achieving significant improvements in usability,
             performance, and user satisfaction.
           </Text>
 
@@ -41,7 +41,7 @@ const AboutSection: React.FC = () => {
             I advocate for software design excellence through S.O.L.I.D principles, clean code
             practices, and enterprise-grade implementations. Beyond corporate work, I founded
             Pixelscape, building data-driven web solutions and e-commerce platforms with full
-            POPIA compliance for local businesses—demonstrating versatility across contexts and scales.
+            POPIA compliance for local businesses, demonstrating versatility across contexts and scales.
           </Text>
         </Box>
 
