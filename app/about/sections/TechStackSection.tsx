@@ -1,3 +1,4 @@
+"use client";
 import { getTechStackIcons } from "@/app/components/icons/TechStackIcons";
 import { Box, Grid, Section, Text } from "@radix-ui/themes";
 import AccentedHeading from "../../components/AccentedHeading";
