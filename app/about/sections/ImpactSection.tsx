@@ -36,7 +36,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
 
 const ImpactSection: React.FC = () => {
   return (
-    <Section className="py-16">
+    <Section className="py-8">
       <AccentedHeading
         textAs="h2"
         size="8"
@@ -44,14 +44,14 @@ const ImpactSection: React.FC = () => {
         accentedText="Impact"
       />
 
-      <Text as="p" size="4" className="mb-8 opacity-80">
+      <Text as="p" size="4" className="mb-4 opacity-80">
         Quantifying the value delivered across systems architecture, team leadership,
         and technical innovation.
       </Text>
 
-      <Grid columns={{ initial: "1", md: "2" }} gap="6" className="mb-8">
+      <Grid columns={{ initial: "1", md: "2" }} gap="3" className="mb-4">
         <WindowLayout title="career-metrics.yml" padded>
-          <Grid columns={{ initial: "2" }} gap="6">
+          <Grid columns={{ initial: "2" }} gap="3">
             <MetricCard
               value="5+"
               label="Years"
@@ -80,7 +80,7 @@ const ImpactSection: React.FC = () => {
         </WindowLayout>
 
         <WindowLayout title="key-achievements.log" padded>
-          <Box className="space-y-4">
+          <Box className="space-y-2">
             <Box>
               <Text as="p" size="3" weight="bold" className="text-radix-base-grass mb-1">
                 Patented Technology Leadership
@@ -118,7 +118,7 @@ const ImpactSection: React.FC = () => {
       </Grid>
 
       <WindowLayout title="technical-contributions.md" padded>
-        <Grid columns={{ initial: "1", sm: "2", md: "4" }} gap="4">
+        <Grid columns={{ initial: "1", sm: "2", md: "4" }} gap="2">
           <Box className="text-center">
             <Text as="p" size="2" weight="bold" className="mb-1 text-radix-base-cyan">
               Cloud Infrastructure

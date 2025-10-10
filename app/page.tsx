@@ -6,7 +6,7 @@ import { ProjectsSection } from "./sections/ProjectsSection";
 
 const HomePage: React.FC = () => {
   return (
-    <Section className="px-[5%] md:px-[10%] xl:px-[15%] mb-10">
+    <Section className="px-[5%] md:px-[10%] xl:px-[15%] mb-5">
       <LandingSection />
       <AboutMeSection />
       <ProjectsSection />
