@@ -18,16 +18,17 @@ const LandingSection: React.FC = () => {
           size="9"
           preText="Hi, I'm "
           accentedText="Shagan, "
-          postText="a Full Stack Software Engineer"
+          postText="Lead Software Engineer & Technical Product Lead"
         />
         <Text
           wrap="balance"
           as="p"
           className="py-4 text-center max-w-2xl opacity-80"
         >
-          I specialize in leading teams, modernizing legacy systems, and
-          building secure, scalable solutions across finance, insurance, and
-          data-driven industries.
+          I architect and deliver patented technology for global audiences in live entertainment,
+          having led teams and transformed legacy systems into high-performance microservices
+          across fintech, insurance, and telecommunications. I solve complex problems at the
+          intersection of scale, security, and innovation.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

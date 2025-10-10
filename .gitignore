@@ -7,6 +7,9 @@
 # testing
 /coverage
 
+# AI Agent
+.claude/
+
 # next.js
 /.next/
 /out/

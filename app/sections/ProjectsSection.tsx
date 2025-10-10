@@ -31,20 +31,21 @@ const ProjectsSection: React.FC = async () => {
   if (!posts || !tags || !categories) return <PlaceholderPost />;
 
   return (
-    <Section className="mt-16">
+    <Section className="mt-8">
       <AccentedHeading
         textAs="h2"
         size="8"
-        preText="Technical "
-        accentedText="portfolio"
+        preText="Featured "
+        accentedText="projects & solutions"
       />
 
-      <Text as="p" className="mb-10 opacity-80">
-        Selected enterprise solutions, microservices, and scalable architecture
-        implementations
+      <Text as="p" className="mb-5 opacity-80 max-w-3xl">
+        Enterprise-grade systems and scalable architectures delivered across fintech, insurance,
+        telecommunications, and live entertainment. Each project represents solutions to complex
+        technical challenges, from monolithic migrations to patented global-scale platforms.
       </Text>
 
-      <Box className="my-8">
+      <Box className="my-4">
         <Suspense fallback={<PlaceholderPost text="Loading projects..." />}>
           {!posts ? (
             <PlaceholderPost
@@ -52,7 +53,7 @@ const ProjectsSection: React.FC = async () => {
               text="Error while fetching projects... Please try again later."
             />
           ) : (
-            <Flex direction="column" gap="6">
+            <Flex direction="column" gap="3">
               {posts
                 .filter((currentPost) => {
                   const projectsCategoryId = categories.filter(
@@ -89,8 +90,8 @@ const ProjectsSection: React.FC = async () => {
         </Suspense>
       </Box>
 
-      <Flex justify="center" className="mt-8">
-        <CTAButton href="/projects" text="View All Projects" />
+      <Flex justify="center" className="mt-4">
+        <CTAButton href="/experience" text="Explore Full Portfolio" />
       </Flex>
     </Section>
   );

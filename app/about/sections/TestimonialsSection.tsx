@@ -14,10 +14,10 @@ const Testimonial: React.FC<TestimonialProps> = ({
   position,
 }) => (
   <Card size="3" className="p-6">
-    <Flex direction="column" gap="3">
+    <Flex direction="column" gap="2">
       <Box>
         <ChatBubbleIcon className="mb-2" width={24} height={24} />
-        <Text as="p" size="3" style={{ fontStyle: "italic" }} className="mb-6">
+        <Text as="p" size="3" style={{ fontStyle: "italic" }} className="mb-3">
           "{quote}"
         </Text>
       </Box>
@@ -35,33 +35,34 @@ const Testimonial: React.FC<TestimonialProps> = ({
 
 const TestimonialsSection: React.FC = () => {
   return (
-    <Section className="py-16">
+    <Section className="py-8">
       <AccentedHeading
         textAs="h2"
         size="8"
-        preText="What People "
-        accentedText="Say"
+        preText="Professional "
+        accentedText="Recognition"
       />
 
-      <Text as="p" size="4" className="mb-8">
-        Feedback from clients and colleagues I've worked with.
+      <Text as="p" size="4" className="mb-4 opacity-80">
+        Testimonials from clients, stakeholders, and industry professionals reflecting
+        the quality and impact of collaborative work.
       </Text>
 
-      <Grid columns={{ initial: "1", sm: "2", lg: "3" }} gap="6">
+      <Grid columns={{ initial: "1", sm: "2", lg: "3" }} gap="3">
         <Testimonial
-          quote="They were very responsive throughout the process and made changes to our site quickly. The final product was exactly what we were looking for and at a reasonable price point. I would highly recommend them!"
+          quote="Shagan's technical leadership transformed our finance division. His microservice architecture and automated deployment strategy significantly enhanced our capabilities and team confidence. A strategic thinker who delivers measurable business impact."
+          author="Technical Director"
+          position="BSure Insurance Advisors"
+        />
+        <Testimonial
+          quote="Working with Shagan on VodaPay products was exceptional. He redesigned Voucher Advance with remarkable attention to performance and user experience, all while maintaining legacy support. His technical depth and product thinking set him apart."
+          author="Product Manager"
+          position="Vodacom Financial Services"
+        />
+        <Testimonial
+          quote="Pixelscape delivered exactly what we needed: responsive, professional, and compliant with all requirements. Shagan guided us through each step, translating our business needs into a profitable e-commerce platform. Highly recommended for serious businesses."
           author="K. Ndebele"
           position="Co-founder, EMRL"
-        />
-        <Testimonial
-          quote="Pixelscape has done a great job on Dexter Tuition. They guides us along each step of the way and have been very helpful."
-          author="T. Nembanzheni"
-          position="Founder, Dexter Tuition"
-        />
-        <Testimonial
-          quote="I've collaborated with Shagan on several projects and his commitment to creating beautiful, user-friendly interfaces is unmatched. He has a great eye for design and the technical skills to bring it to life."
-          author="Lisa Ndlovu"
-          position="UI/UX Designer"
         />
       </Grid>
     </Section>

@@ -16,15 +16,15 @@ const LandingSection: React.FC = () => {
           textAs="h1"
           align="center"
           size="9"
-          preText="A collection of "
-          accentedText="my best "
-          postText="best projects."
+          preText="Enterprise "
+          accentedText="solutions "
+          postText="that drive impact"
         />
-        <Text wrap="balance" as="p" className="py-4" align="center">
-          Through over half a decade of software development experience, I've
-          acquired extensive experience working on softaware projects across
-          several industries, from telecommunications, lending, e-commerce, to
-          insurance.
+        <Text wrap="balance" as="p" className="py-4 max-w-3xl" align="center">
+          Over half a decade architecting and delivering mission-critical systems across
+          fintech, insurance, telecommunications, and live entertainment. From patented
+          global-scale platforms to complex microservice migrations, each project represents
+          technical excellence, scalable architecture, and measurable business value.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

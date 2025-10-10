@@ -6,6 +6,8 @@ export const DefaultFeaturedImage =
 export const CONTACT_INFO = {
   email: "hello@shaganplaatjies.co.za",
   phone: "+27765527856",
+  location: "Johannesburg, South Africa",
+  website: "https://shaganplaatjies.co.za",
 };
 
 export const SOCIAL_LINKS = {
@@ -13,6 +15,7 @@ export const SOCIAL_LINKS = {
   linkedin: "https://linkedin.com/in/shaganplaatjies",
   email: `mailto:${CONTACT_INFO.email}`,
   phone: `tel:${CONTACT_INFO.phone}`,
+  pixelscape: "https://pixelscape.co.za",
 };
 
 export const NAV_LINKS = {
