@@ -124,12 +124,12 @@ const AboutMeSection: React.FC = () => {
               <div>
                 <span className="text-radix-base-orange font-semibold">Based in</span>
                 <br />
-                <span className="opacity-80">Johannesburg, South Africa 🇿🇦</span>
+                <span className="opacity-80">Johannesburg, South Africa</span>
               </div>
               <div>
                 <span className="text-radix-base-cyan font-semibold">Remote Work</span>
                 <br />
-                <span className="opacity-80">Global collaborations welcome 🌎</span>
+                <span className="opacity-80">Global collaborations welcome</span>
               </div>
               <div>
                 <span className="text-radix-base-grass font-semibold">Current Role</span>
