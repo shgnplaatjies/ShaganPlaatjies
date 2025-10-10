@@ -8,7 +8,7 @@ import WindowLayout from "../components/WindowCard/Window";
 const AboutMeSection: React.FC = () => {
   return (
     <Section>
-      <Flex direction={"column"} gapY={"4"} mb={"5"}>
+      <Flex direction={"column"} gapY={"2"} mb={"3"}>
         <AccentedHeading
           textAs="h2"
           size="8"
@@ -25,7 +25,7 @@ const AboutMeSection: React.FC = () => {
 
         <div className="md:max-w-[80%] my-5">
           <WindowLayout title="leadership-and-impact.md" padded>
-            <ul className="space-y-4">
+            <ul className="space-y-2">
               <li>
                 <span className="text-radix-base-grass font-semibold">Broadway Media (Mar 2025–Present)</span>
                 <br />
@@ -66,10 +66,10 @@ const AboutMeSection: React.FC = () => {
           </WindowLayout>
         </div>
 
-        <Flex className="flex flex-col md:flex-row justify-between gap-6 mt-8">
+        <Flex className="flex flex-col md:flex-row justify-between gap-3 mt-4">
           <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="technical-stack.json" padded>
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 <li>
                   <span className="text-radix-base-green font-semibold">Backend:</span>{" "}
                   <span className="text-radix-base-jade">C#, ASP.NET, Django, Node.js, Serverless</span>
@@ -92,7 +92,7 @@ const AboutMeSection: React.FC = () => {
 
           <Flex className="flex-col w-full md:w-1/2">
             <WindowLayout title="core-competencies.txt" padded>
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 <li>
                   <span className="text-radix-base-grass">Technical Leadership</span>
                   <br />
@@ -118,9 +118,9 @@ const AboutMeSection: React.FC = () => {
           </Flex>
         </Flex>
 
-        <Flex className="mt-8 w-full">
+        <Flex className="mt-4 w-full">
           <WindowLayout title="location-and-availability.ini" padded>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
                 <span className="text-radix-base-orange font-semibold">Based in</span>
                 <br />
@@ -137,7 +137,7 @@ const AboutMeSection: React.FC = () => {
                 <span className="opacity-80">Lead Engineer @ Broadway Media</span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-radix-base-gray-6">
+            <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-radix-base-gray-6">
               <Link
                 href="https://www.linkedin.com/in/shaganplaatjies/"
                 className="text-radix-base-blue hover:opacity-80 font-medium"
@@ -167,7 +167,7 @@ const AboutMeSection: React.FC = () => {
         </Flex>
       </Flex>
 
-      <Flex className="flex-row justify-center mt-10">
+      <Flex className="flex-row justify-center mt-5">
         <CTAButton href="/experience" text="View Experience & Projects" />
       </Flex>
     </Section>
