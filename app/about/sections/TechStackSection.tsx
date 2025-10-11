@@ -1,162 +1,140 @@
 "use client";
-import { getTechStackIcons } from "@/app/components/icons/TechStackIcons";
-import { Box, Grid, Section, Text } from "@radix-ui/themes";
-import AccentedHeading from "../../components/AccentedHeading";
-import AnimatedIconStack from "../../components/AnimatedIconStack";
+import { Box, Grid, Section } from "@radix-ui/themes";
+import BorderAccent from "../../components/BorderAccent";
+import CodeBlock from "../../components/CodeBlock";
+import TerminalPrompt from "../../components/TerminalPrompt";
 
 const TechStackSection: React.FC = () => {
-  const techItems = getTechStackIcons();
-
   return (
     <Section className="py-8">
-      <AccentedHeading
-        textAs="h2"
-        size="8"
-        preText="Technical "
-        accentedText="Arsenal"
-      />
+      <TerminalPrompt path="~/tech-stack" command="cat stack.ts" />
 
-      <Text as="p" size="4" className="mb-4 opacity-80">
-        Enterprise-grade technologies and frameworks powering mission-critical systems
-        across multiple high-stakes industries.
-      </Text>
+      <Box className="mb-8">
+        <CodeBlock language="typescript">
+          {`interface TechStack {
+  backend: string[];
+  frontend: string[];
+  cloud: string[];
+  devops: string[];
+  practices: string[];
+  specialized: string[];
+}
 
-      <Box className="mb-6">
-        <AnimatedIconStack
-          iconList={techItems}
-          directionX="right"
-          directionY="up"
-          buttonClassName="flex justify-end sm:hidden"
-          popoverClassName="bottom-12 right-1.5 mb-1"
-        />
+const stack: TechStack = {
+  backend: [
+    'C# & ASP.NET',
+    'Django & Python',
+    'Node.js',
+    'Serverless & Lambda',
+    'RESTful & GraphQL APIs'
+  ],
+  frontend: [
+    'React, Vue & AngularJS',
+    'Next.js',
+    'TypeScript',
+    'TailwindCSS',
+    'Responsive & Accessible Design'
+  ],
+  cloud: [
+    'AWS (S3, Kafka, Lambda)',
+    'SQL & MSSQL',
+    'Vercel',
+    'CI/CD Automation',
+    'Microservices Architecture'
+  ],
+  devops: [
+    'Git & GitHub',
+    'Sentry',
+    'Tealium',
+    'Jira & ClickUp',
+    'Automated Deployment Pipelines'
+  ],
+  practices: [
+    'S.O.L.I.D Principles',
+    'Clean Code Architecture',
+    'Test-Driven Development',
+    'Code Reviews & Mentorship',
+    'Agile Methodologies'
+  ],
+  specialized: [
+    'Fintech & Payment Integration',
+    'POPIA & GDPR Compliance',
+    'E-commerce Platforms',
+    'Real-time Data Systems',
+    'Enterprise Security'
+  ]
+};
+
+export default stack;`}
+        </CodeBlock>
       </Box>
 
-      <Grid columns={{ initial: "1", sm: "2", md: "3" }} gap="3">
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-green">
-            Backend & APIs
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • C# & ASP.NET for enterprise systems
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Django & Python for data-driven apps
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Node.js for JavaScript backends
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Serverless architecture & Lambda
-          </Text>
-          <Text as="p" size="3">
-            • RESTful & GraphQL APIs
-          </Text>
-        </Box>
+      <Grid columns={{ initial: "1", md: "2" }} gap="6">
+        <BorderAccent color="border-radix-base-green" filePath="~/docs/backend.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># Backend & APIs</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ C# & ASP.NET for enterprise systems</div>
+            <div>→ Django & Python for data-driven apps</div>
+            <div>→ Node.js for JavaScript backends</div>
+            <div>→ Serverless architecture & Lambda</div>
+            <div>→ RESTful & GraphQL APIs</div>
+          </div>
+        </BorderAccent>
 
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-blue">
-            Frontend & UI
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • React, Vue & AngularJS
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Next.js for production apps
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • TypeScript for type safety
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • TailwindCSS & modern CSS
-          </Text>
-          <Text as="p" size="3">
-            • Responsive & accessible design
-          </Text>
-        </Box>
+        <BorderAccent color="border-radix-base-blue" filePath="~/docs/frontend.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># Frontend & UI</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ React, Vue & AngularJS</div>
+            <div>→ Next.js for production apps</div>
+            <div>→ TypeScript for type safety</div>
+            <div>→ TailwindCSS & modern CSS</div>
+            <div>→ Responsive & accessible design</div>
+          </div>
+        </BorderAccent>
 
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-violet">
-            Data & Cloud
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • AWS (S3, Kafka, Lambda)
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • SQL & MSSQL databases
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Vercel for deployment
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • CI/CD automation
-          </Text>
-          <Text as="p" size="3">
-            • Microservices architecture
-          </Text>
-        </Box>
+        <BorderAccent color="border-radix-base-violet" filePath="~/docs/cloud.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># Data & Cloud</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ AWS (S3, Kafka, Lambda)</div>
+            <div>→ SQL & MSSQL databases</div>
+            <div>→ Vercel for deployment</div>
+            <div>→ CI/CD automation</div>
+            <div>→ Microservices architecture</div>
+          </div>
+        </BorderAccent>
 
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-amber">
-            DevOps & Monitoring
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Git & GitHub workflows
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Sentry for error tracking
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Tealium for analytics
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Jira & ClickUp for project mgmt
-          </Text>
-          <Text as="p" size="3">
-            • Automated deployment pipelines
-          </Text>
-        </Box>
+        <BorderAccent color="border-radix-base-amber" filePath="~/docs/devops.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># DevOps & Monitoring</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ Git & GitHub workflows</div>
+            <div>→ Sentry for error tracking</div>
+            <div>→ Tealium for analytics</div>
+            <div>→ Jira & ClickUp for project mgmt</div>
+            <div>→ Automated deployment pipelines</div>
+          </div>
+        </BorderAccent>
 
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-tomato">
-            Practices & Patterns
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • S.O.L.I.D principles
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Clean code architecture
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Test-driven development
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Code reviews & mentorship
-          </Text>
-          <Text as="p" size="3">
-            • Agile methodologies
-          </Text>
-        </Box>
+        <BorderAccent color="border-radix-base-tomato" filePath="~/docs/practices.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># Practices & Patterns</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ S.O.L.I.D principles</div>
+            <div>→ Clean code architecture</div>
+            <div>→ Test-driven development</div>
+            <div>→ Code reviews & mentorship</div>
+            <div>→ Agile methodologies</div>
+          </div>
+        </BorderAccent>
 
-        <Box>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-cyan">
-            Specialized Skills
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Fintech & payment integration
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • POPIA & GDPR compliance
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • E-commerce platforms
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Real-time data systems
-          </Text>
-          <Text as="p" size="3">
-            • Enterprise security
-          </Text>
-        </Box>
+        <BorderAccent color="border-radix-base-cyan" filePath="~/docs/specialized.md">
+          <div className="font-mono text-xs mb-3 opacity-60"># Specialized Skills</div>
+          <div className="space-y-1 text-sm opacity-90">
+            <div>→ Fintech & payment integration</div>
+            <div>→ POPIA & GDPR compliance</div>
+            <div>→ E-commerce platforms</div>
+            <div>→ Real-time data systems</div>
+            <div>→ Enterprise security</div>
+          </div>
+        </BorderAccent>
       </Grid>
     </Section>
   );

@@ -1,151 +1,86 @@
-import { CodeIcon, GlobeIcon } from "@radix-ui/react-icons";
-import { Grid, Section, Text } from "@radix-ui/themes";
-import AccentedHeading from "../../components/AccentedHeading";
-import WindowLayout from "../../components/WindowCard/Window";
+import { Section, Text } from "@radix-ui/themes";
+import GitCommitTimeline from "../../components/GitCommitTimeline";
+import TerminalPrompt from "../../components/TerminalPrompt";
 
 const WorkSection: React.FC = () => {
+  const commits = [
+    {
+      hash: "a1b2c3d",
+      branch: "main",
+      title: "Lead Software Engineer @ Broadway Media",
+      company: "Broadway Media",
+      period: "Mar 2025 - Present",
+      description: (
+        <ul className="list-none space-y-1 text-sm">
+          <li>• Design and implement scalable systems architecture for global scale</li>
+          <li>• Manage AWS services and Vercel deployment environments</li>
+          <li>• Conduct code reviews and provide technical mentorship</li>
+          <li>• Collaborate with management on milestones, deliverables, and technical strategy</li>
+        </ul>
+      ),
+      stack: "AWS, Vercel, React, TypeScript, Microservices",
+      color: "text-radix-base-grass",
+    },
+    {
+      hash: "d4e5f6g",
+      title: "Lead Software Engineer @ BSure Insurance Advisors",
+      company: "BSure Insurance Advisors",
+      period: "Jan 2024 - Feb 2025",
+      description: (
+        <ul className="list-none space-y-1 text-sm">
+          <li>• Promoted to Technical Team Lead within first year</li>
+          <li>• Architected and led finance division's microservice migration</li>
+          <li>• Introduced automated deployment architecture across all projects</li>
+          <li>• Championed S.O.L.I.D principles and clean code practices</li>
+        </ul>
+      ),
+      stack: "C#, ASP.NET, MSSQL, React, Microservices, CI/CD",
+      color: "text-radix-base-tomato",
+    },
+    {
+      hash: "h7i8j9k",
+      title: "Frontend Software Engineer @ Vodacom (BBD Consultant)",
+      company: "Vodacom Financial Services",
+      period: "Jan 2023 - Jan 2024",
+      description: (
+        <ul className="list-none space-y-1 text-sm">
+          <li>• Built solutions for 4 VodaPay lending products</li>
+          <li>• Complete Voucher Advance redesign with enhanced UX/performance</li>
+          <li>• Maintained legacy support during transition period</li>
+          <li>• Developed reusable, maintainable React applications from Figma designs</li>
+        </ul>
+      ),
+      stack: "React, TypeScript, Next.js, Fintech APIs",
+      color: "text-radix-base-blue",
+    },
+    {
+      hash: "m1n2o3p",
+      title: "Full Stack Developer @ Pixelscape (Founder)",
+      company: "Pixelscape",
+      period: "Jan 2024 - Jun 2024",
+      description: (
+        <ul className="list-none space-y-1 text-sm">
+          <li>• Dynamic, responsive websites with modern design</li>
+          <li>• E-commerce platforms using React and WooCommerce API</li>
+          <li>• Email notifications, booking systems, secure payment gateways</li>
+          <li>• Full POPIA and privacy compliance implementation</li>
+        </ul>
+      ),
+      stack: "React, WooCommerce, Payment APIs, POPIA Compliance",
+      color: "text-radix-base-orange",
+    },
+  ];
+
   return (
     <Section className="py-8">
-      <AccentedHeading textAs="h2" size="8" preText="Career " accentedText="Timeline" />
+      <TerminalPrompt path="~/career" command="git log --oneline --graph" />
 
-      <Text as="p" size="4" className="mb-4 opacity-80">
+      <Text as="p" size="3" className="mb-6 opacity-70 font-mono">
         From frontend developer to technical lead: five years of delivering enterprise solutions
         across fintech, insurance, telecommunications, and live entertainment.
       </Text>
 
-      <Grid columns={{ initial: "1", md: "1" }} gap="3">
-        <WindowLayout title="broadway-media_2025-present.ts" padded LogoIcon={<CodeIcon />}>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-grass">
-            Lead Software Engineer @ Broadway Media
-          </Text>
-          <Text as="p" size="2" className="mb-4 opacity-60">
-            Mar 2025 – Present | Full-time
-          </Text>
-
-          <Text as="p" size="3" className="mb-1">
-            Leading systems architecture design and technical implementation for patented technology
-            serving global live entertainment audiences. Providing technical leadership to engineering
-            team while managing cloud infrastructure and serving as technical liaison to management.
-          </Text>
-
-          <Text as="p" size="3" className="mb-2 font-semibold">Key Responsibilities:</Text>
-          <Text as="p" size="3" className="mb-1">
-            • Design and implement scalable systems architecture for global scale
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Manage AWS services and Vercel deployment environments
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Conduct code reviews and provide technical mentorship
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Collaborate with management on milestones, deliverables, and technical strategy
-          </Text>
-
-          <Text as="p" size="3">
-            <span className="text-radix-base-cyan">Stack:</span> AWS, Vercel, React, TypeScript, Microservices
-          </Text>
-        </WindowLayout>
-
-        <WindowLayout title="bsure-insurance_2024-2025.cs" padded LogoIcon={<CodeIcon />}>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-tomato">
-            Lead Software Engineer @ BSure Insurance Advisors
-          </Text>
-          <Text as="p" size="2" className="mb-4 opacity-60">
-            Jan 2024 – Feb 2025 | Full-time
-          </Text>
-
-          <Text as="p" size="3" className="mb-1">
-            Advanced from individual contributor to Technical Team Lead, guiding three junior
-            developers and driving their professional growth. Led transformative migration of
-            finance division from monolithic architecture to robust, secure microservice solution.
-          </Text>
-
-          <Text as="p" size="3" className="mb-2 font-semibold">Major Achievements:</Text>
-          <Text as="p" size="3" className="mb-1">
-            • Promoted to Technical Team Lead within first year
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Architected and led finance division's microservice migration
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Introduced automated deployment architecture across all projects
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Championed S.O.L.I.D principles and clean code practices
-          </Text>
-
-          <Text as="p" size="3">
-            <span className="text-radix-base-blue">Stack:</span> C#, ASP.NET, MSSQL, React, Microservices, CI/CD
-          </Text>
-        </WindowLayout>
-
-        <WindowLayout title="vodacom_2023-2024.tsx" padded LogoIcon={<CodeIcon />}>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-blue">
-            Frontend Software Engineer @ Vodacom (BBD Consultant)
-          </Text>
-          <Text as="p" size="2" className="mb-4 opacity-60">
-            Jan 2023 – Jan 2024 | 1-Year Contract
-          </Text>
-
-          <Text as="p" size="3" className="mb-1">
-            Delivered impactful frontend solutions for Vodacom Financial Services' lending products
-            on VodaPay. Redesigned Voucher Advance from scratch while maintaining legacy system,
-            achieving significant UX and performance improvements.
-          </Text>
-
-          <Text as="p" size="3" className="mb-2 font-semibold">Impact:</Text>
-          <Text as="p" size="3" className="mb-1">
-            • Built solutions for 4 VodaPay lending products
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Complete Voucher Advance redesign with enhanced UX/performance
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Maintained legacy support during transition period
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Developed reusable, maintainable React applications from Figma designs
-          </Text>
-
-          <Text as="p" size="3">
-            <span className="text-radix-base-violet">Stack:</span> React, TypeScript, Next.js, Fintech APIs
-          </Text>
-        </WindowLayout>
-
-        <WindowLayout title="pixelscape_freelance.js" padded LogoIcon={<GlobeIcon />}>
-          <Text as="p" size="5" weight="bold" className="mb-2 text-radix-base-orange">
-            Full Stack Developer @ Pixelscape (Founder)
-          </Text>
-          <Text as="p" size="2" className="mb-4 opacity-60">
-            Jan 2024 – Jun 2024 | Freelance / Entrepreneurship
-          </Text>
-
-          <Text as="p" size="3" className="mb-1">
-            Founded and operated digital agency delivering responsive websites and e-commerce
-            platforms for local businesses. Handled full development lifecycle from client
-            consultation to ongoing maintenance.
-          </Text>
-
-          <Text as="p" size="3" className="mb-2 font-semibold">Services Delivered:</Text>
-          <Text as="p" size="3" className="mb-1">
-            • Dynamic, responsive websites with modern design
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • E-commerce platforms using React and WooCommerce API
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Email notifications, booking systems, secure payment gateways
-          </Text>
-          <Text as="p" size="3" className="mb-1">
-            • Full POPIA and privacy compliance implementation
-          </Text>
-
-          <Text as="p" size="3">
-            <span className="text-radix-base-amber">Stack:</span> React, WooCommerce, Payment APIs, POPIA Compliance
-          </Text>
-        </WindowLayout>
-      </Grid>
+      <GitCommitTimeline commits={commits} />
     </Section>
   );
 };
