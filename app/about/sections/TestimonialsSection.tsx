@@ -31,7 +31,7 @@ const TestimonialsSection: React.FC = () => {
     <Section className="py-8">
       <TerminalPrompt path="~/testimonials" command="node testimonials.js" />
 
-      <Text as="p" size="4" className="mb-6 opacity-80 font-mono text-sm">
+      <Text as="p" size="2" className="mb-6 opacity-70 font-mono text-xs">
         # Professional recognition from clients and industry leaders
       </Text>
 

@@ -23,6 +23,7 @@ const LandingSection: React.FC = () => {
         <Text
           wrap="balance"
           as="p"
+          size="2"
           className="py-4 text-center max-w-2xl opacity-80"
         >
           I architect and deliver patented technology for global audiences in live entertainment,

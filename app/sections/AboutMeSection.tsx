@@ -13,7 +13,7 @@ const AboutMeSection: React.FC = () => {
       <Flex direction={"column"} gapY={"2"} mb={"3"}>
         <TerminalPrompt path="~/about" command="cat profile.md" />
 
-        <Text as="p" className="mb-6 text-lg opacity-90">
+        <Text as="p" className="mb-6 text-sm opacity-80">
           With over half a decade architecting mission-critical systems, I merge deep
           technical expertise with product strategy and business acumen. Currently leading
           development of patented technology at Broadway Media for global live entertainment,

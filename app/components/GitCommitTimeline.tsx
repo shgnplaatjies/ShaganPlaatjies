@@ -44,14 +44,14 @@ const GitCommit: React.FC<GitCommitProps> = ({
         )}
       </div>
 
-      <Text as="p" size="4" weight="bold" className={`mb-1 ${color}`}>
+      <Text as="p" size="3" weight="bold" className={`mb-1 ${color}`}>
         {title}
       </Text>
-      <Text as="p" size="2" className="opacity-60 mb-3">
+      <Text as="p" size="1" className="opacity-60 mb-3">
         {company} | {period}
       </Text>
 
-      <div className="text-sm opacity-90 mb-3">{description}</div>
+      <div className="text-xs opacity-90 mb-3">{description}</div>
 
       {stack && (
         <div className="font-mono text-xs">

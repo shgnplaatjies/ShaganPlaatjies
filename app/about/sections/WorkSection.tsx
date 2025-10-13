@@ -75,7 +75,7 @@ const WorkSection: React.FC = () => {
     <Section className="py-8">
       <TerminalPrompt path="~/career" command="git log --oneline --graph" />
 
-      <Text as="p" size="3" className="mb-6 opacity-70 font-mono">
+      <Text as="p" size="2" className="mb-6 opacity-70 font-mono text-xs">
         From frontend developer to technical lead: five years of delivering enterprise solutions
         across fintech, insurance, telecommunications, and live entertainment.
       </Text>

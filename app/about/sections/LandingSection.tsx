@@ -23,10 +23,9 @@ const LandingSection: React.FC = () => {
         <Text
           wrap="balance"
           as="p"
-          className="py-4 max-w-3xl"
+          className="py-4 max-w-3xl opacity-80"
           align="center"
-          size="4"
-          weight="medium"
+          size="2"
         >
           Over half a decade of architecting enterprise solutions, from fintech to live
           entertainment, merging technical depth with product vision and business strategy.

@@ -48,7 +48,7 @@ const ImpactSection: React.FC = () => {
     <Section className="py-8">
       <TerminalPrompt path="~/impact" command="cat metrics.bin" />
 
-      <Text as="p" size="4" className="mb-6 opacity-80 font-mono text-sm">
+      <Text as="p" size="2" className="mb-6 opacity-70 font-mono text-xs">
         # Quantifying value across architecture, leadership, and innovation
       </Text>
 
