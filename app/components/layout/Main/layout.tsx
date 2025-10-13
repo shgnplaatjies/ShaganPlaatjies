@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
 import SidePanel from "../../SidePanel";
-import FileTreeSidebar from "../../FileTreeSidebar";
 import MatrixRain from "../../MatrixRain";
 import AnimatedGrid from "../../AnimatedGrid";
 
@@ -17,7 +16,6 @@ const MainLayout: React.FC<{
 
   const defaultConfig = OrbColorOnPagesConfig.default;
   const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
-  const [showFileTree, setShowFileTree] = useState(true);
 
   useEffect(() => {
     setOrbColor(
@@ -35,15 +33,9 @@ const MainLayout: React.FC<{
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
 
         <main className="flex flex-grow flex-row overflow-hidden">
-          {showFileTree && (
-            <div className="hidden lg:block w-64 flex-shrink-0">
-              <FileTreeSidebar />
-            </div>
-          )}
-
           <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-gray-border-1 border-opacity-50" />
 
-          <ScrollArea className="flex-1">
+          <ScrollArea>
             <Box className="w-full h-full backdrop-blur-3xl px-4">
               {children}
             </Box>

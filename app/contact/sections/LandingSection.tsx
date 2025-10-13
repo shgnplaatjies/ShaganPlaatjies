@@ -20,7 +20,7 @@ const LandingSection: React.FC = () => {
           accentedText="talk about "
           postText="a project?"
         />
-        <Text wrap="balance" as="p" className="py-4" align="center">
+        <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
           Welcome to my personal portfolio. Home to my software development
           projects.
         </Text>
