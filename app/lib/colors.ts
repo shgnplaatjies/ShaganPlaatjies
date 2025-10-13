@@ -115,8 +115,6 @@ export const DarkGrayColors = {
 
 export const DarkBackgroundColor = "#1A211E";
 
-// Above this line is cosmetic, below is functional
-
 export const RadixBaseColors = {
   color: RadixBaseColorValues,
 };
