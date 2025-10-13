@@ -20,7 +20,7 @@ const LandingSection: React.FC = () => {
           accentedText="cool "
           postText="stuff."
         />
-        <Text wrap="balance" as="p" className="py-4" align="center">
+        <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
           Some cool things.
         </Text>
         <CTAButton href="/about" text="About Me" />

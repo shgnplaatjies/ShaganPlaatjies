@@ -20,7 +20,7 @@ const LandingSection: React.FC = () => {
           accentedText="solutions "
           postText="that drive impact"
         />
-        <Text wrap="balance" as="p" className="py-4 max-w-3xl" align="center">
+        <Text wrap="balance" as="p" size="2" className="py-4 max-w-3xl opacity-80" align="center">
           Over half a decade architecting and delivering mission-critical systems across
           fintech, insurance, telecommunications, and live entertainment. From patented
           global-scale platforms to complex microservice migrations, each project represents

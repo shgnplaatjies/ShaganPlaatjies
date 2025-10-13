@@ -20,7 +20,7 @@ const LandingSection: React.FC = () => {
           accentedText="Full Stack "
           postText="Developer."
         />
-        <Text wrap="balance" as="p" className="py-4" align="center">
+        <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
           Providing value to software engineering projects by merging my
           experience as an individual contributor with my project management
           expertise to drive delivery.

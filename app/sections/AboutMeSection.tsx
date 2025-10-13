@@ -2,168 +2,172 @@
 import { Flex, Section, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import AccentedHeading from "../components/AccentedHeading";
+import BorderAccent from "../components/BorderAccent";
+import CodeBlock from "../components/CodeBlock";
 import CTAButton from "../components/CTAButton";
-import WindowLayout from "../components/WindowCard/Window";
+import TerminalPrompt from "../components/TerminalPrompt";
 
 const AboutMeSection: React.FC = () => {
   return (
     <Section>
       <Flex direction={"column"} gapY={"2"} mb={"3"}>
-        <AccentedHeading
-          textAs="h2"
-          size="8"
-          preText="Engineering "
-          accentedText="excellence at scale"
-        />
+        <TerminalPrompt path="~/about" command="cat profile.md" />
 
-        <Text as="p" className="mb-6 text-lg opacity-90">
+        <Text as="p" className="mb-6 text-sm opacity-80">
           With over half a decade architecting mission-critical systems, I merge deep
           technical expertise with product strategy and business acumen. Currently leading
           development of patented technology at Broadway Media for global live entertainment,
           I've built a career on transforming complex challenges into elegant, scalable solutions.
         </Text>
 
-        <div className="md:max-w-[80%] my-5">
-          <WindowLayout title="leadership-and-impact.md" padded>
-            <ul className="space-y-2">
-              <li>
-                <span className="text-radix-base-grass font-semibold">Broadway Media (Mar 2025–Present)</span>
-                <br />
+        <BorderAccent color="border-radix-base-grass" filePath="~/career/timeline.log">
+          <ul className="space-y-4">
+            <li>
+              <span className="text-radix-base-grass font-semibold font-mono">Broadway Media (Mar 2025–Present)</span>
+              <br />
+              <Text size="2" className="opacity-90 mt-1">
                 Leading systems architecture and technical team for{" "}
                 <span className="text-radix-base-cyan">patented technology</span> serving
                 global live entertainment audiences. Managing{" "}
                 <span className="text-radix-base-sky">AWS infrastructure</span> and{" "}
                 <span className="text-radix-base-blue">Vercel deployments</span>, conducting
                 code reviews, and serving as technical liaison between management and engineering.
-              </li>
-              <li>
-                <span className="text-radix-base-tomato font-semibold">BSure Insurance (Jan 2024–Feb 2025)</span>
-                <br />
+              </Text>
+            </li>
+            <li>
+              <span className="text-radix-base-tomato font-semibold font-mono">BSure Insurance (Jan 2024–Feb 2025)</span>
+              <br />
+              <Text size="2" className="opacity-90 mt-1">
                 Elevated from IC to <span className="text-radix-base-amber">Technical Team Lead</span>,
                 guiding three junior developers. Spearheaded finance division's migration from
                 monolithic architecture to{" "}
                 <span className="text-radix-base-green">robust microservice solution</span>,
                 introducing automated deployment and advocating for{" "}
                 <span className="text-radix-base-jade">S.O.L.I.D principles</span> and clean code practices.
-              </li>
-              <li>
-                <span className="text-radix-base-blue font-semibold">Vodacom via BBD (Jan 2023–Jan 2024)</span>
-                <br />
+              </Text>
+            </li>
+            <li>
+              <span className="text-radix-base-blue font-semibold font-mono">Vodacom via BBD (Jan 2023–Jan 2024)</span>
+              <br />
+              <Text size="2" className="opacity-90 mt-1">
                 Delivered high-impact frontend solutions for{" "}
                 <span className="text-radix-base-violet">four VodaPay lending products</span>.
                 Redesigned Voucher Advance from scratch, achieving significant{" "}
                 <span className="text-radix-base-cyan">usability and performance enhancements</span> while
                 maintaining legacy support.
-              </li>
-              <li>
-                <span className="text-radix-base-orange font-semibold">Pixelscape (Founder)</span>
-                <br />
+              </Text>
+            </li>
+            <li>
+              <span className="text-radix-base-orange font-semibold font-mono">Pixelscape (Founder)</span>
+              <br />
+              <Text size="2" className="opacity-90 mt-1">
                 Building <span className="text-radix-base-amber">e-commerce platforms</span> and{" "}
                 <span className="text-radix-base-violet">data-driven web solutions</span> using
                 React and WooCommerce API, with full POPIA compliance and secure payment integration.
-              </li>
-            </ul>
-          </WindowLayout>
-        </div>
+              </Text>
+            </li>
+          </ul>
+        </BorderAccent>
 
-        <Flex className="flex flex-col md:flex-row justify-between gap-3 mt-4">
+        <Flex className="flex flex-col md:flex-row justify-between gap-6 mt-8">
           <Flex className="flex-col w-full md:w-1/2">
-            <WindowLayout title="technical-stack.json" padded>
-              <ul className="space-y-2">
-                <li>
-                  <span className="text-radix-base-green font-semibold">Backend:</span>{" "}
-                  <span className="text-radix-base-jade">C#, ASP.NET, Django, Node.js, Serverless</span>
-                </li>
-                <li>
-                  <span className="text-radix-base-blue font-semibold">Frontend:</span>{" "}
-                  <span className="text-radix-base-cyan">React, Vue, AngularJS, Next.js, TypeScript</span>
-                </li>
-                <li>
-                  <span className="text-radix-base-violet font-semibold">Data & Cloud:</span>{" "}
-                  <span className="text-radix-base-iris">AWS (S3, Kafka), SQL, MSSQL, Vercel</span>
-                </li>
-                <li>
-                  <span className="text-radix-base-amber font-semibold">DevOps & Tools:</span>{" "}
-                  <span className="text-radix-base-orange">Sentry, Tealium, Jira, ClickUp</span>
-                </li>
-              </ul>
-            </WindowLayout>
+            <BorderAccent color="border-radix-base-blue" filePath="~/config/tech-stack.json">
+              <CodeBlock language="typescript" className="text-xs">
+                {`const techStack = {
+  backend: [
+    'C#', 'ASP.NET',
+    'Django', 'Node.js',
+    'Serverless'
+  ],
+  frontend: [
+    'React', 'Vue',
+    'AngularJS', 'Next.js',
+    'TypeScript'
+  ],
+  cloud: [
+    'AWS (S3, Kafka)',
+    'SQL', 'MSSQL',
+    'Vercel'
+  ],
+  devops: [
+    'Sentry', 'Tealium',
+    'Jira', 'ClickUp'
+  ]
+};`}</CodeBlock>
+            </BorderAccent>
           </Flex>
 
           <Flex className="flex-col w-full md:w-1/2">
-            <WindowLayout title="core-competencies.txt" padded>
-              <ul className="space-y-2">
+            <BorderAccent color="border-radix-base-violet" filePath="~/skills/competencies.txt">
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <span className="text-radix-base-grass">Technical Leadership</span>
+                  <span className="text-radix-base-grass font-mono">→ Technical Leadership</span>
                   <br />
-                  <span className="text-sm opacity-80">Team mentorship, architecture design, code reviews</span>
+                  <span className="text-xs opacity-70 ml-4">Team mentorship, architecture design, code reviews</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-tomato">System Modernization</span>
+                  <span className="text-radix-base-tomato font-mono">→ System Modernization</span>
                   <br />
-                  <span className="text-sm opacity-80">Legacy-to-microservices, automated deployment</span>
+                  <span className="text-xs opacity-70 ml-4">Legacy-to-microservices, automated deployment</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-blue">Enterprise Security</span>
+                  <span className="text-radix-base-blue font-mono">→ Enterprise Security</span>
                   <br />
-                  <span className="text-sm opacity-80">Fintech compliance, secure payment integration</span>
+                  <span className="text-xs opacity-70 ml-4">Fintech compliance, secure payment integration</span>
                 </li>
                 <li>
-                  <span className="text-radix-base-violet">Product Strategy</span>
+                  <span className="text-radix-base-violet font-mono">→ Product Strategy</span>
                   <br />
-                  <span className="text-sm opacity-80">Business acumen, stakeholder management</span>
+                  <span className="text-xs opacity-70 ml-4">Business acumen, stakeholder management</span>
                 </li>
               </ul>
-            </WindowLayout>
+            </BorderAccent>
           </Flex>
         </Flex>
 
-        <Flex className="mt-4 w-full">
-          <WindowLayout title="location-and-availability.ini" padded>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Flex className="mt-8 w-full">
+          <BorderAccent color="border-radix-base-amber" filePath="~/contact/info.ini" className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
               <div>
-                <span className="text-radix-base-orange font-semibold">Based in</span>
-                <br />
-                <span className="opacity-80">Johannesburg, South Africa</span>
+                <span className="text-radix-base-orange">location =</span>
+                <span className="text-white ml-2">"Johannesburg, ZA"</span>
               </div>
               <div>
-                <span className="text-radix-base-cyan font-semibold">Remote Work</span>
-                <br />
-                <span className="opacity-80">Global collaborations welcome</span>
+                <span className="text-radix-base-cyan">remote =</span>
+                <span className="text-white ml-2">true</span>
               </div>
               <div>
-                <span className="text-radix-base-grass font-semibold">Current Role</span>
-                <br />
-                <span className="opacity-80">Lead Engineer @ Broadway Media</span>
+                <span className="text-radix-base-grass">role =</span>
+                <span className="text-white ml-2">"Lead Engineer"</span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-radix-base-gray-6">
+            <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-700 border-opacity-30 font-mono text-xs">
               <Link
                 href="https://www.linkedin.com/in/shaganplaatjies/"
-                className="text-radix-base-blue hover:opacity-80 font-medium"
+                className="text-radix-base-blue hover:text-radix-base-cyan transition-colors"
               >
-                → LinkedIn
+                linkedin.com/in/shaganplaatjies
               </Link>
               <Link
                 href="https://github.com/shgnplaatjies"
-                className="text-radix-base-violet hover:opacity-80 font-medium"
+                className="text-radix-base-violet hover:text-radix-base-iris transition-colors"
               >
-                → GitHub
+                github.com/shgnplaatjies
               </Link>
               <Link
                 href="mailto:hello@shaganplaatjies.co.za"
-                className="text-radix-base-amber hover:opacity-80 font-medium"
+                className="text-radix-base-amber hover:text-radix-base-orange transition-colors"
               >
-                → Email
+                hello@shaganplaatjies.co.za
               </Link>
               <Link
                 href="https://pixelscape.co.za"
-                className="text-radix-base-tomato hover:opacity-80 font-medium"
+                className="text-radix-base-tomato hover:text-radix-base-red transition-colors"
               >
-                → Pixelscape Agency
+                pixelscape.co.za
               </Link>
             </div>
-          </WindowLayout>
+          </BorderAccent>
         </Flex>
       </Flex>
 

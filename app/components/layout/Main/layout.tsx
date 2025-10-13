@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import FootPanel from "../../FootPanel";
 import Header from "../../Header";
 import SidePanel from "../../SidePanel";
+import MatrixRain from "../../MatrixRain";
+import AnimatedGrid from "../../AnimatedGrid";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
@@ -25,7 +27,9 @@ const MainLayout: React.FC<{
 
   return (
     <Theme accentColor={orbColor.radixColor} className="w-full h-full">
-      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 border-opacity-50 backdrop-blur-3xl">
+      <AnimatedGrid opacity={0.3} gridSize={40} />
+      <MatrixRain opacity={0.05} />
+      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 border-opacity-50 backdrop-blur-3xl relative z-10">
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
 
         <main className="flex flex-grow flex-row overflow-hidden">

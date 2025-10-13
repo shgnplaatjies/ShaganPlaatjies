@@ -39,7 +39,7 @@ const ProjectsSection: React.FC = async () => {
         accentedText="projects & solutions"
       />
 
-      <Text as="p" className="mb-5 opacity-80 max-w-3xl">
+      <Text as="p" size="2" className="mb-5 opacity-80 max-w-3xl">
         Enterprise-grade systems and scalable architectures delivered across fintech, insurance,
         telecommunications, and live entertainment. Each project represents solutions to complex
         technical challenges, from monolithic migrations to patented global-scale platforms.
