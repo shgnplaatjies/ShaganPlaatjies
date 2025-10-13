@@ -23,10 +23,8 @@ const highlightCode = (code: string): JSX.Element[] => {
     const elements: JSX.Element[] = [];
     let lastIndex = 0;
 
-    // Create an array of all matches with their positions
     const matches: Array<{ start: number; end: number; text: string; className: string }> = [];
 
-    // Find all comments
     let match;
     const commentRegex = new RegExp(comments);
     while ((match = commentRegex.exec(line)) !== null) {
@@ -38,7 +36,6 @@ const highlightCode = (code: string): JSX.Element[] => {
       });
     }
 
-    // Find all strings
     const stringRegex = new RegExp(strings);
     line.replace(stringRegex, (match, p1, p2, offset) => {
       matches.push({
@@ -50,7 +47,6 @@ const highlightCode = (code: string): JSX.Element[] => {
       return match;
     });
 
-    // Find all keywords
     const keywordRegex = new RegExp(keywords);
     line.replace(keywordRegex, (match, offset) => {
       matches.push({
@@ -62,7 +58,6 @@ const highlightCode = (code: string): JSX.Element[] => {
       return match;
     });
 
-    // Find all numbers
     const numberRegex = new RegExp(numbers);
     line.replace(numberRegex, (match, offset) => {
       matches.push({
@@ -74,10 +69,8 @@ const highlightCode = (code: string): JSX.Element[] => {
       return match;
     });
 
-    // Sort matches by start position
     matches.sort((a, b) => a.start - b.start);
 
-    // Remove overlapping matches (keep first match)
     const cleanedMatches: typeof matches = [];
     matches.forEach(match => {
       if (cleanedMatches.length === 0 || match.start >= cleanedMatches[cleanedMatches.length - 1].end) {
@@ -85,9 +78,7 @@ const highlightCode = (code: string): JSX.Element[] => {
       }
     });
 
-    // Build the highlighted line
     cleanedMatches.forEach((match, i) => {
-      // Add text before this match
       if (match.start > lastIndex) {
         elements.push(
           <span key={`${lineIndex}-text-${i}`}>
@@ -95,7 +86,6 @@ const highlightCode = (code: string): JSX.Element[] => {
           </span>
         );
       }
-      // Add the highlighted match
       elements.push(
         <span key={`${lineIndex}-match-${i}`} className={match.className}>
           {match.text}
@@ -104,7 +94,6 @@ const highlightCode = (code: string): JSX.Element[] => {
       lastIndex = match.end;
     });
 
-    // Add remaining text
     if (lastIndex < line.length) {
       elements.push(
         <span key={`${lineIndex}-text-end`}>
