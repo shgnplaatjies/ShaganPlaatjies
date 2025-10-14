@@ -11,7 +11,10 @@ interface DiffHighlightProps {
   filePath?: string;
   oldFile?: string;
   newFile?: string;
-  lines: DiffLine[];
+  lines?: DiffLine[];
+  oldCode?: string;
+  newCode?: string;
+  title?: string;
   className?: string;
 }
 
@@ -19,9 +22,45 @@ const DiffHighlight: React.FC<DiffHighlightProps> = ({
   filePath = "file.ts",
   oldFile,
   newFile,
-  lines,
+  lines: providedLines,
+  oldCode,
+  newCode,
+  title,
   className = "",
 }) => {
+  const generateLines = (): DiffLine[] => {
+    if (providedLines) {
+      return providedLines;
+    }
+
+    if (oldCode && newCode) {
+      const oldLines = oldCode.split('\n');
+      const newLines = newCode.split('\n');
+      const diffLines: DiffLine[] = [];
+
+      oldLines.forEach((line, idx) => {
+        diffLines.push({
+          type: 'remove',
+          content: line,
+          oldLineNum: idx + 1,
+        });
+      });
+
+      newLines.forEach((line, idx) => {
+        diffLines.push({
+          type: 'add',
+          content: line,
+          newLineNum: idx + 1,
+        });
+      });
+
+      return diffLines;
+    }
+
+    return [];
+  };
+
+  const lines = generateLines();
   const getLineClass = (type: string) => {
     switch (type) {
       case "add":
@@ -49,17 +88,25 @@ const DiffHighlight: React.FC<DiffHighlightProps> = ({
       className={`font-mono text-xs bg-black bg-opacity-40 rounded-md border border-gray-700 border-opacity-40 overflow-hidden ${className}`}
     >
       <div className="bg-gray-900 bg-opacity-50 px-4 py-2 border-b border-gray-700 border-opacity-40">
-        <div className="text-radix-base-gray-10 mb-1">
-          diff --git a/{oldFile || filePath} b/{newFile || filePath}
-        </div>
-        <div className="flex gap-4 text-[11px]">
-          {oldFile && (
-            <span className="text-radix-base-red">--- a/{oldFile}</span>
-          )}
-          {newFile && (
-            <span className="text-radix-base-green">+++ b/{newFile}</span>
-          )}
-        </div>
+        {title ? (
+          <div className="text-radix-base-gray-11 mb-1 font-semibold">
+            {title}
+          </div>
+        ) : (
+          <>
+            <div className="text-radix-base-gray-10 mb-1">
+              diff --git a/{oldFile || filePath} b/{newFile || filePath}
+            </div>
+            <div className="flex gap-4 text-[11px]">
+              {oldFile && (
+                <span className="text-radix-base-red">--- a/{oldFile}</span>
+              )}
+              {newFile && (
+                <span className="text-radix-base-green">+++ b/{newFile}</span>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="overflow-x-auto">
