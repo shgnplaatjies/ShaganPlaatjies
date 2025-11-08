@@ -1,11 +1,51 @@
-import { Box, Grid, Section, Text } from "@radix-ui/themes";
-import TerminalPrompt from "../../components/TerminalPrompt";
-import HexDumpMetrics from "../../components/HexDumpMetrics";
-import BorderAccent from "../../components/BorderAccent";
-import DiffHighlight from "../../components/DiffHighlight";
+import { Box, Grid, Heading, Section, Text } from "@radix-ui/themes";
+import React from "react";
+
+interface StatCard {
+  value: string;
+  label: string;
+  color: string;
+}
+
+interface AreaOfExpertise {
+  title: string;
+  description: string;
+  color: string;
+}
+
+const StatCard: React.FC<StatCard> = ({ value, label, color }) => (
+  <Box className="group">
+    <div className="p-6 rounded-lg border border-accent-6 border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:bg-accent-2 hover:bg-opacity-10">
+      <div className={`text-4xl font-bold ${color} mb-2`}>{value}</div>
+      <Text as="p" size="2" className="opacity-70">
+        {label}
+      </Text>
+    </div>
+  </Box>
+);
+
+const ExpertiseCard: React.FC<AreaOfExpertise> = ({
+  title,
+  description,
+  color,
+}) => (
+  <Box className="group">
+    <div className="relative p-6 rounded-lg border border-accent-6 border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:bg-accent-2 hover:bg-opacity-10">
+      <div
+        className={`absolute top-0 left-0 w-1 h-8 rounded-br ${color} opacity-0 group-hover:opacity-100 transition-opacity`}
+      />
+      <Heading as="h4" size="4" className="mb-3">
+        {title}
+      </Heading>
+      <Text as="p" size="2" className="opacity-70">
+        {description}
+      </Text>
+    </div>
+  </Box>
+);
 
 const ImpactSection: React.FC = () => {
-  const careerMetrics = [
+  const stats: StatCard[] = [
     {
       value: "5+",
       label: "Years Enterprise Engineering",
@@ -28,78 +68,73 @@ const ImpactSection: React.FC = () => {
     },
   ];
 
-  const achievementDiff = [
-    { type: "context" as const, content: "// Key Career Achievements", oldLineNum: 1, newLineNum: 1 },
-    { type: "context" as const, content: "", oldLineNum: 2, newLineNum: 2 },
-    { type: "add" as const, content: "+ Patented Technology Leadership", newLineNum: 3 },
-    { type: "add" as const, content: "  Leading patented systems for global live entertainment", newLineNum: 4 },
-    { type: "context" as const, content: "", oldLineNum: 3, newLineNum: 5 },
-    { type: "add" as const, content: "+ Monolithic to Microservices Migration", newLineNum: 6 },
-    { type: "add" as const, content: "  Architected BSure Insurance finance division transformation", newLineNum: 7 },
-    { type: "context" as const, content: "", oldLineNum: 4, newLineNum: 8 },
-    { type: "add" as const, content: "+ Complete Product Redesign", newLineNum: 9 },
-    { type: "add" as const, content: "  Voucher Advance rebuilt with major UX/performance gains", newLineNum: 10 },
-    { type: "context" as const, content: "", oldLineNum: 5, newLineNum: 11 },
-    { type: "add" as const, content: "+ IC to Tech Lead Promotion", newLineNum: 12 },
-    { type: "add" as const, content: "  Advanced within first year through demonstrated leadership", newLineNum: 13 },
+  const expertise: AreaOfExpertise[] = [
+    {
+      title: "Patented Technology Leadership",
+      description:
+        "Leading patented systems for global live entertainment at Broadway Media, handling performance and scale at international level.",
+      color: "bg-radix-base-grass",
+    },
+    {
+      title: "Monolithic to Microservices",
+      description:
+        "Architected BSure Insurance finance division's transformation from monolithic to microservices architecture.",
+      color: "bg-radix-base-blue",
+    },
+    {
+      title: "Complete Product Redesign",
+      description:
+        "Rebuilt Voucher Advance lending product with major UX and performance improvements while maintaining legacy support.",
+      color: "bg-radix-base-violet",
+    },
+    {
+      title: "Individual to Technical Lead",
+      description:
+        "Promoted to Technical Team Lead within first year, demonstrating leadership through mentorship and architecture design.",
+      color: "bg-radix-base-amber",
+    },
   ];
 
   return (
-    <Section className="py-8">
-      <TerminalPrompt path="~/impact" command="cat metrics.bin" />
+    <Section className="py-12" id="impact">
+      <Box className="mb-8">
+        <Heading as="h2" size="8" className="mb-3">
+          Quantifying Impact
+        </Heading>
+        <Text as="p" size="2" className="opacity-70 max-w-2xl">
+          Career achievements measured across architecture, leadership, and
+          innovation across diverse industries and technical domains.
+        </Text>
+      </Box>
 
-      <Text as="p" size="2" className="mb-6 opacity-70 font-mono text-xs">
-        # Quantifying value across architecture, leadership, and innovation
-      </Text>
-
-      <div className="mb-6">
-        <div className="font-mono text-xs opacity-50 mb-3">// MEMORY DUMP: Career Metrics</div>
-        <HexDumpMetrics metrics={careerMetrics} />
+      <div className="mb-12">
+        <Grid columns={{ initial: "1", md: "2" }} gap="4">
+          {stats.map((stat) => (
+            <StatCard
+              key={stat.label}
+              value={stat.value}
+              label={stat.label}
+              color={stat.color}
+            />
+          ))}
+        </Grid>
       </div>
 
-      <div className="mb-6">
-        <div className="font-mono text-xs opacity-50 mb-3">// DIFF: Achievements Added</div>
-        <DiffHighlight
-          filePath="achievements.log"
-          oldFile="achievements.log"
-          newFile="achievements.log"
-          lines={achievementDiff}
-        />
-      </div>
-
-      <Grid columns={{ initial: "1", md: "2" }} gap="4">
-        <BorderAccent color="border-radix-base-cyan" filePath="~/tech/cloud.md">
-          <div className="font-mono text-xs mb-2 opacity-60"># Cloud Infrastructure</div>
-          <div className="text-sm opacity-90">
-            → AWS, Vercel, S3, Kafka<br />
-            → Scalable distributed systems
-          </div>
-        </BorderAccent>
-
-        <BorderAccent color="border-radix-base-green" filePath="~/tech/cicd.md">
-          <div className="font-mono text-xs mb-2 opacity-60"># CI/CD Pipelines</div>
-          <div className="text-sm opacity-90">
-            → Automated deployments<br />
-            → Zero-downtime releases
-          </div>
-        </BorderAccent>
-
-        <BorderAccent color="border-radix-base-amber" filePath="~/tech/security.md">
-          <div className="font-mono text-xs mb-2 opacity-60"># Security First</div>
-          <div className="text-sm opacity-90">
-            → Fintech compliance<br />
-            → POPIA data protection
-          </div>
-        </BorderAccent>
-
-        <BorderAccent color="border-radix-base-tomato" filePath="~/tech/architecture.md">
-          <div className="font-mono text-xs mb-2 opacity-60"># Clean Architecture</div>
-          <div className="text-sm opacity-90">
-            → S.O.L.I.D principles<br />
-            → Maintainable code patterns
-          </div>
-        </BorderAccent>
-      </Grid>
+      <Box className="mb-4">
+        <Heading as="h3" size="6" className="mb-6">
+          Key Achievements
+        </Heading>
+        <Grid columns={{ initial: "1", md: "2" }} gap="4">
+          {expertise.map((area) => (
+            <ExpertiseCard
+              key={area.title}
+              title={area.title}
+              description={area.description}
+              color={area.color}
+            />
+          ))}
+        </Grid>
+      </Box>
     </Section>
   );
 };

@@ -1,5 +1,5 @@
 import { Section } from "@radix-ui/themes";
-import { ContactForm } from "../components/ContactForm";
+import { ElegantContactForm } from "../components/ElegantContactForm";
 import { Footer } from "../components/Footer";
 import LandingSection from "./sections/LandingSection";
 
@@ -8,8 +8,8 @@ const ContactPage: React.FC = () => {
     <>
       <LandingSection />
 
-      <Section>
-        <ContactForm />
+      <Section className="px-[5%] md:px-[10%] xl:px-[15%]">
+        <ElegantContactForm />
       </Section>
 
       <Footer />
