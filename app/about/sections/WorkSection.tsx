@@ -7,9 +7,10 @@ interface WorkEntry {
   title: string;
   company: string;
   period: string;
-  description: React.ReactNode;
+  description: string;
   stack: string;
   color: string;
+  highlights?: string[];
 }
 
 const WorkSection: React.FC = () => {
