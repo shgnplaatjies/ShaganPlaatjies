@@ -1,22 +1,6 @@
-"use client";
-import MusicProject from "@/app/components/tidal-cycles/MusicProject";
-import { FirstSongPattern } from "@/app/lib/strudel/cycles";
-import { Section, Text } from "@radix-ui/themes";
+import { Section, Text, Heading, Box } from "@radix-ui/themes";
 import AccentedHeading from "../../components/AccentedHeading";
 import CTAButton from "../../components/CTAButton";
-
-export type MusicProjectConfig = {
-  title: string;
-  description?: string;
-  tidalCyclesCode: any;
-};
-
-const MusicProjects: MusicProjectConfig[] = [
-  {
-    title: "My first tidal cycles project",
-    tidalCyclesCode: FirstSongPattern,
-  },
-];
 
 const MusicProjectsSection: React.FC = () => {
   return (
@@ -28,13 +12,21 @@ const MusicProjectsSection: React.FC = () => {
         accentedText="Story."
       />
 
-      <Text as="p">
-        Combining my two passions, music and code with *Tidal Cycles*.
+      <Text as="p" size="2" className="mb-6 opacity-80 max-w-3xl">
+        Combining my two passions: music and code. I explore the intersection of
+        creative expression and technical innovation, experimenting with live
+        music coding, generative music systems, and interactive audio
+        experiences.
       </Text>
 
-      {MusicProjects.map((project) => (
-        <MusicProject key={project.title} project={project} />
-      ))}
+      <Box className="py-8">
+        <Heading as="h3" size="5" className="mb-4">
+          Explorations
+        </Heading>
+        <Text as="p" size="2" className="opacity-70">
+          More details coming soon as I develop.
+        </Text>
+      </Box>
 
       <CTAButton href="/about" text="About Me" />
     </Section>
