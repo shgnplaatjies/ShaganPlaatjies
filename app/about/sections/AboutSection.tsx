@@ -1,7 +1,7 @@
 import { CodeIcon } from "@radix-ui/react-icons";
 import { Box, Grid, Section, Text } from "@radix-ui/themes";
 import AccentedHeading from "../../components/AccentedHeading";
-import WindowLayout from "../../components/WindowCard/Window";
+import DecorativeWindow from "../../components/DecorativeWindow";
 
 const AboutSection: React.FC = () => {
   return (
@@ -46,26 +46,32 @@ const AboutSection: React.FC = () => {
         </Box>
 
         <Box>
-          <WindowLayout title="philosophy.md" padded LogoIcon={<CodeIcon />}>
-            <Text as="p" size="3" weight="bold" className="mb-2">
+          <DecorativeWindow
+            title="philosophy.md"
+            theme="vscode"
+            showDots={true}
+            LogoIcon={<CodeIcon />}
+            padded
+          >
+            <Text as="p" size="3" weight="bold" className="mb-4">
               My Engineering Philosophy
             </Text>
 
-            <Text as="p" size="2" className="mb-2 opacity-90">
+            <Text as="p" size="2" className="mb-4 opacity-90">
               <span className="text-radix-base-grass font-semibold">Scale-First Thinking</span>
               <br />
               Every system I design anticipates growth. From database architecture to API design,
               I build for tomorrow's demands, not just today's requirements.
             </Text>
 
-            <Text as="p" size="2" className="mb-2 opacity-90">
+            <Text as="p" size="2" className="mb-4 opacity-90">
               <span className="text-radix-base-blue font-semibold">Security as Foundation</span>
               <br />
               Having worked across fintech and insurance, I treat security not as an afterthought
               but as a foundational principle embedded in every architectural decision.
             </Text>
 
-            <Text as="p" size="2" className="mb-2 opacity-90">
+            <Text as="p" size="2" className="mb-4 opacity-90">
               <span className="text-radix-base-violet font-semibold">Team Elevation</span>
               <br />
               Technical leadership means growing others. Through code reviews, mentorship, and
@@ -78,7 +84,7 @@ const AboutSection: React.FC = () => {
               Technology serves business goals. I bridge the gap between stakeholder needs and
               technical implementation, ensuring solutions deliver measurable impact.
             </Text>
-          </WindowLayout>
+          </DecorativeWindow>
         </Box>
       </Grid>
     </Section>
