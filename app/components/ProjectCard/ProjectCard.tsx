@@ -11,7 +11,7 @@ export type BlogPostExcerpt = {
   modifiedGmt: string;
   slug: string;
   status: string;
-  link: string; // url
+  link?: string; // url (deprecated - using slug now)
   titleRendered: string;
   featuredMedia?: string; // url
   categories?: string[];
@@ -20,7 +20,7 @@ export type BlogPostExcerpt = {
 
 const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
   <Image
-    className="rounded border border-gray-border-1"
+    className="rounded-sm overflow-hidden"
     src={src}
     width={600}
     height={600}
@@ -29,25 +29,37 @@ const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
 );
 
 const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
-  <>{<TaxonomyList taxonomies={labels} />}</>
+  <div className="flex flex-wrap gap-2">
+    {labels.map((label) => (
+      <span
+        key={label}
+        className="text-xs px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20"
+      >
+        {label}
+      </span>
+    ))}
+  </div>
 );
 
 const ProjectDate: React.FC<{ date: string }> = ({ date }) => (
-  <Text size="2">{date.slice(0, 4)}</Text>
+  <Text size="2" className="text-gray-600 dark:text-gray-400">
+    {date.slice(0, 4)}
+  </Text>
 );
 
 const ProjectTitle: React.FC<{ title: string }> = ({ title }) => (
-  <Heading className="pb-4 text-balance" as="h2">
+  <Heading
+    className="pb-3 text-balance font-semibold text-xl leading-tight"
+    as="h2"
+  >
     {title}
   </Heading>
 );
 
 const ProjectId: React.FC<{ id: string | number }> = ({ id }) => (
-  <>
-    <Text size="2" className="break-keep">
-      {isNaN(Number(id)) ? id : (id as number) < 10 ? `0${id}` : id}
-    </Text>
-  </>
+  <Text size="1" className="text-gray-500 dark:text-gray-500 tracking-wide">
+    {isNaN(Number(id)) ? id : (id as number) < 10 ? `0${id}` : id}
+  </Text>
 );
 
 type ProjectCardInternalProps = {
@@ -66,11 +78,11 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex className="justify-center -mt-8 mb-4 mx-3 max-h-48 overflow-hidden">
+    <Flex className="justify-center mb-5 mx-3 max-h-48 overflow-hidden">
       <ProjectImage src={mediaSrc} alt={title} />
     </Flex>
     <Flex direction="column" gap="3" mx="3" className="pb-8">
-      <Flex justify="between" className="opacity-60">
+      <Flex justify="between" className="opacity-70 mb-2">
         <ProjectId id={id} />
         <ProjectDate date={date} />
       </Flex>
@@ -88,13 +100,13 @@ const ProjectMediumScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <div className="pb-10">
-    <Flex className="justify-end max-h-96" mt={"-8"} mb="4">
-      <div className="flex justify-self-end max-w-[40%] -rotate-3">
+    <Flex className="justify-end max-h-80 mb-6">
+      <div className="flex justify-self-end max-w-[45%]">
         <ProjectImage src={mediaSrc} alt={title} />
       </div>
     </Flex>
     <Flex direction="column" gap="3" mx="3">
-      <Flex justify="between" className="opacity-60">
+      <Flex justify="between" className="opacity-70 mb-2">
         <ProjectId id={id} />
         <ProjectDate date={date} />
       </Flex>
@@ -112,23 +124,23 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex gapX={"2"} justify={"between"} className="py-12 min-w-full">
-      <Box className="ml-8 w-10 overflow-hidden transition-[max-width] duration-300 ease-in-out group-hover:max-w-0">
+    <Flex gapX={"3"} justify={"between"} className="py-10 min-w-full items-start">
+      <Box className="ml-6 pt-1 flex-shrink-0">
         <ProjectId id={id} />
       </Box>
 
-      <Box className="max-w-[66%]">
+      <Box className="flex-1 max-w-[55%]">
         <ProjectTitle title={title} />
         <Flex>
           <ProjectLabels labels={labels} />
         </Flex>
       </Box>
 
-      <Box className="-rotate-3 max-w-48 h-28 opacity-0 w-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:w-full group-hover:opacity-90 ">
+      <Box className="max-w-56 h-32 flex-shrink-0 overflow-hidden opacity-0 w-0 transition-all duration-500 ease-in-out group-hover:w-56 group-hover:opacity-100">
         <ProjectImage src={mediaSrc} alt={title} />
       </Box>
 
-      <Box className="px-10">
+      <Box className="px-8 pt-1 flex-shrink-0">
         <ProjectDate date={date} />
       </Box>
     </Flex>
@@ -141,7 +153,7 @@ const ProjectCard: React.FC<{
   post: {
     id,
     dateGmt,
-    link,
+    slug,
     titleRendered,
     featuredMedia = DefaultFeaturedImage,
     categories,
@@ -161,9 +173,9 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded border border-gray-border-1 "
+        className="flex self-center rounded-sm border border-gray-200 dark:border-gray-800 hover:border-cyan-500/30 dark:hover:border-cyan-500/30 transition-colors duration-300"
       >
-        <Link href={link} className="group">
+        <Link href={`/posts/${slug}`} className="group">
           <div className="block sm:hidden">
             <ProjectSmallScreen {...projectProps} />
           </div>
