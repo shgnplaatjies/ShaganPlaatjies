@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Heading, Tooltip } from "@radix-ui/themes";
+import { Box, Card, Flex, Heading } from "@radix-ui/themes";
 import React from "react";
 
 type ContentCardVariant = 'timeline' | 'skills' | 'contact' | 'default';
@@ -10,7 +10,6 @@ interface ContentCardProps {
   title?: string;
   decorative?: DecorativeStyle;
   accentColor?: string;
-  devHint?: string;
   children: React.ReactNode;
   className?: string;
 }
@@ -33,7 +32,6 @@ const ContentCard: React.FC<ContentCardProps> = ({
   title,
   decorative = 'none',
   accentColor = "bg-accent-9",
-  devHint,
   children,
   className = "",
 }) => {
@@ -74,14 +72,6 @@ const ContentCard: React.FC<ContentCardProps> = ({
       </Card>
     </Box>
   );
-
-  if (devHint) {
-    return (
-      <Tooltip content={devHint}>
-        {cardContent}
-      </Tooltip>
-    );
-  }
 
   return cardContent;
 };
