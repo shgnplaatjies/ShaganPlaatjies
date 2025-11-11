@@ -55,32 +55,30 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <>
-      {/* Hero Section with Featured Image */}
       {featuredMedia && (
-        <Box className="relative w-full h-96 overflow-hidden bg-gray-900">
+        <Box className="relative w-full h-[32rem] overflow-hidden bg-gray-900">
           <Image
             src={featuredMedia.source_url}
             alt={post.title.rendered}
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent" />
         </Box>
       )}
 
       <Section>
-        {/* Post Header */}
         <Box className="max-w-3xl mx-auto mb-12">
           <Heading
             as="h1"
             size="8"
-            className="mb-6 text-gray-900 dark:text-gray-100 font-semibold"
+            className="mb-6 font-semibold"
           >
             {post.title.rendered}
           </Heading>
 
-          {/* Post Meta */}
           <Flex direction="column" gap="3" className="mb-8 pb-8 border-b border-gray-200 dark:border-gray-800">
             <Flex align="center" gap="2" className="flex-wrap">
               <Text size="2" className="text-gray-600 dark:text-gray-400">
@@ -104,12 +102,10 @@ export default async function PostPage({ params }: PostPageProps) {
             </Flex>
           </Flex>
 
-          {/* Post Content */}
           <Box className="mb-12">
             <PostContent html={post.content.rendered} />
           </Box>
 
-          {/* Tags */}
           {tagNames.length > 0 && (
             <Box className="pt-8 border-t border-gray-200 dark:border-gray-800">
               <Text size="2" className="text-gray-600 dark:text-gray-400 mb-3 block">
@@ -128,7 +124,6 @@ export default async function PostPage({ params }: PostPageProps) {
             </Box>
           )}
 
-          {/* Back Link */}
           <Box className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
             <Link
               href="/posts"
