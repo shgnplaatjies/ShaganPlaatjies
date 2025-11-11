@@ -24,7 +24,6 @@ const AboutMeSectionImproved: React.FC = () => {
         <SectionHeader
           icon={<ProfileIcon />}
           title="About"
-          devHint="Inspired by: cat ~/about/profile.md"
         />
 
         <Text as="p" className="mb-6 text-sm opacity-80">
@@ -38,7 +37,6 @@ const AboutMeSectionImproved: React.FC = () => {
           color="border-radix-base-grass"
           icon={<CareerIcon />}
           label="Career Journey"
-          devHint="Inspired by: ~/career/timeline.log"
         >
           <ul className="space-y-4">
             <li>
@@ -94,7 +92,6 @@ const AboutMeSectionImproved: React.FC = () => {
               color="border-radix-base-blue"
               icon={<CodeIconComponent />}
               label="Tech Stack"
-              devHint="Inspired by: ~/config/tech-stack.json"
             >
               <SkillsGrid columns={1}>
                 <SkillCategory
@@ -151,7 +148,6 @@ const AboutMeSectionImproved: React.FC = () => {
               color="border-radix-base-violet"
               icon={<SkillsIcon />}
               label="Core Competencies"
-              devHint="Inspired by: ~/skills/competencies.txt"
             >
               <ul className="space-y-3 text-sm">
                 <li>
@@ -184,7 +180,6 @@ const AboutMeSectionImproved: React.FC = () => {
             color="border-radix-base-amber"
             icon={<ContactIcon />}
             label="Contact Information"
-            devHint="Inspired by: ~/contact/info.ini"
             className="w-full"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">

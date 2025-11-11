@@ -1,5 +1,5 @@
 "use client";
-import { Card, Container, Flex, Inset, Text, Tooltip } from "@radix-ui/themes";
+import { Card, Container, Flex, Inset, Text } from "@radix-ui/themes";
 import React from "react";
 
 type WindowTheme = 'vscode' | 'terminal' | 'browser';
@@ -15,13 +15,11 @@ interface DecorativeWindowProps {
 }
 
 const DecorativeDots: React.FC = () => (
-  <Tooltip content="Inspired by macOS window controls">
-    <Flex gap="2" className="opacity-40 pointer-events-none">
-      <div className="w-3 h-3 rounded-full bg-red-500" aria-hidden="true" />
-      <div className="w-3 h-3 rounded-full bg-yellow-500" aria-hidden="true" />
-      <div className="w-3 h-3 rounded-full bg-green-500" aria-hidden="true" />
-    </Flex>
-  </Tooltip>
+  <Flex gap="2" className="opacity-40 pointer-events-none">
+    <div className="w-3 h-3 rounded-full bg-red-500" aria-hidden="true" />
+    <div className="w-3 h-3 rounded-full bg-yellow-500" aria-hidden="true" />
+    <div className="w-3 h-3 rounded-full bg-green-500" aria-hidden="true" />
+  </Flex>
 );
 
 const DecorativeWindow: React.FC<DecorativeWindowProps> = ({
