@@ -1,18 +1,7 @@
-import { Section } from "@radix-ui/themes";
-import { Footer } from "./components/Footer";
-import { AboutMeSectionImproved } from "./sections/AboutMeSectionImproved";
-import { LandingSection } from "./sections/LandingSection";
-import { ProjectsSection } from "./sections/ProjectsSection";
+import PortfolioPage from './components/PortfolioPage';
 
-const HomePage: React.FC = () => {
-  return (
-    <Section className="px-[5%] md:px-[10%] xl:px-[15%] mb-5">
-      <LandingSection />
-      <AboutMeSectionImproved />
-      <ProjectsSection />
-      <Footer />
-    </Section>
-  );
+const HomePage = () => {
+  return <PortfolioPage />;
 };
 
 export default HomePage;

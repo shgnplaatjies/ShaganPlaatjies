@@ -1,6 +1,6 @@
 "use client";
 import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
-import { Box, Flex, ScrollArea, Theme } from "@radix-ui/themes";
+import { Flex, Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import FootPanel from "../../FootPanel";
@@ -29,17 +29,15 @@ const MainLayout: React.FC<{
     <Theme accentColor={orbColor.radixColor} className="w-full h-full">
       <AnimatedGrid opacity={0.3} gridSize={40} />
       <MatrixRain opacity={0.05} />
-      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 border-opacity-50 backdrop-blur-3xl relative z-10">
+      <Flex className="flex flex-col flex-grow w-full h-full border rounded-md border-gray-border-1 border-opacity-50 backdrop-blur-3xl relative z-10 bg-transparent">
         <Header className="h-auto py-2 px-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
 
-        <main className="flex flex-grow flex-row overflow-hidden">
+        <main className="flex flex-grow flex-row overflow-hidden w-full">
           <SidePanel className="w-auto hidden sm:flex px-4 py-4 place-content-center border-r border-gray-border-1 border-opacity-50" />
 
-          <ScrollArea>
-            <Box className="w-full h-full backdrop-blur-3xl px-4">
-              {children}
-            </Box>
-          </ScrollArea>
+          <div className="w-full h-full backdrop-blur-3xl px-4 bg-transparent overflow-hidden">
+            {children}
+          </div>
         </main>
 
         <footer>
