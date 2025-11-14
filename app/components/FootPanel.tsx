@@ -1,6 +1,6 @@
 "use client";
-import { DotFilledIcon } from "@radix-ui/react-icons";
-import { Box, Flex, Grid, Link } from "@radix-ui/themes";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { Box, Flex, Grid, IconButton } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import { POLLING_INTERVAL } from "../lib/constants";
 import AnimatedIconStack from "./AnimatedIconStack";
@@ -24,6 +24,42 @@ const FootPanel: React.FC<FootPanelProps> = ({
     });
 
   const [currentTime, setCurrentTime] = useState<string>("00:00 am");
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // Read initial theme
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (saved) {
+      setTheme(saved);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    // Listen for theme changes
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'dark' : 'light');
+    });
+
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    setTheme(newTheme);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,15 +75,13 @@ const FootPanel: React.FC<FootPanelProps> = ({
         columns="3"
       >
         <Flex align="center">
-          <Link
-            href="/contact"
-            asChild
+          <IconButton
+            onClick={toggleTheme}
+            variant="ghost"
+            aria-label="Toggle theme"
           >
-            <DotFilledIcon
-              width="1.15rem"
-              height="1.15rem"
-            />
-          </Link>
+            {mounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+          </IconButton>
         </Flex>
         <p className="flex text-nowrap justify-center opacity-60 text-sm">
           Johannesburg {currentTime}

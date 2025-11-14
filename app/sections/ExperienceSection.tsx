@@ -1,6 +1,6 @@
 import React from 'react';
 import { Suspense } from 'react';
-import ProjectCard from '../components/ProjectCard/ProjectCard';
+import ExperienceCard from '../components/ExperienceCard';
 import {
   fetchWpPosts,
   fetchWpAllCategories,
@@ -8,7 +8,7 @@ import {
   fetchWpMediaById,
 } from '../lib/server-lib';
 
-const ProjectsSectionContent: React.FC<{
+const ExperienceSectionContent: React.FC<{
   posts: any[];
   categories: any[];
   tags: any[];
@@ -19,46 +19,47 @@ const ProjectsSectionContent: React.FC<{
       .map(id => taxonomy.find(tax => tax.id === id)?.name)
       .filter(Boolean);
 
-  const projectPosts = posts.filter(post => {
-    const categoryId = categories.find(c => c.slug === 'project')?.id;
+  const experiencePosts = posts.filter(post => {
+    const categoryId = categories.find(c => c.slug === 'experience')?.id;
     return post.categories.includes(categoryId);
   });
 
   return (
-    <div id="projects-section" className="space-y-8">
+    <div id="experience-section" className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Projects</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Portfolio of work and technical solutions</p>
+        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Experience</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-8">Professional roles and key projects</p>
       </div>
 
       <div className="space-y-12">
-        {projectPosts.map((post, index) => {
+        {experiencePosts.map((post) => {
           const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
 
           return (
-            <ProjectCard
+            <ExperienceCard
               key={post.id}
-              post={{
-                id: index + 1,
-                dateGmt: post.date_gmt,
-                modifiedGmt: post.modified_gmt,
-                slug: post.slug,
-                status: post.status,
-                link: post.link,
-                titleRendered: post.title.rendered,
-                featuredMedia: featuredImageUrl,
-                categories: getTaxonomyNamesByIds(post.categories, categories),
-                tags: getTaxonomyNamesByIds(post.tags, tags),
-              }}
+              title={post.title.rendered}
+              description={post.excerpt.rendered}
+              tags={getTaxonomyNamesByIds(post.tags, tags)}
+              featuredImage={featuredImageUrl}
             />
           );
         })}
+      </div>
+
+      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+        <a
+          href="/resume"
+          className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+        >
+          Download Resume →
+        </a>
       </div>
     </div>
   );
 };
 
-const ProjectsSection: React.FC = async () => {
+const ExperienceSection: React.FC = async () => {
   const posts = await fetchWpPosts();
   const categories = await fetchWpAllCategories();
   const tags = await fetchWpAllTags();
@@ -66,7 +67,7 @@ const ProjectsSection: React.FC = async () => {
   if (!posts || !categories || !tags) {
     return (
       <div className="text-gray-400">
-        Unable to load projects. Please try again later.
+        Unable to load experience data. Please try again later.
       </div>
     );
   }
@@ -92,10 +93,10 @@ const ProjectsSection: React.FC = async () => {
   }
 
   return (
-    <Suspense fallback={<div className="text-gray-400">Loading projects...</div>}>
-      <ProjectsSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
+    <Suspense fallback={<div className="text-gray-400">Loading experience...</div>}>
+      <ExperienceSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
     </Suspense>
   );
 };
 
-export default ProjectsSection;
+export default ExperienceSection;
