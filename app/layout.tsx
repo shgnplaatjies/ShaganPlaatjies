@@ -42,7 +42,7 @@ export default function RootLayout({
         <body className="flex flex-col h-dvh w-dvh overflow-hidden text-black dark:text-white">
           <ThemeProvider>
             <Theme appearance="dark" radius="small" panelBackground="translucent">
-              <Box className="flex flex-col h-full p-3 w-full bg-transparent">
+              <Box className="flex flex-col h-full w-full bg-transparent">
                 <MainLayout>{children}</MainLayout>
               </Box>
             </Theme>

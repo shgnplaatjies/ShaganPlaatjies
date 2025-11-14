@@ -58,7 +58,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
   };
 
   return (
-    <nav className="w-1/4 flex-shrink-0 border-r border-gray-3 p-8 h-full overflow-hidden bg-gray-1 flex flex-col">
+    <nav className="w-1/4 flex-shrink-0 border-r border-gray-border-1 border-opacity-50 px-8 py-4 h-full overflow-hidden bg-gray-1 flex flex-col">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-12">Shagan Plaatjies</h1>
         <p className="mt-2 text-sm text-gray-10">
@@ -87,7 +87,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         ))}
       </ul>
 
-      <div className="mt-12 pt-6 border-t border-gray-3">
+      <div className="mt-12 pt-6 border-t border-gray-border-1 border-opacity-50">
         <p className="text-xs text-gray-8 mb-3">LINKS</p>
         <ul className="flex gap-4 text-gray-10">
           <li>
@@ -108,7 +108,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         </ul>
       </div>
 
-      <div className="mt-12 pt-6 border-t border-gray-3">
+      <div className="mt-12 pt-6 border-t border-gray-border-1 border-opacity-50">
         <button
           onClick={toggleTheme}
           className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-11 transition-colors"
