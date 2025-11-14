@@ -168,6 +168,7 @@ const ProjectCard: React.FC<{
     id,
     labels: labels ?? [...(categories ?? []), ...(tags ?? [])],
   };
+
   return (
     <Box mt={"8"} asChild>
       <Flex
