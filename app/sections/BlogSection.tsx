@@ -5,13 +5,15 @@ import {
   fetchWpPosts,
   fetchWpAllCategories,
   fetchWpAllTags,
+  fetchWpMediaById,
 } from '../lib/server-lib';
 
 const BlogSectionContent: React.FC<{
   posts: any[];
   categories: any[];
   tags: any[];
-}> = ({ posts, categories, tags }) => {
+  mediaMap: Record<number, string>;
+}> = ({ posts, categories, tags, mediaMap }) => {
   const getTaxonomyNamesByIds = (ids: number[], taxonomy: any[]) =>
     ids
       .map(id => taxonomy.find(tax => tax.id === id)?.name)
@@ -31,16 +33,21 @@ const BlogSectionContent: React.FC<{
 
       <div className="space-y-8">
         {blogPosts.length > 0 ? (
-          blogPosts.map(post => (
-            <BlogCard
-              key={post.id}
-              title={post.title.rendered}
-              date={post.date_gmt}
-              excerpt={post.excerpt.rendered}
-              slug={post.slug}
-              tags={getTaxonomyNamesByIds(post.tags, tags)}
-            />
-          ))
+          blogPosts.map(post => {
+            const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
+
+            return (
+              <BlogCard
+                key={post.id}
+                title={post.title.rendered}
+                date={post.date_gmt}
+                excerpt={post.excerpt.rendered}
+                slug={post.slug}
+                tags={getTaxonomyNamesByIds(post.tags, tags)}
+                featuredImage={featuredImageUrl}
+              />
+            );
+          })
         ) : (
           <p className="text-gray-500 dark:text-gray-500">No blog posts yet.</p>
         )}
@@ -62,9 +69,29 @@ const BlogSection: React.FC = async () => {
     );
   }
 
+  // Build a map of media IDs to URLs
+  const mediaIds = new Set<number>();
+  posts.forEach(post => {
+    if (post.featured_media) {
+      mediaIds.add(post.featured_media);
+    }
+  });
+
+  const mediaMap: Record<number, string> = {};
+  for (const mediaId of mediaIds) {
+    try {
+      const media = await fetchWpMediaById(mediaId);
+      if (media && typeof media === 'object' && 'source_url' in media && media.source_url) {
+        mediaMap[mediaId] = media.source_url;
+      }
+    } catch (error) {
+      console.error(`Failed to fetch media ${mediaId}:`, error);
+    }
+  }
+
   return (
     <Suspense fallback={<div className="text-gray-400">Loading blog posts...</div>}>
-      <BlogSectionContent posts={posts} categories={categories} tags={tags} />
+      <BlogSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
     </Suspense>
   );
 };
