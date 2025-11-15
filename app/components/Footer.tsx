@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
         </Flex>
 
         <Text as="p" className="text-center opacity-70 max-w-md">
-          Interested in technical collaboration or enterprise solutions? Let's
+          Interested in technical collaboration or enterprise solutions? Let&apos;s
           discuss your project.
         </Text>
 

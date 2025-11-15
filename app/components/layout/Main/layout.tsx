@@ -23,7 +23,7 @@ const MainLayout: React.FC<{
         (orb) => orb.path === pathName
       ) ?? defaultConfig
     );
-  }, [pathName]);
+  }, [pathName, defaultConfig]);
 
   useEffect(() => {
     const updateAppearance = () => {

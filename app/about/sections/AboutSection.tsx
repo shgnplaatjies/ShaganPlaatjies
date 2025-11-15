@@ -16,7 +16,7 @@ const AboutSection: React.FC = () => {
       <Grid columns={{ initial: "1", md: "2" }} gap="3" className="mt-4">
         <Box>
           <Text as="p" size="2" className="mb-3 opacity-90">
-            I'm a Software Engineer and Product Lead with over five years
+            I&apos;m a Software Engineer and Product Lead with over five years
             architecting mission-critical systems across high-stakes industries.
             Currently, I lead development of patented technology at Broadway
             Media, solving complex problems of performance, security, and scale
@@ -27,7 +27,7 @@ const AboutSection: React.FC = () => {
             My approach merges deep technical expertise with product and
             business strategy. At BSure Insurance, I elevated from individual
             contributor to Technical Team Lead, guiding three junior developers
-            while spearheading the finance division's migration from monolithic
+            while spearheading the finance division&apos;s migration from monolithic
             architecture to a robust microservice solution, transforming their
             operational capabilities and introducing automated deployment
             practices.
@@ -69,8 +69,8 @@ const AboutSection: React.FC = () => {
               </span>
               <br />
               Every system I design anticipates growth. From database
-              architecture to API design, I build for tomorrow's demands, not
-              just today's requirements.
+              architecture to API design, I build for tomorrow&apos;s demands, not
+              just today&apos;s requirements.
             </Text>
 
             <Text as="p" size="2" className="mb-4 opacity-90">
@@ -89,7 +89,7 @@ const AboutSection: React.FC = () => {
               </span>
               <br />
               Technical leadership means growing others. Through code reviews,
-              mentorship, and knowledge sharing, I elevate entire teams'
+              mentorship, and knowledge sharing, I elevate entire teams&apos;
               capabilities and confidence.
             </Text>
 

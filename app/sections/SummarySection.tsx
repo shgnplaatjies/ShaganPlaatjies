@@ -9,7 +9,7 @@ const SummarySection: React.FC = () => {
 
       <div className="space-y-4 text-gray-10 leading-relaxed">
         <p>
-          I'm a Software Engineer and Product Leader based in Johannesburg,
+          I&apos;m a Software Engineer and Product Leader based in Johannesburg,
           South Africa, with over half a decade architecting mission-critical
           systems across fintech, insurance, telecommunications, and live
           entertainment.
@@ -19,7 +19,7 @@ const SummarySection: React.FC = () => {
           Currently at Broadway Media, I architect and deliver patented
           technology for global audiences. I merge deep technical expertise with
           product strategy, transforming complex challenges into elegant,
-          scalable solutions. I've led teams through enterprise-scale
+          scalable solutions. I&apos;ve led teams through enterprise-scale
           transformations, migrating monolithic systems into high-performance
           microservices while maintaining zero downtime.
         </p>
