@@ -155,7 +155,7 @@ const ProjectCard: React.FC<{
     dateGmt,
     slug,
     titleRendered,
-    featuredMedia = DefaultFeaturedImage,
+    featuredMedia,
     categories,
     tags,
     labels,
@@ -163,7 +163,7 @@ const ProjectCard: React.FC<{
 }) => {
   const projectProps: ProjectCardInternalProps = {
     date: dateGmt,
-    mediaSrc: featuredMedia,
+    mediaSrc: featuredMedia ?? DefaultFeaturedImage,
     title: titleRendered,
     id,
     labels: labels ?? [...(categories ?? []), ...(tags ?? [])],

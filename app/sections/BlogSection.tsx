@@ -1,6 +1,6 @@
 import React from 'react';
 import { Suspense } from 'react';
-import ProjectCard from '../components/ProjectCard/ProjectCard';
+import BlogCard from '../components/BlogCard';
 import {
   fetchWpPosts,
   fetchWpAllCategories,
@@ -9,7 +9,7 @@ import {
 } from '../lib/server-lib';
 import { WORDPRESS_CATEGORIES, type WordPressCategory, type WordPressTag, type WordPressPost } from '../lib/wordpress-types';
 
-const ProjectsSectionContent: React.FC<{
+const BlogSectionContent: React.FC<{
   posts: WordPressPost[];
   categories: WordPressCategory[];
   tags: WordPressTag[];
@@ -20,46 +20,44 @@ const ProjectsSectionContent: React.FC<{
       .map(id => taxonomy.find(tax => tax.id === id)?.name)
       .filter(Boolean);
 
-  const projectPosts = posts.filter(post => {
-    const categoryId = categories.find(c => c.slug === WORDPRESS_CATEGORIES.PROJECT)?.id;
+  const blogPosts = posts.filter(post => {
+    const categoryId = categories.find(c => c.slug === WORDPRESS_CATEGORIES.BLOG_POST)?.id;
     return categoryId ? post.categories.includes(categoryId) : false;
   });
 
   return (
-    <div id="projects-section" className="space-y-8">
+    <div id="blog-section" className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Projects</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Portfolio of work and technical solutions</p>
+        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Blog</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-8">Technical articles and insights</p>
       </div>
 
-      <div className="space-y-12">
-        {projectPosts.map((post, index) => {
-          const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
+      <div className="space-y-8">
+        {blogPosts.length > 0 ? (
+          blogPosts.map(post => {
+            const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
 
-          return (
-            <ProjectCard
-              key={post.id}
-              post={{
-                id: index + 1,
-                dateGmt: post.date_gmt,
-                modifiedGmt: post.modified_gmt,
-                slug: post.slug,
-                status: post.status,
-                link: post.link,
-                titleRendered: post.title.rendered,
-                featuredMedia: featuredImageUrl,
-                categories: getTaxonomyNamesByIds(post.categories, categories),
-                tags: getTaxonomyNamesByIds(post.tags, tags),
-              }}
-            />
-          );
-        })}
+            return (
+              <BlogCard
+                key={post.id}
+                title={post.title.rendered}
+                date={post.date_gmt}
+                excerpt={post.excerpt.rendered}
+                slug={post.slug}
+                tags={getTaxonomyNamesByIds(post.tags, tags)}
+                featuredImage={featuredImageUrl}
+              />
+            );
+          })
+        ) : (
+          <p className="text-gray-500 dark:text-gray-500">No blog posts yet.</p>
+        )}
       </div>
     </div>
   );
 };
 
-const ProjectsSection: React.FC = async () => {
+const BlogSection: React.FC = async () => {
   const posts = await fetchWpPosts();
   const categories = await fetchWpAllCategories();
   const tags = await fetchWpAllTags();
@@ -67,7 +65,7 @@ const ProjectsSection: React.FC = async () => {
   if (!posts || !categories || !tags) {
     return (
       <div className="text-gray-400">
-        Unable to load projects. Please try again later.
+        Unable to load blog posts. Please try again later.
       </div>
     );
   }
@@ -93,10 +91,10 @@ const ProjectsSection: React.FC = async () => {
   }
 
   return (
-    <Suspense fallback={<div className="text-gray-400">Loading projects...</div>}>
-      <ProjectsSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
+    <Suspense fallback={<div className="text-gray-400">Loading blog posts...</div>}>
+      <BlogSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
     </Suspense>
   );
 };
 
-export default ProjectsSection;
+export default BlogSection;
