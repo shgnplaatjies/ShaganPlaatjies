@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface AnimatedGridProps {
   className?: string;
@@ -12,9 +12,29 @@ interface AnimatedGridProps {
 const AnimatedGrid: React.FC<AnimatedGridProps> = ({
   className = "",
   gridSize = 40,
-  lineColor = "var(--gray-10)",
+  lineColor = "#0EA5E9",
   opacity = 0.5,
 }) => {
+  const [scanLineColor, setScanLineColor] = useState("rgba(14, 165, 233, 0.3)");
+
+  useEffect(() => {
+    const updateColor = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      const accentColor = isDark ? "rgba(14, 165, 233, 0.3)" : "rgba(30, 144, 255, 0.3)";
+      setScanLineColor(accentColor);
+    };
+
+    updateColor();
+
+    const observer = new MutationObserver(updateColor);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
@@ -30,34 +50,30 @@ const AnimatedGrid: React.FC<AnimatedGridProps> = ({
           }
         }
 
-        .grid-pattern {
-          background-image:
-            linear-gradient(0deg, transparent 24%, var(--gray-10) 25%, var(--gray-10) 26%, transparent 27%, transparent 74%, var(--gray-10) 75%, var(--gray-10) 76%, transparent 77%, transparent),
-            linear-gradient(90deg, transparent 24%, var(--gray-10) 25%, var(--gray-10) 26%, transparent 27%, transparent 74%, var(--gray-10) 75%, var(--gray-10) 76%, transparent 77%, transparent);
-          background-size: ${gridSize}px ${gridSize}px;
-          background-position: 0 0;
-        }
-
         .scan-lines {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: repeating-linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.15) 0px,
-            rgba(0, 0, 0, 0.15) 2px,
-            transparent 2px,
-            transparent 4px
-          );
-          animation: scanLines 6s linear infinite;
+          animation: scanLines 8s linear infinite;
           pointer-events: none;
+          z-index: 1;
         }
       `}</style>
 
-      <div className="w-full h-full grid-pattern" />
-      <div className="scan-lines" />
+      <div
+        className="scan-lines"
+        style={{
+          background: `repeating-linear-gradient(
+            0deg,
+            ${scanLineColor} 0px,
+            ${scanLineColor} 4px,
+            transparent 4px,
+            transparent 8px
+          )`,
+        }}
+      />
     </div>
   );
 };
