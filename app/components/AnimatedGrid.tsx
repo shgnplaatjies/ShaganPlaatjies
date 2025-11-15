@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import ScanLineEffect from "./ScanLineEffect";
 
 interface AnimatedGridProps {
   className?: string;
@@ -19,47 +20,34 @@ const AnimatedGrid: React.FC<AnimatedGridProps> = ({
       style={{ opacity }}
     >
       <style>{`
-        @keyframes scanLines {
-          0% {
-            transform: translateY(-100%);
-          }
-          100% {
-            transform: translateY(100%);
-          }
-        }
-
-        .scan-lines {
+        .background-base {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: repeating-linear-gradient(
-            0deg,
-            color-mix(in srgb, var(--blue-9) 0%, transparent) 0px,
-            color-mix(in srgb, var(--blue-9) 30%, transparent) 4px,
-            transparent 4px,
-            transparent 8px
+          background: linear-gradient(
+            135deg,
+            var(--gray-6) 0%,
+            color-mix(in srgb, var(--gray-7) 60%, var(--cyan-8) 40%) 100%
           );
-          animation: scanLines 8s linear infinite;
           pointer-events: none;
-          z-index: 1;
+          z-index: 0;
         }
 
         @media (prefers-color-scheme: light) {
-          .scan-lines {
-            background: repeating-linear-gradient(
-              0deg,
-              color-mix(in srgb, var(--blue-10) 0%, transparent) 0px,
-              color-mix(in srgb, var(--blue-10) 30%, transparent) 4px,
-              transparent 4px,
-              transparent 8px
+          .background-base {
+            background: linear-gradient(
+              135deg,
+              var(--gray-5) 0%,
+              color-mix(in srgb, var(--gray-6) 50%, var(--cyan-7) 50%) 100%
             );
           }
         }
       `}</style>
 
-      <div className="scan-lines" />
+      <div className="background-base" />
+      <ScanLineEffect />
     </div>
   );
 };
