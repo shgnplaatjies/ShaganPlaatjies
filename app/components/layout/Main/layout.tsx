@@ -25,7 +25,7 @@ const MainLayout: React.FC<{
 
   return (
     <Theme accentColor={orbColor.radixColor} className="w-full h-full">
-      <AnimatedGrid opacity={0.6} gridSize={40} />
+      <AnimatedGrid opacity={0.3} gridSize={40} />
       <MatrixRain opacity={0.02} />
       <Flex className="flex flex-col flex-grow w-full h-full backdrop-blur-3xl relative z-10 bg-transparent">
         <Header className="h-auto py-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
