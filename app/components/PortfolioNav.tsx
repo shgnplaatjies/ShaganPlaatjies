@@ -68,25 +68,48 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         </p>
       </div>
 
-      <ul className="space-y-1">
+      <ul className="space-y-3">
         {sections.map((section, index) => (
-          <li key={section.id} className="relative">
+          <li key={section.id}>
             <a
               href={`#${section.id}`}
               onClick={e => {
                 e.preventDefault();
                 onSectionChange(section.id);
               }}
-              className={`block px-4 py-2 rounded transition-all duration-200 border-l-4 pl-3 ${
-                activeSection === section.id
-                  ? 'text-gray-12 font-semibold border-gray-12'
-                  : 'text-gray-10 hover:text-gray-12 hover:bg-gray-2 border-transparent hover:border-gray-11'
-              }`}
-              style={{
-                borderLeftWidth: activeSection === section.id ? '16px' : '4px',
+              className="group flex items-center py-3"
+              onMouseEnter={(e) => {
+                const div = e.currentTarget.querySelector('.nav-indicator') as HTMLElement;
+                if (div) {
+                  div.style.width = '40px';
+                  div.style.backgroundColor = 'var(--gray-12)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                const div = e.currentTarget.querySelector('.nav-indicator') as HTMLElement;
+                if (div && activeSection !== section.id) {
+                  div.style.width = '24px';
+                  div.style.backgroundColor = 'var(--gray-10)';
+                }
               }}
             >
-              {section.label}
+              <div
+                className="nav-indicator mr-4 transition-all"
+                style={{
+                  height: '1px',
+                  width: activeSection === section.id ? '40px' : '24px',
+                  backgroundColor: activeSection === section.id ? 'var(--gray-12)' : 'var(--gray-10)',
+                }}
+              />
+              <span
+                className={`transition-colors ${
+                  activeSection === section.id
+                    ? 'text-gray-12'
+                    : 'text-gray-10 group-hover:text-gray-12'
+                }`}
+              >
+                {section.label}
+              </span>
             </a>
           </li>
         ))}
