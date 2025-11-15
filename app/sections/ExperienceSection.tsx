@@ -73,7 +73,6 @@ const ExperienceSection: React.FC = async () => {
     );
   }
 
-  // Build a map of media IDs to URLs
   const mediaIds = new Set<number>();
   posts.forEach(post => {
     if (post.featured_media) {

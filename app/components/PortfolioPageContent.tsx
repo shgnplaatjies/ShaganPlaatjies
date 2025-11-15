@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, ReactNode } from 'react';
 import PortfolioNav from './PortfolioNav';
+import { useScrollDelegation } from '@/app/hooks/useScrollDelegation';
 
 interface Section {
   id: string;
@@ -16,11 +17,12 @@ interface PortfolioPageContentProps {
 const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, children }) => {
   const [activeSection, setActiveSection] = useState<string>('summary');
 
-  // Track which section is in view as user scrolls
+  useScrollDelegation('.portfolio-scroll-container');
+
   useEffect(() => {
     const handleScroll = (e: Event) => {
       const scrollContainer = e.target as HTMLElement;
-      const scrollPosition = scrollContainer.scrollTop + 100; // Offset for better UX
+      const scrollPosition = scrollContainer.scrollTop + 100;
 
       for (const section of sections) {
         const element = document.getElementById(section.id);
