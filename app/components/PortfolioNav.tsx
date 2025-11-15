@@ -13,12 +13,14 @@ interface PortfolioNavProps {
   sections: Section[];
   activeSection: string;
   onSectionChange: (sectionId: string) => void;
+  scrollProgress: number;
 }
 
 const PortfolioNav: React.FC<PortfolioNavProps> = ({
   sections,
   activeSection,
   onSectionChange,
+  scrollProgress,
 }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [mounted, setMounted] = useState(false);
@@ -67,19 +69,22 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
       </div>
 
       <ul className="space-y-1">
-        {sections.map(section => (
-          <li key={section.id}>
+        {sections.map((section, index) => (
+          <li key={section.id} className="relative">
             <a
               href={`#${section.id}`}
               onClick={e => {
                 e.preventDefault();
                 onSectionChange(section.id);
               }}
-              className={`block px-4 py-2 rounded transition-colors ${
+              className={`block px-4 py-2 rounded transition-all duration-200 border-l-4 pl-3 ${
                 activeSection === section.id
-                  ? 'text-gray-12 font-semibold'
-                  : 'text-gray-10 hover:text-gray-11'
+                  ? 'text-gray-12 font-semibold border-gray-12'
+                  : 'text-gray-10 hover:text-gray-12 hover:bg-gray-2 border-transparent hover:border-gray-11'
               }`}
+              style={{
+                borderLeftWidth: activeSection === section.id ? '16px' : '4px',
+              }}
             >
               {section.label}
             </a>
@@ -91,17 +96,17 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         <p className="text-xs text-gray-8 mb-3">LINKS</p>
         <ul className="flex gap-4 text-gray-10">
           <li>
-            <a href={SOCIAL_LINKS.github} title="GitHub" className="hover:text-gray-11 transition-colors">
+            <a href={SOCIAL_LINKS.github} title="GitHub" className="hover:text-gray-12 transition-all duration-200 hover:scale-110">
               <GitHubLogoIcon width="16" height="16" />
             </a>
           </li>
           <li>
-            <a href={SOCIAL_LINKS.linkedin} title="LinkedIn" className="hover:text-gray-11 transition-colors">
+            <a href={SOCIAL_LINKS.linkedin} title="LinkedIn" className="hover:text-gray-12 transition-all duration-200 hover:scale-110">
               <LinkedInLogoIcon width="16" height="16" />
             </a>
           </li>
           <li>
-            <a href={SOCIAL_LINKS.email} title="Email" className="hover:text-gray-11 transition-colors">
+            <a href={SOCIAL_LINKS.email} title="Email" className="hover:text-gray-12 transition-all duration-200 hover:scale-110">
               <EnvelopeClosedIcon width="16" height="16" />
             </a>
           </li>
@@ -111,7 +116,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
       <div className="mt-12 pt-6 border-t border-gray-border-1 border-opacity-50">
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-11 transition-colors"
+          className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-12 transition-all duration-200 hover:scale-105"
           aria-label="Toggle theme"
         >
           {mounted && theme === 'dark' ? (

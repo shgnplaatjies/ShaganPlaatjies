@@ -20,7 +20,7 @@ export type BlogPostExcerpt = {
 
 const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
   <Image
-    className="rounded-sm overflow-hidden"
+    className="rounded-sm overflow-hidden group-hover:opacity-90 transition-all duration-300"
     src={src}
     width={600}
     height={600}
@@ -174,7 +174,7 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded-sm border border-gray-200 dark:border-gray-800 hover:border-cyan-500/30 dark:hover:border-cyan-500/30 transition-colors duration-300"
+        className="flex self-center rounded-sm border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-all duration-300"
       >
         <Link href={`/posts/${slug}`} className="group">
           <div className="block sm:hidden">
