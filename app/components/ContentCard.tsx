@@ -16,9 +16,9 @@ interface ContentCardProps {
 
 const DecorativeDots: React.FC = () => (
   <Flex gap="2" className="mb-4 opacity-50">
-    <div className="w-3 h-3 rounded-full bg-red-500" />
-    <div className="w-3 h-3 rounded-full bg-yellow-500" />
-    <div className="w-3 h-3 rounded-full bg-green-500" />
+    <div className="w-3 h-3 rounded-full bg-red-9" />
+    <div className="w-3 h-3 rounded-full bg-amber-9" />
+    <div className="w-3 h-3 rounded-full bg-grass-9" />
   </Flex>
 );
 
@@ -37,9 +37,9 @@ const ContentCard: React.FC<ContentCardProps> = ({
 }) => {
   const variantStyles = {
     timeline: "border-l-2 border-accent-9 pl-6",
-    skills: "bg-black bg-opacity-30 border border-gray-600 border-opacity-30",
-    contact: "bg-accent-2 bg-opacity-10 border border-accent-6 border-opacity-30",
-    default: "border border-gray-600 border-opacity-20",
+    skills: "bg-gray-2 border border-gray-5",
+    contact: "bg-gray-2 border border-gray-5",
+    default: "border border-gray-5",
   };
 
   const cardContent = (

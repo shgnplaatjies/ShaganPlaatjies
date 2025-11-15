@@ -113,7 +113,7 @@ const TreeNode: React.FC<{
     <div>
       <div
         onClick={handleClick}
-        className={`flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-white hover:bg-opacity-5 transition-colors font-mono text-xs ${
+        className={`flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-gray-4 transition-colors font-mono text-xs ${
           isActive && node.type === "file"
             ? "bg-radix-base-blue bg-opacity-20 text-radix-base-cyan"
             : "text-radix-base-gray-11"
@@ -168,9 +168,9 @@ const FileTreeSidebar: React.FC<FileTreeSidebarProps> = ({ className = "" }) => 
 
   return (
     <div
-      className={`bg-black bg-opacity-40 border-r border-gray-700 border-opacity-50 h-full overflow-y-auto ${className}`}
+      className={`bg-gray-2 border-r border-gray-5 h-full overflow-y-auto ${className}`}
     >
-      <div className="sticky top-0 bg-black bg-opacity-60 border-b border-gray-700 border-opacity-50 px-4 py-2">
+      <div className="sticky top-0 bg-gray-3 border-b border-gray-5 px-4 py-2">
         <div className="font-mono text-[10px] text-radix-base-gray-10 uppercase tracking-wider">
           Explorer
         </div>

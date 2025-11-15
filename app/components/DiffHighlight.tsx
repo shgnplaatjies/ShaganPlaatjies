@@ -64,9 +64,9 @@ const DiffHighlight: React.FC<DiffHighlightProps> = ({
   const getLineClass = (type: string) => {
     switch (type) {
       case "add":
-        return "bg-green-900 bg-opacity-20 text-radix-base-green";
+        return "bg-grass-3 text-radix-base-green";
       case "remove":
-        return "bg-red-900 bg-opacity-20 text-radix-base-red";
+        return "bg-red-3 text-radix-base-red";
       default:
         return "text-radix-base-gray-11";
     }
@@ -85,9 +85,9 @@ const DiffHighlight: React.FC<DiffHighlightProps> = ({
 
   return (
     <div
-      className={`font-mono text-xs bg-black bg-opacity-40 rounded-md border border-gray-700 border-opacity-40 overflow-hidden ${className}`}
+      className={`font-mono text-xs bg-gray-2 rounded-md border border-gray-5 overflow-hidden ${className}`}
     >
-      <div className="bg-gray-900 bg-opacity-50 px-4 py-2 border-b border-gray-700 border-opacity-40">
+      <div className="bg-gray-3 px-4 py-2 border-b border-gray-5">
         {title ? (
           <div className="text-radix-base-gray-11 mb-1 font-semibold">
             {title}

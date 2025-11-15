@@ -55,9 +55,9 @@ const ConsoleLogTestimonial: React.FC<ConsoleLogTestimonialProps> = ({
 
   return (
     <div
-      className={`font-mono text-sm bg-black bg-opacity-40 rounded-md border border-gray-700 border-opacity-40 overflow-hidden ${className}`}
+      className={`font-mono text-sm bg-gray-2 rounded-md border border-gray-5 overflow-hidden ${className}`}
     >
-      <div className="bg-gray-900 bg-opacity-50 px-4 py-1 border-b border-gray-700 border-opacity-40 flex items-center gap-3">
+      <div className="bg-gray-3 px-4 py-1 border-b border-gray-5 flex items-center gap-3">
         <span className="text-[10px] text-radix-base-gray-10">Console</span>
         <span className="text-[10px] text-radix-base-amber">
           testimonials.js:line {42 + index}
@@ -83,7 +83,7 @@ const ConsoleLogTestimonial: React.FC<ConsoleLogTestimonialProps> = ({
 
             <div className="pl-4 border-l-2 border-radix-base-cyan border-opacity-30 mb-3">
               <div
-                className="cursor-pointer hover:bg-white hover:bg-opacity-5 transition-colors p-2 -ml-2 rounded"
+                className="cursor-pointer hover:bg-gray-4 transition-colors p-2 -ml-2 rounded"
                 onClick={() => setIsExpanded(!isExpanded)}
               >
                 <span className="text-radix-base-blue">▶ </span>

@@ -130,18 +130,18 @@ const AboutMeSection: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
               <div>
                 <span className="text-radix-base-orange">location =</span>
-                <span className="text-white ml-2">"Johannesburg, ZA"</span>
+                <span className="text-gray-12 ml-2">"Johannesburg, ZA"</span>
               </div>
               <div>
                 <span className="text-radix-base-cyan">remote =</span>
-                <span className="text-white ml-2">true</span>
+                <span className="text-gray-12 ml-2">true</span>
               </div>
               <div>
                 <span className="text-radix-base-grass">role =</span>
-                <span className="text-white ml-2">"Lead Engineer"</span>
+                <span className="text-gray-12 ml-2">"Lead Engineer"</span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-700 border-opacity-30 font-mono text-xs">
+            <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-5 font-mono text-xs">
               <Link
                 href="https://www.linkedin.com/in/shaganplaatjies/"
                 className="text-radix-base-blue hover:text-radix-base-cyan transition-colors"

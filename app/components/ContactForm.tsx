@@ -51,7 +51,7 @@ interface ContactInquiry {
       </CodeBlock>
 
       <form onSubmit={handleSubmit}>
-        <div className="bg-black bg-opacity-30 rounded-md border border-gray-600 border-opacity-30 p-6">
+        <div className="bg-gray-2 rounded-md border border-gray-5 p-6">
           <div className="font-mono text-xs mb-4 opacity-60">
             // Request Body
           </div>
@@ -64,9 +64,9 @@ interface ContactInquiry {
               <div className="pl-6 space-y-3">
                 <label className="block">
                   <span className="font-mono text-xs text-radix-base-cyan">name</span>
-                  <span className="text-white">: </span>
+                  <span className="text-gray-12">: </span>
                   <span className="text-radix-base-tomato">string</span>
-                  <span className="text-red-500">*</span>
+                  <span className="text-radix-base-red">*</span>
                   <TextField.Root
                     placeholder='"John Doe"'
                     type="text"
@@ -79,9 +79,9 @@ interface ContactInquiry {
 
                 <label className="block">
                   <span className="font-mono text-xs text-radix-base-cyan">email</span>
-                  <span className="text-white">: </span>
+                  <span className="text-gray-12">: </span>
                   <span className="text-radix-base-tomato">string</span>
-                  <span className="text-red-500">*</span>
+                  <span className="text-radix-base-red">*</span>
                   <TextField.Root
                     placeholder='"john@company.com"'
                     type="email"
@@ -94,7 +94,7 @@ interface ContactInquiry {
 
                 <label className="block">
                   <span className="font-mono text-xs text-radix-base-cyan">company</span>
-                  <span className="text-white">?: </span>
+                  <span className="text-gray-12">?: </span>
                   <span className="text-radix-base-tomato">string</span>
                   <TextField.Root
                     placeholder='"Acme Corp"'
@@ -113,9 +113,9 @@ interface ContactInquiry {
             <div>
               <label className="block">
                 <span className="font-mono text-xs text-radix-base-cyan">regarding</span>
-                <span className="text-white">: </span>
+                <span className="text-gray-12">: </span>
                 <span className="text-radix-base-tomato">ServiceType</span>
-                <span className="text-red-500">*</span>
+                <span className="text-radix-base-red">*</span>
                 <Select.Root
                   value={formData.service}
                   onValueChange={(value) => setFormData({ ...formData, service: value })}
@@ -136,9 +136,9 @@ interface ContactInquiry {
             <div>
               <label className="block">
                 <span className="font-mono text-xs text-radix-base-cyan">message</span>
-                <span className="text-white">: </span>
+                <span className="text-gray-12">: </span>
                 <span className="text-radix-base-tomato">string</span>
-                <span className="text-red-500">*</span>
+                <span className="text-radix-base-red">*</span>
                 <TextArea
                   placeholder='"I would like to discuss..."'
                   required
@@ -157,7 +157,7 @@ interface ContactInquiry {
               <div className="pl-6 space-y-3">
                 <label className="block">
                   <span className="font-mono text-xs text-radix-base-cyan">website</span>
-                  <span className="text-white">?: </span>
+                  <span className="text-gray-12">?: </span>
                   <span className="text-radix-base-tomato">string</span>
                   <TextField.Root
                     placeholder='"https://company.com"'
@@ -170,7 +170,7 @@ interface ContactInquiry {
 
                 <label className="block">
                   <span className="font-mono text-xs text-radix-base-cyan">phone</span>
-                  <span className="text-white">?: </span>
+                  <span className="text-gray-12">?: </span>
                   <span className="text-radix-base-tomato">string</span>
                   <TextField.Root
                     placeholder='"+27 12 345 6789"'
@@ -187,7 +187,7 @@ interface ContactInquiry {
             </div>
           </Flex>
 
-          <div className="mt-6 pt-6 border-t border-gray-700 border-opacity-30">
+          <div className="mt-6 pt-6 border-t border-gray-5">
             <Button
               type="submit"
               className="cursor-pointer font-mono"

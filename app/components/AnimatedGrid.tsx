@@ -36,8 +36,8 @@ const AnimatedGrid: React.FC<AnimatedGridProps> = ({
           height: 100%;
           background: repeating-linear-gradient(
             0deg,
-            rgba(59, 130, 246, 0) 0px,
-            rgba(59, 130, 246, 0.3) 4px,
+            color-mix(in srgb, var(--blue-9) 0%, transparent) 0px,
+            color-mix(in srgb, var(--blue-9) 30%, transparent) 4px,
             transparent 4px,
             transparent 8px
           );
@@ -50,8 +50,8 @@ const AnimatedGrid: React.FC<AnimatedGridProps> = ({
           .scan-lines {
             background: repeating-linear-gradient(
               0deg,
-              rgba(37, 99, 235, 0) 0px,
-              rgba(37, 99, 235, 0.3) 4px,
+              color-mix(in srgb, var(--blue-10) 0%, transparent) 0px,
+              color-mix(in srgb, var(--blue-10) 30%, transparent) 4px,
               transparent 4px,
               transparent 8px
             );

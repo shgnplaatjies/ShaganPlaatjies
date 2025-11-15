@@ -185,15 +185,15 @@ const AboutMeSectionImproved: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
               <div>
                 <span className="text-radix-base-orange">Location:</span>
-                <span className="text-white ml-2">Johannesburg, ZA</span>
+                <span className="text-gray-12 ml-2">Johannesburg, ZA</span>
               </div>
               <div>
                 <span className="text-radix-base-cyan">Remote:</span>
-                <span className="text-white ml-2">Available</span>
+                <span className="text-gray-12 ml-2">Available</span>
               </div>
               <div>
                 <span className="text-radix-base-grass">Role:</span>
-                <span className="text-white ml-2">Lead Engineer</span>
+                <span className="text-gray-12 ml-2">Lead Engineer</span>
               </div>
             </div>
             <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-700 border-opacity-30 font-mono text-xs">
