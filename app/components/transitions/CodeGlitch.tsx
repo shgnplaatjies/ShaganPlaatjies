@@ -35,7 +35,7 @@ const CodeGlitch: React.FC<CodeGlitchProps> = ({
     }, 4000);
 
     return () => clearInterval(glitchInterval);
-  }, [code]);
+  }, [code, displayCode]);
 
   return (
     <div className={`py-8 overflow-hidden ${className}`}>

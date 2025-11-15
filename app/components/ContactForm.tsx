@@ -53,7 +53,7 @@ interface ContactInquiry {
       <form onSubmit={handleSubmit}>
         <div className="bg-gray-2 rounded-md border border-gray-5 p-6">
           <div className="font-mono text-xs mb-4 opacity-60">
-            // Request Body
+            {/* Request Body */}
           </div>
 
           <Flex direction="column" gap="4">
@@ -193,14 +193,14 @@ interface ContactInquiry {
               className="cursor-pointer font-mono"
               size="3"
             >
-              // POST Request → Submit Inquiry
+              POST Request → Submit Inquiry
             </Button>
           </div>
         </div>
       </form>
 
       <div className="mt-4 font-mono text-[10px] opacity-50">
-        <span className="text-radix-base-purple">// Response:</span> <span className="text-radix-base-green">200 OK</span> - Your inquiry will be processed within 24 hours
+        <span className="text-radix-base-purple">{`// Response:`}</span> <span className="text-radix-base-green">200 OK</span> - Your inquiry will be processed within 24 hours
       </div>
     </Section>
   );

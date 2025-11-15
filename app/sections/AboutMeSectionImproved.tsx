@@ -30,7 +30,7 @@ const AboutMeSectionImproved: React.FC = () => {
           With over half a decade architecting mission-critical systems, I merge deep
           technical expertise with product strategy and business acumen. Currently leading
           development of patented technology at Broadway Media for global live entertainment,
-          I've built a career on transforming complex challenges into elegant, scalable solutions.
+          I&apos;ve built a career on transforming complex challenges into elegant, scalable solutions.
         </Text>
 
         <BorderAccent
@@ -56,7 +56,7 @@ const AboutMeSectionImproved: React.FC = () => {
               <br />
               <Text size="2" className="opacity-90 mt-1">
                 Elevated from IC to <span className="text-radix-base-amber">Technical Team Lead</span>,
-                guiding three junior developers. Spearheaded finance division's migration from
+                guiding three junior developers. Spearheaded finance division&apos;s migration from
                 monolithic architecture to{" "}
                 <span className="text-radix-base-green">robust microservice solution</span>,
                 introducing automated deployment and advocating for{" "}

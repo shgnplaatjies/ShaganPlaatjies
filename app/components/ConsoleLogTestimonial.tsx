@@ -110,28 +110,28 @@ const ConsoleLogTestimonial: React.FC<ConsoleLogTestimonialProps> = ({
                     <span className="text-radix-base-purple">author</span>
                     <span className="text-radix-base-gray-11">: </span>
                     <span className="text-radix-base-green">
-                      "{testimonial.author}"
+                      {`"${testimonial.author}"`}
                     </span>
                   </div>
                   <div>
                     <span className="text-radix-base-purple">role</span>
                     <span className="text-radix-base-gray-11">: </span>
                     <span className="text-radix-base-green">
-                      "{testimonial.role}"
+                      {`"${testimonial.role}"`}
                     </span>
                   </div>
                   <div>
                     <span className="text-radix-base-purple">company</span>
                     <span className="text-radix-base-gray-11">: </span>
                     <span className="text-radix-base-green">
-                      "{testimonial.company}"
+                      {`"${testimonial.company}"`}
                     </span>
                   </div>
                   <div>
                     <span className="text-radix-base-purple">message</span>
                     <span className="text-radix-base-gray-11">: </span>
                     <span className="text-radix-base-green">
-                      "{testimonial.message}"
+                      {`"${testimonial.message}"`}
                     </span>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ const ConsoleLogTestimonial: React.FC<ConsoleLogTestimonialProps> = ({
 
             <div className="mt-3 pt-3 border-t border-gray-700 border-opacity-30">
               <div className="text-xs text-radix-base-gray-10 italic">
-                "{testimonial.message}"
+                {`"${testimonial.message}"`}
               </div>
               <div className="text-[11px] text-radix-base-gray-10 mt-2">
                 — {testimonial.author}, {testimonial.role} at{" "}

@@ -26,7 +26,7 @@ const HexDumpMetrics: React.FC<HexDumpMetricsProps> = ({
             className="font-mono text-sm bg-gray-2 rounded-md p-4 border border-gray-5"
           >
             <div className="text-[10px] opacity-40 mb-2">
-              // metric_{idx.toString().padStart(2, "0")}
+              {`// metric_${idx.toString().padStart(2, "0")}`}
             </div>
             <div className="flex items-baseline gap-3">
               <span className={`text-3xl font-bold ${color}`}>
@@ -45,7 +45,7 @@ const HexDumpMetrics: React.FC<HexDumpMetricsProps> = ({
               </span>
               <span className="text-[10px] opacity-60"> = </span>
               <span className={`text-[10px] ${color}`}>
-                "{metric.value}"
+                {`"${metric.value}"`}
               </span>
             </div>
           </div>

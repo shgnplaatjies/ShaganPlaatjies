@@ -17,7 +17,7 @@ const AboutMeSection: React.FC = () => {
           With over half a decade architecting mission-critical systems, I merge deep
           technical expertise with product strategy and business acumen. Currently leading
           development of patented technology at Broadway Media for global live entertainment,
-          I've built a career on transforming complex challenges into elegant, scalable solutions.
+          I&apos;ve built a career on transforming complex challenges into elegant, scalable solutions.
         </Text>
 
         <BorderAccent color="border-radix-base-grass" filePath="~/career/timeline.log">
@@ -39,7 +39,7 @@ const AboutMeSection: React.FC = () => {
               <br />
               <Text size="2" className="opacity-90 mt-1">
                 Elevated from IC to <span className="text-radix-base-amber">Technical Team Lead</span>,
-                guiding three junior developers. Spearheaded finance division's migration from
+                guiding three junior developers. Spearheaded finance division&apos;s migration from
                 monolithic architecture to{" "}
                 <span className="text-radix-base-green">robust microservice solution</span>,
                 introducing automated deployment and advocating for{" "}
@@ -130,7 +130,7 @@ const AboutMeSection: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
               <div>
                 <span className="text-radix-base-orange">location =</span>
-                <span className="text-gray-12 ml-2">"Johannesburg, ZA"</span>
+                <span className="text-gray-12 ml-2">{`"Johannesburg, ZA"`}</span>
               </div>
               <div>
                 <span className="text-radix-base-cyan">remote =</span>
@@ -138,7 +138,7 @@ const AboutMeSection: React.FC = () => {
               </div>
               <div>
                 <span className="text-radix-base-grass">role =</span>
-                <span className="text-gray-12 ml-2">"Lead Engineer"</span>
+                <span className="text-gray-12 ml-2">{`"Lead Engineer"`}</span>
               </div>
             </div>
             <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-5 font-mono text-xs">
