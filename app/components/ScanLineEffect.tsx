@@ -59,7 +59,7 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
             transparent 4px,
             transparent 8px
           );
-          animation: scanLinesVertical 8s linear infinite;
+          animation: scanLinesVertical 6s linear infinite;
           pointer-events: none;
           z-index: 1;
         }
@@ -77,7 +77,7 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
             transparent 6px,
             transparent 12px
           );
-          animation: scanLinesHorizontal 10s linear infinite;
+          animation: scanLinesHorizontal 8s linear infinite;
           pointer-events: none;
           z-index: 1;
           opacity: 0.6;
@@ -96,7 +96,7 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
             transparent 5px,
             transparent 10px
           );
-          animation: scanLinesDiagonal1 12s linear infinite;
+          animation: scanLinesDiagonal1 10s linear infinite;
           pointer-events: none;
           z-index: 1;
           opacity: 0.5;
@@ -115,7 +115,7 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
             transparent 7px,
             transparent 14px
           );
-          animation: scanLinesDiagonal2 14s linear infinite;
+          animation: scanLinesDiagonal2 11s linear infinite;
           pointer-events: none;
           z-index: 1;
           opacity: 0.45;

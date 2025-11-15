@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Header";
 import MatrixRain from "../../MatrixRain";
 import AnimatedGrid from "../../AnimatedGrid";
+import MouseGlowEffect from "../../MouseGlowEffect";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
@@ -43,6 +44,7 @@ const MainLayout: React.FC<{
 
   return (
     <Theme appearance={appearance} accentColor={orbColor.radixColor} className="w-full h-full">
+      <MouseGlowEffect glowRadius={450} />
       <AnimatedGrid opacity={0.3} gridSize={40} />
       <MatrixRain opacity={0.02} />
       <Flex className="flex flex-col flex-grow w-full h-full backdrop-blur-3xl relative z-10 bg-transparent">
