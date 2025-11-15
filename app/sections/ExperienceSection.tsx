@@ -15,10 +15,10 @@ const ExperienceSectionContent: React.FC<{
   tags: WordPressTag[];
   mediaMap: Record<number, string>;
 }> = ({ posts, categories, tags, mediaMap }) => {
-  const getTaxonomyNamesByIds = (ids: number[], taxonomy: (WordPressCategory | WordPressTag)[]) =>
+  const getTaxonomyNamesByIds = (ids: number[], taxonomy: (WordPressCategory | WordPressTag)[]): string[] =>
     ids
       .map(id => taxonomy.find(tax => tax.id === id)?.name)
-      .filter(Boolean);
+      .filter((name): name is string => Boolean(name));
 
   const experiencePosts = posts.filter(post => {
     const categoryId = categories.find(c => c.slug === WORDPRESS_CATEGORIES.WORK_EXPERIENCE)?.id;
