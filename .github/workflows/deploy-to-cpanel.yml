@@ -83,15 +83,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: .next
 
-      - name: Clean remote build via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          script: |
-            rm -rf .next
-
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
