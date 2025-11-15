@@ -3,6 +3,7 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import PortfolioNav from './PortfolioNav';
 import { useScrollDelegation } from '@/app/hooks/useScrollDelegation';
+import { useScrollTransition } from '@/app/hooks/useScrollTransition';
 
 interface Section {
   id: string;
@@ -16,6 +17,7 @@ interface PortfolioPageContentProps {
 
 const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, children }) => {
   const [activeSection, setActiveSection] = useState<string>('summary');
+  const scrollProgress = useScrollTransition('.portfolio-scroll-container');
 
   useScrollDelegation('.portfolio-scroll-container');
 
@@ -53,7 +55,7 @@ const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, c
   return (
     <div className="w-full h-full overflow-hidden bg-transparent">
       <div className="flex w-full h-full">
-        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} />
+        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} scrollProgress={scrollProgress} />
 
         <div className="portfolio-scroll-container flex-1 overflow-y-auto overflow-x-hidden">
           <div className="px-12 py-8 max-w-4xl">

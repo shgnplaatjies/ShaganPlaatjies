@@ -27,4 +27,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .backdrop-blur-subtle {
+    backdrop-filter: blur(4px);
+  }
 }
