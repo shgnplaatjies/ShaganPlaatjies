@@ -33,7 +33,7 @@ const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
     {labels.map((label) => (
       <span
         key={label}
-        className="text-xs px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20"
+        className="text-xs px-2.5 py-1 rounded-full bg-gray-4 text-gray-11"
       >
         {label}
       </span>
@@ -42,14 +42,14 @@ const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
 );
 
 const ProjectDate: React.FC<{ date: string }> = ({ date }) => (
-  <Text size="2" className="text-gray-600 dark:text-gray-400">
+  <Text size="2" className="text-gray-9">
     {date.slice(0, 4)}
   </Text>
 );
 
 const ProjectTitle: React.FC<{ title: string }> = ({ title }) => (
   <Heading
-    className="pb-3 text-balance font-semibold text-xl leading-tight"
+    className="pb-3 text-balance font-semibold text-xl leading-tight text-gray-12"
     as="h2"
   >
     {title}
@@ -57,7 +57,7 @@ const ProjectTitle: React.FC<{ title: string }> = ({ title }) => (
 );
 
 const ProjectId: React.FC<{ id: string | number }> = ({ id }) => (
-  <Text size="1" className="text-gray-500 dark:text-gray-500 tracking-wide">
+  <Text size="1" className="text-gray-9 tracking-wide">
     {isNaN(Number(id)) ? id : (id as number) < 10 ? `0${id}` : id}
   </Text>
 );
@@ -174,7 +174,7 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded-sm border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-all duration-300"
+        className="flex self-center rounded-sm border border-gray-5 hover:border-gray-6 hover:bg-gray-2 transition-all duration-300"
       >
         <Link href={`/posts/${slug}`} className="group">
           <div className="block sm:hidden">

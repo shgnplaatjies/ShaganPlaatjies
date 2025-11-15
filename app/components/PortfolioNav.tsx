@@ -174,13 +174,13 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         >
           {mounted && theme === "dark" ? (
             <>
-              <SunIcon width="16" height="16" />
-              <span>Light</span>
+              <MoonIcon width="16" height="16" />
+              <span>Dark</span>
             </>
           ) : (
             <>
-              <MoonIcon width="16" height="16" />
-              <span>Dark</span>
+              <SunIcon width="16" height="16" />
+              <span>Light</span>
             </>
           )}
         </button>
