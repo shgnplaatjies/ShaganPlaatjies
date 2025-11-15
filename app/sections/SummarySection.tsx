@@ -3,11 +3,11 @@ import React from "react";
 const SummarySection: React.FC = () => {
   return (
     <div id="summary-section" className="space-y-6">
-      <h2 className="text-3xl font-bold text-black dark:text-white mb-6">
+      <h2 className="text-3xl font-bold text-gray-12 mb-6">
         About
       </h2>
 
-      <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      <div className="space-y-4 text-gray-10 leading-relaxed">
         <p>
           I'm a Software Engineer and Product Leader based in Johannesburg,
           South Africa, with over half a decade architecting mission-critical

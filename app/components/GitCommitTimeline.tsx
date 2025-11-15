@@ -26,20 +26,20 @@ const GitCommit: React.FC<GitCommitProps> = ({
 }) => {
   return (
     <div className="relative pl-8 pb-8">
-      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-700"></div>
+      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-6"></div>
 
-      <div className="absolute left-[-4px] top-1 w-2.5 h-2.5 rounded-full bg-radix-base-grass border-2 border-gray-900"></div>
+      <div className="absolute left-[-4px] top-1 w-2.5 h-2.5 rounded-full bg-radix-base-grass border-2 border-gray-2"></div>
 
       <div className="font-mono text-xs mb-2">
         <span className="text-radix-base-amber">*</span>
         <span className="text-radix-base-cyan ml-2">{hash}</span>
         {isHead && (
           <>
-            <span className="text-white ml-2">(</span>
+            <span className="text-gray-12 ml-2">(</span>
             <span className="text-radix-base-cyan">HEAD</span>
-            <span className="text-white"> → </span>
+            <span className="text-gray-12"> → </span>
             <span className="text-radix-base-grass">{branch || "main"}</span>
-            <span className="text-white">)</span>
+            <span className="text-gray-12">)</span>
           </>
         )}
       </div>
@@ -56,7 +56,7 @@ const GitCommit: React.FC<GitCommitProps> = ({
       {stack && (
         <div className="font-mono text-xs">
           <span className="text-radix-base-violet">Stack:</span>
-          <span className="text-white ml-2">{stack}</span>
+          <span className="text-gray-12 ml-2">{stack}</span>
         </div>
       )}
     </div>

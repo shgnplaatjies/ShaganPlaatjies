@@ -31,7 +31,7 @@ const FileMetadataTooltip: React.FC<FileMetadataTooltipProps> = ({
     >
       {children}
       {isVisible && (
-        <div className="absolute z-50 bottom-full left-0 mb-2 w-64 bg-black bg-opacity-95 border border-gray-600 border-opacity-50 rounded-md p-3 font-mono text-xs pointer-events-none">
+        <div className="absolute z-50 bottom-full left-0 mb-2 w-64 bg-gray-2 border border-gray-5 rounded-md p-3 font-mono text-xs pointer-events-none">
           <div className="text-radix-base-cyan mb-2 font-semibold">
             $ stat {metadata.path}
           </div>
@@ -60,7 +60,7 @@ const FileMetadataTooltip: React.FC<FileMetadataTooltipProps> = ({
               </div>
             )}
           </div>
-          <div className="mt-2 pt-2 border-t border-gray-700 border-opacity-50 text-[10px] opacity-60">
+          <div className="mt-2 pt-2 border-t border-gray-5 text-[10px] text-gray-9">
             Hover to view file metadata
           </div>
         </div>

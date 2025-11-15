@@ -23,7 +23,7 @@ const HexDumpMetrics: React.FC<HexDumpMetricsProps> = ({
         return (
           <div
             key={idx}
-            className="font-mono text-sm bg-black bg-opacity-30 rounded-md p-4 border border-gray-600 border-opacity-30"
+            className="font-mono text-sm bg-gray-2 rounded-md p-4 border border-gray-5"
           >
             <div className="text-[10px] opacity-40 mb-2">
               // metric_{idx.toString().padStart(2, "0")}
@@ -36,7 +36,7 @@ const HexDumpMetrics: React.FC<HexDumpMetricsProps> = ({
                 {metric.label}
               </span>
             </div>
-            <div className="mt-2 pt-2 border-t border-gray-700 border-opacity-30">
+            <div className="mt-2 pt-2 border-t border-gray-5">
               <span className="text-[10px] text-radix-base-purple opacity-60">
                 const
               </span>{" "}

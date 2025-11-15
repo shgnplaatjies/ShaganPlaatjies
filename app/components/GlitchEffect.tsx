@@ -89,8 +89,8 @@ const GlitchEffect: React.FC<GlitchEffectProps> = ({
           className="glitch-layer absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 pointer-events-none"
           style={{
             animation: `glitch-anim ${getDuration()} infinite`,
-            color: "#00fff9",
-            textShadow: "-2px 0 #ff00de",
+            color: "var(--cyan-9)",
+            textShadow: "-2px 0 var(--magenta-9)",
           }}
           aria-hidden="true"
         >
@@ -100,8 +100,8 @@ const GlitchEffect: React.FC<GlitchEffectProps> = ({
           className="glitch-layer absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 pointer-events-none"
           style={{
             animation: `glitch-anim-2 ${getDuration()} infinite`,
-            color: "#ff00de",
-            textShadow: "2px 0 #00fff9",
+            color: "var(--magenta-9)",
+            textShadow: "2px 0 var(--cyan-9)",
           }}
           aria-hidden="true"
         >

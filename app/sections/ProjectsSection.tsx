@@ -28,8 +28,8 @@ const ProjectsSectionContent: React.FC<{
   return (
     <div id="projects-section" className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Projects</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Portfolio of work and technical solutions</p>
+        <h2 className="text-3xl font-bold text-gray-12 mb-6">Projects</h2>
+        <p className="text-gray-9 mb-8">Portfolio of work and technical solutions</p>
       </div>
 
       <div className="space-y-12">

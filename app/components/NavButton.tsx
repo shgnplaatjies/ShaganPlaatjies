@@ -19,8 +19,8 @@ const ListItem: React.FC<{
   title: string;
   subtitle: string;
 }> = ({ title, subtitle }) => (
-  <Box className="group hover:bg-red-300">
-    <Heading as="h3" className="group-hover:text-red-800">
+  <Box className="group hover:bg-red-4">
+    <Heading as="h3" className="group-hover:text-red-12">
       {title}
     </Heading>
     <Text>{subtitle}</Text>

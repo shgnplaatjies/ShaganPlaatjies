@@ -28,8 +28,8 @@ const ExperienceSectionContent: React.FC<{
   return (
     <div id="experience-section" className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Experience</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Professional roles and key projects</p>
+        <h2 className="text-3xl font-bold text-gray-12 mb-6">Experience</h2>
+        <p className="text-gray-9 mb-8">Professional roles and key projects</p>
       </div>
 
       <div className="space-y-12">
@@ -48,10 +48,10 @@ const ExperienceSectionContent: React.FC<{
         })}
       </div>
 
-      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <div className="mt-12 pt-8 border-t border-gray-5">
         <a
           href="/resume"
-          className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+          className="inline-flex items-center text-gray-10 hover:text-gray-12 transition-colors"
         >
           Download Resume →
         </a>

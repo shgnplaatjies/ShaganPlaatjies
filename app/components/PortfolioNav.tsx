@@ -71,7 +71,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
   };
 
   return (
-    <nav className="w-1/4 flex-shrink-0 border-r border-gray-border-1 border-opacity-50 px-8 py-4 h-full overflow-hidden bg-gray-1 flex flex-col">
+    <nav className="w-1/4 flex-shrink-0 border-r border-gray-4 px-8 py-4 h-full overflow-hidden bg-transparent flex flex-col">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-12">Shagan Plaatjies</h1>
         <p className="mt-2 text-sm text-gray-10">

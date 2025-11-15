@@ -28,8 +28,8 @@ const BlogSectionContent: React.FC<{
   return (
     <div id="blog-section" className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Blog</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Technical articles and insights</p>
+        <h2 className="text-3xl font-bold text-gray-12 mb-6">Blog</h2>
+        <p className="text-gray-9 mb-8">Technical articles and insights</p>
       </div>
 
       <div className="space-y-8">
@@ -50,7 +50,7 @@ const BlogSectionContent: React.FC<{
             );
           })
         ) : (
-          <p className="text-gray-500 dark:text-gray-500">No blog posts yet.</p>
+          <p className="text-gray-9">No blog posts yet.</p>
         )}
       </div>
     </div>
