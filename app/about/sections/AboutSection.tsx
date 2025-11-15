@@ -16,32 +16,38 @@ const AboutSection: React.FC = () => {
       <Grid columns={{ initial: "1", md: "2" }} gap="3" className="mt-4">
         <Box>
           <Text as="p" size="2" className="mb-3 opacity-90">
-            I'm a Lead Software Engineer and Technical Product Lead with over five years
-            architecting mission-critical systems across high-stakes industries. Currently,
-            I lead development of patented technology at Broadway Media, solving complex
-            problems of performance, security, and scale for a global audience in live entertainment.
+            I'm a Software Engineer and Product Lead with over five years
+            architecting mission-critical systems across high-stakes industries.
+            Currently, I lead development of patented technology at Broadway
+            Media, solving complex problems of performance, security, and scale
+            for a global audience in live entertainment.
           </Text>
 
           <Text as="p" size="2" className="mb-3 opacity-90">
-            My approach merges deep technical expertise with product and business strategy.
-            At BSure Insurance, I elevated from individual contributor to Technical Team Lead,
-            guiding three junior developers while spearheading the finance division's migration
-            from monolithic architecture to a robust microservice solution, transforming their
-            operational capabilities and introducing automated deployment practices.
+            My approach merges deep technical expertise with product and
+            business strategy. At BSure Insurance, I elevated from individual
+            contributor to Technical Team Lead, guiding three junior developers
+            while spearheading the finance division's migration from monolithic
+            architecture to a robust microservice solution, transforming their
+            operational capabilities and introducing automated deployment
+            practices.
           </Text>
 
           <Text as="p" size="2" className="mb-3 opacity-90">
-            At Vodacom Financial Services, I delivered high-impact frontend solutions for four
-            VodaPay lending products, redesigning Voucher Advance from the ground up while
-            maintaining legacy support, achieving significant improvements in usability,
-            performance, and user satisfaction.
+            At Vodacom Financial Services, I delivered high-impact frontend
+            solutions for four VodaPay lending products, redesigning Voucher
+            Advance from the ground up while maintaining legacy support,
+            achieving significant improvements in usability, performance, and
+            user satisfaction.
           </Text>
 
           <Text as="p" size="2" className="opacity-90">
-            I advocate for software design excellence through S.O.L.I.D principles, clean code
-            practices, and enterprise-grade implementations. Beyond corporate work, I founded
-            Pixelscape, building data-driven web solutions and e-commerce platforms with full
-            POPIA compliance for local businesses, demonstrating versatility across contexts and scales.
+            I advocate for software design excellence through S.O.L.I.D
+            principles, clean code practices, and enterprise-grade
+            implementations. Beyond corporate work, I founded Pixelscape,
+            building data-driven web solutions and e-commerce platforms with
+            full POPIA compliance for local businesses, demonstrating
+            versatility across contexts and scales.
           </Text>
         </Box>
 
@@ -58,31 +64,43 @@ const AboutSection: React.FC = () => {
             </Text>
 
             <Text as="p" size="2" className="mb-4 opacity-90">
-              <span className="text-radix-base-grass font-semibold">Scale-First Thinking</span>
+              <span className="text-radix-base-grass font-semibold">
+                Scale-First Thinking
+              </span>
               <br />
-              Every system I design anticipates growth. From database architecture to API design,
-              I build for tomorrow's demands, not just today's requirements.
+              Every system I design anticipates growth. From database
+              architecture to API design, I build for tomorrow's demands, not
+              just today's requirements.
             </Text>
 
             <Text as="p" size="2" className="mb-4 opacity-90">
-              <span className="text-radix-base-blue font-semibold">Security as Foundation</span>
+              <span className="text-radix-base-blue font-semibold">
+                Security as Foundation
+              </span>
               <br />
-              Having worked across fintech and insurance, I treat security not as an afterthought
-              but as a foundational principle embedded in every architectural decision.
+              Having worked across fintech and insurance, I treat security not
+              as an afterthought but as a foundational principle embedded in
+              every architectural decision.
             </Text>
 
             <Text as="p" size="2" className="mb-4 opacity-90">
-              <span className="text-radix-base-violet font-semibold">Team Elevation</span>
+              <span className="text-radix-base-violet font-semibold">
+                Team Elevation
+              </span>
               <br />
-              Technical leadership means growing others. Through code reviews, mentorship, and
-              knowledge sharing, I elevate entire teams' capabilities and confidence.
+              Technical leadership means growing others. Through code reviews,
+              mentorship, and knowledge sharing, I elevate entire teams'
+              capabilities and confidence.
             </Text>
 
             <Text as="p" size="2" className="opacity-90">
-              <span className="text-radix-base-amber font-semibold">Business-Aligned Engineering</span>
+              <span className="text-radix-base-amber font-semibold">
+                Business-Aligned Engineering
+              </span>
               <br />
-              Technology serves business goals. I bridge the gap between stakeholder needs and
-              technical implementation, ensuring solutions deliver measurable impact.
+              Technology serves business goals. I bridge the gap between
+              stakeholder needs and technical implementation, ensuring solutions
+              deliver measurable impact.
             </Text>
           </DecorativeWindow>
         </Box>
