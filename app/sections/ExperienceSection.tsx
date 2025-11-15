@@ -7,21 +7,22 @@ import {
   fetchWpAllTags,
   fetchWpMediaById,
 } from '../lib/server-lib';
+import { WORDPRESS_CATEGORIES, type WordPressCategory, type WordPressTag, type WordPressPost } from '../lib/wordpress-types';
 
 const ExperienceSectionContent: React.FC<{
-  posts: any[];
-  categories: any[];
-  tags: any[];
+  posts: WordPressPost[];
+  categories: WordPressCategory[];
+  tags: WordPressTag[];
   mediaMap: Record<number, string>;
 }> = ({ posts, categories, tags, mediaMap }) => {
-  const getTaxonomyNamesByIds = (ids: number[], taxonomy: any[]) =>
+  const getTaxonomyNamesByIds = (ids: number[], taxonomy: (WordPressCategory | WordPressTag)[]) =>
     ids
       .map(id => taxonomy.find(tax => tax.id === id)?.name)
       .filter(Boolean);
 
   const experiencePosts = posts.filter(post => {
-    const categoryId = categories.find(c => c.slug === 'experience')?.id;
-    return post.categories.includes(categoryId);
+    const categoryId = categories.find(c => c.slug === WORDPRESS_CATEGORIES.WORK_EXPERIENCE)?.id;
+    return categoryId ? post.categories.includes(categoryId) : false;
   });
 
   return (
