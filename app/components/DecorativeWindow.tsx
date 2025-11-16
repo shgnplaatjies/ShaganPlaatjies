@@ -42,7 +42,7 @@ const DecorativeWindow: React.FC<DecorativeWindowProps> = ({
       <Flex direction="column">
         <Inset>
           <Flex
-            className="bg-accent-bg-2 bg-opacity-5"
+            className="bg-cyan-bg-secondary bg-opacity-5"
             align="center"
             justify="between"
             px="2"
