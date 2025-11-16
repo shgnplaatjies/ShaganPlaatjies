@@ -19,19 +19,24 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   };
 
   return (
-    <Box className="border-l-2 border-gray-6 pl-6 py-4 hover:border-gray-7 transition-all duration-200">
-      <Heading as="h3" size="5" className="text-gray-12 mb-2 hover:text-gray-11 transition-colors">{title}</Heading>
+    <Box className="pb-10 border-b border-gray-5 hover:border-gray-7 transition-all duration-300 group">
+      {/* Title Section */}
+      <Heading as="h3" size="6" className="text-gray-12 mb-4 group-hover:text-gray-11 transition-colors leading-tight">
+        {title}
+      </Heading>
 
-      <Text as="p" size="2" className="text-gray-10 mb-4 hover:text-gray-11 transition-colors">
-        {stripHtml(description).substring(0, 200)}...
+      {/* Description */}
+      <Text as="p" size="2" className="text-gray-10 mb-6 leading-relaxed group-hover:text-gray-9 transition-colors">
+        {stripHtml(description)}
       </Text>
 
+      {/* Tech Stack Tags */}
       {tags.length > 0 && (
         <Flex wrap="wrap" gap="2">
           {tags.map(tag => (
             <Badge
               key={tag}
-              className="text-xs"
+              className="text-xs bg-gray-4 text-gray-11"
             >
               {tag}
             </Badge>
