@@ -72,7 +72,7 @@ const HexGrid: React.FC<HexGridProps> = ({
                   ${
                     isActive
                       ? "bg-accent-9 border-accent-9 shadow-lg shadow-accent-9/50"
-                      : "bg-gray-interactive border-gray-5 hover:border-gray-border-hover"
+                      : "bg-gray-3 border-gray-5 hover:border-gray-6"
                   }
                 `}
                 aria-label={`Grid cell ${rowIndex}-${colIndex}`}

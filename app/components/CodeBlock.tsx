@@ -121,7 +121,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <Box
-      className={`font-mono text-sm bg-gray-bg-secondary rounded-md p-4 overflow-x-auto border border-gray-border ${className}`}
+      className={`font-mono text-sm bg-gray-2 rounded-md p-4 overflow-x-auto border border-gray-5 ${className}`}
     >
       {language && (
         <div className="text-xs opacity-50 mb-2 flex justify-between">
