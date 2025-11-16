@@ -62,7 +62,7 @@ const TestimonialsSection: React.FC = () => {
   return (
     <Section className="py-12" id="testimonials">
       <Box className="mb-8">
-        <Heading as="h2" size="8" className="mb-3">
+        <Heading as="h2" size="7" className="mb-3">
           Professional Recognition
         </Heading>
         <Text as="p" size="2" className="opacity-70 max-w-2xl">

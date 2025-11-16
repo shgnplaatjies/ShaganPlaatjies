@@ -34,7 +34,7 @@ const ExpertiseCard: React.FC<AreaOfExpertise> = ({
       <div
         className={`absolute top-0 left-0 w-1 h-8 rounded-br ${color} opacity-0 group-hover:opacity-100 transition-opacity`}
       />
-      <Heading as="h4" size="4" className="mb-3">
+      <Heading as="h4" size="3" className="mb-3">
         {title}
       </Heading>
       <Text as="p" size="2" className="opacity-70">
@@ -98,7 +98,7 @@ const ImpactSection: React.FC = () => {
   return (
     <Section className="py-12" id="impact">
       <Box className="mb-8">
-        <Heading as="h2" size="8" className="mb-3">
+        <Heading as="h2" size="7" className="mb-3">
           Quantifying Impact
         </Heading>
         <Text as="p" size="2" className="opacity-70 max-w-2xl">
@@ -121,7 +121,7 @@ const ImpactSection: React.FC = () => {
       </div>
 
       <Box className="mb-4">
-        <Heading as="h3" size="6" className="mb-6">
+        <Heading as="h3" size="5" className="mb-6">
           Key Achievements
         </Heading>
         <Grid columns={{ initial: "1", md: "2" }} gap="4">

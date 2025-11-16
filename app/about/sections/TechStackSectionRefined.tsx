@@ -19,7 +19,7 @@ const TechCategory: React.FC<TechCategoryProps> = ({
       <div className="relative p-6 rounded-lg border border-accent-6 border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:bg-accent-2 hover:bg-opacity-10">
         <div className="flex items-start gap-3 mb-3">
           {icon && <span className="text-2xl">{icon}</span>}
-          <Heading as="h3" size="4">
+          <Heading as="h3" size="5">
             {title}
           </Heading>
         </div>
@@ -122,7 +122,7 @@ const TechStackSectionRefined: React.FC = () => {
   return (
     <Section className="py-12" id="tech-stack">
       <Box className="mb-8">
-        <Heading as="h2" size="8" className="mb-3">
+        <Heading as="h2" size="7" className="mb-3">
           Technical Foundation
         </Heading>
         <Text as="p" size="2" className="opacity-70 max-w-2xl">

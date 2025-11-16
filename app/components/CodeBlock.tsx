@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@radix-ui/themes";
+import { Box, Text } from "@radix-ui/themes";
 import { ReactNode } from "react";
 
 interface CodeBlockProps {
@@ -125,7 +125,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     >
       {language && (
         <div className="text-xs opacity-50 mb-2 flex justify-between">
-          <span>{language}</span>
+          <Text size="1">{language}</Text>
         </div>
       )}
       <pre className="text-radix-base-gray-12">

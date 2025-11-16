@@ -1,5 +1,5 @@
 import { DefaultFeaturedImage } from "@/app/lib/constants";
-import { Box, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Flex, Heading, Text, Badge } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -29,16 +29,16 @@ const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
 );
 
 const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
-  <div className="flex flex-wrap gap-2">
+  <Flex wrap="wrap" gap="2">
     {labels.map((label) => (
-      <span
+      <Badge
         key={label}
-        className="text-xs px-2.5 py-1 rounded-full bg-gray-4 text-gray-11"
+        className="text-xs"
       >
         {label}
-      </span>
+      </Badge>
     ))}
-  </div>
+  </Flex>
 );
 
 const ProjectDate: React.FC<{ date: string }> = ({ date }) => (

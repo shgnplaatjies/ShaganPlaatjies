@@ -1,6 +1,6 @@
 "use client";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { Box, Flex, Grid, IconButton } from "@radix-ui/themes";
+import { Box, Flex, Grid, IconButton, Text } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import { POLLING_INTERVAL } from "../lib/constants";
 import AnimatedIconStack from "./AnimatedIconStack";
@@ -83,9 +83,9 @@ const FootPanel: React.FC<FootPanelProps> = ({
             {mounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           </IconButton>
         </Flex>
-        <p className="flex text-nowrap justify-center opacity-60 text-sm">
+        <Text as="p" size="1" className="flex text-nowrap justify-center opacity-60">
           Johannesburg {currentTime}
-        </p>
+        </Text>
         <IconList
           className="sm:flex justify-end hidden sm:visible place-self-end"
           icons={socialIcons}
