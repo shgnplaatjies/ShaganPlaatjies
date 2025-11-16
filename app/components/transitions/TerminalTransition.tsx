@@ -48,12 +48,12 @@ const TerminalTransition: React.FC<TerminalTransitionProps> = ({
   }, [currentIndex, isTyping, messages, speed]);
 
   return (
-    <div className={`py-6 px-4 rounded-lg bg-black bg-opacity-40 border border-accent-6 border-opacity-20 ${className}`}>
+    <div className={`py-6 px-4 rounded-lg bg-gray-2 border border-gray-5 ${className}`}>
       <div className="font-mono text-sm">
         <span className="text-radix-base-grass">shagan@portfolio</span>
-        <span className="text-white">:</span>
+        <span className="text-gray-12">:</span>
         <span className="text-radix-base-blue">~</span>
-        <span className="text-white">$ </span>
+        <span className="text-gray-12">$ </span>
         <span className="text-radix-base-amber">{displayText}</span>
         <span className={`ml-1 animate-pulse ${isTyping ? 'opacity-100' : 'opacity-0'}`}>
           _

@@ -38,7 +38,9 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
       ctx.fillStyle = `rgba(0, 0, 0, 0.05)`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = `rgba(0, 255, 70, ${opacity})`;
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const greenColor = isDark ? 'rgba(74, 222, 128, ' + opacity + ')' : 'rgba(74, 222, 128, ' + opacity + ')';
+      ctx.fillStyle = greenColor;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {

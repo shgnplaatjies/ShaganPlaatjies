@@ -14,7 +14,7 @@ const AboutSection: React.FC = () => {
         accentedText="Story."
       />
       <Text as="p" size="2" className="opacity-90">
-        Through over half a decade of software development experience, I've
+        Through over half a decade of software development experience, I&apos;ve
         acquired extensive experience working on softaware projects across
         several industries, from telecommunications, lending, e-commerce, to
         insurance.

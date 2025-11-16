@@ -6,7 +6,8 @@
     "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify": "tsc --noEmit && next lint"
   },
   "dependencies": {
     "@bitc/cnad": "^1.1.0",

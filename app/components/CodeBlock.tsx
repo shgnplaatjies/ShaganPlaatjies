@@ -32,7 +32,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: match.index,
         end: match.index + match[0].length,
         text: match[0],
-        className: "text-gray-500 italic"
+        className: "text-gray-9 italic"
       });
     }
 
@@ -42,7 +42,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-green-400"
+        className: "text-radix-base-green"
       });
       return match;
     });
@@ -53,7 +53,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-purple-400"
+        className: "text-radix-base-purple"
       });
       return match;
     });
@@ -64,7 +64,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-orange-400"
+        className: "text-radix-base-orange"
       });
       return match;
     });
@@ -121,7 +121,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <Box
-      className={`font-mono text-sm bg-black bg-opacity-30 rounded-md p-4 overflow-x-auto border border-gray-600 border-opacity-30 ${className}`}
+      className={`font-mono text-sm bg-gray-2 rounded-md p-4 overflow-x-auto border border-gray-5 ${className}`}
     >
       {language && (
         <div className="text-xs opacity-50 mb-2 flex justify-between">

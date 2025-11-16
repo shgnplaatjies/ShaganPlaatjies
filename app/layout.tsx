@@ -21,7 +21,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable} bg-black`}
+        className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable} bg-gray-1 dark:bg-gray-1`}
       >
         <head>
           <script
@@ -39,7 +39,7 @@ export default function RootLayout({
             }}
           />
         </head>
-        <body className="flex flex-col h-dvh w-dvh overflow-hidden text-black dark:text-white">
+        <body className="flex flex-col h-dvh w-dvh overflow-hidden text-gray-12">
           <ThemeProvider>
             <Theme appearance="dark" radius="small" panelBackground="translucent">
               <Box className="flex flex-col h-full w-full bg-transparent">

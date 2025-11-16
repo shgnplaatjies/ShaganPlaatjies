@@ -53,7 +53,7 @@ const ElegantContactForm: React.FC = () => {
           Thank you for reaching out
         </Heading>
         <Text as="p" size="2" className="opacity-70">
-          I'll get back to you within 24 hours. Looking forward to connecting!
+          I&apos;ll get back to you within 24 hours. Looking forward to connecting!
         </Text>
       </Box>
     );
@@ -190,7 +190,7 @@ const ElegantContactForm: React.FC = () => {
         {/* Submit Button */}
         <Flex justify="between" align="center" className="pt-4">
           <Text as="p" size="1" className="opacity-50">
-            I'll respond within one business day
+            I&apos;ll respond within one business day
           </Text>
           <Button
             type="submit"

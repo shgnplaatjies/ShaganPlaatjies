@@ -1,18 +1,17 @@
 "use client";
 
 import React from "react";
+import ScanLineEffect from "./ScanLineEffect";
 
 interface AnimatedGridProps {
   className?: string;
   gridSize?: number;
-  lineColor?: string;
   opacity?: number;
 }
 
 const AnimatedGrid: React.FC<AnimatedGridProps> = ({
   className = "",
-  gridSize = 50,
-  lineColor = "rgba(100, 200, 255, 0.1)",
+  gridSize = 40,
   opacity = 0.5,
 }) => {
   return (
@@ -20,42 +19,35 @@ const AnimatedGrid: React.FC<AnimatedGridProps> = ({
       className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
       style={{ opacity }}
     >
-      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern
-            id="grid"
-            width={gridSize}
-            height={gridSize}
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d={`M ${gridSize} 0 L 0 0 0 ${gridSize}`}
-              fill="none"
-              stroke={lineColor}
-              strokeWidth="0.5"
-            />
-          </pattern>
-          <linearGradient id="gridGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <animate
-              attributeName="y1"
-              values="0%;100%;0%"
-              dur="10s"
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="y2"
-              values="100%;0%;100%"
-              dur="10s"
-              repeatCount="indefinite"
-            />
-            <stop offset="0%" stopColor={lineColor} stopOpacity="0.2" />
-            <stop offset="50%" stopColor={lineColor} stopOpacity="0.8" />
-            <stop offset="100%" stopColor={lineColor} stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-        <rect width="100%" height="100%" fill="url(#gridGradient)" opacity="0.3" />
-      </svg>
+      <style>{`
+        .background-base {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            135deg,
+            var(--gray-6) 0%,
+            color-mix(in srgb, var(--gray-7) 60%, var(--cyan-8) 40%) 100%
+          );
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        @media (prefers-color-scheme: light) {
+          .background-base {
+            background: linear-gradient(
+              135deg,
+              var(--gray-5) 0%,
+              color-mix(in srgb, var(--gray-6) 50%, var(--cyan-7) 50%) 100%
+            );
+          }
+        }
+      `}</style>
+
+      <div className="background-base" />
+      <ScanLineEffect />
     </div>
   );
 };

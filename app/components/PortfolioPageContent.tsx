@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, ReactNode } from 'react';
 import PortfolioNav from './PortfolioNav';
+import { useScrollDelegation } from '@/app/hooks/useScrollDelegation';
+import { useScrollTransition } from '@/app/hooks/useScrollTransition';
 
 interface Section {
   id: string;
@@ -15,12 +17,14 @@ interface PortfolioPageContentProps {
 
 const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, children }) => {
   const [activeSection, setActiveSection] = useState<string>('summary');
+  const scrollProgress = useScrollTransition('.portfolio-scroll-container');
 
-  // Track which section is in view as user scrolls
+  useScrollDelegation('.portfolio-scroll-container');
+
   useEffect(() => {
     const handleScroll = (e: Event) => {
       const scrollContainer = e.target as HTMLElement;
-      const scrollPosition = scrollContainer.scrollTop + 100; // Offset for better UX
+      const scrollPosition = scrollContainer.scrollTop + 100;
 
       for (const section of sections) {
         const element = document.getElementById(section.id);
@@ -50,13 +54,20 @@ const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, c
 
   return (
     <div className="w-full h-full overflow-hidden bg-transparent">
-      <div className="flex w-full h-full">
-        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} />
+      <div className="hidden sm:flex sm:flex-row w-full h-full">
+        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} scrollProgress={scrollProgress} />
 
         <div className="portfolio-scroll-container flex-1 overflow-y-auto overflow-x-hidden">
-          <div className="px-12 py-8 max-w-4xl">
+          <div className="px-8 md:px-12 py-8 max-w-4xl">
             {children}
           </div>
+        </div>
+      </div>
+
+      <div className="sm:hidden w-full h-full overflow-y-auto portfolio-scroll-container">
+        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} scrollProgress={scrollProgress} />
+        <div className="px-4 py-6 max-w-4xl">
+          {children}
         </div>
       </div>
     </div>

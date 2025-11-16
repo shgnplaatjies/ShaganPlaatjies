@@ -71,8 +71,8 @@ const HexGrid: React.FC<HexGridProps> = ({
                   border
                   ${
                     isActive
-                      ? "bg-accent-9 bg-opacity-80 border-accent-9 shadow-lg shadow-accent-9/50"
-                      : "bg-accent-2 bg-opacity-40 border-accent-6 border-opacity-20 hover:border-accent-6 hover:border-opacity-40"
+                      ? "bg-accent-9 border-accent-9 shadow-lg shadow-accent-9/50"
+                      : "bg-gray-3 border-gray-5 hover:border-gray-6"
                   }
                 `}
                 aria-label={`Grid cell ${rowIndex}-${colIndex}`}
@@ -81,7 +81,7 @@ const HexGrid: React.FC<HexGridProps> = ({
                   className={`
                     w-1.5 h-1.5 rounded-full
                     transition-all
-                    ${isActive ? "bg-black" : "bg-accent-9 bg-opacity-40"}
+                    ${isActive ? "bg-gray-1" : "bg-accent-9 opacity-40"}
                   `}
                 />
               </button>
