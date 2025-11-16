@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 
 const ConclusionSection: React.FC = () => {
   return (
-    <Box className="border-t border-gray-border mt-24 pt-16">
+    <Box className="mt-24">
       <Flex direction="column" gap="8" align="center">
         <Box className="text-center max-w-2xl">
           <Heading as="h2" size="6" className="mb-4 text-gray-text-contrast">
