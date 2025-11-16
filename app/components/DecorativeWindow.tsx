@@ -32,9 +32,9 @@ const DecorativeWindow: React.FC<DecorativeWindowProps> = ({
   className = "",
 }) => {
   const themeStyles = {
-    vscode: "bg-gray-bg-secondary border-gray-border",
-    terminal: "bg-gray-bg-secondary border-grass-6",
-    browser: "bg-gray-bg-secondary border-blue-6",
+    vscode: "bg-gray-2 border-gray-5",
+    terminal: "bg-gray-2 border-grass-6",
+    browser: "bg-gray-2 border-blue-6",
   };
 
   return (
@@ -64,7 +64,7 @@ const DecorativeWindow: React.FC<DecorativeWindowProps> = ({
           <Container
             className={`bg-gray-1 ${
               padded ? "px-4 py-3" : ""
-            } border-t border-gray-border`}
+            } border-t border-gray-5`}
           >
             {children}
           </Container>

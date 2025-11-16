@@ -49,7 +49,7 @@ const TerminalTransition: React.FC<TerminalTransitionProps> = ({
   }, [currentIndex, isTyping, messages, speed]);
 
   return (
-    <Box className={`py-6 px-4 rounded-lg bg-gray-2 border border-gray-border ${className}`}>
+    <Box className={`py-6 px-4 rounded-lg bg-gray-2 border border-gray-5 ${className}`}>
       <Box className="font-mono text-sm">
         <Text className="text-radix-base-grass">shagan@portfolio</Text>
         <Text className="text-gray-12">:</Text>

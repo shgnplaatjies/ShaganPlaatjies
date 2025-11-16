@@ -21,7 +21,7 @@ const PortfolioLayout: React.FC<PortfolioLayoutProps> = ({
 }) => {
   return (
     <Box className="flex h-full w-full overflow-hidden">
-      <nav className="w-1/4 flex-shrink-0 border-r border-gray-border bg-gray-bg-secondary p-8 overflow-y-auto">
+      <nav className="w-1/4 flex-shrink-0 border-r border-gray-5 bg-gray-2 p-8 overflow-y-auto">
         <Box className="mb-8">
           <Heading as="h1" size="8" className="text-gray-12">Shagan Plaatjies</Heading>
           <Text as="p" size="2" className="mt-2 text-gray-10">
@@ -36,8 +36,8 @@ const PortfolioLayout: React.FC<PortfolioLayoutProps> = ({
                 onClick={() => onSectionChange(section.id)}
                 className={`w-full text-left px-4 py-2 rounded transition-colors ${
                   activeSection === section.id
-                    ? "bg-gray-border text-gray-text-contrast font-semibold"
-                    : "text-gray-text hover:text-gray-text-contrast hover:bg-gray-interactive"
+                    ? "bg-gray-6 text-gray-12 font-semibold"
+                    : "text-gray-10 hover:text-gray-12 hover:bg-gray-4"
                 }`}
               >
                 {section.label}
@@ -46,7 +46,7 @@ const PortfolioLayout: React.FC<PortfolioLayoutProps> = ({
           ))}
         </ul>
 
-        <Box className="mt-12 pt-6 border-t border-gray-border">
+        <Box className="mt-12 pt-6 border-t border-gray-5">
           <Text size="1" className="text-gray-9 mb-4">LINKS</Text>
           <ul className="space-y-2 text-sm text-gray-10">
             <li>
