@@ -72,7 +72,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
   };
 
   return (
-    <nav className="w-full sm:w-1/4 flex-shrink-0 sm:border-r border-gray-4 px-4 sm:px-8 py-6 sm:py-8 sm:h-full overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
+    <nav className="w-full sm:w-1/4 sm:h-full flex-shrink-0 sm:border-r border-gray-4 px-4 sm:px-8 py-6 sm:py-8 overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
       {/* Header - Top */}
       <header className="mb-3 sm:mb-0">
         <Heading as="h1" size="8" className="text-gray-12">Shagan Plaatjies</Heading>
@@ -147,7 +147,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
                 title="GitHub"
                 className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
               >
-                <GitHubLogoIcon width="16" height="16" />
+                <GitHubLogoIcon width="20" height="20" />
               </a>
             </li>
             <li>
@@ -156,7 +156,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
                 title="LinkedIn"
                 className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
               >
-                <LinkedInLogoIcon width="16" height="16" />
+                <LinkedInLogoIcon width="20" height="20" />
               </a>
             </li>
             <li>
@@ -165,30 +165,30 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
                 title="Email"
                 className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
               >
-                <EnvelopeClosedIcon width="16" height="16" />
+                <EnvelopeClosedIcon width="20" height="20" />
               </a>
             </li>
           </ul>
         </Box>
 
         <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
-          <button
-            onClick={toggleTheme}
-            className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-12 transition-all duration-200 hover:scale-105"
-            aria-label="Toggle theme"
-          >
-            {mounted && theme === "dark" ? (
-              <>
-                <MoonIcon width="16" height="16" />
-                <Text size="1">Dark</Text>
-              </>
-            ) : (
-              <>
-                <SunIcon width="16" height="16" />
-                <Text size="1">Light</Text>
-              </>
-            )}
-          </button>
+          <Text size="1" className="text-gray-8 mb-3">THEME</Text>
+          <ul className="flex gap-4 text-gray-10">
+            <li>
+              <button
+                onClick={toggleTheme}
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+                aria-label="Toggle theme"
+              >
+                {mounted && theme === "dark" ? (
+                  <MoonIcon width="20" height="20" />
+                ) : (
+                  <SunIcon width="20" height="20" />
+                )}
+              </button>
+            </li>
+          </ul>
         </Box>
       </Flex>
     </nav>
