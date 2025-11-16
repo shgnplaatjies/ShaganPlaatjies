@@ -16,9 +16,9 @@ const LandingSection: React.FC = () => {
           textAs="h1"
           align="center"
           size="9"
-          preText="Hi, I'm "
+          preText="Hi, I&apos;m "
           accentedText="Shagan, "
-          postText="Lead Software Engineer & Technical Product Lead"
+          postText="Software Engineer & Product Lead"
         />
         <Text
           wrap="balance"
@@ -26,10 +26,11 @@ const LandingSection: React.FC = () => {
           size="2"
           className="py-4 text-center max-w-2xl opacity-80"
         >
-          I architect and deliver patented technology for global audiences in live entertainment,
-          having led teams and transformed legacy systems into high-performance microservices
-          across fintech, insurance, and telecommunications. I solve complex problems at the
-          intersection of scale, security, and innovation.
+          I architect and deliver patented technology for global audiences in
+          live entertainment, having led teams and transformed legacy systems
+          into high-performance microservices across fintech, insurance, and
+          telecommunications. I solve complex problems at the intersection of
+          scale, security, and innovation.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

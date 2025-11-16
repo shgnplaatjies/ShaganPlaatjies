@@ -26,13 +26,13 @@ const ExperienceSectionContent: React.FC<{
   });
 
   return (
-    <div id="experience-section" className="space-y-8">
+    <div id="experience-section" className="space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Experience</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Professional roles and key projects</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">Experience</h2>
+        <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">Professional roles and key projects</p>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-8 sm:space-y-12">
         {experiencePosts.map((post) => {
           const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
 
@@ -48,10 +48,10 @@ const ExperienceSectionContent: React.FC<{
         })}
       </div>
 
-      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <div className="mt-12 pt-8 border-t border-gray-5">
         <a
           href="/resume"
-          className="inline-flex items-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+          className="inline-flex items-center text-gray-10 hover:text-gray-12 transition-colors"
         >
           Download Resume →
         </a>
@@ -73,7 +73,6 @@ const ExperienceSection: React.FC = async () => {
     );
   }
 
-  // Build a map of media IDs to URLs
   const mediaIds = new Set<number>();
   posts.forEach(post => {
     if (post.featured_media) {

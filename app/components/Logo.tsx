@@ -9,7 +9,7 @@ type LogoProps = {
 
 const Logo: React.FC<LogoProps> = ({
   className = "w-8 h-8",
-  color = "#ffffff",
+  color = "var(--gray-12)",
   height = "100%",
   width = "100%",
 }: LogoProps) => {

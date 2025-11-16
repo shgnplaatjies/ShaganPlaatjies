@@ -1,4 +1,4 @@
-import { Flex } from "@radix-ui/themes";
+import { Flex, Text, Box } from "@radix-ui/themes";
 import { ReactNode } from "react";
 
 interface BorderAccentProps {
@@ -18,32 +18,32 @@ const BorderAccent: React.FC<BorderAccentProps> = ({
   label,
   className = "",
 }) => (
-  <div className={`border-l-2 ${color} pl-6 mb-8 ${className}`}>
+  <Box className={`border-l-2 ${color} pl-6 mb-8 ${className}`}>
     {(icon || label || filePath) && (
-      <div className="mb-3 -ml-2">
+      <Box className="mb-3 -ml-2">
         {(icon || label) && (
           <Flex align="center" gap="2" className="mb-2">
             {icon && (
-              <div className="opacity-60">
+              <Box className="opacity-60">
                 {icon}
-              </div>
+              </Box>
             )}
             {label && (
-              <span className="font-mono text-sm opacity-70">
+              <Text size="1" className="font-mono opacity-70">
                 {label}
-              </span>
+              </Text>
             )}
           </Flex>
         )}
         {filePath && !label && (
-          <div className="font-mono text-xs opacity-50">
+          <Text size="1" className="font-mono opacity-50">
             {filePath}
-          </div>
+          </Text>
         )}
-      </div>
+      </Box>
     )}
     {children}
-  </div>
+  </Box>
 );
 
 export default BorderAccent;

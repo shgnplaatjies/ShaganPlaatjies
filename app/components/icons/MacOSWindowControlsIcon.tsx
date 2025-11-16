@@ -11,11 +11,11 @@ const MacOSWindowControlsIcon: React.FC<MacOSWindowControlsIconProps> = ({
   const getColor = () => {
     switch (type) {
       case "close":
-        return "#ff5f56"; // MacOS red
+        return "var(--red-9)";
       case "minimize":
-        return "#ffbd2e"; // MacOS yellow
+        return "var(--amber-9)";
       case "maximize":
-        return "#27c93f"; // MacOS green
+        return "var(--grass-9)";
     }
   };
 

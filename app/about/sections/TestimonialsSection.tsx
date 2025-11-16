@@ -18,7 +18,7 @@ const TestimonialCard: React.FC<Testimonial> = ({
     <div className="relative p-6 rounded-lg border border-accent-6 border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:bg-accent-2 hover:bg-opacity-10">
       <div className="mb-4">
         <Text as="p" size="2" className="italic opacity-90 text-radix-base-cyan">
-          "{message}"
+          {`"${message}"`}
         </Text>
       </div>
 
@@ -62,7 +62,7 @@ const TestimonialsSection: React.FC = () => {
   return (
     <Section className="py-12" id="testimonials">
       <Box className="mb-8">
-        <Heading as="h2" size="8" className="mb-3">
+        <Heading as="h2" size="7" className="mb-3">
           Professional Recognition
         </Heading>
         <Text as="p" size="2" className="opacity-70 max-w-2xl">

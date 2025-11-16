@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Header";
 import MatrixRain from "../../MatrixRain";
 import AnimatedGrid from "../../AnimatedGrid";
+import MouseGlowEffect from "../../MouseGlowEffect";
 
 const MainLayout: React.FC<{
   children: React.ReactNode;
@@ -14,6 +15,7 @@ const MainLayout: React.FC<{
 
   const defaultConfig = OrbColorOnPagesConfig.default;
   const [orbColor, setOrbColor] = useState<OrbColorOnPageType>(defaultConfig);
+  const [appearance, setAppearance] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
     setOrbColor(
@@ -21,12 +23,30 @@ const MainLayout: React.FC<{
         (orb) => orb.path === pathName
       ) ?? defaultConfig
     );
-  }, [pathName]);
+  }, [pathName, defaultConfig]);
+
+  useEffect(() => {
+    const updateAppearance = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setAppearance(isDark ? 'dark' : 'light');
+    };
+
+    updateAppearance();
+
+    const observer = new MutationObserver(updateAppearance);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <Theme accentColor={orbColor.radixColor} className="w-full h-full">
+    <Theme appearance={appearance} accentColor={orbColor.radixColor} className="w-full h-full">
+      <MouseGlowEffect glowRadius={450} />
       <AnimatedGrid opacity={0.3} gridSize={40} />
-      <MatrixRain opacity={0.05} />
+      <MatrixRain opacity={0.02} />
       <Flex className="flex flex-col flex-grow w-full h-full backdrop-blur-3xl relative z-10 bg-transparent">
         <Header className="h-auto py-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
 

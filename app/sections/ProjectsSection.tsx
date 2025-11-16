@@ -26,13 +26,13 @@ const ProjectsSectionContent: React.FC<{
   });
 
   return (
-    <div id="projects-section" className="space-y-8">
+    <div id="projects-section" className="space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Projects</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Portfolio of work and technical solutions</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">Projects</h2>
+        <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">Portfolio of work and technical solutions</p>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-8 sm:space-y-12">
         {projectPosts.map((post, index) => {
           const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
 
@@ -72,7 +72,6 @@ const ProjectsSection: React.FC = async () => {
     );
   }
 
-  // Build a map of media IDs to URLs
   const mediaIds = new Set<number>();
   posts.forEach(post => {
     if (post.featured_media) {

@@ -80,7 +80,7 @@ const WorkSection: React.FC = () => {
   return (
     <Section className="py-12" id="work">
       <Box className="mb-8">
-        <Heading as="h2" size="8" className="mb-3">
+        <Heading as="h2" size="7" className="mb-3">
           Professional Experience
         </Heading>
         <Text as="p" size="2" className="opacity-70 max-w-2xl">

@@ -10,10 +10,10 @@ const LinuxWindowControlsIcon: React.FC<LinuxWindowControlsIconProps> = ({
   const getColor = () => {
     switch (type) {
       case "close":
-        return "#E95420"; // Linux red
+        return "var(--red-9)";
       case "minimize":
       case "maximize":
-        return "#C0C0C0"; // Linux grey
+        return "var(--gray-9)";
     }
   };
   return (

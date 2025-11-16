@@ -53,7 +53,7 @@ const ElegantContactForm: React.FC = () => {
           Thank you for reaching out
         </Heading>
         <Text as="p" size="2" className="opacity-70">
-          I'll get back to you within 24 hours. Looking forward to connecting!
+          I&apos;ll get back to you within 24 hours. Looking forward to connecting!
         </Text>
       </Box>
     );
@@ -68,7 +68,7 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Name
             </Text>
-            <span className="text-accent-9 ml-1">*</span>
+            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
           </label>
           <TextField.Root
             placeholder="Your name"
@@ -89,7 +89,7 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Email
             </Text>
-            <span className="text-accent-9 ml-1">*</span>
+            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
           </label>
           <TextField.Root
             placeholder="your@email.com"
@@ -110,7 +110,7 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Company or Organization
             </Text>
-            <span className="opacity-50 text-xs ml-1">(optional)</span>
+            <Text as="span" size="1" className="opacity-50 ml-1">(optional)</Text>
           </label>
           <TextField.Root
             placeholder="Your company"
@@ -130,7 +130,7 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               What are you interested in?
             </Text>
-            <span className="text-accent-9 ml-1">*</span>
+            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
           </label>
           <Select.Root
             value={formData.service}
@@ -172,7 +172,7 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Tell me about your project or challenge
             </Text>
-            <span className="text-accent-9 ml-1">*</span>
+            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
           </label>
           <TextArea
             placeholder="What's on your mind? Share any context, timeline, or specific goals..."
@@ -190,7 +190,7 @@ const ElegantContactForm: React.FC = () => {
         {/* Submit Button */}
         <Flex justify="between" align="center" className="pt-4">
           <Text as="p" size="1" className="opacity-50">
-            I'll respond within one business day
+            I&apos;ll respond within one business day
           </Text>
           <Button
             type="submit"

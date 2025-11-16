@@ -1,3 +1,6 @@
+import React from "react";
+import { Text } from "@radix-ui/themes";
+
 interface TerminalPromptProps {
   user?: string;
   path: string;
@@ -15,13 +18,13 @@ const TerminalPrompt: React.FC<TerminalPromptProps> = ({
 }) => {
   return (
     <div className={`font-mono text-sm mb-6 ${className}`}>
-      <span className="text-radix-base-grass">{user}@portfolio</span>
-      <span className="text-white">:</span>
-      <span className="text-radix-base-blue">{path}</span>
-      <span className="text-white">$ </span>
-      {command && <span className="text-radix-base-amber">{command}</span>}
+      <Text className="text-radix-base-grass">{user}@portfolio</Text>
+      <Text className="text-gray-12">:</Text>
+      <Text className="text-radix-base-blue">{path}</Text>
+      <Text className="text-gray-12">$ </Text>
+      {command && <Text className="text-radix-base-amber">{command}</Text>}
       {showCursor && (
-        <span className="text-radix-base-amber animate-pulse ml-1">_</span>
+        <Text className="text-radix-base-amber animate-pulse ml-1">_</Text>
       )}
     </div>
   );

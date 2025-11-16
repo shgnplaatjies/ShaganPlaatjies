@@ -1,4 +1,5 @@
 import React from 'react';
+import { Heading, Text, Badge, Box, Flex } from '@radix-ui/themes';
 
 interface ExperienceCardProps {
   title: string;
@@ -18,26 +19,26 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   };
 
   return (
-    <div className="border-l-2 border-gray-300 dark:border-gray-700 pl-6 py-4">
-      <h3 className="text-xl font-semibold text-black dark:text-white mb-2">{title}</h3>
+    <Box className="border-l-2 border-gray-6 pl-6 py-4 hover:border-gray-7 transition-all duration-200">
+      <Heading as="h3" size="5" className="text-gray-12 mb-2 hover:text-gray-11 transition-colors">{title}</Heading>
 
-      <p className="text-gray-700 dark:text-gray-400 text-sm mb-4">
+      <Text as="p" size="2" className="text-gray-10 mb-4 hover:text-gray-11 transition-colors">
         {stripHtml(description).substring(0, 200)}...
-      </p>
+      </Text>
 
       {tags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <Flex wrap="wrap" gap="2">
           {tags.map(tag => (
-            <span
+            <Badge
               key={tag}
-              className="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded"
+              className="text-xs"
             >
               {tag}
-            </span>
+            </Badge>
           ))}
-        </div>
+        </Flex>
       )}
-    </div>
+    </Box>
   );
 };
 
