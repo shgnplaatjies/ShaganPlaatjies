@@ -35,12 +35,13 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
     let animationFrameId: number;
 
     const draw = () => {
+      // Use semantic colors from CSS variables
+      // Gray-1 (bg) for subtle background clearing
       ctx.fillStyle = `rgba(0, 0, 0, 0.05)`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const greenColor = isDark ? 'rgba(74, 222, 128, ' + opacity + ')' : 'rgba(74, 222, 128, ' + opacity + ')';
-      ctx.fillStyle = greenColor;
+      // Cyan-9 (solid) for matrix characters - semantic accent color
+      ctx.fillStyle = `rgba(17, 179, 229, ${opacity})`;
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {

@@ -75,8 +75,8 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
     <nav className="w-full sm:w-1/4 sm:h-full flex-shrink-0 sm:border-r border-gray-border px-4 sm:px-8 py-6 sm:py-8 overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
       {/* Header - Top */}
       <header className="mb-3 sm:mb-0">
-        <Heading as="h1" size="8" className="text-gray-12">Shagan Plaatjies</Heading>
-        <Text as="p" size="2" className="mt-2 text-gray-10">
+        <Heading as="h1" size="8" className="text-gray-text-contrast">Shagan Plaatjies</Heading>
+        <Text as="p" size="2" className="mt-2 text-gray-solid-hover">
           Software Engineer & Product Lead
         </Text>
       </header>
@@ -125,8 +125,8 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <Text
                 className={`transition-colors ${
                   activeSection === section.id
-                    ? "text-gray-12"
-                    : "text-gray-10 group-hover:text-gray-12"
+                    ? "text-gray-text-contrast"
+                    : "text-gray-solid-hover group-hover:text-gray-text-contrast"
                 }`}
               >
                 {section.label}
@@ -139,13 +139,13 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
       {/* Footer Controls - Bottom */}
       <Flex direction="column" gap="4" className="sm:gap-6">
         <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border">
-          <Text size="1" className="text-gray-8 mb-3">LINKS</Text>
-          <ul className="flex gap-4 text-gray-10">
+          <Text size="1" className="text-gray-border-active mb-3">LINKS</Text>
+          <ul className="flex gap-4 text-gray-solid-hover">
             <li>
               <a
                 href={SOCIAL_LINKS.github}
                 title="GitHub"
-                className="hover:text-gray-12 transition-all duration-300 ease-in-out hover:scale-110"
+                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
               >
                 <GitHubLogoIcon width="20" height="20" />
               </a>
@@ -154,7 +154,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <a
                 href={SOCIAL_LINKS.linkedin}
                 title="LinkedIn"
-                className="hover:text-gray-12 transition-all duration-300 ease-in-out hover:scale-110"
+                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
               >
                 <LinkedInLogoIcon width="20" height="20" />
               </a>
@@ -163,7 +163,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <a
                 href={SOCIAL_LINKS.email}
                 title="Email"
-                className="hover:text-gray-12 transition-all duration-300 ease-in-out hover:scale-110"
+                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
               >
                 <EnvelopeClosedIcon width="20" height="20" />
               </a>
@@ -172,13 +172,13 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         </Box>
 
         <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border">
-          <Text size="1" className="text-gray-8 mb-3">THEME</Text>
-          <ul className="flex gap-4 text-gray-10">
+          <Text size="1" className="text-gray-border-active mb-3">THEME</Text>
+          <ul className="flex gap-4 text-gray-solid-hover">
             <li>
               <button
                 onClick={toggleTheme}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                className="hover:text-gray-12 transition-all duration-300 ease-in-out hover:scale-110"
+                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
                 aria-label="Toggle theme"
               >
                 {mounted && theme === "dark" ? (

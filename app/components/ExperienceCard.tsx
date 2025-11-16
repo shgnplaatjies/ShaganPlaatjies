@@ -20,9 +20,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
 
   return (
     <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200">
-      <Heading as="h3" size="5" className="text-gray-12 mb-2 hover:text-gray-11 transition-colors">{title}</Heading>
+      <Heading as="h3" size="5" className="text-gray-text-contrast mb-2 hover:text-gray-text transition-colors">{title}</Heading>
 
-      <Text as="p" size="2" className="text-gray-10 mb-4 hover:text-gray-11 transition-colors">
+      <Text as="p" size="2" className="text-gray-solid-hover mb-4 hover:text-gray-text transition-colors">
         {stripHtml(description).substring(0, 200)}...
       </Text>
 

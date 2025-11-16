@@ -18,7 +18,7 @@ const themeConfig: Config = {
     extend: {
       colors: {
         gray: generateScale("slate"),
-        accent: generateScale("green"),
+        accent: generateScale("cyan"),
       },
     },
   },

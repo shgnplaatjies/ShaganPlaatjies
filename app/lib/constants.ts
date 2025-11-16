@@ -47,8 +47,8 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
   },
   projects: {
     path: "/experience",
-    color: "fill-radix-base-lime",
-    radixColor: "lime",
+    color: "fill-radix-base-cyan",
+    radixColor: "cyan",
   },
   experiments: {
     path: "/experiments",

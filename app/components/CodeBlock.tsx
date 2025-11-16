@@ -32,7 +32,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: match.index,
         end: match.index + match[0].length,
         text: match[0],
-        className: "text-gray-9 italic"
+        className: "text-gray-solid italic"
       });
     }
 
@@ -42,7 +42,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-radix-base-green"
+        className: "text-cyan-solid"
       });
       return match;
     });
@@ -53,7 +53,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-radix-base-purple"
+        className: "text-cyan-text"
       });
       return match;
     });
@@ -64,7 +64,7 @@ const highlightCode = (code: string): JSX.Element[] => {
         start: offset,
         end: offset + match.length,
         text: match,
-        className: "text-radix-base-orange"
+        className: "text-gray-solid-hover"
       });
       return match;
     });
@@ -128,7 +128,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           <Text size="1">{language}</Text>
         </div>
       )}
-      <pre className="text-radix-base-gray-12">
+      <pre className="text-gray-text-contrast">
         <code>{highlighted}</code>
       </pre>
     </Box>
