@@ -78,11 +78,11 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex className="justify-center mb-5 mx-3 max-h-48 overflow-hidden">
+    <Flex className="justify-center mb-5 mx-3 max-h-48 overflow-hidden group-hover:opacity-90 transition-opacity duration-300">
       <ProjectImage src={mediaSrc} alt={title} />
     </Flex>
     <Flex direction="column" gap="3" mx="3" className="pb-8">
-      <Flex justify="between" className="opacity-70 mb-2">
+      <Flex justify="between" className="opacity-70 mb-2 group-hover:opacity-100 transition-opacity duration-300">
         <ProjectId id={id} />
         <ProjectDate date={date} />
       </Flex>
@@ -100,13 +100,13 @@ const ProjectMediumScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <div className="pb-10">
-    <Flex className="justify-end max-h-80 mb-6">
-      <div className="flex justify-self-end max-w-[45%]">
+    <Flex className="justify-end max-h-80 mb-6 group-hover:opacity-90 transition-opacity duration-300">
+      <div className="flex justify-self-end max-w-[45%] overflow-hidden rounded-sm">
         <ProjectImage src={mediaSrc} alt={title} />
       </div>
     </Flex>
     <Flex direction="column" gap="3" mx="3">
-      <Flex justify="between" className="opacity-70 mb-2">
+      <Flex justify="between" className="opacity-70 mb-2 group-hover:opacity-100 transition-opacity duration-300">
         <ProjectId id={id} />
         <ProjectDate date={date} />
       </Flex>
@@ -174,9 +174,9 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded-sm border border-gray-5 hover:border-gray-6 hover:bg-gray-2 transition-all duration-300"
+        className="group flex self-center rounded-sm border border-gray-border hover:border-lime-border-hover hover:bg-lime-bg-secondary transition-all duration-300"
       >
-        <Link href={`/posts/${slug}`} className="group">
+        <Link href={`/posts/${slug}`}>
           <div className="block sm:hidden">
             <ProjectSmallScreen {...projectProps} />
           </div>
