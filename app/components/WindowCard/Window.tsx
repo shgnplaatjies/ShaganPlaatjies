@@ -39,7 +39,7 @@ const WindowLayout = ({
           <Container
             className={`bg-gray-1 ${
               padded ? "px-2 pb-1" : ""
-            } border-t border-gray-5`}
+            } border-t border-gray-border`}
             mt="5"
           >
             {children}

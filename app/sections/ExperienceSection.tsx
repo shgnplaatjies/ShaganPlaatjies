@@ -48,9 +48,11 @@ const ExperienceSectionContent: React.FC<{
         })}
       </div>
 
-      <div className="mt-12 pt-8 border-t border-gray-5">
+      <div className="mt-12 pt-8 border-t border-gray-border">
         <a
-          href="/resume"
+          href={process.env.NEXT_PUBLIC_RESUME_URL || "/resume"}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center text-gray-10 hover:text-gray-12 transition-colors"
         >
           Download Resume →
