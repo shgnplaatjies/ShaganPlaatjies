@@ -77,7 +77,7 @@ const PortfolioLayout: React.FC<PortfolioLayoutProps> = ({
       </nav>
 
       <div className="flex-1 overflow-y-auto">
-        <div className="px-12 py-8 max-w-4xl">{children}</div>
+        <div className="px-4 sm:px-8 md:px-12 py-6 sm:py-8 max-w-4xl">{children}</div>
       </div>
     </div>
   );

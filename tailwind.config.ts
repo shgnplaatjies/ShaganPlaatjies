@@ -40,6 +40,8 @@ const config: Config = {
       backgroundColor: {
         white: '#ffffff',
         black: '#000000',
+        glass: 'color-mix(in srgb, var(--gray-2) 8%, transparent)',
+        'glass-hover': 'color-mix(in srgb, var(--gray-3) 12%, transparent)',
       },
       textColor: {
         white: '#ffffff',
@@ -48,9 +50,16 @@ const config: Config = {
       borderColor: {
         white: '#ffffff',
         black: '#000000',
+        glass: 'color-mix(in srgb, var(--gray-7) 15%, transparent)',
+        'glass-hover': 'color-mix(in srgb, var(--gray-8) 20%, transparent)',
       },
       boxShadow: {
         ...ShadowShadeTailwindUtils,
+        glass: '0 8px 32px 0 color-mix(in srgb, rgba(0, 0, 0, 0.1) 10%, transparent)',
+        'glass-hover': '0 12px 48px 0 color-mix(in srgb, rgba(0, 0, 0, 0.15) 15%, transparent)',
+      },
+      backdropBlur: {
+        glass: '12px',
       },
     },
   },

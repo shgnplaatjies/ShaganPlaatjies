@@ -2,12 +2,12 @@ import React from "react";
 
 const SummarySection: React.FC = () => {
   return (
-    <div id="summary-section" className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-12 mb-6">
+    <div id="summary-section" className="space-y-4 sm:space-y-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">
         About
       </h2>
 
-      <div className="space-y-4 text-gray-10 leading-relaxed">
+      <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-10 leading-relaxed">
         <p>
           I&apos;m a Software Engineer and Product Leader based in Johannesburg,
           South Africa, with over half a decade architecting mission-critical
