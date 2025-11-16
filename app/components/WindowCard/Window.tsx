@@ -17,7 +17,7 @@ const WindowLayout = ({
   const [isClosed, setIsClosed] = useState(false);
 
   return (
-    <Card className={`bg-gray-2 ${isClosed ? "hidden" : ""}`}>
+    <Card className={`bg-gray-bg-secondary ${isClosed ? "hidden" : ""}`}>
       <Flex direction="column">
         <Inset>
           <Flex
@@ -37,9 +37,9 @@ const WindowLayout = ({
         </Inset>
         <Inset>
           <Container
-            className={`bg-gray-1 ${
+            className={`bg-gray-bg ${
               padded ? "px-2 pb-1" : ""
-            } border-t border-gray-5`}
+            } border-t border-gray-border`}
             mt="5"
           >
             {children}

@@ -48,7 +48,7 @@ const MainLayout: React.FC<{
       <AnimatedGrid opacity={0.3} gridSize={40} />
       <MatrixRain opacity={0.02} />
       <Flex className="flex flex-col flex-grow w-full h-full backdrop-blur-3xl relative z-10 bg-transparent">
-        <Header className="h-auto py-4 flex place-content-center border-b border-gray-border-1 border-opacity-50" />
+        <Header className="h-auto py-4 flex place-content-center border-b border-gray-border" />
 
         <main className="flex flex-grow flex-row overflow-hidden w-full">
           <div className="w-full h-full backdrop-blur-3xl bg-transparent overflow-hidden">
