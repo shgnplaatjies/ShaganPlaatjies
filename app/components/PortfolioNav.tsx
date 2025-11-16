@@ -8,6 +8,7 @@ import {
   LinkedInLogoIcon,
   EnvelopeClosedIcon,
 } from "@radix-ui/react-icons";
+import { Heading, Text, Box, Flex } from "@radix-ui/themes";
 import { SOCIAL_LINKS } from "@/app/lib/constants";
 
 interface Section {
@@ -71,15 +72,17 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
   };
 
   return (
-    <nav className="w-full sm:w-1/4 flex-shrink-0 sm:border-r border-gray-4 px-4 sm:px-8 py-6 sm:py-8 sm:h-full overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col">
-      <header className="mb-3">
-        <h1 className="text-2xl font-bold text-gray-12">Shagan Plaatjies</h1>
-        <p className="mt-2 text-sm text-gray-10">
+    <nav className="w-full sm:w-1/4 flex-shrink-0 sm:border-r border-gray-4 px-4 sm:px-8 py-6 sm:py-8 sm:h-full overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
+      {/* Header - Top */}
+      <header className="mb-3 sm:mb-0">
+        <Heading as="h1" size="8" className="text-gray-12">Shagan Plaatjies</Heading>
+        <Text as="p" size="2" className="mt-2 text-gray-10">
           Software Engineer & Product Lead
-        </p>
+        </Text>
       </header>
 
-      <ul className="hidden sm:block space-y-3 sm:mt-12">
+      {/* Navigation Links - Middle (visible on desktop only) */}
+      <ul className="hidden sm:block space-y-3 sm:mt-0 sm:py-8">
         {sections.map((section, index) => (
           <li key={section.id}>
             <a
@@ -119,7 +122,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
                       : "var(--gray-10)",
                 }}
               />
-              <span
+              <Text
                 className={`transition-colors ${
                   activeSection === section.id
                     ? "text-gray-12"
@@ -127,64 +130,67 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
                 }`}
               >
                 {section.label}
-              </span>
+              </Text>
             </a>
           </li>
         ))}
       </ul>
 
-      <div className="pt-2 sm:pt-10 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
-        <p className="text-xs text-gray-8 mb-3">LINKS</p>
-        <ul className="flex gap-4 text-gray-10">
-          <li>
-            <a
-              href={SOCIAL_LINKS.github}
-              title="GitHub"
-              className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
-            >
-              <GitHubLogoIcon width="16" height="16" />
-            </a>
-          </li>
-          <li>
-            <a
-              href={SOCIAL_LINKS.linkedin}
-              title="LinkedIn"
-              className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
-            >
-              <LinkedInLogoIcon width="16" height="16" />
-            </a>
-          </li>
-          <li>
-            <a
-              href={SOCIAL_LINKS.email}
-              title="Email"
-              className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
-            >
-              <EnvelopeClosedIcon width="16" height="16" />
-            </a>
-          </li>
-        </ul>
-      </div>
+      {/* Footer Controls - Bottom */}
+      <Flex direction="column" gap="4" className="sm:gap-6">
+        <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
+          <Text size="1" className="text-gray-8 mb-3">LINKS</Text>
+          <ul className="flex gap-4 text-gray-10">
+            <li>
+              <a
+                href={SOCIAL_LINKS.github}
+                title="GitHub"
+                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+              >
+                <GitHubLogoIcon width="16" height="16" />
+              </a>
+            </li>
+            <li>
+              <a
+                href={SOCIAL_LINKS.linkedin}
+                title="LinkedIn"
+                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+              >
+                <LinkedInLogoIcon width="16" height="16" />
+              </a>
+            </li>
+            <li>
+              <a
+                href={SOCIAL_LINKS.email}
+                title="Email"
+                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+              >
+                <EnvelopeClosedIcon width="16" height="16" />
+              </a>
+            </li>
+          </ul>
+        </Box>
 
-      <div className="pt-2 sm:pt-8 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
-        <button
-          onClick={toggleTheme}
-          className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-12 transition-all duration-200 hover:scale-105"
-          aria-label="Toggle theme"
-        >
-          {mounted && theme === "dark" ? (
-            <>
-              <MoonIcon width="16" height="16" />
-              <span>Dark</span>
-            </>
-          ) : (
-            <>
-              <SunIcon width="16" height="16" />
-              <span>Light</span>
-            </>
-          )}
-        </button>
-      </div>
+        <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-12 transition-all duration-200 hover:scale-105"
+            aria-label="Toggle theme"
+          >
+            {mounted && theme === "dark" ? (
+              <>
+                <MoonIcon width="16" height="16" />
+                <Text size="1">Dark</Text>
+              </>
+            ) : (
+              <>
+                <SunIcon width="16" height="16" />
+                <Text size="1">Light</Text>
+              </>
+            )}
+          </button>
+        </Box>
+      </Flex>
     </nav>
   );
 };

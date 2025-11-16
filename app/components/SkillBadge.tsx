@@ -1,4 +1,4 @@
-import { Badge, Flex } from "@radix-ui/themes";
+import { Badge, Flex, Text } from "@radix-ui/themes";
 import React from "react";
 
 type SkillTheme = 'syntax' | 'minimal' | 'outlined';
@@ -37,9 +37,9 @@ const SkillBadge: React.FC<SkillBadgeProps> = ({
             {icon}
           </div>
         )}
-        <span className="font-mono text-xs">
+        <Text size="1" className="font-mono">
           {label}
-        </span>
+        </Text>
       </Flex>
     </Badge>
   );
