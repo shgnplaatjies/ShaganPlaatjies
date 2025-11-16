@@ -174,7 +174,7 @@ const ProjectCard: React.FC<{
       <Flex
         direction="column"
         px="3"
-        className="flex self-center rounded-sm border border-gray-5 hover:border-gray-6 hover:bg-gray-2 transition-all duration-300"
+        className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300"
       >
         <Link href={`/posts/${slug}`} className="group">
           <div className="block sm:hidden">

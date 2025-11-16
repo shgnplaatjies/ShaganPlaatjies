@@ -5,6 +5,7 @@ import SummarySection from '../sections/SummarySection';
 import ExperienceSection from '../sections/ExperienceSection';
 import ProjectsSection from '../sections/ProjectsSection';
 import BlogSection from '../sections/BlogSection';
+import { ConclusionSection } from './ConclusionSection';
 
 const sections = [
   { id: 'summary', label: 'Summary' },
@@ -31,6 +32,10 @@ const PortfolioPage: React.FC = async () => {
 
         <div id="blog" className="mt-20 mb-20 scroll-mt-20">
           <BlogSection />
+        </div>
+
+        <div className="mt-20">
+          <ConclusionSection />
         </div>
       </PortfolioPageContent>
     </PortfolioPageWrapper>
