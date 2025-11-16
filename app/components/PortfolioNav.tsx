@@ -71,15 +71,15 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
   };
 
   return (
-    <nav className="w-1/4 flex-shrink-0 border-r border-gray-4 px-8 py-4 h-full overflow-hidden bg-transparent flex flex-col">
-      <div className="mb-8">
+    <nav className="w-full sm:w-1/4 flex-shrink-0 sm:border-r border-gray-4 px-4 sm:px-8 py-6 sm:py-8 sm:h-full overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col">
+      <header className="mb-3">
         <h1 className="text-2xl font-bold text-gray-12">Shagan Plaatjies</h1>
         <p className="mt-2 text-sm text-gray-10">
           Software Engineer & Product Lead
         </p>
-      </div>
+      </header>
 
-      <ul className="space-y-3">
+      <ul className="hidden sm:block space-y-3 sm:mt-12">
         {sections.map((section, index) => (
           <li key={section.id}>
             <a
@@ -133,7 +133,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         ))}
       </ul>
 
-      <div className="mt-12 pt-6 border-t border-gray-border-1 border-opacity-50">
+      <div className="pt-2 sm:pt-10 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
         <p className="text-xs text-gray-8 mb-3">LINKS</p>
         <ul className="flex gap-4 text-gray-10">
           <li>
@@ -166,7 +166,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         </ul>
       </div>
 
-      <div className="mt-12 pt-6 border-t border-gray-border-1 border-opacity-50">
+      <div className="pt-2 sm:pt-8 sm:border-t sm:border-gray-border-1 sm:border-opacity-50">
         <button
           onClick={toggleTheme}
           className="flex items-center gap-2 text-sm text-gray-10 hover:text-gray-12 transition-all duration-200 hover:scale-105"

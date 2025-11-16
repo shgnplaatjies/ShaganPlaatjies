@@ -26,13 +26,13 @@ const BlogSectionContent: React.FC<{
   });
 
   return (
-    <div id="blog-section" className="space-y-8">
+    <div id="blog-section" className="space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-gray-12 mb-6">Blog</h2>
-        <p className="text-gray-9 mb-8">Technical articles and insights</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">Blog</h2>
+        <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">Technical articles and insights</p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
         {blogPosts.length > 0 ? (
           blogPosts.map(post => {
             const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;

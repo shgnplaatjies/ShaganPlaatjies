@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
             directionY="down"
             Icon={HamburgerMenuIcon}
             iconList={navIcons}
-            buttonClassName="flex place-self-center sm:hidden"
+            buttonClassName="hidden"
             popoverClassName="top-12 right-1.5 mt-2 z-10"
           />
         </Flex>
