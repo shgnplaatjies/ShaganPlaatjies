@@ -77,26 +77,19 @@ const ProjectSmallScreen: React.FC<ProjectCardInternalProps> = ({
   mediaSrc,
   title,
 }) => (
-  <Box className="pb-12 border-b border-gray-5 hover:border-gray-7 transition-all duration-300 group">
-    {/* Metadata Section */}
-    <Flex justify="between" align="center" className="mb-6 opacity-75">
-      <ProjectId id={id} />
-      <ProjectDate date={date} />
-    </Flex>
-
-    {/* Title */}
-    <Box className="mb-6">
-      <ProjectTitle title={title} />
-    </Box>
-
-    {/* Featured Image - Large */}
-    <Box className="mb-6 h-64 overflow-hidden rounded-lg group-hover:opacity-80 transition-opacity duration-300">
+  <>
+    <Flex className="justify-center mb-5 mx-3 max-h-48 overflow-hidden">
       <ProjectImage src={mediaSrc} alt={title} />
-    </Box>
-
-    {/* Tech Stack */}
-    <ProjectLabels labels={labels} />
-  </Box>
+    </Flex>
+    <Flex direction="column" gap="3" mx="3" className="pb-8">
+      <Flex justify="between" className="opacity-70 mb-2">
+        <ProjectId id={id} />
+        <ProjectDate date={date} />
+      </Flex>
+      <ProjectTitle title={title} />
+      <ProjectLabels labels={labels} />
+    </Flex>
+  </>
 );
 
 const ProjectMediumScreen: React.FC<ProjectCardInternalProps> = ({
@@ -106,28 +99,21 @@ const ProjectMediumScreen: React.FC<ProjectCardInternalProps> = ({
   mediaSrc,
   title,
 }) => (
-  <Box className="pb-12 border-b border-gray-5 hover:border-gray-7 transition-all duration-300 group">
-    {/* Metadata Section */}
-    <Flex justify="between" align="center" className="mb-6 opacity-75">
-      <ProjectId id={id} />
-      <ProjectDate date={date} />
-    </Flex>
-
-    {/* Title */}
-    <Box className="mb-8">
-      <ProjectTitle title={title} />
-    </Box>
-
-    {/* Featured Image - Right Aligned */}
-    <Flex justify="end" className="mb-8">
-      <Box className="max-w-xs h-48 overflow-hidden rounded-lg group-hover:opacity-80 transition-opacity duration-300">
+  <div className="pb-10">
+    <Flex className="justify-end max-h-80 mb-6">
+      <div className="flex justify-self-end max-w-[45%]">
         <ProjectImage src={mediaSrc} alt={title} />
-      </Box>
+      </div>
     </Flex>
-
-    {/* Tech Stack */}
-    <ProjectLabels labels={labels} />
-  </Box>
+    <Flex direction="column" gap="3" mx="3">
+      <Flex justify="between" className="opacity-70 mb-2">
+        <ProjectId id={id} />
+        <ProjectDate date={date} />
+      </Flex>
+      <ProjectTitle title={title} />
+      <ProjectLabels labels={labels} />
+    </Flex>
+  </div>
 );
 
 const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
@@ -137,33 +123,28 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
   mediaSrc,
   title,
 }) => (
-  <Box className="pb-12 border-b border-gray-5 hover:border-gray-7 transition-all duration-300 group">
-    {/* Top Row: ID | Title + Tags | Image | Date */}
-    <Flex gap="6" justify="between" align="start" className="items-start">
-      {/* Project ID */}
-      <Box className="flex-shrink-0 pt-1">
+  <>
+    <Flex gapX={"3"} justify={"between"} className="py-10 min-w-full items-start">
+      <Box className="ml-6 pt-1 flex-shrink-0">
         <ProjectId id={id} />
       </Box>
 
-      {/* Title & Tags Section */}
-      <Box className="flex-1">
+      <Box className="flex-1 max-w-[55%]">
         <ProjectTitle title={title} />
-        <Box className="mt-4">
+        <Flex>
           <ProjectLabels labels={labels} />
-        </Box>
+        </Flex>
       </Box>
 
-      {/* Featured Image - Reveal on Hover */}
-      <Box className="flex-shrink-0 max-w-xs h-40 overflow-hidden rounded-lg opacity-0 w-0 transition-all duration-500 ease-in-out group-hover:w-xs group-hover:opacity-100">
+      <Box className="max-w-56 h-32 flex-shrink-0 overflow-hidden opacity-0 w-0 transition-all duration-500 ease-in-out group-hover:w-56 group-hover:opacity-100">
         <ProjectImage src={mediaSrc} alt={title} />
       </Box>
 
-      {/* Date */}
-      <Box className="flex-shrink-0 pt-1">
+      <Box className="px-8 pt-1 flex-shrink-0">
         <ProjectDate date={date} />
       </Box>
     </Flex>
-  </Box>
+  </>
 );
 
 const ProjectCard: React.FC<{
