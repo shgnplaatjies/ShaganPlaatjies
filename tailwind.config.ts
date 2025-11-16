@@ -8,23 +8,6 @@ import {
 } from "./app/lib/colors";
 import themeConfig from "./tailwind.theme.config";
 
-// Generate semantic color aliases based on Radix UI color groupings
-const generateColorAliases = (colorName: string) => ({
-  'bg': `var(--${colorName}-1)`, // Background (1-2)
-  'bg-secondary': `var(--${colorName}-2)`,
-  'interactive': `var(--${colorName}-3)`, // Interactive components (3-5)
-  'interactive-hover': `var(--${colorName}-4)`,
-  'interactive-active': `var(--${colorName}-5)`,
-  'border-subtle': `color-mix(in srgb, var(--${colorName}-4) 40%, transparent)`, // Subtle borders with transparency
-  'border': `color-mix(in srgb, var(--${colorName}-6) 40%, transparent)`, // Borders (6-8) with transparency
-  'border-hover': `color-mix(in srgb, var(--${colorName}-7) 40%, transparent)`,
-  'border-active': `color-mix(in srgb, var(--${colorName}-8) 40%, transparent)`,
-  'solid': `var(--${colorName}-9)`, // Solid colors (9-10)
-  'solid-hover': `var(--${colorName}-10)`,
-  'text': `var(--${colorName}-11)`, // Text (11-12)
-  'text-contrast': `var(--${colorName}-12)`,
-});
-
 const config: Config = {
   darkMode: 'class',
   content: [
@@ -51,22 +34,7 @@ const config: Config = {
           10: 'var(--gray-10)',
           11: 'var(--gray-11)',
           12: 'var(--gray-12)',
-          ...generateColorAliases('gray'),
-        },
-        lime: {
-          1: 'var(--lime-1)',
-          2: 'var(--lime-2)',
-          3: 'var(--lime-3)',
-          4: 'var(--lime-4)',
-          5: 'var(--lime-5)',
-          6: 'var(--lime-6)',
-          7: 'var(--lime-7)',
-          8: 'var(--lime-8)',
-          9: 'var(--lime-9)',
-          10: 'var(--lime-10)',
-          11: 'var(--lime-11)',
-          12: 'var(--lime-12)',
-          ...generateColorAliases('lime'),
+          'border-1': 'var(--gray-4)',
         },
       },
       backgroundColor: {
