@@ -112,7 +112,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               }}
             >
               <div
-                className="nav-indicator mr-4 transition-all"
+                className="nav-indicator mr-4 transition-all duration-500"
                 style={{
                   height: "1px",
                   width: activeSection === section.id ? "40px" : "24px",
@@ -145,7 +145,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <a
                 href={SOCIAL_LINKS.github}
                 title="GitHub"
-                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+                className="hover:text-gray-12 transition-all duration-300 hover:scale-110"
               >
                 <GitHubLogoIcon width="20" height="20" />
               </a>
@@ -154,7 +154,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <a
                 href={SOCIAL_LINKS.linkedin}
                 title="LinkedIn"
-                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+                className="hover:text-gray-12 transition-all duration-300 hover:scale-110"
               >
                 <LinkedInLogoIcon width="20" height="20" />
               </a>
@@ -163,7 +163,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <a
                 href={SOCIAL_LINKS.email}
                 title="Email"
-                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+                className="hover:text-gray-12 transition-all duration-300 hover:scale-110"
               >
                 <EnvelopeClosedIcon width="20" height="20" />
               </a>
@@ -178,7 +178,7 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
               <button
                 onClick={toggleTheme}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                className="hover:text-gray-12 transition-all duration-200 hover:scale-110"
+                className="hover:text-gray-12 transition-all duration-300 hover:scale-110"
                 aria-label="Toggle theme"
               >
                 {mounted && theme === "dark" ? (
