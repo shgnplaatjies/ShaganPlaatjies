@@ -2,28 +2,15 @@ import React from 'react';
 import { Suspense } from 'react';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import {
-  fetchWpPosts,
-  fetchWpAllCategories,
-  fetchWpAllTags,
+  fetchWpProjects,
   fetchWpMediaById,
 } from '../lib/server-lib';
-import { WORDPRESS_CATEGORIES, type WordPressCategory, type WordPressTag, type WordPressPost } from '../lib/wordpress-types';
+import { type WpProjectApiResponse } from '../lib/server-lib';
 
 const ProjectsSectionContent: React.FC<{
-  posts: WordPressPost[];
-  categories: WordPressCategory[];
-  tags: WordPressTag[];
+  projects: WpProjectApiResponse[];
   mediaMap: Record<number, string>;
-}> = ({ posts, categories, tags, mediaMap }) => {
-  const getTaxonomyNamesByIds = (ids: number[], taxonomy: (WordPressCategory | WordPressTag)[]): string[] =>
-    ids
-      .map(id => taxonomy.find(tax => tax.id === id)?.name)
-      .filter((name): name is string => Boolean(name));
-
-  const projectPosts = posts.filter(post => {
-    const categoryId = categories.find(c => c.slug === WORDPRESS_CATEGORIES.PROJECT)?.id;
-    return categoryId ? post.categories.includes(categoryId) : false;
-  });
+}> = ({ projects, mediaMap }) => {
 
   return (
     <div id="projects-section" className="space-y-6 sm:space-y-8">
@@ -33,23 +20,23 @@ const ProjectsSectionContent: React.FC<{
       </div>
 
       <div className="space-y-8 sm:space-y-12">
-        {projectPosts.map((post, index) => {
-          const featuredImageUrl = post.featured_media ? mediaMap[post.featured_media] : undefined;
+        {projects.map((project, index) => {
+          const featuredImageUrl = project.featured_media ? mediaMap[project.featured_media] : undefined;
 
           return (
             <ProjectCard
-              key={post.id}
+              key={project.id}
               post={{
                 id: index + 1,
-                dateGmt: post.date_gmt,
-                modifiedGmt: post.modified_gmt,
-                slug: post.slug,
-                status: post.status,
-                link: post.link,
-                titleRendered: post.title.rendered,
+                dateGmt: project.date_gmt,
+                modifiedGmt: project.modified_gmt,
+                slug: project.slug,
+                status: project.status,
+                link: project.link,
+                titleRendered: project.title.rendered,
                 featuredMedia: featuredImageUrl,
-                categories: getTaxonomyNamesByIds(post.categories, categories),
-                tags: getTaxonomyNamesByIds(post.tags, tags),
+                categories: [],
+                tags: [],
               }}
             />
           );
@@ -60,22 +47,32 @@ const ProjectsSectionContent: React.FC<{
 };
 
 const ProjectsSection: React.FC = async () => {
-  const posts = await fetchWpPosts();
-  const categories = await fetchWpAllCategories();
-  const tags = await fetchWpAllTags();
+  const projects = await fetchWpProjects();
 
-  if (!posts || !categories || !tags) {
-    return (
-      <div className="text-gray-400">
-        Unable to load projects. Please try again later.
-      </div>
-    );
+  if (!projects || projects.length === 0) {
+    return null;
   }
 
+  const sortedProjects = projects.sort((a, b) => {
+    const aStart = a.meta._portfolio_project_date_start || '';
+    const aEnd = a.meta._portfolio_project_date_end;
+    const bStart = b.meta._portfolio_project_date_start || '';
+    const bEnd = b.meta._portfolio_project_date_end;
+
+    if (!aEnd && bEnd) return -1;
+    if (aEnd && !bEnd) return 1;
+
+    if (!aEnd && !bEnd) {
+      return bStart.localeCompare(aStart);
+    }
+
+    return (bEnd || '').localeCompare(aEnd || '');
+  });
+
   const mediaIds = new Set<number>();
-  posts.forEach(post => {
-    if (post.featured_media) {
-      mediaIds.add(post.featured_media);
+  sortedProjects.forEach(project => {
+    if (project.featured_media) {
+      mediaIds.add(project.featured_media);
     }
   });
 
@@ -93,7 +90,7 @@ const ProjectsSection: React.FC = async () => {
 
   return (
     <Suspense fallback={<div className="text-gray-400">Loading projects...</div>}>
-      <ProjectsSectionContent posts={posts} categories={categories} tags={tags} mediaMap={mediaMap} />
+      <ProjectsSectionContent projects={sortedProjects} mediaMap={mediaMap} />
     </Suspense>
   );
 };

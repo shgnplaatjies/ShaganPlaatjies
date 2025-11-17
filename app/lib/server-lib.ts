@@ -33,7 +33,9 @@ type WpPostTypes =
   | "user_request"
   | "wp_block"
   | "acf-field"
-  | "acf-field-group";
+  | "acf-field-group"
+  | "project"
+  | "experience";
 
 export interface WpMediaVersion {
   file: string;
@@ -420,4 +422,155 @@ const fetchWpPostWithIdOrSlug = async (target: string | number) => {
 export const fetchWpPost = async (target: string | number) => {
   if (typeof target === "number") return fetchWpPostById(target);
   else return fetchWpPostWithIdOrSlug(target);
+};
+
+export interface ProjectMetaApiResponse {
+  _portfolio_project_subtext?: string;
+  _portfolio_project_role?: string;
+  _portfolio_project_company?: string;
+  _portfolio_project_source_url?: string;
+  _portfolio_project_gallery?: string;
+  _portfolio_project_date_type?: 'single' | 'range';
+  _portfolio_project_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_project_date_start?: string;
+  _portfolio_project_date_end?: string;
+}
+
+export interface ExperienceMetaApiResponse {
+  _portfolio_experience_role?: string;
+  _portfolio_experience_company?: string;
+  _portfolio_experience_company_url?: string;
+  _portfolio_experience_location?: string;
+  _portfolio_experience_gallery?: string;
+  _portfolio_experience_date_type?: 'single' | 'range';
+  _portfolio_experience_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_experience_date_start?: string;
+  _portfolio_experience_date_end?: string;
+  _portfolio_experience_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
+}
+
+export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
+  type: 'project';
+  meta: ProjectMetaApiResponse;
+}
+
+export interface WpExperienceApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
+  type: 'experience';
+  meta: ExperienceMetaApiResponse;
+}
+
+export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
+  try {
+    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
+    const res = await fetch(wpProjectsUri, {
+      next: { revalidate: STANDARD_CACHE_TTL },
+    });
+
+    if (!res.ok) return false;
+
+    return await res.json();
+  } catch (error) {
+    return false;
+  }
+};
+
+const fetchWpProjectById = async (
+  target: number
+): Promise<WpProjectApiResponse | false> => {
+  try {
+    const wpProjectUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects/${target}`;
+    const res = await fetch(wpProjectUri, {
+      next: { revalidate: STANDARD_CACHE_TTL },
+    });
+
+    if (!res.ok) return false;
+
+    return await res.json();
+  } catch (error) {
+    return false;
+  }
+};
+
+const fetchWpProjectWithIdOrSlug = async (target: string | number) => {
+  try {
+    const projects: WpProjectApiResponse[] | false = await fetchWpProjects();
+
+    if (!projects) return false;
+
+    const condition =
+      typeof target === "number"
+        ? (project: WpProjectApiResponse) => project.id === target
+        : (project: WpProjectApiResponse) => project.slug === target;
+
+    const project = projects.find(condition);
+
+    if (!project) return false;
+
+    return project;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const fetchWpProject = async (target: string | number) => {
+  if (typeof target === "number") return fetchWpProjectById(target);
+  else return fetchWpProjectWithIdOrSlug(target);
+};
+
+export const fetchWpExperience = async (): Promise<WpExperienceApiResponse[] | false> => {
+  try {
+    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/experience`;
+    const res = await fetch(wpExperienceUri, {
+      next: { revalidate: STANDARD_CACHE_TTL },
+    });
+
+    if (!res.ok) return false;
+
+    return await res.json();
+  } catch (error) {
+    return false;
+  }
+};
+
+const fetchWpExperienceById = async (
+  target: number
+): Promise<WpExperienceApiResponse | false> => {
+  try {
+    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/experience/${target}`;
+    const res = await fetch(wpExperienceUri, {
+      next: { revalidate: STANDARD_CACHE_TTL },
+    });
+
+    if (!res.ok) return false;
+
+    return await res.json();
+  } catch (error) {
+    return false;
+  }
+};
+
+const fetchWpExperienceWithIdOrSlug = async (target: string | number) => {
+  try {
+    const experiences: WpExperienceApiResponse[] | false = await fetchWpExperience();
+
+    if (!experiences) return false;
+
+    const condition =
+      typeof target === "number"
+        ? (experience: WpExperienceApiResponse) => experience.id === target
+        : (experience: WpExperienceApiResponse) => experience.slug === target;
+
+    const experience = experiences.find(condition);
+
+    if (!experience) return false;
+
+    return experience;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const fetchWpExperienceItem = async (target: string | number) => {
+  if (typeof target === "number") return fetchWpExperienceById(target);
+  else return fetchWpExperienceWithIdOrSlug(target);
 };

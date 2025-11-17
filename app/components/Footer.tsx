@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Section className="border-t border-gray-border-1 mt-16 pt-10">
+    <Section className="border-t border-gray-border mt-16 pt-10">
       <Flex direction="column" gap="6" align="center">
         <Flex align="center" gap="2">
           <Logo className="w-8 h-8" />

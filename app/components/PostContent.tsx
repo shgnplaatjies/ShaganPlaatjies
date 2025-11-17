@@ -40,7 +40,7 @@ const PostContent: React.FC<PostContentProps> = ({ html }) => {
     },
     em: { open: '<em class="italic opacity-90">', close: "</em>" },
     blockquote: {
-      open: '<blockquote class="border-l-4 border-cyan-500 pl-4 py-2 my-6 italic bg-cyan-50 dark:bg-cyan-950/20">',
+      open: '<blockquote class="border-l-4 border-cyan-solid pl-4 py-2 my-6 italic bg-cyan-bg dark:bg-cyan-text-contrast/20">',
       close: "</blockquote>",
     },
     ul: {
@@ -52,16 +52,16 @@ const PostContent: React.FC<PostContentProps> = ({ html }) => {
       close: "</ol>",
     },
     pre: {
-      open: '<pre class="bg-gray-900 dark:bg-gray-950 text-gray-100 p-4 rounded-sm overflow-x-auto border border-gray-800 my-6">',
+      open: '<pre class="bg-gray-text dark:bg-gray-text-contrast text-gray-bg p-4 rounded-sm overflow-x-auto border border-gray-border-active my-6">',
       close: "</pre>",
     },
     code: {
-      open: '<code class="text-cyan-300 font-mono text-sm">',
+      open: '<code class="text-cyan-solid font-mono text-sm">',
       close: "</code>",
     },
     figure: { open: '<figure class="my-8 text-center">', close: "</figure>" },
     figcaption: {
-      open: '<figcaption class="text-sm text-gray-600 dark:text-gray-400 mt-3 italic">',
+      open: '<figcaption class="text-sm text-gray-solid dark:text-gray-border-hover mt-3 italic">',
       close: "</figcaption>",
     },
     table: {
@@ -69,27 +69,27 @@ const PostContent: React.FC<PostContentProps> = ({ html }) => {
       close: "</table>",
     },
     thead: {
-      open: '<thead class="bg-gray-100 dark:bg-gray-800">',
+      open: '<thead class="bg-gray-bg-secondary dark:bg-gray-solid-hover">',
       close: "</thead>",
     },
     th: {
-      open: '<th class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left font-semibold">',
+      open: '<th class="border border-gray-border dark:border-gray-border-active px-4 py-2 text-left font-semibold">',
       close: "</th>",
     },
     td: {
-      open: '<td class="border border-gray-300 dark:border-gray-700 px-4 py-2">',
+      open: '<td class="border border-gray-border dark:border-gray-border-active px-4 py-2">',
       close: "</td>",
     },
     img: {
       class:
-        "max-w-full h-auto rounded-sm shadow-sm border border-gray-200 dark:border-gray-800",
+        "max-w-full h-auto rounded-sm shadow-sm border border-gray-border-subtle dark:border-gray-solid-hover",
     },
     a: {
       class:
-        "text-cyan-600 dark:text-cyan-400 underline hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors",
+        "text-cyan-text dark:text-cyan-solid underline hover:text-cyan-text-contrast dark:hover:text-cyan-solid-hover transition-colors",
     },
     hr: {
-      self: '<hr class="my-8 border-t border-gray-300 dark:border-gray-700" />',
+      self: '<hr class="my-8 border-t border-gray-border dark:border-gray-border-active" />',
     },
   };
 

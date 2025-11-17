@@ -36,13 +36,13 @@ const BlogCard: React.FC<BlogCardProps> = ({
 
   return (
     <Link href={`/posts/${slug}`}>
-      <Box className="group cursor-pointer pb-8 border-b border-gray-5 hover:border-gray-6 transition-all duration-200">
+      <Box className="group cursor-pointer pb-8 border-b border-gray-border hover:border-gray-border-hover transition-all duration-200">
         <Flex justify="between" align="start" gap="4" className="mb-4">
           <Box className="flex-1">
-            <Heading as="h3" size="5" className="text-gray-12 group-hover:text-gray-11 transition-colors">
+            <Heading as="h3" size="5" className="text-gray-text-contrast group-hover:text-gray-text transition-colors">
               {title}
             </Heading>
-            <Text size="1" className="text-gray-9">
+            <Text size="1" className="text-gray-solid">
               {formatDate(date)}
             </Text>
           </Box>
@@ -58,7 +58,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
           </Box>
         </Flex>
 
-        <Text as="p" className="text-gray-10 text-sm mb-4 line-clamp-2">
+        <Text as="p" className="text-gray-solid-hover text-sm mb-4 line-clamp-2">
           {stripHtml(excerpt)}
         </Text>
 
