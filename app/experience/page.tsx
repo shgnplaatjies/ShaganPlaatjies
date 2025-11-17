@@ -1,14 +1,11 @@
-import { Footer } from "../components/Footer";
-import ProjectsSection from "../sections/ProjectsSection";
 import LandingSection from "./sections/LandingSection";
+import ExperienceSection from "../sections/ExperienceSection";
 
 const ExperiencePage: React.FC = () => {
   return (
     <>
       <LandingSection />
-      <ProjectsSection />
-
-      <Footer />
+      <ExperienceSection />
     </>
   );
 };
