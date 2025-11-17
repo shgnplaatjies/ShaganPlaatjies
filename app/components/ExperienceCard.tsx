@@ -72,12 +72,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           )}
           {location && (
             <Text size="1" className="text-gray-solid-hover">
-              📍 {location}
+              {location}
             </Text>
           )}
           {dateRange && (
             <Text size="1" className="text-gray-solid-hover">
-              📅 {dateRange}
+              {dateRange}
             </Text>
           )}
         </Flex>
