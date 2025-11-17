@@ -44,9 +44,25 @@ const ExperienceSection: React.FC = async () => {
     return null;
   }
 
+  const sortedExperiences = experiences.sort((a, b) => {
+    const aStart = a.meta._portfolio_experience_date_start || '';
+    const aEnd = a.meta._portfolio_experience_date_end;
+    const bStart = b.meta._portfolio_experience_date_start || '';
+    const bEnd = b.meta._portfolio_experience_date_end;
+
+    if (!aEnd && bEnd) return -1;
+    if (aEnd && !bEnd) return 1;
+
+    if (!aEnd && !bEnd) {
+      return bStart.localeCompare(aStart);
+    }
+
+    return (bEnd || '').localeCompare(aEnd || '');
+  });
+
   return (
     <Suspense fallback={<div className="text-gray-border">Loading experience...</div>}>
-      <ExperienceSectionContent experiences={experiences} />
+      <ExperienceSectionContent experiences={sortedExperiences} />
     </Suspense>
   );
 };

@@ -424,13 +424,39 @@ export const fetchWpPost = async (target: string | number) => {
   else return fetchWpPostWithIdOrSlug(target);
 };
 
-export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type'> {
+export interface ProjectMetaApiResponse {
+  _portfolio_project_subtext?: string;
+  _portfolio_project_role?: string;
+  _portfolio_project_company?: string;
+  _portfolio_project_source_url?: string;
+  _portfolio_project_gallery?: string;
+  _portfolio_project_date_type?: 'single' | 'range';
+  _portfolio_project_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_project_date_start?: string;
+  _portfolio_project_date_end?: string;
+}
+
+export interface ExperienceMetaApiResponse {
+  _portfolio_experience_role?: string;
+  _portfolio_experience_company?: string;
+  _portfolio_experience_company_url?: string;
+  _portfolio_experience_location?: string;
+  _portfolio_experience_gallery?: string;
+  _portfolio_experience_date_type?: 'single' | 'range';
+  _portfolio_experience_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_experience_date_start?: string;
+  _portfolio_experience_date_end?: string;
+  _portfolio_experience_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
+}
+
+export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
   type: 'project';
+  meta: ProjectMetaApiResponse;
 }
 
 export interface WpExperienceApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
   type: 'experience';
-  meta: Record<string, any>;
+  meta: ExperienceMetaApiResponse;
 }
 
 export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
