@@ -64,11 +64,7 @@ const BlogSection: React.FC = async () => {
   const tags = await fetchWpAllTags();
 
   if (!posts || !categories || !tags) {
-    return (
-      <Box className="text-gray-400">
-        <Text>Unable to load blog posts. Please try again later.</Text>
-      </Box>
-    );
+    return null;
   }
 
   const mediaIds = new Set<number>();
