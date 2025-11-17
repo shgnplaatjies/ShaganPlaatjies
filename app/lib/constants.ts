@@ -22,6 +22,7 @@ export const NAV_LINKS = {
   home: { href: "/", label: "Home" },
   about: { href: "/about", label: "About" },
   experience: { href: "/experience", label: "Experience" },
+  projects: { href: "/projects", label: "Projects" },
   experiments: { href: "/experiments", label: "Experiments" },
   posts: { href: "/posts", label: "Blog" },
   contact: { href: "/contact", label: "Contact" },
@@ -45,8 +46,13 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
     color: "fill-radix-base-tomato",
     radixColor: "tomato",
   },
-  projects: {
+  experience: {
     path: "/experience",
+    color: "fill-radix-base-cyan",
+    radixColor: "cyan",
+  },
+  projects: {
+    path: "/projects",
     color: "fill-radix-base-cyan",
     radixColor: "cyan",
   },
