@@ -36,12 +36,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const dateFormat = meta._portfolio_experience_date_format || 'mm/yyyy';
 
   const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
+  const titleText = typeof title === 'string' ? title : title.rendered;
 
   return (
     <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200">
       <Flex direction="column" gap="2" mb="3">
         <Heading as="h3" size="5" className="text-gray-text-contrast">
-          {role || title}
+          {role || titleText}
         </Heading>
 
         {company && (

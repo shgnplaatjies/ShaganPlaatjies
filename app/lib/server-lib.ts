@@ -33,7 +33,9 @@ type WpPostTypes =
   | "user_request"
   | "wp_block"
   | "acf-field"
-  | "acf-field-group";
+  | "acf-field-group"
+  | "project"
+  | "experience";
 
 export interface WpMediaVersion {
   file: string;
@@ -422,12 +424,13 @@ export const fetchWpPost = async (target: string | number) => {
   else return fetchWpPostWithIdOrSlug(target);
 };
 
-export interface WpProjectApiResponse extends WpPostApiResponse {
+export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type'> {
   type: 'project';
 }
 
-export interface WpExperienceApiResponse extends WpPostApiResponse {
+export interface WpExperienceApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
   type: 'experience';
+  meta: Record<string, any>;
 }
 
 export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
