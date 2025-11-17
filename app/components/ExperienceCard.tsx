@@ -6,15 +6,35 @@ import { WordPressExperience } from '@/app/lib/wordpress-types';
 
 interface ExperienceCardProps extends WordPressExperience {}
 
+const formatDate = (dateString: string, format: string): string => {
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const day = String(date.getDate()).padStart(2, '0');
+
+  switch (format) {
+    case 'yyyy':
+      return `${year}`;
+    case 'mm/yyyy':
+      return `${month}/${year}`;
+    case 'dd/mm/yyyy':
+      return `${day}/${month}/${year}`;
+    default:
+      return `${month}/${year}`;
+  }
+};
+
 const formatDateRange = (
   startDate: string,
   endDate: string | undefined,
   dateFormat: string
 ): string => {
+  const formattedStart = formatDate(startDate, dateFormat);
   if (endDate) {
-    return `${startDate} - ${endDate}`;
+    const formattedEnd = formatDate(endDate, dateFormat);
+    return `${formattedStart} - ${formattedEnd}`;
   }
-  return `${startDate} - Present`;
+  return `${formattedStart} - Present`;
 };
 
 const stripHtml = (html: string) => {
