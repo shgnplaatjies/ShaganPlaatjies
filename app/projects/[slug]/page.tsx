@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 href={sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-cyan-solid hover:text-cyan-solid-hover transition-colors"
+                className="inline-flex items-center text-cyan-solid hover:text-gray-solid-hover transition-colors"
               >
                 View Project →
               </Link>
@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <Box className="mt-12 pt-8 border-t border-gray-border">
             <Link
               href="/#projects"
-              className="inline-flex items-center text-gray-solid-hover hover:text-gray-text-contrast transition-colors"
+              className="inline-flex items-center text-cyan-solid hover:text-gray-solid-hover transition-colors"
             >
               <span className="mr-2">←</span>
               Back to all projects

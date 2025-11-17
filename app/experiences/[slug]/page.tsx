@@ -16,14 +16,35 @@ interface ExperiencePageProps {
   }>;
 }
 
+const formatDate = (dateString: string, format: string = 'mm/yyyy'): string => {
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const day = String(date.getDate()).padStart(2, '0');
+
+  switch (format) {
+    case 'yyyy':
+      return `${year}`;
+    case 'mm/yyyy':
+      return `${month}/${year}`;
+    case 'dd/mm/yyyy':
+      return `${day}/${month}/${year}`;
+    default:
+      return `${month}/${year}`;
+  }
+};
+
 const formatDateRange = (
   startDate: string,
-  endDate: string | undefined
+  endDate: string | undefined,
+  dateFormat: string = 'mm/yyyy'
 ): string => {
+  const formattedStart = formatDate(startDate, dateFormat);
   if (endDate) {
-    return `${startDate} - ${endDate}`;
+    const formattedEnd = formatDate(endDate, dateFormat);
+    return `${formattedStart} - ${formattedEnd}`;
   }
-  return `${startDate} - Present`;
+  return `${formattedStart} - Present`;
 };
 
 export default async function ExperiencePage({
@@ -47,8 +68,9 @@ export default async function ExperiencePage({
   const employmentType = experience.meta._portfolio_experience_employment_type;
   const dateStart = experience.meta._portfolio_experience_date_start;
   const dateEnd = experience.meta._portfolio_experience_date_end;
+  const dateFormat = experience.meta._portfolio_experience_date_format || 'mm/yyyy';
 
-  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd) : "";
+  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : "";
 
   return (
     <>
@@ -115,7 +137,7 @@ export default async function ExperiencePage({
           <Box className="mt-12 pt-8 border-t border-gray-border">
             <Link
               href="/#experience"
-              className="inline-flex items-center text-gray-solid-hover hover:text-gray-text-contrast transition-colors"
+              className="inline-flex items-center text-cyan-solid hover:text-gray-solid-hover transition-colors"
             >
               <span className="mr-2">←</span>
               Back to all experience
