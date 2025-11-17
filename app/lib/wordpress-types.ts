@@ -58,7 +58,7 @@ export interface WordPressPost {
 
 export interface ProjectMeta {
   _portfolio_project_subtext?: string;
-  _portfolio_project_description?: string;
+  _portfolio_project_role?: string;
   _portfolio_project_company?: string;
   _portfolio_project_source_url?: string;
   _portfolio_project_gallery?: string;
