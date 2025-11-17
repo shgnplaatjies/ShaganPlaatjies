@@ -40,12 +40,8 @@ const ExperienceSectionContent: React.FC<{
 const ExperienceSection: React.FC = async () => {
   const experiences = await fetchWpExperience();
 
-  if (!experiences) {
-    return (
-      <div className="text-gray-border">
-        Unable to load experience data. Please try again later.
-      </div>
-    );
+  if (!experiences || experiences.length === 0) {
+    return null;
   }
 
   return (

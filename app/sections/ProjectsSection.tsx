@@ -65,11 +65,7 @@ const ProjectsSection: React.FC = async () => {
   const tags = await fetchWpAllTags();
 
   if (!posts || !categories || !tags) {
-    return (
-      <div className="text-gray-400">
-        Unable to load projects. Please try again later.
-      </div>
-    );
+    return null;
   }
 
   const mediaIds = new Set<number>();
