@@ -93,7 +93,6 @@ export interface ExperienceMeta {
   _portfolio_experience_company?: string;
   _portfolio_experience_company_url?: string;
   _portfolio_experience_location?: string;
-  _portfolio_experience_description?: string;
   _portfolio_experience_gallery?: string;
   _portfolio_experience_date_type?: 'single' | 'range';
   _portfolio_experience_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
