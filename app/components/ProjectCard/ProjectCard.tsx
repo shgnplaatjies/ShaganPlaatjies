@@ -176,7 +176,7 @@ const ProjectCard: React.FC<{
         px="3"
         className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300"
       >
-        <Link href={`/posts/${slug}`} className="group">
+        <Link href={`/projects/${slug}`} className="group">
           <div className="block sm:hidden">
             <ProjectSmallScreen {...projectProps} />
           </div>
