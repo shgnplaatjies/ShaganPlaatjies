@@ -54,10 +54,10 @@ const ExperienceSection: React.FC = async () => {
     if (aEnd && !bEnd) return 1;
 
     if (!aEnd && !bEnd) {
-      return bStart.localeCompare(aStart);
+      return aStart.localeCompare(bStart);
     }
 
-    return (bEnd || '').localeCompare(aEnd || '');
+    return (aEnd || '').localeCompare(bEnd || '');
   });
 
   return (

@@ -1,5 +1,5 @@
 import "server-only";
-import { STANDARD_CACHE_TTL } from "./constants";
+import { STANDARD_CACHE_TTL, WORDPRESS_CATEGORIES } from "./constants";
 
 type WpMimeType =
   | "image/jpeg"
@@ -461,7 +461,7 @@ export interface WpExperienceApiResponse extends Omit<WpPostApiResponse, 'type' 
 
 export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
   try {
-    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
+    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.PROJECT.id}`;
     const res = await fetch(wpProjectsUri, {
       next: { revalidate: STANDARD_CACHE_TTL },
     });
@@ -519,7 +519,7 @@ export const fetchWpProject = async (target: string | number) => {
 
 export const fetchWpExperience = async (): Promise<WpExperienceApiResponse[] | false> => {
   try {
-    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/experience`;
+    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id}`;
     const res = await fetch(wpExperienceUri, {
       next: { revalidate: STANDARD_CACHE_TTL },
     });
@@ -536,7 +536,7 @@ const fetchWpExperienceById = async (
   target: number
 ): Promise<WpExperienceApiResponse | false> => {
   try {
-    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/experience/${target}`;
+    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects/${target}`;
     const res = await fetch(wpExperienceUri, {
       next: { revalidate: STANDARD_CACHE_TTL },
     });

@@ -85,6 +85,8 @@ export interface WordPressProject {
     rendered: string;
   };
   featured_media: number;
+  categories: number[];
+  tags: number[];
   meta: ProjectMeta;
 }
 
@@ -118,5 +120,7 @@ export interface WordPressExperience {
     rendered: string;
   };
   featured_media: number;
+  categories: number[];
+  tags: number[];
   meta: ExperienceMeta;
 }
