@@ -62,13 +62,13 @@ export default async function ExperiencePage({
     ? await fetchWpMediaById(experience.featured_media)
     : null;
 
-  const role = experience.meta._portfolio_experience_role;
-  const company = experience.meta._portfolio_experience_company;
-  const location = experience.meta._portfolio_experience_location;
-  const employmentType = experience.meta._portfolio_experience_employment_type;
-  const dateStart = experience.meta._portfolio_experience_date_start;
-  const dateEnd = experience.meta._portfolio_experience_date_end;
-  const dateFormat = experience.meta._portfolio_experience_date_format || 'mm/yyyy';
+  const role = experience.meta._portfolio_role;
+  const company = experience.meta._portfolio_company;
+  const location = experience.meta._portfolio_location;
+  const employmentType = experience.meta._portfolio_employment_type;
+  const dateStart = experience.meta._portfolio_date_start;
+  const dateEnd = experience.meta._portfolio_date_end;
+  const dateFormat = experience.meta._portfolio_date_format || 'mm/yyyy';
 
   const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : "";
 

@@ -26,9 +26,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     ? await fetchWpMediaById(project.featured_media)
     : null;
 
-  const role = project.meta._portfolio_project_role;
-  const company = project.meta._portfolio_project_company;
-  const sourceUrl = project.meta._portfolio_project_source_url;
+  const role = project.meta._portfolio_role;
+  const company = project.meta._portfolio_company;
+  const sourceUrl = project.meta._portfolio_source_url;
 
   const publishedDate = new Date(project.date_gmt).toLocaleDateString("en-US", {
     year: "numeric",

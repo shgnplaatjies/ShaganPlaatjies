@@ -57,15 +57,18 @@ export interface WordPressPost {
 }
 
 export interface ProjectMeta {
-  _portfolio_project_subtext?: string;
-  _portfolio_project_role?: string;
-  _portfolio_project_company?: string;
-  _portfolio_project_source_url?: string;
-  _portfolio_project_gallery?: string;
-  _portfolio_project_date_type?: 'single' | 'range';
-  _portfolio_project_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
-  _portfolio_project_date_start?: string;
-  _portfolio_project_date_end?: string;
+  _portfolio_subtext?: string;
+  _portfolio_role?: string;
+  _portfolio_company?: string;
+  _portfolio_company_url?: string;
+  _portfolio_location?: string;
+  _portfolio_source_url?: string;
+  _portfolio_gallery?: string;
+  _portfolio_date_type?: 'single' | 'range';
+  _portfolio_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_date_start?: string;
+  _portfolio_date_end?: string;
+  _portfolio_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
 }
 
 export interface WordPressProject {
@@ -90,37 +93,4 @@ export interface WordPressProject {
   meta: ProjectMeta;
 }
 
-export interface ExperienceMeta {
-  _portfolio_experience_role?: string;
-  _portfolio_experience_company?: string;
-  _portfolio_experience_company_url?: string;
-  _portfolio_experience_location?: string;
-  _portfolio_experience_gallery?: string;
-  _portfolio_experience_date_type?: 'single' | 'range';
-  _portfolio_experience_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
-  _portfolio_experience_date_start?: string;
-  _portfolio_experience_date_end?: string;
-  _portfolio_experience_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
-}
-
-export interface WordPressExperience {
-  id: number;
-  date_gmt: string;
-  modified_gmt: string;
-  slug: string;
-  status: string;
-  link: string;
-  title: {
-    rendered: string;
-  };
-  content: {
-    rendered: string;
-  };
-  excerpt: {
-    rendered: string;
-  };
-  featured_media: number;
-  categories: number[];
-  tags: number[];
-  meta: ExperienceMeta;
-}
+export type WordPressExperience = WordPressProject;

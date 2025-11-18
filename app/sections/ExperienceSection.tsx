@@ -45,10 +45,10 @@ const ExperienceSection: React.FC = async () => {
   }
 
   const sortedExperiences = experiences.sort((a, b) => {
-    const aStart = a.meta._portfolio_experience_date_start || '';
-    const aEnd = a.meta._portfolio_experience_date_end;
-    const bStart = b.meta._portfolio_experience_date_start || '';
-    const bEnd = b.meta._portfolio_experience_date_end;
+    const aStart = a.meta._portfolio_date_start || '';
+    const aEnd = a.meta._portfolio_date_end;
+    const bStart = b.meta._portfolio_date_start || '';
+    const bEnd = b.meta._portfolio_date_end;
 
     if (!aEnd && bEnd) return -1;
     if (aEnd && !bEnd) return 1;
