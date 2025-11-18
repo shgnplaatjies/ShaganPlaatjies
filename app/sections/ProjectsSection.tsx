@@ -63,10 +63,10 @@ const ProjectsSection: React.FC = async () => {
     if (aEnd && !bEnd) return 1;
 
     if (!aEnd && !bEnd) {
-      return bStart.localeCompare(aStart);
+      return aStart.localeCompare(bStart);
     }
 
-    return (bEnd || '').localeCompare(aEnd || '');
+    return (aEnd || '').localeCompare(bEnd || '');
   });
 
   const mediaIds = new Set<number>();

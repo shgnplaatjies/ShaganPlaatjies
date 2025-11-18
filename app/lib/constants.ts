@@ -73,6 +73,13 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
   },
 };
 
+export const WORDPRESS_CATEGORIES = {
+  BLOG_POST: { id: 37, name: 'Blog Post', slug: 'blog-post' },
+  PROJECT: { id: 38, name: 'Project', slug: 'project' },
+  WORK_EXPERIENCE: { id: 41, name: 'Work Experience', slug: 'work-experience' },
+  UNCATEGORIZED: { id: 1, name: 'Uncategorized', slug: 'uncategorized' },
+};
+
 export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time
 
 export type RADIX_HEADING_TYPES = "h1" | "h2" | "h3" | "h4";
