@@ -425,38 +425,23 @@ export const fetchWpPost = async (target: string | number) => {
 };
 
 export interface ProjectMetaApiResponse {
-  _portfolio_project_subtext?: string;
-  _portfolio_project_role?: string;
-  _portfolio_project_company?: string;
-  _portfolio_project_source_url?: string;
-  _portfolio_project_gallery?: string;
-  _portfolio_project_date_type?: 'single' | 'range';
-  _portfolio_project_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
-  _portfolio_project_date_start?: string;
-  _portfolio_project_date_end?: string;
-}
-
-export interface ExperienceMetaApiResponse {
-  _portfolio_experience_role?: string;
-  _portfolio_experience_company?: string;
-  _portfolio_experience_company_url?: string;
-  _portfolio_experience_location?: string;
-  _portfolio_experience_gallery?: string;
-  _portfolio_experience_date_type?: 'single' | 'range';
-  _portfolio_experience_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
-  _portfolio_experience_date_start?: string;
-  _portfolio_experience_date_end?: string;
-  _portfolio_experience_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
+  _portfolio_subtext?: string;
+  _portfolio_role?: string;
+  _portfolio_company?: string;
+  _portfolio_company_url?: string;
+  _portfolio_location?: string;
+  _portfolio_source_url?: string;
+  _portfolio_gallery?: string;
+  _portfolio_date_type?: 'single' | 'range';
+  _portfolio_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
+  _portfolio_date_start?: string;
+  _portfolio_date_end?: string;
+  _portfolio_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
 }
 
 export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
   type: 'project';
   meta: ProjectMetaApiResponse;
-}
-
-export interface WpExperienceApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
-  type: 'experience';
-  meta: ExperienceMetaApiResponse;
 }
 
 export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
@@ -517,7 +502,7 @@ export const fetchWpProject = async (target: string | number) => {
   else return fetchWpProjectWithIdOrSlug(target);
 };
 
-export const fetchWpExperience = async (): Promise<WpExperienceApiResponse[] | false> => {
+export const fetchWpExperience = async (): Promise<WpProjectApiResponse[] | false> => {
   try {
     const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id}`;
     const res = await fetch(wpExperienceUri, {
@@ -532,33 +517,16 @@ export const fetchWpExperience = async (): Promise<WpExperienceApiResponse[] | f
   }
 };
 
-const fetchWpExperienceById = async (
-  target: number
-): Promise<WpExperienceApiResponse | false> => {
+export const fetchWpExperienceItem = async (target: string | number): Promise<WpProjectApiResponse | false> => {
   try {
-    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects/${target}`;
-    const res = await fetch(wpExperienceUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
-
-    if (!res.ok) return false;
-
-    return await res.json();
-  } catch (error) {
-    return false;
-  }
-};
-
-const fetchWpExperienceWithIdOrSlug = async (target: string | number) => {
-  try {
-    const experiences: WpExperienceApiResponse[] | false = await fetchWpExperience();
+    const experiences = await fetchWpExperience();
 
     if (!experiences) return false;
 
     const condition =
       typeof target === "number"
-        ? (experience: WpExperienceApiResponse) => experience.id === target
-        : (experience: WpExperienceApiResponse) => experience.slug === target;
+        ? (experience: WpProjectApiResponse) => experience.id === target
+        : (experience: WpProjectApiResponse) => experience.slug === target;
 
     const experience = experiences.find(condition);
 
@@ -568,9 +536,4 @@ const fetchWpExperienceWithIdOrSlug = async (target: string | number) => {
   } catch (error) {
     return false;
   }
-};
-
-export const fetchWpExperienceItem = async (target: string | number) => {
-  if (typeof target === "number") return fetchWpExperienceById(target);
-  else return fetchWpExperienceWithIdOrSlug(target);
 };

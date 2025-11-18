@@ -48,17 +48,19 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   featured_media,
   slug,
 }) => {
-  const role = meta._portfolio_experience_role;
-  const company = meta._portfolio_experience_company;
-  const companyUrl = meta._portfolio_experience_company_url;
-  const location = meta._portfolio_experience_location;
-  const employmentType = meta._portfolio_experience_employment_type;
-  const dateStart = meta._portfolio_experience_date_start;
-  const dateEnd = meta._portfolio_experience_date_end;
-  const dateFormat = meta._portfolio_experience_date_format || 'mm/yyyy';
+  const role = meta._portfolio_role;
+  const company = meta._portfolio_company;
+  const companyUrl = meta._portfolio_company_url;
+  const location = meta._portfolio_location;
+  const employmentType = meta._portfolio_employment_type;
+  const dateStart = meta._portfolio_date_start;
+  const dateEnd = meta._portfolio_date_end;
+  const dateFormat = meta._portfolio_date_format || 'mm/yyyy';
+  const gallery = meta._portfolio_gallery;
 
   const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
   const titleText = typeof title === 'string' ? title : title.rendered;
+  const galleryIds = gallery ? gallery.split(',').map(id => id.trim()) : [];
 
   return (
     <NextLink href={`/experiences/${slug}`}>
@@ -116,6 +118,18 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           <Text as="p" size="2" className="text-gray-solid-hover mb-3">
             {stripHtml(content.rendered).substring(0, 300)}...
           </Text>
+        )}
+
+        {galleryIds.length > 0 && (
+          <Flex gap="2" wrap="wrap" className="mt-4 pt-4 border-t border-gray-border">
+            {galleryIds.map((id) => (
+              <div
+                key={id}
+                className="flex-shrink-0 w-16 h-16 bg-gray-border rounded overflow-hidden"
+                title={`Gallery item ${id}`}
+              />
+            ))}
+          </Flex>
         )}
       </Box>
     </NextLink>
