@@ -1,24 +1,6 @@
 import "server-only";
 import { STANDARD_CACHE_TTL, WORDPRESS_CATEGORIES } from "./constants";
-import { ProjectMeta, WordPressRawMeta } from "./wordpress-types";
-
-function normalizeMeta(rawMeta: WordPressRawMeta | Record<string, unknown>, postType: 'project' | 'experience'): ProjectMeta {
-  if (!rawMeta || typeof rawMeta !== 'object') {
-    return {};
-  }
-
-  const prefix = `_portfolio_${postType}_`;
-  const normalized: ProjectMeta = {};
-
-  for (const [key, value] of Object.entries(rawMeta)) {
-    if (key.startsWith(prefix)) {
-      const normalizedKey = key.replace(prefix, '_portfolio_') as keyof ProjectMeta;
-      (normalized as Record<string, unknown>)[normalizedKey] = value;
-    }
-  }
-
-  return normalized;
-}
+import { ProjectMeta } from "./wordpress-types";
 
 type WpMimeType =
   | "image/jpeg"
@@ -444,31 +426,34 @@ export const fetchWpPost = async (target: string | number) => {
 };
 
 export interface ProjectMetaApiResponse {
-  _portfolio_subtext?: string;
-  _portfolio_role?: string;
-  _portfolio_company?: string;
-  _portfolio_company_url?: string;
-  _portfolio_location?: string;
-  _portfolio_source_url?: string;
-  _portfolio_gallery?: string;
-  _portfolio_date_type?: 'single' | 'range';
-  _portfolio_date_format?: 'yyyy' | 'mm/yyyy' | 'dd/mm/yyyy';
-  _portfolio_date_start?: string;
-  _portfolio_date_end?: string;
-  _portfolio_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
+  _project_subtext?: string;
+  _project_role?: string;
+  _project_company?: string;
+  _project_company_url?: string;
+  _project_location?: string;
+  _project_source_url?: string;
+  _project_gallery?: string;
+  _project_date_type?: "single" | "range";
+  _project_date_format?: "yyyy" | "mm/yyyy" | "dd/mm/yyyy";
+  _project_date_start?: string;
+  _project_date_end?: string;
+  _project_employment_type?:
+    | "full-time"
+    | "part-time"
+    | "contract"
+    | "freelance"
+    | "internship";
 }
 
-export interface WpProjectApiRawResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
-  type: 'project';
-  meta: WordPressRawMeta;
-}
-
-export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
-  type: 'project';
+export interface WpProjectApiResponse
+  extends Omit<WpPostApiResponse, "type" | "meta"> {
+  type: "project";
   meta: ProjectMeta;
 }
 
-export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
+export const fetchWpProjects = async (): Promise<
+  WpProjectApiResponse[] | false
+> => {
   try {
     const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.PROJECT.id}`;
     const res = await fetch(wpProjectsUri, {
@@ -477,13 +462,7 @@ export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false>
 
     if (!res.ok) return false;
 
-    const rawData = await res.json() as WpProjectApiRawResponse[];
-    const normalizedData = rawData.map(project => ({
-      ...project,
-      meta: normalizeMeta(project.meta, 'project')
-    }));
-
-    return normalizedData;
+    return await res.json();
   } catch (error) {
     return false;
   }
@@ -500,11 +479,7 @@ const fetchWpProjectById = async (
 
     if (!res.ok) return false;
 
-    const rawData = await res.json() as WpProjectApiRawResponse;
-    return {
-      ...rawData,
-      meta: normalizeMeta(rawData.meta, 'project')
-    };
+    return await res.json();
   } catch (error) {
     return false;
   }
@@ -536,7 +511,9 @@ export const fetchWpProject = async (target: string | number) => {
   else return fetchWpProjectWithIdOrSlug(target);
 };
 
-export const fetchWpExperience = async (): Promise<WpProjectApiResponse[] | false> => {
+export const fetchWpExperience = async (): Promise<
+  WpProjectApiResponse[] | false
+> => {
   try {
     const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id}`;
     const res = await fetch(wpExperienceUri, {
@@ -545,19 +522,15 @@ export const fetchWpExperience = async (): Promise<WpProjectApiResponse[] | fals
 
     if (!res.ok) return false;
 
-    const rawData = await res.json() as WpProjectApiRawResponse[];
-    const normalizedData = rawData.map(experience => ({
-      ...experience,
-      meta: normalizeMeta(experience.meta, 'experience')
-    }));
-
-    return normalizedData;
+    return await res.json();
   } catch (error) {
     return false;
   }
 };
 
-export const fetchWpExperienceItem = async (target: string | number): Promise<WpProjectApiResponse | false> => {
+export const fetchWpExperienceItem = async (
+  target: string | number
+): Promise<WpProjectApiResponse | false> => {
   try {
     const experiences = await fetchWpExperience();
 

@@ -58,29 +58,6 @@ export interface WordPressPost {
 }
 
 export interface ProjectMeta {
-  _portfolio_subtext?: string;
-  _portfolio_role?: string;
-  _portfolio_company?: string;
-  _portfolio_company_url?: string;
-  _portfolio_location?: string;
-  _portfolio_source_url?: string;
-  _portfolio_gallery?: string;
-  _portfolio_date_type?: "single" | "range";
-  _portfolio_date_format?: "yyyy" | "mm/yyyy" | "dd/mm/yyyy";
-  _portfolio_date_start?: string;
-  _portfolio_date_end?: string;
-  _portfolio_employment_type?:
-    | "full-time"
-    | "part-time"
-    | "contract"
-    | "freelance"
-    | "internship";
-}
-
-export interface WordPressRawMeta {
-  [key: string]: unknown;
-  _acf_changed?: boolean;
-  footnotes?: string;
   _project_subtext?: string;
   _project_role?: string;
   _project_company?: string;
@@ -98,23 +75,12 @@ export interface WordPressRawMeta {
     | "contract"
     | "freelance"
     | "internship";
-  _portfolio_experience_subtext?: string;
-  _portfolio_experience_role?: string;
-  _portfolio_experience_company?: string;
-  _portfolio_experience_company_url?: string;
-  _portfolio_experience_location?: string;
-  _portfolio_experience_source_url?: string;
-  _portfolio_experience_gallery?: string;
-  _portfolio_experience_date_type?: "single" | "range";
-  _portfolio_experience_date_format?: "yyyy" | "mm/yyyy" | "dd/mm/yyyy";
-  _portfolio_experience_date_start?: string;
-  _portfolio_experience_date_end?: string;
-  _portfolio_experience_employment_type?:
-    | "full-time"
-    | "part-time"
-    | "contract"
-    | "freelance"
-    | "internship";
+}
+
+export interface WordPressRawMeta extends ProjectMeta {
+  [key: string]: unknown;
+  _acf_changed?: boolean;
+  footnotes?: string;
 }
 
 export interface WordPressProject {

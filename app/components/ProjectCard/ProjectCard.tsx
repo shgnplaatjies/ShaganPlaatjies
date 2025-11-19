@@ -33,10 +33,7 @@ const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
 const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
   <Flex wrap="wrap" gap="2">
     {labels.map((label) => (
-      <Badge
-        key={label}
-        className="text-xs"
-      >
+      <Badge key={label} className="text-xs">
         {label}
       </Badge>
     ))}
@@ -45,16 +42,16 @@ const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
 
 const formatDate = (dateString: string, format: string): string => {
   const date = new Date(dateString);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  const day = String(date.getDate()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
 
   switch (format) {
-    case 'yyyy':
+    case "yyyy":
       return `${year}`;
-    case 'mm/yyyy':
+    case "mm/yyyy":
       return `${month}/${year}`;
-    case 'dd/mm/yyyy':
+    case "dd/mm/yyyy":
       return `${day}/${month}/${year}`;
     default:
       return `${month}/${year}`;
@@ -157,7 +154,11 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
   title,
 }) => (
   <>
-    <Flex gapX={"3"} justify={"between"} className="py-10 min-w-full items-start">
+    <Flex
+      gapX={"3"}
+      justify={"between"}
+      className="py-10 min-w-full items-start"
+    >
       <Box className="ml-6 pt-1 flex-shrink-0">
         <ProjectId id={id} />
       </Box>
@@ -183,16 +184,19 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
 const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
   if (!meta) return null;
 
-  const role = meta._portfolio_role;
-  const company = meta._portfolio_company;
-  const location = meta._portfolio_location;
-  const employmentType = meta._portfolio_employment_type;
-  const dateStart = meta._portfolio_date_start;
-  const dateEnd = meta._portfolio_date_end;
-  const dateFormat = meta._portfolio_date_format || 'mm/yyyy';
+  const role = meta._project_role;
+  const company = meta._project_company;
+  const location = meta._project_location;
+  const employmentType = meta._project_employment_type;
+  const dateStart = meta._project_date_start;
+  const dateEnd = meta._project_date_end;
+  const dateFormat = meta._project_date_format || "mm/yyyy";
 
-  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
-  const hasMetaInfo = role || company || location || employmentType || dateRange;
+  const dateRange = dateStart
+    ? formatDateRange(dateStart, dateEnd, dateFormat)
+    : "";
+  const hasMetaInfo =
+    role || company || location || employmentType || dateRange;
 
   if (!hasMetaInfo) return null;
 
@@ -211,7 +215,7 @@ const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
       <Flex align="center" gap="3" wrap="wrap" className="text-xs">
         {employmentType && (
           <Text size="1" className="text-gray-solid-hover capitalize">
-            {employmentType.replace('-', ' ')}
+            {employmentType.replace("-", " ")}
           </Text>
         )}
         {location && (
