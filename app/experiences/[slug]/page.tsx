@@ -73,7 +73,7 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
     : "";
 
   return (
-    <>
+    <div className="w-full h-full overflow-y-auto">
       {featuredMedia && "source_url" in featuredMedia && (
         <Box className="relative w-full h-[32rem] overflow-hidden bg-gray-900">
           <Image
@@ -145,6 +145,6 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
           </Box>
         </Box>
       </Section>
-    </>
+    </div>
   );
 }

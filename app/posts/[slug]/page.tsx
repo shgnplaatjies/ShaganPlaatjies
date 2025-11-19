@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
   });
 
   return (
-    <>
+    <div className="w-full h-full overflow-y-auto">
       {featuredMedia && (
         <Box className="relative w-full h-[32rem] overflow-hidden bg-gray-900">
           <Image
@@ -135,6 +135,6 @@ export default async function PostPage({ params }: PostPageProps) {
           </Box>
         </Box>
       </Section>
-    </>
+    </div>
   );
 }
