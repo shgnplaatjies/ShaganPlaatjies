@@ -237,7 +237,7 @@ const fetchWpProjectById = async (
 
 const fetchWpProjectWithIdOrSlug = async (target: string | number) => {
   try {
-    const projects: WpProjectApiResponse[] | false = await fetchWpProjects();
+    const projects: WpProjectApiResponse[] | false = await fetchAllWpProjects();
 
     if (!projects) return false;
 

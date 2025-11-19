@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
