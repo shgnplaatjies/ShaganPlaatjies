@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TaxonomyList from "../widgets/TaxonomyList";
+import { ProjectMeta } from "@/app/lib/wordpress-types";
 
 export type BlogPostExcerpt = {
   id: number;
@@ -16,6 +17,7 @@ export type BlogPostExcerpt = {
   featuredMedia?: string; // url
   categories?: string[];
   tags?: string[];
+  meta?: ProjectMeta;
 };
 
 const ProjectImage: React.FC<{ src: string; alt: string }> = ({ alt, src }) => (
@@ -40,6 +42,37 @@ const ProjectLabels: React.FC<{ labels: string[] }> = ({ labels }) => (
     ))}
   </Flex>
 );
+
+const formatDate = (dateString: string, format: string): string => {
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const day = String(date.getDate()).padStart(2, '0');
+
+  switch (format) {
+    case 'yyyy':
+      return `${year}`;
+    case 'mm/yyyy':
+      return `${month}/${year}`;
+    case 'dd/mm/yyyy':
+      return `${day}/${month}/${year}`;
+    default:
+      return `${month}/${year}`;
+  }
+};
+
+const formatDateRange = (
+  startDate: string,
+  endDate: string | undefined,
+  dateFormat: string
+): string => {
+  const formattedStart = formatDate(startDate, dateFormat);
+  if (endDate) {
+    const formattedEnd = formatDate(endDate, dateFormat);
+    return `${formattedStart} - ${formattedEnd}`;
+  }
+  return `${formattedStart} - Present`;
+};
 
 const ProjectDate: React.FC<{ date: string }> = ({ date }) => (
   <Text size="2" className="text-gray-9">
@@ -147,6 +180,55 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
   </>
 );
 
+const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
+  if (!meta) return null;
+
+  const role = meta._portfolio_role;
+  const company = meta._portfolio_company;
+  const location = meta._portfolio_location;
+  const employmentType = meta._portfolio_employment_type;
+  const dateStart = meta._portfolio_date_start;
+  const dateEnd = meta._portfolio_date_end;
+  const dateFormat = meta._portfolio_date_format || 'mm/yyyy';
+
+  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
+  const hasMetaInfo = role || company || location || employmentType || dateRange;
+
+  if (!hasMetaInfo) return null;
+
+  return (
+    <Flex direction="column" gap="2" className="text-sm mb-3">
+      {role && (
+        <Text size="2" className="font-medium text-gray-text-contrast">
+          {role}
+        </Text>
+      )}
+      {company && (
+        <Text size="2" className="text-gray-solid-hover">
+          {company}
+        </Text>
+      )}
+      <Flex align="center" gap="3" wrap="wrap" className="text-xs">
+        {employmentType && (
+          <Text size="1" className="text-gray-solid-hover capitalize">
+            {employmentType.replace('-', ' ')}
+          </Text>
+        )}
+        {location && (
+          <Text size="1" className="text-gray-solid-hover">
+            {location}
+          </Text>
+        )}
+        {dateRange && (
+          <Text size="1" className="text-gray-solid-hover">
+            {dateRange}
+          </Text>
+        )}
+      </Flex>
+    </Flex>
+  );
+};
+
 const ProjectCard: React.FC<{
   post: BlogPostExcerpt & { labels?: string[] };
 }> = ({
@@ -159,6 +241,7 @@ const ProjectCard: React.FC<{
     categories,
     tags,
     labels,
+    meta,
   },
 }) => {
   const projectProps: ProjectCardInternalProps = {
@@ -179,12 +262,15 @@ const ProjectCard: React.FC<{
         <Link href={`/projects/${slug}`} className="group">
           <div className="block sm:hidden">
             <ProjectSmallScreen {...projectProps} />
+            <ProjectMetaInfo meta={meta} />
           </div>
           <div className="hidden sm:block md:hidden">
             <ProjectMediumScreen {...projectProps} />
+            <ProjectMetaInfo meta={meta} />
           </div>
           <div className="hidden md:flex self-center">
             <ProjectLargeScreen {...projectProps} />
+            <ProjectMetaInfo meta={meta} />
           </div>
         </Link>
       </Flex>

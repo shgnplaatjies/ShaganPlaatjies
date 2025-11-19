@@ -37,6 +37,7 @@ const ProjectsSectionContent: React.FC<{
                 featuredMedia: featuredImageUrl,
                 categories: [],
                 tags: [],
+                meta: project.meta,
               }}
             />
           );

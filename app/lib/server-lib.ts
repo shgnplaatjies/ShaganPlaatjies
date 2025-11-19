@@ -1,5 +1,24 @@
 import "server-only";
 import { STANDARD_CACHE_TTL, WORDPRESS_CATEGORIES } from "./constants";
+import { ProjectMeta, WordPressRawMeta } from "./wordpress-types";
+
+function normalizeMeta(rawMeta: WordPressRawMeta | Record<string, unknown>, postType: 'project' | 'experience'): ProjectMeta {
+  if (!rawMeta || typeof rawMeta !== 'object') {
+    return {};
+  }
+
+  const prefix = `_portfolio_${postType}_`;
+  const normalized: ProjectMeta = {};
+
+  for (const [key, value] of Object.entries(rawMeta)) {
+    if (key.startsWith(prefix)) {
+      const normalizedKey = key.replace(prefix, '_portfolio_') as keyof ProjectMeta;
+      (normalized as Record<string, unknown>)[normalizedKey] = value;
+    }
+  }
+
+  return normalized;
+}
 
 type WpMimeType =
   | "image/jpeg"
@@ -439,9 +458,14 @@ export interface ProjectMetaApiResponse {
   _portfolio_employment_type?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship';
 }
 
+export interface WpProjectApiRawResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
+  type: 'project';
+  meta: WordPressRawMeta;
+}
+
 export interface WpProjectApiResponse extends Omit<WpPostApiResponse, 'type' | 'meta'> {
   type: 'project';
-  meta: ProjectMetaApiResponse;
+  meta: ProjectMeta;
 }
 
 export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false> => {
@@ -453,7 +477,13 @@ export const fetchWpProjects = async (): Promise<WpProjectApiResponse[] | false>
 
     if (!res.ok) return false;
 
-    return await res.json();
+    const rawData = await res.json() as WpProjectApiRawResponse[];
+    const normalizedData = rawData.map(project => ({
+      ...project,
+      meta: normalizeMeta(project.meta, 'project')
+    }));
+
+    return normalizedData;
   } catch (error) {
     return false;
   }
@@ -470,7 +500,11 @@ const fetchWpProjectById = async (
 
     if (!res.ok) return false;
 
-    return await res.json();
+    const rawData = await res.json() as WpProjectApiRawResponse;
+    return {
+      ...rawData,
+      meta: normalizeMeta(rawData.meta, 'project')
+    };
   } catch (error) {
     return false;
   }
@@ -511,7 +545,13 @@ export const fetchWpExperience = async (): Promise<WpProjectApiResponse[] | fals
 
     if (!res.ok) return false;
 
-    return await res.json();
+    const rawData = await res.json() as WpProjectApiRawResponse[];
+    const normalizedData = rawData.map(experience => ({
+      ...experience,
+      meta: normalizeMeta(experience.meta, 'experience')
+    }));
+
+    return normalizedData;
   } catch (error) {
     return false;
   }
