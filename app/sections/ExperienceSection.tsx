@@ -1,10 +1,8 @@
-import React from 'react';
-import { Suspense } from 'react';
-import ExperienceCard from '../components/ExperienceCard';
-import {
-  fetchWpExperience,
-} from '../lib/server-lib';
-import { type WordPressExperience } from '../lib/wordpress-types';
+import React from "react";
+import { Suspense } from "react";
+import ExperienceCard from "../components/ExperienceCard";
+import { fetchWpExperience } from "../lib/server-lib";
+import { type WordPressExperience } from "../lib/wordpress-types";
 
 const ExperienceSectionContent: React.FC<{
   experiences: WordPressExperience[];
@@ -12,16 +10,17 @@ const ExperienceSectionContent: React.FC<{
   return (
     <div id="experience-section" className="space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">Experience</h2>
-        <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">Professional roles and key projects</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">
+          Experience
+        </h2>
+        <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">
+          Professional roles and key projects
+        </p>
       </div>
 
       <div className="space-y-8 sm:space-y-12">
         {experiences.map((experience) => (
-          <ExperienceCard
-            key={experience.id}
-            {...experience}
-          />
+          <ExperienceCard key={experience.id} {...experience} />
         ))}
       </div>
 
@@ -45,10 +44,10 @@ const ExperienceSection: React.FC = async () => {
   }
 
   const sortedExperiences = experiences.sort((a, b) => {
-    const aStart = a.meta._portfolio_date_start || '';
-    const aEnd = a.meta._portfolio_date_end;
-    const bStart = b.meta._portfolio_date_start || '';
-    const bEnd = b.meta._portfolio_date_end;
+    const aStart = a.meta._project_date_start || "";
+    const aEnd = a.meta._project_date_end;
+    const bStart = b.meta._project_date_start || "";
+    const bEnd = b.meta._project_date_end;
 
     if (!aEnd && bEnd) return -1;
     if (aEnd && !bEnd) return 1;
@@ -57,11 +56,13 @@ const ExperienceSection: React.FC = async () => {
       return aStart.localeCompare(bStart);
     }
 
-    return (aEnd || '').localeCompare(bEnd || '');
+    return (aEnd || "").localeCompare(bEnd || "");
   });
 
   return (
-    <Suspense fallback={<div className="text-gray-border">Loading experience...</div>}>
+    <Suspense
+      fallback={<div className="text-gray-border">Loading experience...</div>}
+    >
       <ExperienceSectionContent experiences={sortedExperiences} />
     </Suspense>
   );

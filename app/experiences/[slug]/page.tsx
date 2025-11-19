@@ -5,10 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
-import {
-  fetchWpExperienceItem,
-  fetchWpMediaById,
-} from "../../lib/server-lib";
+import { fetchWpExperienceItem, fetchWpMediaById } from "../../lib/server-lib";
 
 interface ExperiencePageProps {
   params: Promise<{
@@ -16,18 +13,18 @@ interface ExperiencePageProps {
   }>;
 }
 
-const formatDate = (dateString: string, format: string = 'mm/yyyy'): string => {
+const formatDate = (dateString: string, format: string = "mm/yyyy"): string => {
   const date = new Date(dateString);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  const day = String(date.getDate()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
 
   switch (format) {
-    case 'yyyy':
+    case "yyyy":
       return `${year}`;
-    case 'mm/yyyy':
+    case "mm/yyyy":
       return `${month}/${year}`;
-    case 'dd/mm/yyyy':
+    case "dd/mm/yyyy":
       return `${day}/${month}/${year}`;
     default:
       return `${month}/${year}`;
@@ -37,7 +34,7 @@ const formatDate = (dateString: string, format: string = 'mm/yyyy'): string => {
 const formatDateRange = (
   startDate: string,
   endDate: string | undefined,
-  dateFormat: string = 'mm/yyyy'
+  dateFormat: string = "mm/yyyy"
 ): string => {
   const formattedStart = formatDate(startDate, dateFormat);
   if (endDate) {
@@ -47,9 +44,7 @@ const formatDateRange = (
   return `${formattedStart} - Present`;
 };
 
-export default async function ExperiencePage({
-  params,
-}: ExperiencePageProps) {
+export default async function ExperiencePage({ params }: ExperiencePageProps) {
   const { slug } = await params;
 
   const experience = await fetchWpExperienceItem(slug);
@@ -62,15 +57,17 @@ export default async function ExperiencePage({
     ? await fetchWpMediaById(experience.featured_media)
     : null;
 
-  const role = experience.meta._portfolio_role;
-  const company = experience.meta._portfolio_company;
-  const location = experience.meta._portfolio_location;
-  const employmentType = experience.meta._portfolio_employment_type;
-  const dateStart = experience.meta._portfolio_date_start;
-  const dateEnd = experience.meta._portfolio_date_end;
-  const dateFormat = experience.meta._portfolio_date_format || 'mm/yyyy';
+  const role = experience.meta._project_role;
+  const company = experience.meta._project_company;
+  const location = experience.meta._project_location;
+  const employmentType = experience.meta._project_employment_type;
+  const dateStart = experience.meta._project_date_start;
+  const dateEnd = experience.meta._project_date_end;
+  const dateFormat = experience.meta._project_date_format || "mm/yyyy";
 
-  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : "";
+  const dateRange = dateStart
+    ? formatDateRange(dateStart, dateEnd, dateFormat)
+    : "";
 
   return (
     <>

@@ -1,23 +1,23 @@
-import React from 'react';
-import { Heading, Text, Box, Flex, Link } from '@radix-ui/themes';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
-import NextLink from 'next/link';
-import { WordPressExperience } from '@/app/lib/wordpress-types';
+import React from "react";
+import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import NextLink from "next/link";
+import { WordPressExperience } from "@/app/lib/wordpress-types";
 
 interface ExperienceCardProps extends WordPressExperience {}
 
 const formatDate = (dateString: string, format: string): string => {
   const date = new Date(dateString);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  const day = String(date.getDate()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
 
   switch (format) {
-    case 'yyyy':
+    case "yyyy":
       return `${year}`;
-    case 'mm/yyyy':
+    case "mm/yyyy":
       return `${month}/${year}`;
-    case 'dd/mm/yyyy':
+    case "dd/mm/yyyy":
       return `${day}/${month}/${year}`;
     default:
       return `${month}/${year}`;
@@ -38,7 +38,7 @@ const formatDateRange = (
 };
 
 const stripHtml = (html: string) => {
-  return html.replace(/<[^>]*>/g, '');
+  return html.replace(/<[^>]*>/g, "");
 };
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({
@@ -48,19 +48,21 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   featured_media,
   slug,
 }) => {
-  const role = meta._portfolio_role;
-  const company = meta._portfolio_company;
-  const companyUrl = meta._portfolio_company_url;
-  const location = meta._portfolio_location;
-  const employmentType = meta._portfolio_employment_type;
-  const dateStart = meta._portfolio_date_start;
-  const dateEnd = meta._portfolio_date_end;
-  const dateFormat = meta._portfolio_date_format || 'mm/yyyy';
-  const gallery = meta._portfolio_gallery;
+  const role = meta._project_role;
+  const company = meta._project_company;
+  const companyUrl = meta._project_company_url;
+  const location = meta._project_location;
+  const employmentType = meta._project_employment_type;
+  const dateStart = meta._project_date_start;
+  const dateEnd = meta._project_date_end;
+  const dateFormat = meta._project_date_format || "mm/yyyy";
+  const gallery = meta._project_gallery;
 
-  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
-  const titleText = typeof title === 'string' ? title : title.rendered;
-  const galleryIds = gallery ? gallery.split(',').map(id => id.trim()) : [];
+  const dateRange = dateStart
+    ? formatDateRange(dateStart, dateEnd, dateFormat)
+    : "";
+  const titleText = typeof title === "string" ? title : title.rendered;
+  const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
   return (
     <NextLink href={`/experiences/${slug}`}>
@@ -98,7 +100,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           <Flex align="center" gap="3" wrap="wrap" className="text-sm">
             {employmentType && (
               <Text size="1" className="text-gray-solid-hover capitalize">
-                {employmentType.replace('-', ' ')}
+                {employmentType.replace("-", " ")}
               </Text>
             )}
             {location && (
@@ -121,7 +123,11 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         )}
 
         {galleryIds.length > 0 && (
-          <Flex gap="2" wrap="wrap" className="mt-4 pt-4 border-t border-gray-border">
+          <Flex
+            gap="2"
+            wrap="wrap"
+            className="mt-4 pt-4 border-t border-gray-border"
+          >
             {galleryIds.map((id) => (
               <div
                 key={id}
