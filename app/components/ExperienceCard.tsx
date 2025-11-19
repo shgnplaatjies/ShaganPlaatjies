@@ -2,9 +2,9 @@ import React from "react";
 import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import NextLink from "next/link";
-import { WordPressExperience } from "@/app/lib/wordpress-types";
+import { WpProjectApiResponse } from "@/app/lib/wordpress-types";
 
-interface ExperienceCardProps extends WordPressExperience {}
+interface ExperienceCardProps extends WpProjectApiResponse {}
 
 const formatDate = (dateString: string, format: string): string => {
   const date = new Date(dateString);
