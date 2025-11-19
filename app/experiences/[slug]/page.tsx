@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
-import { fetchWpExperienceItem, fetchWpMediaById } from "../../lib/server-lib";
+import { fetchWpProject, fetchWpMediaById } from "../../lib/server-lib";
+import { WORDPRESS_CATEGORIES } from "../../lib/constants";
 
 interface ExperiencePageProps {
   params: Promise<{
@@ -47,11 +48,13 @@ const formatDateRange = (
 export default async function ExperiencePage({ params }: ExperiencePageProps) {
   const { slug } = await params;
 
-  const experience = await fetchWpExperienceItem(slug);
+  const project = await fetchWpProject(slug);
 
-  if (!experience) {
+  if (!project || !project.categories?.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)) {
     notFound();
   }
+
+  const experience = project;
 
   const featuredMedia = experience.featured_media
     ? await fetchWpMediaById(experience.featured_media)

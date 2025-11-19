@@ -1,293 +1,52 @@
 import "server-only";
 import { STANDARD_CACHE_TTL, WORDPRESS_CATEGORIES } from "./constants";
-import { ProjectMeta } from "./wordpress-types";
+import {
+  WpMimeType,
+  WpMediaType,
+  WpStatus,
+  WpPostTypes,
+  WpMediaVersion,
+  WpTagApiResponse,
+  WpCategoryApiResponse,
+  WpMediaApiResponse,
+  WpPostApiResponse,
+  WpProjectApiResponse,
+  ProjectMeta,
+  WordPressRawMeta,
+} from "./wordpress-types";
 
-type WpMimeType =
-  | "image/jpeg"
-  | "image/png"
-  | "image/gif"
-  | "video/mp4"
-  | "audio/mpeg"
-  | "application/pdf"
-  | "text/plain";
+export type {
+  WpMimeType,
+  WpMediaType,
+  WpStatus,
+  WpPostTypes,
+  WpMediaVersion,
+  WpTagApiResponse,
+  WpCategoryApiResponse,
+  WpMediaApiResponse,
+  WpPostApiResponse,
+  WpProjectApiResponse,
+  ProjectMeta,
+  WordPressRawMeta,
+};
 
-type WpMediaType = "image" | "video" | "audio" | "application" | "text";
+function normalizeMeta(
+  rawMeta: WordPressRawMeta | Record<string, unknown>
+): ProjectMeta {
+  if (!rawMeta || typeof rawMeta !== "object") {
+    return {};
+  }
 
-type WpStatus =
-  | "inherit"
-  | "publish"
-  | "future"
-  | "draft"
-  | "pending"
-  | "private"
-  | "trash";
+  const normalized: ProjectMeta = {};
 
-type WpPostTypes =
-  | "post"
-  | "page"
-  | "attachment"
-  | "revision"
-  | "nav_menu_item"
-  | "custom_css"
-  | "customize_changeset"
-  | "oembed_cache"
-  | "user_request"
-  | "wp_block"
-  | "acf-field"
-  | "acf-field-group"
-  | "project"
-  | "experience";
+  for (const [key, value] of Object.entries(rawMeta)) {
+    if (key.startsWith("_project_")) {
+      const normalizedKey = key as keyof ProjectMeta;
+      (normalized as Record<string, unknown>)[normalizedKey] = value;
+    }
+  }
 
-export interface WpMediaVersion {
-  file: string;
-  width: number;
-  height: number;
-  filesize: number;
-  mime_type: WpMimeType;
-  source_url: string;
-}
-
-export interface WpTagApiResponse {
-  id: number;
-  count: number;
-  description: string;
-  link: string;
-  name: string;
-  slug: string;
-  taxonomy: string;
-  meta: any[];
-  _links: {
-    self: {
-      href: string;
-    }[];
-    collection: {
-      href: string;
-    }[];
-    about: {
-      href: string;
-    }[];
-    "wp:post_type": {
-      href: string;
-    }[];
-    curies: {
-      name: string;
-      href: string;
-      templated: boolean;
-    }[];
-  };
-}
-
-export interface WpCategoryApiResponse {
-  id: number;
-  count: number;
-  description: string;
-  link: string;
-  name: string;
-  slug: string;
-  taxonomy: string;
-  parent: number;
-  meta: any[];
-  acf: any[];
-  _links: {
-    self: {
-      href: string;
-    }[];
-    collection: {
-      href: string;
-    }[];
-    about: {
-      href: string;
-    }[];
-    "wp:post_type": {
-      href: string;
-    }[];
-    curies: {
-      name: string;
-      href: string;
-      templated: boolean;
-    }[];
-  };
-}
-
-export interface WpMediaApiResponse {
-  id: number;
-  date: string; // date
-  date_gmt: string; // date
-  guid: {
-    rendered: string; // url
-  };
-  modified: string; // date
-  modified_gmt: string; // date
-  slug: string; // url friendly
-  status: WpStatus;
-  type: "attachment" | WpMediaType;
-  link: string; // url
-  title: {
-    rendered: string;
-  };
-  author: number;
-  featured_media: number;
-  comment_status: "open" | "closed";
-  ping_status: "open" | "closed";
-  template: string;
-  meta: {
-    _acf_changed: boolean;
-  };
-  acf: any[];
-  description: {
-    rendered: string;
-  };
-  caption: {
-    rendered: string;
-  };
-  alt_text: string;
-  media_type: WpMediaType;
-  mime_type: WpMimeType;
-  media_details: {
-    width: number;
-    height: number;
-    file: string;
-    filesize: number;
-    sizes: {
-      medium: WpMediaVersion;
-      large: WpMediaVersion;
-      thumbnail: WpMediaVersion;
-      medium_large: WpMediaVersion;
-      "1536x1536": WpMediaVersion;
-      "2048x2048": WpMediaVersion;
-      full: WpMediaVersion;
-    };
-    image_meta: {
-      aperture: string;
-      credit: string;
-      camera: string;
-      caption: string;
-      created_timestamp: string;
-      copyright: string;
-      focal_length: string;
-      iso: string;
-      shutter_speed: string;
-      title: string;
-      orientation: string;
-      keywords: string[];
-    };
-    original_image: string;
-  };
-  post: number;
-  source_url: string;
-  _links: {
-    self: {
-      href: string;
-    }[];
-    collection: {
-      href: string;
-    }[];
-    about: {
-      href: string;
-    }[];
-    author: {
-      embeddable: boolean;
-      href: string;
-    }[];
-    replies: {
-      embeddable: boolean;
-      href: string;
-    }[];
-  };
-}
-
-export interface WpPostApiResponse {
-  id: number;
-  date: string; // DateTimeString,
-  date_gmt: string; // DateTimeString (GMT)
-  guid: {
-    rendered: string; // Pattern:  "https:\/\/{process.NODE_BLOG_DOMAIN}/?p={id}"
-  };
-  modified: string; // DateTimeString,
-  modified_gmt: string; // DateTimeString (GMT)
-  slug: string; // url friendly slug,
-  status: WpStatus;
-  type: WpPostTypes;
-  link: string; // Pattern: "https:\/\/{process.NODE_BLOG_DOMAIN}/*"
-  title: {
-    rendered: string; // HTML Code
-  };
-  content: {
-    rendered: string; // HTML Code
-    protected: boolean;
-  };
-  excerpt: {
-    rendered: string; // HTML Code
-    protected: boolean;
-  };
-  author: number;
-  featured_media: number;
-  comment_status: "open" | "closed";
-  ping_status: "open" | "closed";
-  sticky: boolean;
-  template: string;
-  format:
-    | "standard"
-    | "aside"
-    | "chat"
-    | "gallery"
-    | "link"
-    | "image"
-    | "quote"
-    | "status"
-    | "video"
-    | "audio";
-  meta: {
-    _acf_changed: boolean;
-    footnotes: string;
-  };
-  categories: number[];
-  tags: number[];
-  acf: any[];
-  _links: {
-    self: {
-      href: string;
-    }[];
-    collection: {
-      href: string;
-    }[];
-    about: {
-      href: string;
-    }[];
-    author: {
-      embeddable: boolean;
-      href: string;
-    }[];
-    replies: {
-      embeddable: boolean;
-      href: string;
-    }[];
-    "version-history": {
-      count: number;
-      href: string;
-    }[];
-    "predecessor-version": {
-      id: number;
-      href: string;
-    }[];
-    "wp:featuredmedia": {
-      embeddable: boolean;
-      href: string;
-    }[];
-    "wp:attachment": {
-      href: string;
-    }[];
-    "wp:term": {
-      taxonomy: "category" | "post_tag";
-      embeddable: boolean;
-      href: string;
-    }[];
-    curies: {
-      name: string;
-      href: string;
-      templated: boolean;
-    }[];
-  };
+  return normalized;
 }
 
 export const fetchWpAllCategories = async (): Promise<
@@ -425,31 +184,22 @@ export const fetchWpPost = async (target: string | number) => {
   else return fetchWpPostWithIdOrSlug(target);
 };
 
-export interface ProjectMetaApiResponse {
-  _project_subtext?: string;
-  _project_role?: string;
-  _project_company?: string;
-  _project_company_url?: string;
-  _project_location?: string;
-  _project_source_url?: string;
-  _project_gallery?: string;
-  _project_date_type?: "single" | "range";
-  _project_date_format?: "yyyy" | "mm/yyyy" | "dd/mm/yyyy";
-  _project_date_start?: string;
-  _project_date_end?: string;
-  _project_employment_type?:
-    | "full-time"
-    | "part-time"
-    | "contract"
-    | "freelance"
-    | "internship";
-}
+export const fetchAllWpProjects = async (): Promise<
+  WpProjectApiResponse[] | false
+> => {
+  try {
+    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
+    const res = await fetch(wpProjectsUri, {
+      next: { revalidate: STANDARD_CACHE_TTL },
+    });
 
-export interface WpProjectApiResponse
-  extends Omit<WpPostApiResponse, "type" | "meta"> {
-  type: "project";
-  meta: ProjectMeta;
-}
+    if (!res.ok) return false;
+
+    return await res.json();
+  } catch (error) {
+    return false;
+  }
+};
 
 export const fetchWpProjects = async (): Promise<
   WpProjectApiResponse[] | false
@@ -511,42 +261,3 @@ export const fetchWpProject = async (target: string | number) => {
   else return fetchWpProjectWithIdOrSlug(target);
 };
 
-export const fetchWpExperience = async (): Promise<
-  WpProjectApiResponse[] | false
-> => {
-  try {
-    const wpExperienceUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?categories=${WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id}`;
-    const res = await fetch(wpExperienceUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
-
-    if (!res.ok) return false;
-
-    return await res.json();
-  } catch (error) {
-    return false;
-  }
-};
-
-export const fetchWpExperienceItem = async (
-  target: string | number
-): Promise<WpProjectApiResponse | false> => {
-  try {
-    const experiences = await fetchWpExperience();
-
-    if (!experiences) return false;
-
-    const condition =
-      typeof target === "number"
-        ? (experience: WpProjectApiResponse) => experience.id === target
-        : (experience: WpProjectApiResponse) => experience.slug === target;
-
-    const experience = experiences.find(condition);
-
-    if (!experience) return false;
-
-    return experience;
-  } catch (error) {
-    return false;
-  }
-};

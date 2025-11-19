@@ -1,11 +1,12 @@
 import React from "react";
 import { Suspense } from "react";
 import ExperienceCard from "../components/ExperienceCard";
-import { fetchWpExperience } from "../lib/server-lib";
-import { type WordPressExperience } from "../lib/wordpress-types";
+import { fetchAllWpProjects } from "../lib/server-lib";
+import { type WpProjectApiResponse } from "../lib/wordpress-types";
+import { WORDPRESS_CATEGORIES } from "../lib/constants";
 
 const ExperienceSectionContent: React.FC<{
-  experiences: WordPressExperience[];
+  experiences: WpProjectApiResponse[];
 }> = ({ experiences }) => {
   return (
     <div id="experience-section" className="space-y-6 sm:space-y-8">
@@ -37,7 +38,16 @@ const ExperienceSectionContent: React.FC<{
 };
 
 const ExperienceSection: React.FC = async () => {
-  const experiences = await fetchWpExperience();
+  const allProjects = await fetchAllWpProjects();
+
+  if (!allProjects) {
+    return null;
+  }
+
+  const experiences = allProjects.filter(
+    (project) =>
+      project.categories && project.categories.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
+  );
 
   if (!experiences || experiences.length === 0) {
     return null;
