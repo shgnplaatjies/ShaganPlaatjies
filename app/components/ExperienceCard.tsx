@@ -78,8 +78,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         {isActive ? (
           <>
             <div className="absolute w-4 h-4 rounded-full bg-gray-8"></div>
-            <div className="absolute w-3.5 h-3.5 rounded-full bg-gray-1 group-hover:w-3 group-hover:h-3 transition-all"></div>
-            <div className="absolute w-2.5 h-2.5 rounded-full bg-white"></div>
+            <div className="absolute w-2.5 h-2.5 rounded-full bg-white group-hover:w-2 group-hover:h-2"></div>
           </>
         ) : (
           <>
