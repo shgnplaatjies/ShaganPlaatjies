@@ -55,7 +55,7 @@ const ElegantContactForm: React.FC = () => {
           message: "",
         });
 
-        setTimeout(() => setSubmitted(false), 3000);
+        setTimeout(() => setSubmitted(false), 10_000);
       } else {
         setError("Failed to send message. Please try again.");
       }
@@ -70,7 +70,12 @@ const ElegantContactForm: React.FC = () => {
   if (submitted) {
     return (
       <Box className="text-center py-12">
-        <Text as="p" size="5" weight="bold" className="mb-2 text-gray-text-contrast">
+        <Text
+          as="p"
+          size="5"
+          weight="bold"
+          className="mb-2 text-gray-text-contrast"
+        >
           Thank you for reaching out
         </Text>
         <Text as="p" size="2" className="text-gray-9">
@@ -222,8 +227,10 @@ const ElegantContactForm: React.FC = () => {
             disabled={isSubmitting}
             className="px-6 font-semibold transition-all duration-200 ease-out hover:scale-105 active:scale-95"
             style={{
-              backgroundColor: isSubmitting ? 'var(--cyan-10)' : 'var(--cyan-9)',
-              color: '#ffffff',
+              backgroundColor: isSubmitting
+                ? "var(--cyan-10)"
+                : "var(--cyan-9)",
+              color: "#ffffff",
             }}
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
