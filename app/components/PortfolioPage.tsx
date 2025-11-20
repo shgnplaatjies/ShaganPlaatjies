@@ -7,12 +7,14 @@ import ProjectsSection from '../sections/ProjectsSection';
 import BlogSection from '../sections/BlogSection';
 import ResumeSection from '../sections/ResumeSection';
 import { ConclusionSection } from './ConclusionSection';
+import { ElegantContactForm } from './ElegantContactForm';
 
 const sections = [
   { id: 'summary', label: 'Summary' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'blog', label: 'Blog' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 const PortfolioPage: React.FC = async () => {
@@ -37,6 +39,10 @@ const PortfolioPage: React.FC = async () => {
 
         <div id="blog" className="mt-20 scroll-mt-20">
           <BlogSection />
+        </div>
+
+        <div id="contact" className="mt-20 scroll-mt-20">
+          <ElegantContactForm />
         </div>
 
         <div className="mt-20 mb-20">

@@ -39,7 +39,7 @@ export default function RootLayout({
             }}
           />
         </head>
-        <body className="flex flex-col h-dvh w-dvh overflow-hidden text-gray-12">
+        <body className="flex flex-col h-dvh w-dvh overflow-hidden text-gray-12" suppressHydrationWarning>
           <ThemeProvider>
             <Theme appearance="dark" radius="small" panelBackground="translucent" accentColor="cyan">
               <Box className="flex flex-col h-full w-full bg-transparent">
