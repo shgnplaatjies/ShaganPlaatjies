@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     );
 
     const { error } = await resend.emails.send({
-      from: "Shagan <hello@shaganplaatjies.co.za>",
+      from: "Shagan <hello@contact.shaganplaatjies.co.za>",
       to: "plaatjiesshagan@gmail.com",
       subject: `New Contact Form Submission: ${service}`,
       html: emailHtml,
