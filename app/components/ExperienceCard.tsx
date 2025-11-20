@@ -74,7 +74,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
 
   const cardContent = (
     <div className="relative group">
-      <div className="absolute -left-8 top-0 w-4 h-4 flex items-center justify-center">
+      <div className="absolute -left-8 top-1 w-4 h-4 flex items-center justify-center">
         {isActive ? (
           <>
             <div className="absolute w-4 h-4 rounded-full bg-gray-8"></div>
@@ -97,20 +97,20 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           {company && (
             <Flex align="center" gap="2">
               {companyUrl ? (
-                <Link
-                  href={companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="cyan"
-                  onClick={(e) => e.stopPropagation()}
+                <Flex
+                  align="center"
+                  gap="1"
+                  className="text-cyan-9 cursor-pointer hover:text-cyan-10 transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(companyUrl, '_blank');
+                  }}
                 >
-                  <Flex align="center" gap="1">
-                    <Text size="2" className="font-medium">
-                      {company}
-                    </Text>
-                    <ExternalLinkIcon width="14" height="14" />
-                  </Flex>
-                </Link>
+                  <Text size="2" className="font-medium">
+                    {company}
+                  </Text>
+                  <ExternalLinkIcon width="14" height="14" />
+                </Flex>
               ) : (
                 <Text size="2" className="font-medium">
                   {company}
