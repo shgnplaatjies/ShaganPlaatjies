@@ -27,16 +27,16 @@ const PortfolioPage: React.FC = async () => {
           <ExperienceSection />
         </div>
 
+        <div className="mt-20">
+          <ResumeSection />
+        </div>
+
         <div id="projects" className="mt-20 scroll-mt-20">
           <ProjectsSection />
         </div>
 
         <div id="blog" className="mt-20 scroll-mt-20">
           <BlogSection />
-        </div>
-
-        <div className="mt-20">
-          <ResumeSection />
         </div>
 
         <div className="mt-20 mb-20">
