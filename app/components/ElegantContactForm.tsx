@@ -226,7 +226,7 @@ const ElegantContactForm: React.FC = () => {
             type="submit"
             size="3"
             disabled={isSubmitting}
-            className="cursor-pointer"
+            className="px-8 py-3 font-semibold rounded-md transition-all duration-200 ease-out hover:scale-105 hover:shadow-lg active:scale-95 bg-cyan-solid text-white hover:bg-cyan-solid-hover cursor-pointer"
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
           </Button>

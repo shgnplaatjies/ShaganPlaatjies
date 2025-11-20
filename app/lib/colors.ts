@@ -52,18 +52,18 @@ export const AccentColorValues = {
 };
 
 export const LightColorValues = {
-  1: "#ECF0EC",
-  2: "#E6EBE6",
-  3: "#D8E6D9",
-  4: "#C8DFCA",
-  5: "#B6D6B8",
-  6: "#9FCAA3",
-  7: "#80BA87",
-  8: "#52A55F",
-  9: "#3E9B4F",
-  10: "#2F8E43",
-  11: "#0F6C29",
-  12: "#213C24",
+  1: "#E0F9FB",
+  2: "#D5F6F9",
+  3: "#BDEFFF",
+  4: "#95E8FF",
+  5: "#5FE4FF",
+  6: "#29D8E9",
+  7: "#00CCCE",
+  8: "#00ACB8",
+  9: "#0080A3",
+  10: "#0A7BA8",
+  11: "#055E7B",
+  12: "#0B3D56",
 };
 
 export const LightGrayColors = {
@@ -81,21 +81,21 @@ export const LightGrayColors = {
   12: "#1C201E",
 };
 
-export const LightBackgroundColor = "#E9F6E9";
+export const LightBackgroundColor = "#E8F9FB";
 
 export const DarkColorValues = {
-  1: "#1B211B",
-  2: "#1F251F",
-  3: "#243526",
-  4: "#26432A",
-  5: "#2D5031",
-  6: "#345D3A",
-  7: "#3C6C42",
-  8: "#437D4B",
-  9: "#3E9B4F",
-  10: "#2F8E43",
-  11: "#74D081",
-  12: "#BDF0C2",
+  1: "#0D1A1E",
+  2: "#0F2228",
+  3: "#122C37",
+  4: "#123C47",
+  5: "#164C56",
+  6: "#1B5D66",
+  7: "#1F7283",
+  8: "#248999",
+  9: "#0FA3BF",
+  10: "#23BFDB",
+  11: "#6FE4FF",
+  12: "#B5F0FF",
 };
 
 export const DarkGrayColors = {
@@ -113,7 +113,7 @@ export const DarkGrayColors = {
   12: "#EAEFED",
 };
 
-export const DarkBackgroundColor = "#1A211E";
+export const DarkBackgroundColor = "#0A1619";
 
 export const RadixBaseColors = {
   color: RadixBaseColorValues,
