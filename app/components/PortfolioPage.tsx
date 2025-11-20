@@ -17,7 +17,7 @@ const sections = [
   { id: "contact", label: "Contact" },
 ];
 
-const PortfolioPage: React.FC = async () => {
+const PortfolioPage: React.FC = () => {
   return (
     <PortfolioPageWrapper>
       <PortfolioPageContent sections={sections}>
