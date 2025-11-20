@@ -101,7 +101,6 @@ jobs:
             **/.github/**
             **/.git/**
             **/pages/**
-            **/css/**
             **/layouts/**
             **/components/**
             **/lib/**
@@ -116,3 +115,11 @@ jobs:
             **/.claude/**
             **/tmp/**
             **/node_modules/**
+            **/src/**
+            **/app/**
+            **/*.tsx
+            **/*.ts
+            **/next.config.js
+            **/tsconfig.json
+            **/package.json
+            **/package-lock.json
