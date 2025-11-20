@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["cnad", "enduml", "Fira", "msal", "nextjs", "openapi"]
+  "cSpell.words": ["cnad", "enduml", "Fira", "msal", "nextjs", "openapi"],
+  "terminal.integrated.scrollback": 500,
+  "terminal.integrated.gpuAcceleration": "off",
+  "terminal.integrated.smoothScrolling": false
 }

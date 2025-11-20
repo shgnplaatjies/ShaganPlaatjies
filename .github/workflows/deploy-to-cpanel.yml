@@ -94,17 +94,19 @@ jobs:
             **/.next/cache/**
             **/.github/**
             **/.git/**
-            pages/**
-            css/**
-            layouts/**
-            components/**
-            lib/**
-            sitedata/**
-            postcss.config.js
-            tailwind.config.js
-            README.md
-            .gitignore
-            .eslintrc.json
-            .cursor/*
-            .vscode/*
-            .claude/*
+            **/pages/**
+            **/css/**
+            **/layouts/**
+            **/components/**
+            **/lib/**
+            **/sitedata/**
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/README.md
+            **/.gitignore
+            **/.eslintrc.json
+            **/.cursor/**
+            **/.vscode/**
+            **/.claude/**
+            **/tmp/**
+            **/node_modules/**
