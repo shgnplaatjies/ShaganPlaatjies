@@ -161,7 +161,7 @@ const ProjectLargeScreen: React.FC<ProjectCardInternalProps> = ({
       <ProjectLabels labels={labels} />
     </Box>
 
-    <Box className="max-w-56 h-32 flex-shrink-0 overflow-hidden opacity-0 w-0 transition-all duration-500 ease-in-out group-hover:w-56 group-hover:opacity-100">
+    <Box className="max-w-56 h-32 flex-shrink-0 overflow-visible opacity-0 w-0 transition-all duration-500 ease-in-out group-hover:w-56 group-hover:opacity-100">
       <ProjectImage src={mediaSrc} alt={role || company || "Project"} />
     </Box>
 
