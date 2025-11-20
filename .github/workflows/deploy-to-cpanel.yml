@@ -45,10 +45,10 @@ jobs:
           node-version: 20.x
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Generate build
-        run: yarn run build
+        run: npm run build
 
       - name: List files recursively
         run: find . -path ./node_modules -prune -o -type f -print
