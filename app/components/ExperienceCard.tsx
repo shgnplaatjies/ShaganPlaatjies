@@ -151,7 +151,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
             align="center"
             className="mt-4 pt-4 border-t border-gray-border"
           >
-            {galleryIds.map((idStr, index) => {
+            {galleryIds.slice(0, 3).map((idStr, index) => {
               const mediaId = parseInt(idStr, 10);
               const imageUrl = mediaMap[mediaId];
               return (
