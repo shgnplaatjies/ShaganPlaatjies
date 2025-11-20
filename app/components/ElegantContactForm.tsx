@@ -225,7 +225,9 @@ const ElegantContactForm: React.FC = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3 font-semibold rounded-md transition-all duration-200 ease-out hover:scale-105 hover:shadow-lg active:scale-95 bg-cyan-solid text-white hover:bg-cyan-solid-hover"
+            color="cyan"
+            variant="ghost"
+            className="font-semibold"
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
           </Button>

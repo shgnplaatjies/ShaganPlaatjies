@@ -151,7 +151,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
             align="center"
             className="mt-4 pt-4 border-t border-gray-border"
           >
-            {galleryIds.slice(0, 3).map((idStr, index) => {
+            {galleryIds.map((idStr, index) => {
               const mediaId = parseInt(idStr, 10);
               const imageUrl = mediaMap[mediaId];
               return (
@@ -162,6 +162,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                       alt={`Gallery item ${index + 1}`}
                       width={64}
                       height={64}
+                      unoptimized
                       className="flex-shrink-0 rounded object-cover border border-gray-border"
                     />
                   ) : (
