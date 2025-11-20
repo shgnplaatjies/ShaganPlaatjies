@@ -10,6 +10,7 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import { CSSProperties } from 'react';
 
 interface ContactFormEmailProps {
   name: string;
@@ -86,24 +87,24 @@ export const ContactFormEmail = ({
   );
 };
 
-const main = {
+const main: CSSProperties = {
   backgroundColor: '#f3f3f5',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
 
-const container = {
+const container: CSSProperties = {
   backgroundColor: '#ffffff',
   margin: '0 auto',
   padding: '20px 0 48px',
   marginBottom: '64px',
 };
 
-const box = {
+const box: CSSProperties = {
   padding: '0 48px',
 };
 
-const heading = {
+const heading: CSSProperties = {
   fontSize: '24px',
   fontWeight: '700',
   margin: '16px 0',
@@ -111,16 +112,16 @@ const heading = {
   color: '#1a1a1a',
 };
 
-const hr = {
+const hr: CSSProperties = {
   borderColor: '#e5e5e5',
   margin: '20px 0',
 };
 
-const fieldRow = {
+const fieldRow: CSSProperties = {
   marginBottom: '16px',
 };
 
-const fieldLabel = {
+const fieldLabel: CSSProperties = {
   fontSize: '12px',
   fontWeight: '600',
   color: '#666666',
@@ -129,13 +130,13 @@ const fieldLabel = {
   letterSpacing: '0.5px',
 };
 
-const fieldValue = {
+const fieldValue: CSSProperties = {
   fontSize: '14px',
   color: '#1a1a1a',
   margin: '0',
 };
 
-const messageLabel = {
+const messageLabel: CSSProperties = {
   fontSize: '12px',
   fontWeight: '600',
   color: '#666666',
@@ -144,15 +145,15 @@ const messageLabel = {
   letterSpacing: '0.5px',
 };
 
-const messageContent = {
+const messageContent: CSSProperties = {
   fontSize: '14px',
   color: '#1a1a1a',
   lineHeight: '1.6',
   margin: '0',
-  whiteSpace: 'pre-wrap' as const,
+  whiteSpace: 'pre-wrap',
 };
 
-const footer = {
+const footer: CSSProperties = {
   fontSize: '12px',
   color: '#9ca3af',
   margin: '0',
