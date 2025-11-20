@@ -100,10 +100,10 @@ jobs:
             **/.next/cache/**
             **/.github/**
             **/.git/**
-            **/pages/**
-            **/layouts/**
-            **/components/**
-            **/lib/**
+            app/pages/**
+            app/layouts/**
+            app/components/**
+            app/lib/**
             **/sitedata/**
             **/postcss.config.js
             **/tailwind.config.js
@@ -115,8 +115,7 @@ jobs:
             **/.claude/**
             **/tmp/**
             **/node_modules/**
-            **/src/**
-            **/app/**
+            src/**
             **/*.tsx
             **/*.ts
             **/next.config.js
