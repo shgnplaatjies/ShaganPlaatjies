@@ -24,15 +24,6 @@ const ExperienceSectionContent: React.FC<{
           <ExperienceCard key={experience.id} {...experience} />
         ))}
       </div>
-
-      <div className="mt-12 pt-8 border-t border-gray-border">
-        <a
-          href="/resume"
-          className="inline-flex items-center text-gray-solid-hover hover:text-gray-text-contrast transition-colors"
-        >
-          Download Resume →
-        </a>
-      </div>
     </div>
   );
 };
