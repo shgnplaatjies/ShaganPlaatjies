@@ -40,7 +40,7 @@ export type OrbColorOnPagesConfigType = {
 
 export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
   default: { path: "", color: "fill-radix-base-cyan", radixColor: "cyan" },
-  home: { path: "/", color: "fill-radix-base-grass", radixColor: "grass" },
+  home: { path: "/", color: "fill-radix-base-cyan", radixColor: "cyan" },
   about: {
     path: "/about",
     color: "fill-radix-base-tomato",
@@ -68,8 +68,8 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
   },
   contact: {
     path: "/contact",
-    color: "fill-radix-base-sky",
-    radixColor: "sky",
+    color: "fill-radix-base-cyan",
+    radixColor: "cyan",
   },
 };
 
