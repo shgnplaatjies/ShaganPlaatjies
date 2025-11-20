@@ -23,24 +23,37 @@ const ElegantContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        service: "consulting",
-        message: "",
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
-      // Reset after 3 seconds
-      setTimeout(() => setSubmitted(false), 3000);
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          service: "consulting",
+          message: "",
+        });
+
+        setTimeout(() => setSubmitted(false), 3000);
+      } else {
+        setError('Failed to send message. Please try again.');
+      }
+    } catch (err) {
+      console.error('Error sending message:', err);
+      setError('An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -61,6 +74,13 @@ const ElegantContactForm: React.FC = () => {
 
   return (
     <Box className="max-w-2xl mx-auto py-8">
+      {error && (
+        <Box className="mb-6 p-4 rounded-md bg-red-500/10 border border-red-500/20">
+          <Text as="p" size="2" className="text-red-600">
+            {error}
+          </Text>
+        </Box>
+      )}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <Box>
