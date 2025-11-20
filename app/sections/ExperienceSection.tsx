@@ -21,10 +21,10 @@ const ExperienceSectionContent: React.FC<{
         </p>
       </div>
 
-      <div className="relative pl-16">
-        <div className="absolute left-6 top-0 bottom-0 w-1 bg-gray-7"></div>
+      <div className="relative">
+        <div className="absolute left-[0.4375rem] top-2 bottom-0 w-0.5 bg-gray-8"></div>
 
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-6 sm:space-y-8 pl-8">
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={experience.id}
@@ -92,7 +92,10 @@ const ExperienceSection: React.FC = async () => {
     <Suspense
       fallback={<div className="text-gray-border">Loading experience...</div>}
     >
-      <ExperienceSectionContent experiences={sortedExperiences} mediaMap={mediaMap} />
+      <ExperienceSectionContent
+        experiences={sortedExperiences}
+        mediaMap={mediaMap}
+      />
     </Suspense>
   );
 };
