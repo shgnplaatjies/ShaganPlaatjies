@@ -6,7 +6,6 @@ import {
   Html,
   Link,
   Preview,
-  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -43,43 +42,59 @@ export const ContactFormEmail = ({
       <Preview>New contact form submission from {name}</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={box}>
-            <Text style={heading}>New Contact Form Submission</Text>
-            <Hr style={hr} />
+          {/* Header Section */}
+          <Section style={headerSection}>
+            <Text style={headerText}>New Message</Text>
+          </Section>
 
-            <Row style={fieldRow}>
-              <Text style={fieldLabel}>Name</Text>
+          {/* Content Section */}
+          <Section style={contentSection}>
+            <Text style={greeting}>
+              Hello,
+            </Text>
+            <Text style={introText}>
+              You have a new contact form submission from your website.
+            </Text>
+
+            {/* Contact Details */}
+            <Section style={detailsBox}>
+              <Text style={fieldLabel}>From</Text>
               <Text style={fieldValue}>{name}</Text>
-            </Row>
+              <Text style={fieldEmail}>
+                <Link href={`mailto:${email}`} style={emailLink}>
+                  {email}
+                </Link>
+              </Text>
 
-            <Row style={fieldRow}>
-              <Text style={fieldLabel}>Email</Text>
-              <Link href={`mailto:${email}`} style={fieldValue}>
-                {email}
-              </Link>
-            </Row>
+              {company && (
+                <>
+                  <Text style={fieldLabelSpaced}>Company</Text>
+                  <Text style={fieldValue}>{company}</Text>
+                </>
+              )}
 
-            <Row style={fieldRow}>
-              <Text style={fieldLabel}>Company</Text>
-              <Text style={fieldValue}>{company || 'Not provided'}</Text>
-            </Row>
-
-            <Row style={fieldRow}>
-              <Text style={fieldLabel}>Service Interest</Text>
+              <Text style={fieldLabelSpaced}>Interested In</Text>
               <Text style={fieldValue}>
                 {serviceLabels[service] || service}
               </Text>
-            </Row>
+            </Section>
 
-            <Hr style={hr} />
+            {/* Message Section */}
+            <Section style={messageBox}>
+              <Text style={messageLabel}>Message</Text>
+              <Text style={messageContent}>{message}</Text>
+            </Section>
 
-            <Text style={messageLabel}>Message</Text>
-            <Text style={messageContent}>{message}</Text>
-
-            <Hr style={hr} />
-            <Text style={footer}>
-              This email was sent from shaganplaatjies.co.za contact form
-            </Text>
+            {/* Footer */}
+            <Hr style={divider} />
+            <Section style={footerSection}>
+              <Text style={footerText}>
+                Sent from shaganplaatjies.co.za
+              </Text>
+              <Text style={footerSubtext}>
+                © 2024 Shagan Plaatjies. All rights reserved.
+              </Text>
+            </Section>
           </Section>
         </Container>
       </Body>
@@ -87,74 +102,155 @@ export const ContactFormEmail = ({
   );
 };
 
+// Color palette from your website
+const COLORS = {
+  background: '#0A1619',
+  surface: '#122C37',
+  surfaceHover: '#1B5D66',
+  accent: '#0FA3BF',
+  accentLight: '#23BFDB',
+  accentLighter: '#6FE4FF',
+  text: '#EAEFED',
+  textSecondary: '#B3B7B5',
+  textMuted: '#717472',
+  border: '#1B5D66',
+};
+
 const main: CSSProperties = {
-  backgroundColor: '#f3f3f5',
+  backgroundColor: COLORS.background,
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
+  color: COLORS.text,
+  lineHeight: '1.6',
 };
 
 const container: CSSProperties = {
-  backgroundColor: '#ffffff',
   margin: '0 auto',
-  padding: '20px 0 48px',
-  marginBottom: '64px',
-};
-
-const box: CSSProperties = {
-  padding: '0 48px',
-};
-
-const heading: CSSProperties = {
-  fontSize: '24px',
-  fontWeight: '700',
-  margin: '16px 0',
   padding: '0',
-  color: '#1a1a1a',
+  maxWidth: '600px',
 };
 
-const hr: CSSProperties = {
-  borderColor: '#e5e5e5',
-  margin: '20px 0',
+const headerSection: CSSProperties = {
+  background: `linear-gradient(135deg, ${COLORS.accent} 0%, ${COLORS.accentLight} 100%)`,
+  padding: '40px 32px',
+  textAlign: 'center',
 };
 
-const fieldRow: CSSProperties = {
-  marginBottom: '16px',
+const headerText: CSSProperties = {
+  fontSize: '32px',
+  fontWeight: '700',
+  margin: '0',
+  color: '#ffffff',
+  letterSpacing: '-0.5px',
+};
+
+const contentSection: CSSProperties = {
+  backgroundColor: COLORS.surface,
+  padding: '40px 32px',
+  borderTop: `1px solid ${COLORS.border}`,
+};
+
+const greeting: CSSProperties = {
+  fontSize: '18px',
+  fontWeight: '600',
+  margin: '0 0 16px 0',
+  color: COLORS.text,
+};
+
+const introText: CSSProperties = {
+  fontSize: '14px',
+  color: COLORS.textSecondary,
+  margin: '0 0 32px 0',
+  lineHeight: '1.6',
+};
+
+const detailsBox: CSSProperties = {
+  backgroundColor: COLORS.background,
+  border: `1px solid ${COLORS.border}`,
+  borderRadius: '6px',
+  padding: '24px',
+  marginBottom: '24px',
 };
 
 const fieldLabel: CSSProperties = {
-  fontSize: '12px',
-  fontWeight: '600',
-  color: '#666666',
-  margin: '0 0 4px 0',
+  fontSize: '11px',
+  fontWeight: '700',
+  color: COLORS.accent,
+  margin: '0 0 6px 0',
   textTransform: 'uppercase',
-  letterSpacing: '0.5px',
+  letterSpacing: '0.8px',
+};
+
+const fieldLabelSpaced: CSSProperties = {
+  ...fieldLabel,
+  marginTop: '16px',
 };
 
 const fieldValue: CSSProperties = {
   fontSize: '14px',
-  color: '#1a1a1a',
-  margin: '0',
+  fontWeight: '500',
+  color: COLORS.text,
+  margin: '0 0 12px 0',
+  wordBreak: 'break-word',
+};
+
+const fieldEmail: CSSProperties = {
+  fontSize: '14px',
+  margin: '0 0 12px 0',
+};
+
+const emailLink: CSSProperties = {
+  color: COLORS.accentLight,
+  textDecoration: 'none',
+  fontWeight: '500',
+};
+
+const messageBox: CSSProperties = {
+  backgroundColor: COLORS.background,
+  border: `1px solid ${COLORS.border}`,
+  borderRadius: '6px',
+  padding: '24px',
+  marginBottom: '24px',
 };
 
 const messageLabel: CSSProperties = {
-  fontSize: '12px',
-  fontWeight: '600',
-  color: '#666666',
-  margin: '0 0 8px 0',
+  fontSize: '11px',
+  fontWeight: '700',
+  color: COLORS.accent,
+  margin: '0 0 12px 0',
   textTransform: 'uppercase',
-  letterSpacing: '0.5px',
+  letterSpacing: '0.8px',
 };
 
 const messageContent: CSSProperties = {
   fontSize: '14px',
-  color: '#1a1a1a',
-  lineHeight: '1.6',
+  color: COLORS.text,
   margin: '0',
   whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
+  lineHeight: '1.6',
 };
 
-const footer: CSSProperties = {
+const divider: CSSProperties = {
+  borderColor: COLORS.border,
+  borderWidth: '1px',
+  margin: '24px 0',
+  borderStyle: 'solid',
+};
+
+const footerSection: CSSProperties = {
+  textAlign: 'center',
+  padding: '0',
+};
+
+const footerText: CSSProperties = {
   fontSize: '12px',
-  color: '#9ca3af',
+  color: COLORS.textSecondary,
+  margin: '0 0 4px 0',
+};
+
+const footerSubtext: CSSProperties = {
+  fontSize: '11px',
+  color: COLORS.textMuted,
   margin: '0',
 };

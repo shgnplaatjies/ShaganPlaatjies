@@ -34,6 +34,12 @@ jobs:
       ALLOWED_ORIGIN: ${{ secrets.ALLOWED_ORIGIN }}
       RESTART_FILE_PATH: ${{ secrets.RESTART_FILE_PATH }}
       WP_DOMAIN: ${{ secrets.WP_DOMAIN }}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      PUBLIC_RESUME_URL: ${{ secrets.PUBLIC_RESUME_URL }}
 
     steps:
       - name: Clone repository
@@ -94,14 +100,19 @@ jobs:
             **/.next/cache/**
             **/.github/**
             **/.git/**
-            pages/**
-            css/**
-            layouts/**
-            components/**
-            lib/**
-            sitedata/**
-            postcss.config.js
-            tailwind.config.js
-            README.md
-            .gitignore
-            .eslintrc.json
+            **/pages/**
+            **/css/**
+            **/layouts/**
+            **/components/**
+            **/lib/**
+            **/sitedata/**
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/README.md
+            **/.gitignore
+            **/.eslintrc.json
+            **/.cursor/**
+            **/.vscode/**
+            **/.claude/**
+            **/tmp/**
+            **/node_modules/**

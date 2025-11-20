@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Link, Text } from '@radix-ui/themes';
-import NextLink from 'next/link';
 
 const ResumeSection: React.FC = () => {
   return (
@@ -15,9 +14,9 @@ const ResumeSection: React.FC = () => {
         </Box>
 
         <Link asChild color="cyan">
-          <NextLink href="/resume">
+          <a href="/downloads/shagan-plaatjies-resume.pdf" download>
             Download Resume
-          </NextLink>
+          </a>
         </Link>
       </Flex>
     </Box>
