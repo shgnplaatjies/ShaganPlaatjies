@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import { fetchWpProjects, fetchWpMediaById } from "../lib/server-lib";
 import { type WpProjectApiResponse } from "../lib/server-lib";
+import { sortProjectsByDate } from "../lib/server-lib-utils";
 
 const ProjectsSectionContent: React.FC<{
   projects: WpProjectApiResponse[];
@@ -56,21 +57,7 @@ const ProjectsSection: React.FC = async () => {
     return null;
   }
 
-  const sortedProjects = projects.sort((a, b) => {
-    const aStart = a.meta._project_date_start || "";
-    const aEnd = a.meta._project_date_end;
-    const bStart = b.meta._project_date_start || "";
-    const bEnd = b.meta._project_date_end;
-
-    if (!aEnd && bEnd) return -1;
-    if (aEnd && !bEnd) return 1;
-
-    if (!aEnd && !bEnd) {
-      return aStart.localeCompare(bStart);
-    }
-
-    return (aEnd || "").localeCompare(bEnd || "");
-  });
+  const sortedProjects = sortProjectsByDate(projects);
 
   const mediaIds = new Set<number>();
   sortedProjects.forEach((project) => {

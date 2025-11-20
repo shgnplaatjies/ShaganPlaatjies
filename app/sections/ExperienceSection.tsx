@@ -4,6 +4,7 @@ import ExperienceCard from "../components/ExperienceCard";
 import { fetchAllWpProjects } from "../lib/server-lib";
 import { type WpProjectApiResponse } from "../lib/wordpress-types";
 import { WORDPRESS_CATEGORIES } from "../lib/constants";
+import { sortProjectsByDate } from "../lib/server-lib-utils";
 
 const ExperienceSectionContent: React.FC<{
   experiences: WpProjectApiResponse[];
@@ -37,28 +38,15 @@ const ExperienceSection: React.FC = async () => {
 
   const experiences = allProjects.filter(
     (project) =>
-      project.categories && project.categories.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
+      project.categories &&
+      project.categories.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
   );
 
   if (!experiences || experiences.length === 0) {
     return null;
   }
 
-  const sortedExperiences = experiences.sort((a, b) => {
-    const aStart = a.meta._project_date_start || "";
-    const aEnd = a.meta._project_date_end;
-    const bStart = b.meta._project_date_start || "";
-    const bEnd = b.meta._project_date_end;
-
-    if (!aEnd && bEnd) return -1;
-    if (aEnd && !bEnd) return 1;
-
-    if (!aEnd && !bEnd) {
-      return aStart.localeCompare(bStart);
-    }
-
-    return (aEnd || "").localeCompare(bEnd || "");
-  });
+  const sortedExperiences = sortProjectsByDate(experiences);
 
   return (
     <Suspense
