@@ -66,80 +66,84 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const titleText = typeof title === "string" ? title : title.rendered;
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
+  const cardContent = (
+    <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200 cursor-pointer">
+      <Flex direction="column" gap="2" mb="3">
+        <Heading as="h3" size="5" className="text-gray-text-contrast">
+          {role || titleText}
+        </Heading>
+
+        {company && (
+          <Flex align="center" gap="2">
+            {companyUrl ? (
+              <Link
+                href={companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="cyan"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Flex align="center" gap="1">
+                  <Text size="2" className="font-medium">
+                    {company}
+                  </Text>
+                  <ExternalLinkIcon width="14" height="14" />
+                </Flex>
+              </Link>
+            ) : (
+              <Text size="2" className="font-medium">
+                {company}
+              </Text>
+            )}
+          </Flex>
+        )}
+
+        <Flex align="center" gap="3" wrap="wrap" className="text-sm">
+          {employmentType && (
+            <Text size="1" className="text-gray-solid-hover capitalize">
+              {employmentType.replace("-", " ")}
+            </Text>
+          )}
+          {location && (
+            <Text size="1" className="text-gray-solid-hover">
+              {location}
+            </Text>
+          )}
+          {dateRange && (
+            <Text size="1" className="text-gray-solid-hover">
+              {dateRange}
+            </Text>
+          )}
+        </Flex>
+      </Flex>
+
+      {content && (
+        <Text as="p" size="2" className="text-gray-solid-hover mb-3">
+          {stripHtml(content.rendered).substring(0, 300)}...
+        </Text>
+      )}
+
+      {galleryIds.length > 0 && (
+        <Flex
+          gap="2"
+          wrap="wrap"
+          className="mt-4 pt-4 border-t border-gray-border"
+        >
+          {galleryIds.map((id) => (
+            <div
+              key={id}
+              className="flex-shrink-0 w-16 h-16 bg-gray-border rounded overflow-hidden"
+              title={`Gallery item ${id}`}
+            />
+          ))}
+        </Flex>
+      )}
+    </Box>
+  );
+
   return (
     <NextLink href={`/experiences/${slug}`}>
-      <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200 cursor-pointer">
-        <Flex direction="column" gap="2" mb="3">
-          <Heading as="h3" size="5" className="text-gray-text-contrast">
-            {role || titleText}
-          </Heading>
-
-          {company && (
-            <Flex align="center" gap="2">
-              {companyUrl ? (
-                <Link
-                  href={companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="cyan"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Flex align="center" gap="1">
-                    <Text size="2" className="font-medium">
-                      {company}
-                    </Text>
-                    <ExternalLinkIcon width="14" height="14" />
-                  </Flex>
-                </Link>
-              ) : (
-                <Text size="2" className="font-medium">
-                  {company}
-                </Text>
-              )}
-            </Flex>
-          )}
-
-          <Flex align="center" gap="3" wrap="wrap" className="text-sm">
-            {employmentType && (
-              <Text size="1" className="text-gray-solid-hover capitalize">
-                {employmentType.replace("-", " ")}
-              </Text>
-            )}
-            {location && (
-              <Text size="1" className="text-gray-solid-hover">
-                {location}
-              </Text>
-            )}
-            {dateRange && (
-              <Text size="1" className="text-gray-solid-hover">
-                {dateRange}
-              </Text>
-            )}
-          </Flex>
-        </Flex>
-
-        {content && (
-          <Text as="p" size="2" className="text-gray-solid-hover mb-3">
-            {stripHtml(content.rendered).substring(0, 300)}...
-          </Text>
-        )}
-
-        {galleryIds.length > 0 && (
-          <Flex
-            gap="2"
-            wrap="wrap"
-            className="mt-4 pt-4 border-t border-gray-border"
-          >
-            {galleryIds.map((id) => (
-              <div
-                key={id}
-                className="flex-shrink-0 w-16 h-16 bg-gray-border rounded overflow-hidden"
-                title={`Gallery item ${id}`}
-              />
-            ))}
-          </Flex>
-        )}
-      </Box>
+      {cardContent}
     </NextLink>
   );
 };
