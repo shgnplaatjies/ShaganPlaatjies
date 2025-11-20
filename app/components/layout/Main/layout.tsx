@@ -51,7 +51,7 @@ const MainLayout: React.FC<{
         <Header className="h-auto py-4 flex place-content-center border-b border-gray-border" />
 
         <main className="flex flex-grow flex-row overflow-hidden w-full">
-          <div className="w-full h-full backdrop-blur-3xl bg-transparent overflow-hidden">
+          <div className="w-full h-full backdrop-blur-3xl bg-transparent overflow-y-auto">
             {children}
           </div>
         </main>

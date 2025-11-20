@@ -1,67 +1,57 @@
-import React from 'react';
-import { Suspense } from 'react';
-import ExperienceCard from '../components/ExperienceCard';
-import {
-  fetchWpExperience,
-} from '../lib/server-lib';
-import { type WordPressExperience } from '../lib/wordpress-types';
+import React from "react";
+import { Suspense } from "react";
+import ExperienceCard from "../components/ExperienceCard";
+import { fetchAllWpProjects } from "../lib/server-lib";
+import { type WpProjectApiResponse } from "../lib/wordpress-types";
+import { WORDPRESS_CATEGORIES } from "../lib/constants";
+import { sortProjectsByDate } from "../lib/server-lib-utils";
 
 const ExperienceSectionContent: React.FC<{
-  experiences: WordPressExperience[];
+  experiences: WpProjectApiResponse[];
 }> = ({ experiences }) => {
   return (
     <div id="experience-section" className="space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">Experience</h2>
-        <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">Professional roles and key projects</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">
+          Experience
+        </h2>
+        <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">
+          Professional roles and key projects
+        </p>
       </div>
 
       <div className="space-y-8 sm:space-y-12">
         {experiences.map((experience) => (
-          <ExperienceCard
-            key={experience.id}
-            {...experience}
-          />
+          <ExperienceCard key={experience.id} {...experience} />
         ))}
-      </div>
-
-      <div className="mt-12 pt-8 border-t border-gray-border">
-        <a
-          href="/resume"
-          className="inline-flex items-center text-gray-solid-hover hover:text-gray-text-contrast transition-colors"
-        >
-          Download Resume →
-        </a>
       </div>
     </div>
   );
 };
 
 const ExperienceSection: React.FC = async () => {
-  const experiences = await fetchWpExperience();
+  const allProjects = await fetchAllWpProjects();
+
+  if (!allProjects) {
+    return null;
+  }
+
+  const experiences = allProjects.filter(
+    (project) =>
+      project.categories &&
+      project.categories.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
+  );
 
   if (!experiences || experiences.length === 0) {
     return null;
   }
 
-  const sortedExperiences = experiences.sort((a, b) => {
-    const aStart = a.meta._portfolio_experience_date_start || '';
-    const aEnd = a.meta._portfolio_experience_date_end;
-    const bStart = b.meta._portfolio_experience_date_start || '';
-    const bEnd = b.meta._portfolio_experience_date_end;
-
-    if (!aEnd && bEnd) return -1;
-    if (aEnd && !bEnd) return 1;
-
-    if (!aEnd && !bEnd) {
-      return bStart.localeCompare(aStart);
-    }
-
-    return (bEnd || '').localeCompare(aEnd || '');
-  });
+  const sortedExperiences = sortProjectsByDate(experiences);
 
   return (
-    <Suspense fallback={<div className="text-gray-border">Loading experience...</div>}>
+    <Suspense
+      fallback={<div className="text-gray-border">Loading experience...</div>}
+    >
       <ExperienceSectionContent experiences={sortedExperiences} />
     </Suspense>
   );

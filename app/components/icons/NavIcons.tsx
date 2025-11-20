@@ -6,7 +6,7 @@ import {
 import { NAV_LINKS } from "../../lib/constants";
 import { HyperMediaIconProps } from "../IconsList";
 
-const { home, about, experience, experiments, posts, contact } = NAV_LINKS;
+const { home, about, experience, projects, contact } = NAV_LINKS;
 
 export const getNavIcons = (): HyperMediaIconProps[] => [
   {
@@ -18,6 +18,16 @@ export const getNavIcons = (): HyperMediaIconProps[] => [
     href: about.href,
     Icon: PersonIcon,
     label: about.label,
+  },
+  {
+    href: experience.href,
+    Icon: PersonIcon,
+    label: experience.label,
+  },
+  {
+    href: projects.href,
+    Icon: PersonIcon,
+    label: projects.label,
   },
   {
     href: contact.href,

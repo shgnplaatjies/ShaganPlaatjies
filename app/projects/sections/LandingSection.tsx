@@ -21,8 +21,8 @@ const LandingSection: React.FC = () => {
           postText="Engineer."
         />
         <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
-          Explore my professional experience across fintech, insurance,
-          telecommunications, and live entertainment sectors.
+          Explore my portfolio of technical projects and solutions delivered
+          across various industries and platforms.
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>

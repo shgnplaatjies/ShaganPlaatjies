@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
   });
 
   return (
-    <>
+    <div className="w-full h-full overflow-y-auto">
       {featuredMedia && (
         <Box className="relative w-full h-[32rem] overflow-hidden bg-gray-900">
           <Image
@@ -127,7 +127,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <Box className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
             <Link
               href="/posts"
-              className="inline-flex items-center text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors"
+              className="inline-flex items-center text-cyan-solid hover:text-gray-solid-hover transition-colors"
             >
               <span className="mr-2">←</span>
               Back to all posts
@@ -135,6 +135,6 @@ export default async function PostPage({ params }: PostPageProps) {
           </Box>
         </Box>
       </Section>
-    </>
+    </div>
   );
 }

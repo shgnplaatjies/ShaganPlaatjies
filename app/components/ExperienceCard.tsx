@@ -1,23 +1,46 @@
-import React from 'react';
-import { Heading, Text, Box, Flex, Link } from '@radix-ui/themes';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
-import { WordPressExperience } from '@/app/lib/wordpress-types';
+"use client";
 
-interface ExperienceCardProps extends WordPressExperience {}
+import React from "react";
+import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import NextLink from "next/link";
+import { WpProjectApiResponse } from "@/app/lib/wordpress-types";
+
+interface ExperienceCardProps extends WpProjectApiResponse {}
+
+const formatDate = (dateString: string, format: string): string => {
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  const day = String(date.getDate()).padStart(2, "0");
+
+  switch (format) {
+    case "yyyy":
+      return `${year}`;
+    case "mm/yyyy":
+      return `${month}/${year}`;
+    case "dd/mm/yyyy":
+      return `${day}/${month}/${year}`;
+    default:
+      return `${month}/${year}`;
+  }
+};
 
 const formatDateRange = (
   startDate: string,
   endDate: string | undefined,
   dateFormat: string
 ): string => {
+  const formattedStart = formatDate(startDate, dateFormat);
   if (endDate) {
-    return `${startDate} - ${endDate}`;
+    const formattedEnd = formatDate(endDate, dateFormat);
+    return `${formattedStart} - ${formattedEnd}`;
   }
-  return `${startDate} - Present`;
+  return `${formattedStart} - Present`;
 };
 
 const stripHtml = (html: string) => {
-  return html.replace(/<[^>]*>/g, '');
+  return html.replace(/<[^>]*>/g, "");
 };
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({
@@ -25,70 +48,99 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   content,
   meta,
   featured_media,
+  slug,
 }) => {
-  const role = meta._portfolio_experience_role;
-  const company = meta._portfolio_experience_company;
-  const companyUrl = meta._portfolio_experience_company_url;
-  const location = meta._portfolio_experience_location;
-  const employmentType = meta._portfolio_experience_employment_type;
-  const dateStart = meta._portfolio_experience_date_start;
-  const dateEnd = meta._portfolio_experience_date_end;
-  const dateFormat = meta._portfolio_experience_date_format || 'mm/yyyy';
+  const role = meta._project_role;
+  const company = meta._project_company;
+  const companyUrl = meta._project_company_url;
+  const location = meta._project_location;
+  const employmentType = meta._project_employment_type;
+  const dateStart = meta._project_date_start;
+  const dateEnd = meta._project_date_end;
+  const dateFormat = meta._project_date_format || "mm/yyyy";
+  const gallery = meta._project_gallery;
 
-  const dateRange = dateStart ? formatDateRange(dateStart, dateEnd, dateFormat) : '';
-  const titleText = typeof title === 'string' ? title : title.rendered;
+  const dateRange = dateStart
+    ? formatDateRange(dateStart, dateEnd, dateFormat)
+    : "";
+  const titleText = typeof title === "string" ? title : title.rendered;
+  const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
   return (
-    <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200">
-      <Flex direction="column" gap="2" mb="3">
-        <Heading as="h3" size="5" className="text-gray-text-contrast">
-          {role || titleText}
-        </Heading>
+    <NextLink href={`/experiences/${slug}`}>
+      <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200 cursor-pointer">
+        <Flex direction="column" gap="2" mb="3">
+          <Heading as="h3" size="5" className="text-gray-text-contrast">
+            {role || titleText}
+          </Heading>
 
-        {company && (
-          <Flex align="center" gap="2">
-            {companyUrl ? (
-              <Link href={companyUrl} target="_blank" rel="noopener noreferrer" color="cyan">
-                <Flex align="center" gap="1">
-                  <Text size="2" className="font-medium">
-                    {company}
-                  </Text>
-                  <ExternalLinkIcon width="14" height="14" />
-                </Flex>
-              </Link>
-            ) : (
-              <Text size="2" className="font-medium">
-                {company}
+          {company && (
+            <Flex align="center" gap="2">
+              {companyUrl ? (
+                <Link
+                  href={companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="cyan"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Flex align="center" gap="1">
+                    <Text size="2" className="font-medium">
+                      {company}
+                    </Text>
+                    <ExternalLinkIcon width="14" height="14" />
+                  </Flex>
+                </Link>
+              ) : (
+                <Text size="2" className="font-medium">
+                  {company}
+                </Text>
+              )}
+            </Flex>
+          )}
+
+          <Flex align="center" gap="3" wrap="wrap" className="text-sm">
+            {employmentType && (
+              <Text size="1" className="text-gray-solid-hover capitalize">
+                {employmentType.replace("-", " ")}
+              </Text>
+            )}
+            {location && (
+              <Text size="1" className="text-gray-solid-hover">
+                {location}
+              </Text>
+            )}
+            {dateRange && (
+              <Text size="1" className="text-gray-solid-hover">
+                {dateRange}
               </Text>
             )}
           </Flex>
+        </Flex>
+
+        {content && (
+          <Text as="p" size="2" className="text-gray-solid-hover mb-3">
+            {stripHtml(content.rendered).substring(0, 300)}...
+          </Text>
         )}
 
-        <Flex align="center" gap="3" wrap="wrap" className="text-sm">
-          {employmentType && (
-            <Text size="1" className="text-gray-solid-hover capitalize">
-              {employmentType.replace('-', ' ')}
-            </Text>
-          )}
-          {location && (
-            <Text size="1" className="text-gray-solid-hover">
-              {location}
-            </Text>
-          )}
-          {dateRange && (
-            <Text size="1" className="text-gray-solid-hover">
-              {dateRange}
-            </Text>
-          )}
-        </Flex>
-      </Flex>
-
-      {content && (
-        <Text as="p" size="2" className="text-gray-solid-hover mb-3">
-          {stripHtml(content.rendered).substring(0, 300)}...
-        </Text>
-      )}
-    </Box>
+        {galleryIds.length > 0 && (
+          <Flex
+            gap="2"
+            wrap="wrap"
+            className="mt-4 pt-4 border-t border-gray-border"
+          >
+            {galleryIds.map((id) => (
+              <div
+                key={id}
+                className="flex-shrink-0 w-16 h-16 bg-gray-border rounded overflow-hidden"
+                title={`Gallery item ${id}`}
+              />
+            ))}
+          </Flex>
+        )}
+      </Box>
+    </NextLink>
   );
 };
 
