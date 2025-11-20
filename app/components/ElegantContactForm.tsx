@@ -1,6 +1,15 @@
 "use client";
 
-import { Box, Button, Flex, Select, TextArea, TextField, Text, Heading } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  Flex,
+  Select,
+  TextArea,
+  TextField,
+  Text,
+  Heading,
+} from "@radix-ui/themes";
 import { useState } from "react";
 
 interface ContactFormData {
@@ -31,9 +40,9 @@ const ElegantContactForm: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -49,11 +58,11 @@ const ElegantContactForm: React.FC = () => {
 
         setTimeout(() => setSubmitted(false), 3000);
       } else {
-        setError('Failed to send message. Please try again.');
+        setError("Failed to send message. Please try again.");
       }
     } catch (err) {
-      console.error('Error sending message:', err);
-      setError('An error occurred. Please try again.');
+      console.error("Error sending message:", err);
+      setError("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -66,7 +75,8 @@ const ElegantContactForm: React.FC = () => {
           Thank you for reaching out
         </Heading>
         <Text as="p" size="2" className="opacity-70">
-          I&apos;ll get back to you within 24 hours. Looking forward to connecting!
+          I&apos;ll get back to you within 24 hours. Looking forward to
+          connecting!
         </Text>
       </Box>
     );
@@ -88,16 +98,16 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Name
             </Text>
-            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
+            <Text as="span" size="2" className="text-accent-9 ml-1">
+              *
+            </Text>
           </label>
           <TextField.Root
             placeholder="Your name"
             type="text"
             required
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full"
             disabled={isSubmitting}
           />
@@ -109,7 +119,9 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Email
             </Text>
-            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
+            <Text as="span" size="2" className="text-accent-9 ml-1">
+              *
+            </Text>
           </label>
           <TextField.Root
             placeholder="your@email.com"
@@ -130,7 +142,9 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Company or Organization
             </Text>
-            <Text as="span" size="1" className="opacity-50 ml-1">(optional)</Text>
+            <Text as="span" size="1" className="opacity-50 ml-1">
+              (optional)
+            </Text>
           </label>
           <TextField.Root
             placeholder="Your company"
@@ -150,7 +164,9 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               What are you interested in?
             </Text>
-            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
+            <Text as="span" size="2" className="text-accent-9 ml-1">
+              *
+            </Text>
           </label>
           <Select.Root
             value={formData.service}
@@ -161,27 +177,19 @@ const ElegantContactForm: React.FC = () => {
           >
             <Select.Trigger className="w-full" />
             <Select.Content>
-              <Select.Item value="consulting">
-                Technical Consulting
-              </Select.Item>
+              <Select.Item value="consulting">Technical Consulting</Select.Item>
               <Select.Item value="architecture">
                 System Architecture
               </Select.Item>
-              <Select.Item value="leadership">
-                Technical Leadership
-              </Select.Item>
+              <Select.Item value="leadership">Technical Leadership</Select.Item>
               <Select.Item value="fullstack">
                 Full-Stack Development
               </Select.Item>
               <Select.Item value="modernization">
                 System Modernization
               </Select.Item>
-              <Select.Item value="fintech">
-                Fintech Solutions
-              </Select.Item>
-              <Select.Item value="other">
-                Something else
-              </Select.Item>
+              <Select.Item value="fintech">Fintech Solutions</Select.Item>
+              <Select.Item value="other">Something else</Select.Item>
             </Select.Content>
           </Select.Root>
         </Box>
@@ -192,7 +200,9 @@ const ElegantContactForm: React.FC = () => {
             <Text as="span" size="2" weight="medium">
               Tell me about your project or challenge
             </Text>
-            <Text as="span" size="2" className="text-accent-9 ml-1">*</Text>
+            <Text as="span" size="2" className="text-accent-9 ml-1">
+              *
+            </Text>
           </label>
           <TextArea
             placeholder="What's on your mind? Share any context, timeline, or specific goals..."
@@ -214,8 +224,9 @@ const ElegantContactForm: React.FC = () => {
           </Text>
           <Button
             type="submit"
+            size="3"
             disabled={isSubmitting}
-            className="px-8 py-3 font-semibold rounded-md transition-all duration-200 ease-out hover:scale-105 hover:shadow-lg active:scale-95 bg-cyan-solid text-white hover:bg-cyan-solid-hover cursor-pointer"
+            className="cursor-pointer"
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
           </Button>
