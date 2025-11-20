@@ -1,12 +1,16 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import NextLink from "next/link";
 import { WpProjectApiResponse } from "@/app/lib/wordpress-types";
 
-interface ExperienceCardProps extends WpProjectApiResponse {}
+interface ExperienceCardProps extends WpProjectApiResponse {
+  mediaMap?: Record<number, string>;
+  isActive?: boolean;
+}
 
 const formatDate = (dateString: string, format: string): string => {
   const date = new Date(dateString);
@@ -49,6 +53,8 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   meta,
   featured_media,
   slug,
+  mediaMap = {},
+  isActive = false,
 }) => {
   const role = meta._project_role;
   const company = meta._project_company;
@@ -67,8 +73,20 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
   const cardContent = (
-    <Box className="border-l-2 border-gray-solid pl-6 py-4 hover:border-gray-solid-hover transition-all duration-200 cursor-pointer">
-      <Flex direction="column" gap="2" mb="3">
+    <div className="relative py-4">
+      <div className="absolute -left-14 top-0 w-8 h-8 flex items-center justify-center">
+        {isActive ? (
+          <>
+            <div className="w-6 h-6 rounded-full border-2 border-gray-8 bg-transparent"></div>
+            <div className="absolute w-6 h-6 rounded-full border-2 border-gray-8 opacity-50 animate-pulse"></div>
+          </>
+        ) : (
+          <div className="w-6 h-6 rounded-full bg-gray-8 border-2 border-gray-7"></div>
+        )}
+      </div>
+
+      <Box className="hover:opacity-80 transition-opacity cursor-pointer">
+        <Flex direction="column" gap="2" mb="3">
         <Heading as="h3" size="5" className="text-gray-text-contrast">
           {role || titleText}
         </Heading>
@@ -127,18 +145,35 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <Flex
           gap="2"
           wrap="wrap"
+          align="center"
           className="mt-4 pt-4 border-t border-gray-border"
         >
-          {galleryIds.map((id) => (
-            <div
-              key={id}
-              className="flex-shrink-0 w-16 h-16 bg-gray-border rounded overflow-hidden"
-              title={`Gallery item ${id}`}
-            />
-          ))}
+          {galleryIds.map((idStr, index) => {
+            const mediaId = parseInt(idStr, 10);
+            const imageUrl = mediaMap[mediaId];
+            return (
+              <div key={idStr} className="flex items-center gap-2">
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt={`Gallery item ${index + 1}`}
+                    width={64}
+                    height={64}
+                    className="flex-shrink-0 rounded object-cover border border-gray-border"
+                  />
+                ) : (
+                  <div
+                    className="flex-shrink-0 w-16 h-16 bg-gray-border rounded"
+                    title={`Gallery item ${idStr}`}
+                  />
+                )}
+              </div>
+            );
+          })}
         </Flex>
       )}
-    </Box>
+      </Box>
+    </div>
   );
 
   return (
