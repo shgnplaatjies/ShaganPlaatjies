@@ -140,6 +140,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         alt="Gallery item"
                         width={800}
                         height={600}
+                        unoptimized
                         className="w-full rounded object-cover"
                       />
                       {media.caption && (

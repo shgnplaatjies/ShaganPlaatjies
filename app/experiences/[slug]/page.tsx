@@ -184,6 +184,7 @@ export default async function ExperiencePage({ params }: ExperiencePageProps) {
                         alt="Gallery item"
                         width={800}
                         height={600}
+                        unoptimized
                         className="w-full rounded object-cover"
                       />
                       {media.caption && (
