@@ -123,3 +123,15 @@ jobs:
             **/tsconfig.json
             **/package.json
             **/package-lock.json
+
+      - name: Cleanup old Next.js files on server
+        uses: appleboy/ssh-action@master
+        if: always()
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            find ~/ -maxdepth 3 -type d -name ".next" -exec rm -rf {}/server/pages/ \; 2>/dev/null || true
+            echo "Cleaned up old Pages Router files"
