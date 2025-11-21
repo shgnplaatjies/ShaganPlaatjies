@@ -5,9 +5,10 @@ import { Box, Flex, Heading, Text, Badge } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import TaxonomyList from "../widgets/TaxonomyList";
 import { ProjectMeta } from "@/app/lib/wordpress-types";
+import GalleryImageDialog from "../GalleryImageDialog";
 
 export type BlogPostExcerpt = {
   id: number;
@@ -261,6 +262,26 @@ const ProjectCard: React.FC<{
     meta,
   },
 }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const companyUrl = meta?._project_company_url;
+  const gallery = meta?._project_gallery;
+  const galleryCaptionsJson = meta?._project_gallery_captions;
+
+  // Parse gallery captions from JSON
+  let galleryCaptions: Record<string, string> = {};
+  if (galleryCaptionsJson) {
+    try {
+      galleryCaptions = JSON.parse(galleryCaptionsJson);
+    } catch (e) {
+      console.error("Failed to parse gallery captions:", e);
+    }
+  }
+
+  // Get gallery image IDs
+  const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
+
   const projectProps: ProjectCardInternalProps = {
     date: dateGmt,
     mediaSrc: featuredMedia ?? DefaultFeaturedImage,
@@ -270,31 +291,68 @@ const ProjectCard: React.FC<{
     labels: labels ?? [...(categories ?? []), ...(tags ?? [])],
   };
 
-  return (
-    <Box mt={"8"} asChild>
-      <Flex
-        direction="column"
-        px="3"
-        className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300"
-      >
-        <Link href={`/projects/${slug}`} className="group">
-          <Box width="100%">
-            <Box className="block sm:hidden">
-              <ProjectSmallScreen {...projectProps} />
-              <ProjectMetaInfo meta={meta} />
-            </Box>
-            <Box className="hidden sm:block md:hidden">
-              <ProjectMediumScreen {...projectProps} />
-              <ProjectMetaInfo meta={meta} />
-            </Box>
-            <Box className="hidden md:block">
-              <ProjectLargeScreen {...projectProps} />
-              <ProjectMetaInfo meta={meta} />
-            </Box>
-          </Box>
-        </Link>
-      </Flex>
+  const cardContent = (
+    <Box width="100%">
+      <Box className="block sm:hidden">
+        <ProjectSmallScreen {...projectProps} />
+        <ProjectMetaInfo meta={meta} />
+      </Box>
+      <Box className="hidden sm:block md:hidden">
+        <ProjectMediumScreen {...projectProps} />
+        <ProjectMetaInfo meta={meta} />
+      </Box>
+      <Box className="hidden md:block">
+        <ProjectLargeScreen {...projectProps} />
+        <ProjectMetaInfo meta={meta} />
+      </Box>
     </Box>
+  );
+
+  const href = companyUrl || `/projects/${slug}`;
+  const isExternalLink = companyUrl ? true : false;
+
+  return (
+    <>
+      <Box mt={"8"} asChild>
+        {isExternalLink ? (
+          <Flex
+            direction="column"
+            px="3"
+            className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300 cursor-pointer"
+            onClick={() => window.open(companyUrl, "_blank")}
+          >
+            {cardContent}
+          </Flex>
+        ) : (
+          <Link href={href} className="group">
+            <Flex
+              direction="column"
+              px="3"
+              className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300 cursor-pointer"
+            >
+              {cardContent}
+            </Flex>
+          </Link>
+        )}
+      </Box>
+      {galleryIds.length > 0 && (
+        <GalleryImageDialog
+          images={galleryIds
+            .map((idStr) => {
+              return {
+                id: parseInt(idStr, 10),
+                imageUrl: "",
+                caption: galleryCaptions[idStr] || undefined,
+                alt: `Gallery item`,
+              };
+            })
+            .filter((img) => img.imageUrl)}
+          initialIndex={selectedImageIndex}
+          isOpen={dialogOpen}
+          onOpenChange={setDialogOpen}
+        />
+      )}
+    </>
   );
 };
 

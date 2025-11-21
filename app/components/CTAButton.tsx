@@ -1,4 +1,5 @@
-import { Button, Link } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
+import Link from "next/link";
 import React from "react";
 
 type CTAButtonProps = {
@@ -9,7 +10,7 @@ type CTAButtonProps = {
 
 const CTAButton: React.FC<CTAButtonProps> = ({ href, text, Icon }) => {
   return (
-    <Link href={href} asChild>
+    <Link href={href}>
       <Button
         className="my-4 px-8 py-3 font-semibold rounded-md transition-all duration-200 ease-out hover:scale-105 hover:shadow-lg active:scale-95 bg-cyan-solid text-white hover:bg-cyan-solid-hover flex items-center gap-2"
         type="button"

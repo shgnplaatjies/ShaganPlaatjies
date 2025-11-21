@@ -109,6 +109,7 @@ export interface ProjectMeta {
   _project_location?: string;
   _project_source_url?: string;
   _project_gallery?: string;
+  _project_gallery_captions?: string;
   _project_date_type?: "single" | "range";
   _project_date_format?: "yyyy" | "mm/yyyy" | "dd/mm/yyyy";
   _project_date_start?: string;
