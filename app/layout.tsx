@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import { Box, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
@@ -18,11 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable} bg-gray-1 dark:bg-gray-1`}
-      >
+    <html
+      lang="en"
+      className={`${SpaceMono.variable} ${FixedSys.variable} ${ChakraPetch.variable} bg-gray-1 dark:bg-gray-1`}
+    >
         <head>
           <script
             dangerouslySetInnerHTML={{
@@ -49,6 +47,5 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }
