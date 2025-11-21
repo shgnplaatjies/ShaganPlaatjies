@@ -20,12 +20,9 @@ export const SOCIAL_LINKS = {
 
 export const NAV_LINKS = {
   home: { href: "/", label: "Home" },
-  about: { href: "/about", label: "About" },
   experience: { href: "/experience", label: "Experience" },
   projects: { href: "/projects", label: "Projects" },
-  experiments: { href: "/experiments", label: "Experiments" },
   posts: { href: "/posts", label: "Blog" },
-  contact: { href: "/contact", label: "Contact" },
 };
 
 export type OrbColorOnPageType = {
@@ -41,11 +38,6 @@ export type OrbColorOnPagesConfigType = {
 export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
   default: { path: "", color: "fill-radix-base-cyan", radixColor: "cyan" },
   home: { path: "/", color: "fill-radix-base-cyan", radixColor: "cyan" },
-  about: {
-    path: "/about",
-    color: "fill-radix-base-tomato",
-    radixColor: "tomato",
-  },
   experience: {
     path: "/experience",
     color: "fill-radix-base-cyan",
@@ -56,28 +48,18 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
     color: "fill-radix-base-cyan",
     radixColor: "cyan",
   },
-  experiments: {
-    path: "/experiments",
-    color: "fill-radix-base-cyan",
-    radixColor: "cyan",
-  },
   blog: {
     path: "/posts",
     color: "fill-radix-base-violet",
     radixColor: "violet",
   },
-  contact: {
-    path: "/contact",
-    color: "fill-radix-base-cyan",
-    radixColor: "cyan",
-  },
 };
 
 export const WORDPRESS_CATEGORIES = {
-  BLOG_POST: { id: 37, name: 'Blog Post', slug: 'blog-post' },
-  PROJECT: { id: 38, name: 'Project', slug: 'project' },
-  WORK_EXPERIENCE: { id: 41, name: 'Work Experience', slug: 'work-experience' },
-  UNCATEGORIZED: { id: 1, name: 'Uncategorized', slug: 'uncategorized' },
+  BLOG_POST: { id: 37, name: "Blog Post", slug: "blog-post" },
+  PROJECT: { id: 38, name: "Project", slug: "project" },
+  WORK_EXPERIENCE: { id: 41, name: "Work Experience", slug: "work-experience" },
+  UNCATEGORIZED: { id: 1, name: "Uncategorized", slug: "uncategorized" },
 };
 
 export const POLLING_INTERVAL = 1000; // 10 seconds, how often to update the time

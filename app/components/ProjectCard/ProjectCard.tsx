@@ -1,5 +1,8 @@
+"use client";
+
 import { DefaultFeaturedImage } from "@/app/lib/constants";
 import { Box, Flex, Heading, Text, Badge } from "@radix-ui/themes";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -176,6 +179,7 @@ const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
 
   const role = meta._project_role;
   const company = meta._project_company;
+  const companyUrl = meta._project_company_url;
   const location = meta._project_location;
   const employmentType = meta._project_employment_type;
   const dateStart = meta._project_date_start;
@@ -198,9 +202,28 @@ const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
         </Text>
       )}
       {company && (
-        <Text size="2" className="text-gray-solid-hover">
-          {company}
-        </Text>
+        <Flex align="center" gap="2">
+          {companyUrl ? (
+            <Flex
+              align="center"
+              gap="1"
+              className="text-cyan-9 cursor-pointer hover:text-cyan-10 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(companyUrl, '_blank');
+              }}
+            >
+              <Text size="2" className="font-medium">
+                {company}
+              </Text>
+              <ExternalLinkIcon width="14" height="14" />
+            </Flex>
+          ) : (
+            <Text size="2" className="text-gray-solid-hover">
+              {company}
+            </Text>
+          )}
+        </Flex>
       )}
       <Flex align="center" gap="3" wrap="wrap" className="text-xs">
         {employmentType && (

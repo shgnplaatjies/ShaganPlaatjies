@@ -73,7 +73,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
   const cardContent = (
-    <div className="relative group">
+    <div className="relative group pt-8 pb-8 border-b border-gray-border">
       <div className="absolute -left-8 top-1 w-4 h-4 flex items-center justify-center">
         {isActive ? (
           <>
@@ -149,7 +149,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
             gap="2"
             wrap="wrap"
             align="center"
-            className="mt-4 pt-4 border-t border-gray-border"
+            className="mt-4"
           >
             {galleryIds.map((idStr, index) => {
               const mediaId = parseInt(idStr, 10);
@@ -162,6 +162,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                       alt={`Gallery item ${index + 1}`}
                       width={64}
                       height={64}
+                      unoptimized
                       className="flex-shrink-0 rounded object-cover border border-gray-border"
                     />
                   ) : (

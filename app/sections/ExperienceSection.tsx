@@ -24,7 +24,7 @@ const ExperienceSectionContent: React.FC<{
       <div className="relative">
         <div className="absolute left-[0.4375rem] top-2 bottom-0 w-0.5 bg-gray-8"></div>
 
-        <div className="space-y-6 sm:space-y-8 pl-8">
+        <div className="space-y-12 sm:space-y-16 pl-8">
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={experience.id}
