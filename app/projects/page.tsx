@@ -1,12 +1,12 @@
-import LandingSection from "./sections/LandingSection";
+import GenericContentPage from "../components/pages/GenericContentPage";
 import ProjectsSection from "../sections/ProjectsSection";
 
 const ProjectsPage: React.FC = () => {
   return (
-    <>
-      <LandingSection />
-      <ProjectsSection />
-    </>
+    <GenericContentPage
+      landingDescription="Explore my portfolio of technical projects and solutions delivered across various industries and platforms."
+      contentComponent={<ProjectsSection />}
+    />
   );
 };
 

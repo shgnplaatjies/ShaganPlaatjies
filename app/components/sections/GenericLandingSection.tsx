@@ -1,8 +1,12 @@
 import { Flex, Section, Text } from "@radix-ui/themes";
-import AccentedHeading from "../../components/AccentedHeading";
-import CTAButton from "../../components/CTAButton";
+import AccentedHeading from "../AccentedHeading";
+import CTAButton from "../CTAButton";
 
-const LandingSection: React.FC = () => {
+export interface GenericLandingSectionProps {
+  description: string;
+}
+
+const GenericLandingSection: React.FC<GenericLandingSectionProps> = ({ description }) => {
   return (
     <Section height="90vh">
       <Flex
@@ -21,8 +25,7 @@ const LandingSection: React.FC = () => {
           postText="Engineer."
         />
         <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
-          Explore my professional experience across fintech, insurance,
-          telecommunications, and live entertainment sectors.
+          {description}
         </Text>
         <CTAButton href="/about" text="About Me" />
       </Flex>
@@ -30,4 +33,4 @@ const LandingSection: React.FC = () => {
   );
 };
 
-export default LandingSection;
+export default GenericLandingSection;

@@ -114,7 +114,3 @@ jobs:
             src/**
             **/*.tsx
             **/*.ts
-            **/next.config.js
-            **/tsconfig.json
-            **/package.json
-            **/package-lock.json

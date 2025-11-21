@@ -9,6 +9,9 @@ import { ThemeProvider } from "./lib/theme-context";
 export const metadata: Metadata = {
   title: "Shagan Plaatjies",
   description: "My slice of the silicone sea, welcome to my portfolio!",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

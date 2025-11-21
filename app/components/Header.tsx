@@ -1,5 +1,6 @@
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Flex, Grid } from "@radix-ui/themes";
+import Link from "next/link";
 import React from "react";
 import AnimatedIconStack from "./AnimatedIconStack";
 import StylizedTextLogo from "./StylizedTextLogo";
@@ -16,7 +17,9 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
         <Flex justify="start" align="center">
         </Flex>
         <Flex justify="center" align="center">
-          <StylizedTextLogo />
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <StylizedTextLogo />
+          </Link>
         </Flex>
         <Flex justify="end" align="center">
           <AnimatedIconStack
