@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Heading, Text, Box, Flex, Link } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import NextLink from "next/link";
 import { WpProjectApiResponse } from "@/app/lib/wordpress-types";
+import GalleryImageDialog from "./GalleryImageDialog";
 
 interface ExperienceCardProps extends WpProjectApiResponse {
   mediaMap?: Record<number, string>;
@@ -56,6 +57,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   mediaMap = {},
   isActive = false,
 }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
   const role = meta._project_role;
   const company = meta._project_company;
   const companyUrl = meta._project_company_url;
@@ -65,12 +69,37 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const dateEnd = meta._project_date_end;
   const dateFormat = meta._project_date_format || "mm/yyyy";
   const gallery = meta._project_gallery;
+  const galleryCaptionsJson = meta._project_gallery_captions;
 
   const dateRange = dateStart
     ? formatDateRange(dateStart, dateEnd, dateFormat)
     : "";
   const titleText = typeof title === "string" ? title : title.rendered;
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
+
+  // Parse gallery captions from JSON
+  let galleryCaptions: Record<string, string> = {};
+  if (galleryCaptionsJson) {
+    try {
+      galleryCaptions = JSON.parse(galleryCaptionsJson);
+    } catch (e) {
+      console.error("Failed to parse gallery captions:", e);
+    }
+  }
+
+  // Build gallery images for dialog
+  const galleryImages = galleryIds
+    .map((idStr) => {
+      const mediaId = parseInt(idStr, 10);
+      const imageUrl = mediaMap[mediaId];
+      return {
+        id: mediaId,
+        imageUrl: imageUrl || "",
+        caption: galleryCaptions[idStr] || galleryCaptions[mediaId] || undefined,
+        alt: `Gallery item`,
+      };
+    })
+    .filter((img) => img.imageUrl);
 
   const cardContent = (
     <div className="relative group pt-8 pb-8 border-b border-gray-border">
@@ -103,7 +132,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                   className="text-cyan-9 cursor-pointer hover:text-cyan-10 transition-colors"
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(companyUrl, '_blank');
+                    window.open(companyUrl, "_blank");
                   }}
                 >
                   <Text size="2" className="font-medium">
@@ -144,43 +173,60 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           </Text>
         )}
 
-        {galleryIds.length > 0 && (
-          <Flex
-            gap="2"
-            wrap="wrap"
-            align="center"
-            className="mt-4"
-          >
-            {galleryIds.map((idStr, index) => {
-              const mediaId = parseInt(idStr, 10);
-              const imageUrl = mediaMap[mediaId];
-              return (
-                <div key={idStr} className="flex items-center gap-2">
-                  {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={`Gallery item ${index + 1}`}
-                      width={64}
-                      height={64}
-                      unoptimized
-                      className="flex-shrink-0 rounded object-cover border border-gray-border"
-                    />
-                  ) : (
-                    <div
-                      className="flex-shrink-0 w-16 h-16 bg-gray-border rounded"
-                      title={`Gallery item ${idStr}`}
-                    />
-                  )}
-                </div>
-              );
-            })}
+        {galleryImages.length > 0 && (
+          <Flex gap="2" wrap="wrap" align="center" className="mt-4">
+            {galleryImages.map((image, index) => (
+              <button
+                key={image.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedImageIndex(index);
+                  setDialogOpen(true);
+                }}
+                className="flex items-center gap-2 p-0 border-0 bg-transparent cursor-pointer hover:opacity-80 transition-opacity"
+                aria-label={`Open gallery image ${index + 1}`}
+              >
+                <Image
+                  src={image.imageUrl}
+                  alt={image.alt}
+                  width={64}
+                  height={64}
+                  unoptimized
+                  className="flex-shrink-0 rounded object-cover border border-gray-border"
+                />
+              </button>
+            ))}
           </Flex>
         )}
       </Box>
     </div>
   );
 
-  return <NextLink href={`/experiences/${slug}`}>{cardContent}</NextLink>;
+  const href = companyUrl || `/experiences/${slug}`;
+  const isExternalLink = companyUrl ? true : false;
+
+  return (
+    <>
+      {isExternalLink ? (
+        <div
+          onClick={() => window.open(companyUrl, "_blank")}
+          className="cursor-pointer"
+        >
+          {cardContent}
+        </div>
+      ) : (
+        <NextLink href={href}>{cardContent}</NextLink>
+      )}
+      {galleryImages.length > 0 && (
+        <GalleryImageDialog
+          images={galleryImages}
+          initialIndex={selectedImageIndex}
+          isOpen={dialogOpen}
+          onOpenChange={setDialogOpen}
+        />
+      )}
+    </>
+  );
 };
 
 export default ExperienceCard;
