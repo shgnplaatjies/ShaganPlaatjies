@@ -5,7 +5,7 @@ import { ElegantContactForm } from "../components/ElegantContactForm";
 const ContactSection: React.FC = () => {
   return (
     <Box id="contact-section" className="space-y-6 sm:space-y-8">
-      <Flex direction="column" gap="4">
+      <Flex direction="column" gap="4" align="center" className="text-center">
         <Heading as="h2" size="6" className="text-gray-text-contrast">
           Get In Touch
         </Heading>
