@@ -1,7 +1,3 @@
-require("child_process").execSync("ulimit -m unlimited; ulimit -v unlimited;", {
-  stdio: "ignore",
-});
-
 const express = require("express");
 const nextjs = require("next");
 const cnad = require("@bitc/cnad");
