@@ -1,5 +1,6 @@
 import React from "react";
 import { Suspense } from "react";
+import { Section, Flex } from "@radix-ui/themes";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import { fetchWpProjects, fetchWpMediaById } from "../lib/server-lib";
 import { type WpProjectApiResponse } from "../lib/server-lib";
@@ -10,43 +11,45 @@ const ProjectsSectionContent: React.FC<{
   mediaMap: Record<number, string>;
 }> = ({ projects, mediaMap }) => {
   return (
-    <div id="projects-section" className="space-y-6 sm:space-y-8">
-      <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">
-          Projects
-        </h2>
-        <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">
-          Portfolio of work and technical solutions
-        </p>
-      </div>
+    <Section id="projects-section" px={{ initial: "4", sm: "6", md: "8" }}>
+      <Flex direction="column" gap="6">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-12 mb-4 sm:mb-6">
+            Projects
+          </h2>
+          <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">
+            Portfolio of work and technical solutions
+          </p>
+        </div>
 
-      <div className="space-y-8 sm:space-y-12">
-        {projects.map((project, index) => {
-          const featuredImageUrl = project.featured_media
-            ? mediaMap[project.featured_media]
-            : undefined;
+        <div className="space-y-8 sm:space-y-12">
+          {projects.map((project, index) => {
+            const featuredImageUrl = project.featured_media
+              ? mediaMap[project.featured_media]
+              : undefined;
 
-          return (
-            <ProjectCard
-              key={project.id}
-              post={{
-                id: index + 1,
-                dateGmt: project.date_gmt,
-                modifiedGmt: project.modified_gmt,
-                slug: project.slug,
-                status: project.status,
-                link: project.link,
-                titleRendered: project.title.rendered,
-                featuredMedia: featuredImageUrl,
-                categories: [],
-                tags: [],
-                meta: project.meta,
-              }}
-            />
-          );
-        })}
-      </div>
-    </div>
+            return (
+              <ProjectCard
+                key={project.id}
+                post={{
+                  id: index + 1,
+                  dateGmt: project.date_gmt,
+                  modifiedGmt: project.modified_gmt,
+                  slug: project.slug,
+                  status: project.status,
+                  link: project.link,
+                  titleRendered: project.title.rendered,
+                  featuredMedia: featuredImageUrl,
+                  categories: [],
+                  tags: [],
+                  meta: project.meta,
+                }}
+              />
+            );
+          })}
+        </div>
+      </Flex>
+    </Section>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Suspense } from "react";
+import { Section, Flex } from "@radix-ui/themes";
 import ExperienceCard from "../components/ExperienceCard";
 import { fetchAllWpProjects, fetchWpMediaById } from "../lib/server-lib";
 import { type WpProjectApiResponse } from "../lib/wordpress-types";
@@ -11,31 +12,33 @@ const ExperienceSectionContent: React.FC<{
   mediaMap: Record<number, string>;
 }> = ({ experiences, mediaMap }) => {
   return (
-    <div id="experience-section" className="space-y-6 sm:space-y-8">
-      <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">
-          Experience
-        </h2>
-        <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">
-          Professional roles and key projects
-        </p>
-      </div>
-
-      <div className="relative">
-        <div className="absolute left-[0.4375rem] top-2 bottom-0 w-0.5 bg-gray-8"></div>
-
-        <div className="space-y-12 sm:space-y-16 pl-8">
-          {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={experience.id}
-              {...experience}
-              mediaMap={mediaMap}
-              isActive={index === 0}
-            />
-          ))}
+    <Section id="experience-section" px={{ initial: "4", sm: "6", md: "8" }}>
+      <Flex direction="column" gap="6">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-text-contrast mb-4 sm:mb-6">
+            Experience
+          </h2>
+          <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">
+            Professional roles and key projects
+          </p>
         </div>
-      </div>
-    </div>
+
+        <div className="relative">
+          <div className="absolute left-[0.4375rem] top-2 bottom-0 w-0.5 bg-gray-8"></div>
+
+          <div className="space-y-12 sm:space-y-16 pl-8">
+            {experiences.map((experience, index) => (
+              <ExperienceCard
+                key={experience.id}
+                {...experience}
+                mediaMap={mediaMap}
+                isActive={index === 0}
+              />
+            ))}
+          </div>
+        </div>
+      </Flex>
+    </Section>
   );
 };
 
