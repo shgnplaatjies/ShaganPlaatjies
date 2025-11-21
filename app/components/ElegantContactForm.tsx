@@ -87,15 +87,16 @@ const ElegantContactForm: React.FC = () => {
   }
 
   return (
-    <Box className="max-w-2xl">
-      {error && (
-        <Box className="mb-6 p-4 rounded-sm border border-gray-border-active bg-gray-bg-secondary">
-          <Text as="p" size="2" className="text-gray-solid">
-            {error}
-          </Text>
-        </Box>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <Flex justify="center" width="100%">
+      <Box className="max-w-2xl w-full">
+        {error && (
+          <Box className="mb-6 p-4 rounded-sm border border-gray-border-active bg-gray-bg-secondary">
+            <Text as="p" size="2" className="text-gray-solid">
+              {error}
+            </Text>
+          </Box>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
@@ -218,10 +219,7 @@ const ElegantContactForm: React.FC = () => {
         </Flex>
 
         {/* Submit Button */}
-        <Flex justify="between" align="center" gap="4" className="pt-4">
-          <Text as="p" size="1" className="text-gray-9">
-            I&apos;ll respond within one business day
-          </Text>
+        <Flex direction="column" align="center" gap="4" className="pt-4">
           <Button
             type="submit"
             disabled={isSubmitting}
@@ -231,9 +229,13 @@ const ElegantContactForm: React.FC = () => {
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
           </Button>
+          <Text as="p" size="1" className="text-gray-9">
+            I&apos;ll respond within one business day
+          </Text>
         </Flex>
-      </form>
-    </Box>
+        </form>
+      </Box>
+    </Flex>
   );
 };
 
