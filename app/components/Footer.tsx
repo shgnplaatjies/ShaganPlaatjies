@@ -20,10 +20,26 @@ const Footer: React.FC = () => {
           <StylizedTextLogo size="5" />
         </Flex>
 
-        <Text as="p" className="text-center opacity-70 max-w-md">
-          Interested in technical collaboration or enterprise solutions? Let&apos;s
-          discuss your project.
-        </Text>
+        <Flex direction="column" gap="3" align="center" className="max-w-xl">
+          <Text as="p" className="text-center opacity-70">
+            Interested in technical collaboration or enterprise solutions? Let&apos;s
+            discuss your project.
+          </Text>
+          <Text as="p" className="text-center opacity-70 text-sm">
+            This site is built with Next.js, TypeScript, and Radix UI. Content is
+            server-side rendered from a custom WordPress API.{" "}
+            <Link
+              color="gray"
+              href="https://github.com/shgnplaatjies"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100"
+            >
+              View the source code
+            </Link>
+            .
+          </Text>
+        </Flex>
 
         <Flex wrap="wrap" gap="4" justify="center" className="my-4">
           {navIcons.map(({ label, href }, i) => (
@@ -57,7 +73,7 @@ const Footer: React.FC = () => {
               </Text>
             </Flex>
 
-            <Flex gap="4" justify="center" className="mt-2">
+            <Flex gap="4" justify="center" className="mt-4">
               <Link
                 color="gray"
                 asChild
