@@ -318,7 +318,7 @@ const ProjectCard: React.FC<{
           <Flex
             direction="column"
             px="3"
-            className="flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300 cursor-pointer"
+            className="group flex self-center rounded-sm border border-gray-border hover:border-gray-border-hover hover:bg-gray-bg-secondary transition-all duration-300 cursor-pointer"
             onClick={() => window.open(companyUrl, "_blank")}
           >
             {cardContent}

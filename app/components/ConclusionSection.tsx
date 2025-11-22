@@ -16,7 +16,7 @@ const ConclusionSection: React.FC = () => {
             size="2"
             className="text-gray-solid-hover leading-relaxed"
           >
-            Loosely designed in Figma. Built with{" "}
+            This site is built with{" "}
             <Link asChild color="blue">
               <NextLink
                 href="https://nextjs.org"
@@ -25,18 +25,18 @@ const ConclusionSection: React.FC = () => {
               >
                 Next.js
               </NextLink>
-            </Link>{" "}
-            and{" "}
+            </Link>
+            ,{" "}
             <Link asChild color="blue">
               <NextLink
-                href="https://tailwindcss.com"
+                href="https://www.typescriptlang.org"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Tailwind CSS
+                TypeScript
               </NextLink>
             </Link>
-            . Styled with{" "}
+            , and{" "}
             <Link asChild color="blue">
               <NextLink
                 href="https://radix-ui.com"
@@ -44,6 +44,16 @@ const ConclusionSection: React.FC = () => {
                 rel="noopener noreferrer"
               >
                 Radix UI
+              </NextLink>
+            </Link>
+            . Content is server-side rendered from a custom WordPress API.{" "}
+            <Link asChild color="blue">
+              <NextLink
+                href="https://github.com/shgnplaatjies"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View the source code
               </NextLink>
             </Link>
             .

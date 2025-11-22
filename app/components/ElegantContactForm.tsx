@@ -97,7 +97,6 @@ const ElegantContactForm: React.FC = () => {
           </Box>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Name */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
             <Text as="span" size="2" weight="medium">
@@ -117,7 +116,6 @@ const ElegantContactForm: React.FC = () => {
           />
         </Flex>
 
-        {/* Email */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
             <Text as="span" size="2" weight="medium">
@@ -139,7 +137,6 @@ const ElegantContactForm: React.FC = () => {
           />
         </Flex>
 
-        {/* Company */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
             <Text as="span" size="2" weight="medium">
@@ -160,7 +157,6 @@ const ElegantContactForm: React.FC = () => {
           />
         </Flex>
 
-        {/* Service */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
             <Text as="span" size="2" weight="medium">
@@ -196,7 +192,6 @@ const ElegantContactForm: React.FC = () => {
           </Select.Root>
         </Flex>
 
-        {/* Message */}
         <Flex direction="column" gap="2">
           <label className="flex gap-1">
             <Text as="span" size="2" weight="medium">
@@ -218,7 +213,6 @@ const ElegantContactForm: React.FC = () => {
           />
         </Flex>
 
-        {/* Submit Button */}
         <Flex direction="column" align="center" gap="4" className="pt-4">
           <Button
             type="submit"
