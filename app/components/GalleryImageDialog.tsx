@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import * as Dialog from "@radix-ui/react-dialog";
+import { Dialog, Flex, Box, Text, IconButton, Button } from "@radix-ui/themes";
 import { Cross2Icon, ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { Box, Flex, Text } from "@radix-ui/themes";
 
 interface GalleryImage {
   id: number;
@@ -28,6 +27,12 @@ const GalleryImageDialog: React.FC<GalleryImageDialogProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentIndex(initialIndex);
+    }
+  }, [isOpen, initialIndex]);
+
   const currentImage = images[currentIndex];
 
   const handlePrevious = () => {
@@ -46,88 +51,106 @@ const GalleryImageDialog: React.FC<GalleryImageDialogProps> = ({
     }
   };
 
+  if (!currentImage) return null;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/80 z-50" />
-        <Dialog.Content
-          className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl max-h-[90vh] bg-gray-2 rounded-lg p-6 focus:outline-none"
-          onKeyDown={handleKeyDown}
-        >
-          <Flex direction="column" gap="4" height="100%">
-            {/* Close Button */}
-            <Flex justify="end">
-              <Dialog.Close asChild>
-                <button
-                  className="text-gray-9 hover:text-gray-12 transition-colors p-2"
-                  aria-label="Close dialog"
-                >
-                  <Cross2Icon width="24" height="24" />
-                </button>
-              </Dialog.Close>
-            </Flex>
+      <Dialog.Content
+        size="4"
+        maxWidth="900px"
+        maxHeight="90vh"
+        onKeyDown={handleKeyDown}
+        style={{ overflow: "auto" }}
+      >
+        <Flex direction="column" gap="4" style={{ height: "100%" }}>
+          <Flex justify="between" align="center" style={{ flexShrink: 0 }}>
+            <Dialog.Title size="5">
+              {currentImage.alt}
+            </Dialog.Title>
+            <Dialog.Close>
+              <IconButton variant="ghost" color="gray">
+                <Cross2Icon />
+              </IconButton>
+            </Dialog.Close>
+          </Flex>
 
-            {/* Image Container */}
-            <Flex
-              justify="center"
-              align="center"
-              className="flex-1 overflow-hidden"
-            >
-              {currentImage && currentImage.imageUrl ? (
-                <Box className="relative w-full h-full flex items-center justify-center">
-                  <Image
-                    src={currentImage.imageUrl}
-                    alt={currentImage.alt}
-                    width={800}
-                    height={800}
-                    unoptimized
-                    className="max-w-full max-h-full object-contain"
-                    priority
-                  />
-                </Box>
-              ) : (
-                <Box className="w-full h-full bg-gray-5 flex items-center justify-center rounded">
-                  <Text className="text-gray-9">Image not available</Text>
-                </Box>
-              )}
-            </Flex>
+          {currentImage.caption && (
+            <Dialog.Description size="2" style={{ flexShrink: 0 }}>
+              {currentImage.caption}
+            </Dialog.Description>
+          )}
 
-            {/* Caption */}
-            {currentImage?.caption && (
-              <Box className="bg-gray-3 p-4 rounded">
-                <Text size="2" className="text-gray-11">
-                  {currentImage.caption}
-                </Text>
-              </Box>
-            )}
+          <Box style={{ position: "relative", width: "100%", height: "50vh", minHeight: "300px", maxHeight: "600px", flexShrink: 0 }}>
+            <Image
+              src={currentImage.imageUrl}
+              alt={currentImage.alt}
+              fill
+              style={{ objectFit: "contain" }}
+              unoptimized
+              priority
+            />
+          </Box>
 
-            {/* Navigation */}
-            {images.length > 1 && (
-              <Flex justify="between" align="center" gap="4">
-                <button
-                  onClick={handlePrevious}
-                  className="p-2 hover:bg-gray-4 rounded transition-colors text-gray-9 hover:text-gray-12"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeftIcon width="24" height="24" />
-                </button>
-
-                <Text size="1" className="text-gray-9">
+          {images.length > 1 && (
+            <Flex direction="column" gap="3" style={{ flexShrink: 0 }}>
+              <Flex gap="2" justify="between" align="center">
+                <Button variant="soft" onClick={handlePrevious}>
+                  <ChevronLeftIcon />
+                  Previous
+                </Button>
+                <Text size="2" color="gray">
                   {currentIndex + 1} / {images.length}
                 </Text>
-
-                <button
-                  onClick={handleNext}
-                  className="p-2 hover:bg-gray-4 rounded transition-colors text-gray-9 hover:text-gray-12"
-                  aria-label="Next image"
-                >
-                  <ChevronRightIcon width="24" height="24" />
-                </button>
+                <Button onClick={handleNext}>
+                  Next
+                  <ChevronRightIcon />
+                </Button>
               </Flex>
-            )}
-          </Flex>
-        </Dialog.Content>
-      </Dialog.Portal>
+
+              <Flex gap="2" wrap="wrap" justify="center" style={{ maxHeight: "140px", overflowY: "auto" }}>
+                {images.map((img, idx) => (
+                  <button
+                    key={img.id}
+                    onClick={() => setCurrentIndex(idx)}
+                    style={{
+                      position: "relative",
+                      width: "64px",
+                      height: "64px",
+                      border: idx === currentIndex ? "2px solid var(--accent-9)" : "2px solid var(--gray-6)",
+                      borderRadius: "var(--radius-2)",
+                      overflow: "hidden",
+                      cursor: "pointer",
+                      opacity: idx === currentIndex ? 1 : 0.6,
+                      transition: "all 0.2s",
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (idx !== currentIndex) {
+                        e.currentTarget.style.opacity = "1";
+                        e.currentTarget.style.borderColor = "var(--gray-8)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (idx !== currentIndex) {
+                        e.currentTarget.style.opacity = "0.6";
+                        e.currentTarget.style.borderColor = "var(--gray-6)";
+                      }
+                    }}
+                  >
+                    <Image
+                      src={img.imageUrl}
+                      alt={img.alt}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      unoptimized
+                    />
+                  </button>
+                ))}
+              </Flex>
+            </Flex>
+          )}
+        </Flex>
+      </Dialog.Content>
     </Dialog.Root>
   );
 };
