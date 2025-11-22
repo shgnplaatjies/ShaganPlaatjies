@@ -95,15 +95,16 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       return {
         id: mediaId,
         imageUrl: imageUrl || "",
-        caption: galleryCaptions[idStr] || galleryCaptions[mediaId] || undefined,
+        caption:
+          galleryCaptions[idStr] || galleryCaptions[mediaId] || undefined,
         alt: `Gallery item`,
       };
     })
     .filter((img) => img.imageUrl);
 
   const cardContent = (
-    <div className="relative group pt-8 pb-8 border-b border-gray-border">
-      <div className="absolute -left-8 top-1 w-4 h-4 flex items-center justify-center">
+    <div className="relative group py-8 border-b border-gray-border">
+      <div className="absolute -left-8 top-9 w-4 h-4 flex items-center justify-center">
         {isActive ? (
           <>
             <div className="absolute w-4 h-4 rounded-full bg-gray-8"></div>
@@ -179,6 +180,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
               <button
                 key={image.id}
                 onClick={(e) => {
+                  e.preventDefault();
                   e.stopPropagation();
                   setSelectedImageIndex(index);
                   setDialogOpen(true);
