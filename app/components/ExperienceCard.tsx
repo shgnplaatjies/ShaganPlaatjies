@@ -208,7 +208,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const isExternalLink = companyUrl ? true : false;
 
   return (
-    <>
+    <div>
       {isExternalLink ? (
         <div
           onClick={() => window.open(companyUrl, "_blank")}
@@ -227,7 +227,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           onOpenChange={setDialogOpen}
         />
       )}
-    </>
+    </div>
   );
 };
 
