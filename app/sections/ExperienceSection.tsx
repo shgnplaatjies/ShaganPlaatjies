@@ -19,7 +19,7 @@ const ExperienceSectionContent: React.FC<{
             Experience
           </h2>
           <p className="text-sm sm:text-base text-gray-solid mb-6 sm:mb-8">
-            Professional roles and key projects
+            Where I&apos;ve worked
           </p>
         </div>
 

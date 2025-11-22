@@ -6,10 +6,10 @@ const ResumeSection: React.FC = () => {
       <Flex direction="column" gap="6" align="center">
         <Box className="text-center max-w-2xl">
           <Heading as="h2" size="6" className="mb-4 text-gray-text-contrast">
-            Resume & Full History
+            Full Resume
           </Heading>
           <Text as="p" size="2" className="text-gray-solid-hover leading-relaxed">
-            Want a comprehensive view of my professional background? Download my full resume to explore detailed work history, technical skills, achievements, and more.
+            For a complete view of my work history and technical background, download my resume.
           </Text>
         </Box>
 
