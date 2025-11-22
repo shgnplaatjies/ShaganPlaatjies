@@ -42,12 +42,10 @@ export const ContactFormEmail = ({
       <Preview>New contact form submission from {name}</Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Header Section */}
           <Section style={headerSection}>
             <Text style={headerText}>New Message</Text>
           </Section>
 
-          {/* Content Section */}
           <Section style={contentSection}>
             <Text style={greeting}>
               Hello,
@@ -56,7 +54,6 @@ export const ContactFormEmail = ({
               You have a new contact form submission from your website.
             </Text>
 
-            {/* Contact Details */}
             <Section style={detailsBox}>
               <Text style={fieldLabel}>From</Text>
               <Text style={fieldValue}>{name}</Text>
@@ -79,13 +76,11 @@ export const ContactFormEmail = ({
               </Text>
             </Section>
 
-            {/* Message Section */}
             <Section style={messageBox}>
               <Text style={messageLabel}>Message</Text>
               <Text style={messageContent}>{message}</Text>
             </Section>
 
-            {/* Footer */}
             <Hr style={divider} />
             <Section style={footerSection}>
               <Text style={footerText}>
