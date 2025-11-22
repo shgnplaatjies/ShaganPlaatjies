@@ -18,7 +18,7 @@ const ProjectsSectionContent: React.FC<{
             Projects
           </h2>
           <p className="text-sm sm:text-base text-gray-9 mb-6 sm:mb-8">
-            Portfolio of work and technical solutions
+            Things I&apos;ve built
           </p>
         </div>
 
