@@ -22,7 +22,6 @@ export const NAV_LINKS = {
   home: { href: "/", label: "Home" },
   experience: { href: "/experience", label: "Experience" },
   projects: { href: "/projects", label: "Projects" },
-  posts: { href: "/posts", label: "Blog" },
 };
 
 export type OrbColorOnPageType = {
@@ -47,11 +46,6 @@ export const OrbColorOnPagesConfig: OrbColorOnPagesConfigType = {
     path: "/projects",
     color: "fill-radix-base-cyan",
     radixColor: "cyan",
-  },
-  blog: {
-    path: "/posts",
-    color: "fill-radix-base-violet",
-    radixColor: "violet",
   },
 };
 
