@@ -73,7 +73,6 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
 
   return (
     <nav className="w-full sm:w-1/4 sm:h-full flex-shrink-0 sm:border-r border-gray-border px-4 sm:px-8 py-6 sm:py-8 overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
-      {/* Header - Top */}
       <header className="mb-3 sm:mb-0">
         <Heading as="h1" size="8" className="text-gray-text-contrast">Shagan Plaatjies</Heading>
         <Text as="p" size="2" className="mt-2 text-gray-solid-hover">
@@ -81,7 +80,6 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         </Text>
       </header>
 
-      {/* Navigation Links - Middle (visible on desktop only) */}
       <ul className="hidden sm:block space-y-3 sm:mt-0 sm:py-8">
         {sections.map((section, index) => (
           <li key={section.id}>
@@ -136,7 +134,6 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
         ))}
       </ul>
 
-      {/* Footer Controls - Bottom */}
       <Flex direction="column" gap="4" className="sm:gap-6">
         <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border">
           <Text size="1" className="text-gray-border-active mb-3">LINKS</Text>
