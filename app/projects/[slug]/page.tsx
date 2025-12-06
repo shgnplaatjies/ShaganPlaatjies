@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </Box>
       )}
 
-      <Section>
+      <Section px={{ initial: "4", sm: "6", md: "8" }}>
         <Box className="max-w-3xl mx-auto mb-12">
           <Heading as="h1" size="8" className="mb-6 font-semibold">
             {project.title.rendered}
