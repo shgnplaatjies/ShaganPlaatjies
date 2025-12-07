@@ -249,6 +249,7 @@ const ProjectMetaInfo: React.FC<{ meta?: ProjectMeta }> = ({ meta }) => {
 
 const ProjectCard: React.FC<{
   post: BlogPostExcerpt & { labels?: string[] };
+  mediaMap?: Record<number, string>;
 }> = ({
   post: {
     id,
@@ -261,6 +262,7 @@ const ProjectCard: React.FC<{
     labels,
     meta,
   },
+  mediaMap = {},
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -281,6 +283,21 @@ const ProjectCard: React.FC<{
 
   // Get gallery image IDs
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
+
+  // Build gallery images for dialog
+  const galleryImages = galleryIds
+    .map((idStr) => {
+      const mediaId = parseInt(idStr, 10);
+      const imageUrl = mediaMap[mediaId];
+      return {
+        id: mediaId,
+        imageUrl: imageUrl || "",
+        caption:
+          galleryCaptions[idStr] || galleryCaptions[mediaId] || undefined,
+        alt: `Gallery item`,
+      };
+    })
+    .filter((img) => img.imageUrl);
 
   const projectProps: ProjectCardInternalProps = {
     date: dateGmt,
@@ -305,6 +322,32 @@ const ProjectCard: React.FC<{
         <ProjectLargeScreen {...projectProps} />
         <ProjectMetaInfo meta={meta} />
       </Box>
+      {galleryImages.length > 0 && (
+        <Flex gap="2" wrap="wrap" align="center" className="mt-4 px-3 pb-4">
+          {galleryImages.map((image, index) => (
+            <button
+              key={image.id}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setSelectedImageIndex(index);
+                setDialogOpen(true);
+              }}
+              className="flex items-center gap-2 p-0 border-0 bg-transparent cursor-pointer hover:opacity-80 transition-opacity"
+              aria-label={`Open gallery image ${index + 1}`}
+            >
+              <Image
+                src={image.imageUrl}
+                alt={image.alt}
+                width={64}
+                height={64}
+                unoptimized
+                className="flex-shrink-0 rounded object-cover border border-gray-border"
+              />
+            </button>
+          ))}
+        </Flex>
+      )}
     </Box>
   );
 
@@ -335,18 +378,9 @@ const ProjectCard: React.FC<{
           </Link>
         )}
       </Box>
-      {galleryIds.length > 0 && (
+      {galleryImages.length > 0 && (
         <GalleryImageDialog
-          images={galleryIds
-            .map((idStr) => {
-              return {
-                id: parseInt(idStr, 10),
-                imageUrl: "",
-                caption: galleryCaptions[idStr] || undefined,
-                alt: `Gallery item`,
-              };
-            })
-            .filter((img) => img.imageUrl)}
+          images={galleryImages}
           initialIndex={selectedImageIndex}
           isOpen={dialogOpen}
           onOpenChange={setDialogOpen}

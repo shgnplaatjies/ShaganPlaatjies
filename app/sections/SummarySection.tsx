@@ -14,23 +14,16 @@ const SummarySection: React.FC = () => {
         className="sm:gap-4 text-gray-10 leading-relaxed"
       >
         <Text as="p" size="2" className="sm:text-base">
-          I&apos;m a software engineer based in Johannesburg. Over the past five
-          years, I&apos;ve led teams of 3-6 engineers building web applications
+          I&apos;m a Software Engineer based in Johannesburg with over five
+          years of experience delivering scalable, high-performance solutions
           across fintech, insurance, telecommunications, and entertainment.
         </Text>
 
         <Text as="p" size="2" className="sm:text-base">
-          I work primarily with Node.js, TypeScript, React, and Next.js. I
-          handle everything from initial architecture decisions through
-          production deployment, working closely with product teams to align
-          technical delivery with business needs.
-        </Text>
-
-        <Text as="p" size="2" className="sm:text-base">
-          My experience includes managing AWS and Azure infrastructure,
-          migrating legacy systems to microservices, and building platforms that
-          serve millions of users. I&apos;m focused on writing maintainable code
-          and shipping reliable software.
+          Specialized in building modern web applications and cloud
+          infrastructure using TypeScript, Node.js, React, and AWS. Currently
+          leading cloud architecture and development for live entertainment
+          platforms serving global audiences.
         </Text>
       </Flex>
     </Box>

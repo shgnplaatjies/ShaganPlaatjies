@@ -69,7 +69,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </Box>
       )}
 
-      <Section>
+      <Section px={{ initial: "4", sm: "6", md: "8" }}>
         <Box className="max-w-3xl mx-auto mb-12">
           <Heading
             as="h1"

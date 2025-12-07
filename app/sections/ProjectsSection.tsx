@@ -44,6 +44,7 @@ const ProjectsSectionContent: React.FC<{
                   tags: [],
                   meta: project.meta,
                 }}
+                mediaMap={mediaMap}
               />
             );
           })}
@@ -66,6 +67,16 @@ const ProjectsSection: React.FC = async () => {
   sortedProjects.forEach((project) => {
     if (project.featured_media) {
       mediaIds.add(project.featured_media);
+    }
+    const gallery = project.meta?._project_gallery;
+    if (gallery) {
+      const galleryIds = gallery.split(",").map((id) => id.trim());
+      galleryIds.forEach((idStr) => {
+        const mediaId = parseInt(idStr, 10);
+        if (!isNaN(mediaId)) {
+          mediaIds.add(mediaId);
+        }
+      });
     }
   });
 

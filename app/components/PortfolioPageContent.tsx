@@ -64,10 +64,14 @@ const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, c
         </div>
       </div>
 
-      <div className="sm:hidden w-full h-full overflow-y-auto portfolio-scroll-container">
-        <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} scrollProgress={scrollProgress} />
-        <div className="px-4 py-6 max-w-4xl">
-          {children}
+      <div className="sm:hidden flex flex-col w-full h-full overflow-hidden">
+        <div className="flex-shrink-0">
+          <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} scrollProgress={scrollProgress} />
+        </div>
+        <div className="flex-1 overflow-y-auto portfolio-scroll-container">
+          <div className="px-4 py-6 max-w-4xl">
+            {children}
+          </div>
         </div>
       </div>
     </div>
