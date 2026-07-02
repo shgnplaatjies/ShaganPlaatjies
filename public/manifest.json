@@ -4,8 +4,8 @@
   "description": "My slice of the silicone sea, welcome to my portfolio!",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0b161a",
-  "theme_color": "#00a2c7",
+  "background_color": "#0A1619",
+  "theme_color": "#0FA3BF",
   "icons": [
     {
       "src": "/icon",
