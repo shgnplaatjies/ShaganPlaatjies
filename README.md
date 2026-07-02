@@ -14,6 +14,7 @@ It is a Next.js 15 App Router application with a custom Express server, styled a
 - **Projects** - a project showcase at `/projects`, with individual project detail pages.
 - **Experience timeline** - a work history / experience section at `/experience`.
 - **Contact form** - a contact form backed by a Next.js API route (`app/api/contact`) that sends email via Resend.
+- **SEO/discovery metadata** - Open Graph and Twitter card metadata (including generated OG images and a favicon via `app/opengraph-image.tsx` and `app/icon.tsx`), a dynamic `sitemap.xml`, `robots.txt`, and a web app manifest.
 
 ## Tech stack
 
