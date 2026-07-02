@@ -56,6 +56,13 @@ These are documented in `.env.example`.
 | `npm run start` | `node server.js` | Serves the production build through the custom Express server. |
 | `npm run lint` | `next lint` | Lints the codebase with ESLint (`next/core-web-vitals`, `plugin:jsx-a11y/recommended`). |
 | `npm run verify` | `tsc --noEmit && next lint` | Type-checks the project, then lints it. Useful as a single pre-commit / CI sanity check. |
+| `npm run test:e2e` | `playwright test` | Runs the Playwright end-to-end suite against a production build (see Testing below). |
+
+## Testing
+
+End-to-end tests live under `e2e/` and run with [Playwright](https://playwright.dev/).
+`npm run test:e2e` builds the app and serves it through `server.js` (the same production entrypoint used in deployment), so it requires `NODE_DIR` to be set - see `AGENTS.md` for why and how.
+The suite is wired up as a manually-triggered GitHub Actions workflow (`.github/workflows/e2e.yml`) rather than a PR gate, since the smoke tests hit the real, live WordPress backend.
 
 ## Screenshots
 
