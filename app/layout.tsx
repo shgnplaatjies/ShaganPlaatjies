@@ -3,14 +3,33 @@ import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import "../public/styles/globals.css";
 import MainLayout from "./components/layout/Main/layout";
+import { CONTACT_INFO } from "./lib/constants";
 import { ChakraPetch, FixedSys, SpaceMono } from "./lib/fonts";
 import { ThemeProvider } from "./lib/theme-context";
 
+const title = "Shagan Plaatjies";
+const description = "My slice of the silicone sea, welcome to my portfolio!";
+
 export const metadata: Metadata = {
-  title: "Shagan Plaatjies",
-  description: "My slice of the silicone sea, welcome to my portfolio!",
+  metadataBase: new URL(CONTACT_INFO.website),
+  title,
+  description,
+  manifest: "/manifest.json",
   icons: {
     icon: "/favicon.svg",
+  },
+  openGraph: {
+    title,
+    description,
+    url: CONTACT_INFO.website,
+    siteName: title,
+    type: "website",
+    locale: "en_ZA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 

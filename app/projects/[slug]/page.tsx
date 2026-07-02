@@ -1,6 +1,7 @@
 "use server";
 
 import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,6 +12,50 @@ interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await fetchWpProject(slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  const title = project.title.rendered;
+  const description = project.excerpt.rendered
+    .replace(/<[^>]*>/g, "")
+    .substring(0, 160);
+
+  const media = project.featured_media
+    ? await fetchWpMediaById(project.featured_media)
+    : false;
+
+  const images =
+    media && typeof media === "object" && "source_url" in media
+      ? [{ url: media.source_url }]
+      : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images,
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

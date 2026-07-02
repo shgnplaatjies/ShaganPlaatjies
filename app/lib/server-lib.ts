@@ -158,7 +158,7 @@ export const fetchWpMediaById = async (
 
 export const fetchWpPosts = async (): Promise<WpPostApiResponse[] | false> => {
   try {
-    const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
+    const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}?per_page=100`;
 
     if (!process.env.WP_DOMAIN) {
       console.error('[WP API] WP_DOMAIN environment variable is not set');
@@ -238,7 +238,7 @@ export const fetchAllWpProjects = async (): Promise<
   WpProjectApiResponse[] | false
 > => {
   try {
-    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
+    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects?per_page=100`;
 
     if (!process.env.WP_DOMAIN) {
       console.error('[WP API] WP_DOMAIN environment variable is not set');

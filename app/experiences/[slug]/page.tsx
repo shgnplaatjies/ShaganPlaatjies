@@ -1,6 +1,7 @@
 "use server";
 
 import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -12,6 +13,53 @@ interface ExperiencePageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ExperiencePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await fetchWpProject(slug);
+
+  if (
+    !project ||
+    !project.categories?.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
+  ) {
+    return {
+      title: "Experience Not Found",
+    };
+  }
+
+  const title = project.meta._project_role || project.title.rendered;
+  const description = project.excerpt.rendered
+    .replace(/<[^>]*>/g, "")
+    .substring(0, 160);
+
+  const media = project.featured_media
+    ? await fetchWpMediaById(project.featured_media)
+    : false;
+
+  const images =
+    media && typeof media === "object" && "source_url" in media
+      ? [{ url: media.source_url }]
+      : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images,
+    },
+  };
 }
 
 const formatDate = (dateString: string, format: string = "mm/yyyy"): string => {
