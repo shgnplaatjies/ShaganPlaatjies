@@ -69,7 +69,7 @@ const ElegantContactForm: React.FC = () => {
 
   if (submitted) {
     return (
-      <Box className="text-center py-12">
+      <Box className="text-center py-12" data-testid="contact-success-message">
         <Text
           as="p"
           size="5"
@@ -90,13 +90,20 @@ const ElegantContactForm: React.FC = () => {
     <Flex justify="center" width="100%">
       <Box className="max-w-2xl w-full">
         {error && (
-          <Box className="mb-6 p-4 rounded-sm border border-gray-border-active bg-gray-bg-secondary">
+          <Box
+            className="mb-6 p-4 rounded-sm border border-gray-border-active bg-gray-bg-secondary"
+            data-testid="contact-error-message"
+          >
             <Text as="p" size="2" className="text-gray-solid">
               {error}
             </Text>
           </Box>
         )}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          data-testid="contact-form"
+        >
         <Flex direction="column" gap="2">
           <label className="flex gap-1" htmlFor="contact-name">
             <Text as="span" size="2" weight="medium">
@@ -114,6 +121,7 @@ const ElegantContactForm: React.FC = () => {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             disabled={isSubmitting}
+            data-testid="contact-name-input"
           />
         </Flex>
 
@@ -136,6 +144,7 @@ const ElegantContactForm: React.FC = () => {
               setFormData({ ...formData, email: e.target.value })
             }
             disabled={isSubmitting}
+            data-testid="contact-email-input"
           />
         </Flex>
 
@@ -157,6 +166,7 @@ const ElegantContactForm: React.FC = () => {
               setFormData({ ...formData, company: e.target.value })
             }
             disabled={isSubmitting}
+            data-testid="contact-company-input"
           />
         </Flex>
 
@@ -176,7 +186,10 @@ const ElegantContactForm: React.FC = () => {
             }
             disabled={isSubmitting}
           >
-            <Select.Trigger id="contact-service" />
+            <Select.Trigger
+              id="contact-service"
+              data-testid="contact-service-select"
+            />
             <Select.Content>
               <Select.Item value="consulting">Technical Consulting</Select.Item>
               <Select.Item value="architecture">
@@ -214,6 +227,7 @@ const ElegantContactForm: React.FC = () => {
               setFormData({ ...formData, message: e.target.value })
             }
             disabled={isSubmitting}
+            data-testid="contact-message-input"
           />
         </Flex>
 
@@ -224,6 +238,7 @@ const ElegantContactForm: React.FC = () => {
             color="cyan"
             variant="ghost"
             className="font-semibold"
+            data-testid="contact-submit"
           >
             {isSubmitting ? "Sending..." : "Let's Connect"}
           </Button>
