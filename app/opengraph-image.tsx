@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DarkBackgroundColor, DarkColorValues, DarkGrayColors } from "./lib/colors";
 
 export const runtime = "nodejs";
 
@@ -9,11 +10,11 @@ export const size = {
 };
 export const contentType = "image/png";
 
-const BG = "#0b161a";
-const PANEL = "#111111";
-const CYAN = "#00a2c7";
-const TEXT = "#eeeeee";
-const SUBTLE = "#4ccce6";
+const BG = DarkBackgroundColor;
+const PANEL = DarkGrayColors[1];
+const CYAN = DarkColorValues[9];
+const TEXT = DarkGrayColors[12];
+const SUBTLE = DarkColorValues[10];
 
 export default async function Image() {
   return new ImageResponse(

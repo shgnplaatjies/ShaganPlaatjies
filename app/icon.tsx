@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DarkBackgroundColor, DarkColorValues } from "./lib/colors";
 
 export const runtime = "nodejs";
 
@@ -8,8 +9,8 @@ export const size = {
 };
 export const contentType = "image/png";
 
-const BG = "#0b161a";
-const CYAN = "#00a2c7";
+const BG = DarkBackgroundColor;
+const CYAN = DarkColorValues[9];
 
 export default function Icon() {
   return new ImageResponse(

@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
 import { fetchWpProject, fetchWpMediaById } from "../../lib/server-lib";
 import { WORDPRESS_CATEGORIES } from "../../lib/constants";
+import { buildWpPageMetadata } from "../../lib/buildWpPageMetadata";
 
 interface ExperiencePageProps {
   params: Promise<{
@@ -31,35 +32,8 @@ export async function generateMetadata({
   }
 
   const title = project.meta._project_role || project.title.rendered;
-  const description = project.excerpt.rendered
-    .replace(/<[^>]*>/g, "")
-    .substring(0, 160);
 
-  const media = project.featured_media
-    ? await fetchWpMediaById(project.featured_media)
-    : false;
-
-  const images =
-    media && typeof media === "object" && "source_url" in media
-      ? [{ url: media.source_url }]
-      : undefined;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      images,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images,
-    },
-  };
+  return buildWpPageMetadata(project, title);
 }
 
 const formatDate = (dateString: string, format: string = "mm/yyyy"): string => {

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
 import { fetchWpProject, fetchWpMediaById } from "../../lib/server-lib";
+import { buildWpPageMetadata } from "../../lib/buildWpPageMetadata";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -26,36 +27,7 @@ export async function generateMetadata({
     };
   }
 
-  const title = project.title.rendered;
-  const description = project.excerpt.rendered
-    .replace(/<[^>]*>/g, "")
-    .substring(0, 160);
-
-  const media = project.featured_media
-    ? await fetchWpMediaById(project.featured_media)
-    : false;
-
-  const images =
-    media && typeof media === "object" && "source_url" in media
-      ? [{ url: media.source_url }]
-      : undefined;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      images,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images,
-    },
-  };
+  return buildWpPageMetadata(project, project.title.rendered);
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
