@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
 interface MouseGlowEffectProps {
   className?: string;
@@ -17,8 +18,15 @@ const MouseGlowEffect: React.FC<MouseGlowEffectProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      // Respect the user's motion preference: don't mount the
+      // mousemove listener that drives the following glow effect.
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
@@ -44,11 +52,12 @@ const MouseGlowEffect: React.FC<MouseGlowEffectProps> = ({
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className={`fixed top-0 left-0 w-full h-full pointer-events-none ${className}`}
       style={{
         background: isVisible

@@ -210,12 +210,14 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   return (
     <div>
       {isExternalLink ? (
-        <div
-          onClick={() => window.open(companyUrl, "_blank")}
+        <a
+          href={companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="cursor-pointer"
         >
           {cardContent}
-        </div>
+        </a>
       ) : (
         <NextLink href={href}>{cardContent}</NextLink>
       )}

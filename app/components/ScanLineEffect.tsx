@@ -121,6 +121,15 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
           opacity: 0.45;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+          .scan-lines-vertical,
+          .scan-lines-horizontal,
+          .scan-lines-diagonal1,
+          .scan-lines-diagonal2 {
+            animation: none;
+          }
+        }
+
         @media (prefers-color-scheme: light) {
           .scan-lines-vertical {
             background: repeating-linear-gradient(
@@ -164,10 +173,10 @@ const ScanLineEffect: React.FC<ScanLineEffectProps> = ({ className = "" }) => {
         }
       `}</style>
 
-      <div className={`scan-lines-vertical ${className}`} />
-      <div className={`scan-lines-horizontal ${className}`} />
-      <div className={`scan-lines-diagonal1 ${className}`} />
-      <div className={`scan-lines-diagonal2 ${className}`} />
+      <div className={`scan-lines-vertical ${className}`} aria-hidden="true" />
+      <div className={`scan-lines-horizontal ${className}`} aria-hidden="true" />
+      <div className={`scan-lines-diagonal1 ${className}`} aria-hidden="true" />
+      <div className={`scan-lines-diagonal2 ${className}`} aria-hidden="true" />
     </>
   );
 };

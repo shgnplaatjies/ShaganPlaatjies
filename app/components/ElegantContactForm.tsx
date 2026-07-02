@@ -98,7 +98,7 @@ const ElegantContactForm: React.FC = () => {
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
         <Flex direction="column" gap="2">
-          <label className="flex gap-1">
+          <label className="flex gap-1" htmlFor="contact-name">
             <Text as="span" size="2" weight="medium">
               Name
             </Text>
@@ -107,6 +107,7 @@ const ElegantContactForm: React.FC = () => {
             </Text>
           </label>
           <TextField.Root
+            id="contact-name"
             placeholder="Your name"
             type="text"
             required
@@ -117,7 +118,7 @@ const ElegantContactForm: React.FC = () => {
         </Flex>
 
         <Flex direction="column" gap="2">
-          <label className="flex gap-1">
+          <label className="flex gap-1" htmlFor="contact-email">
             <Text as="span" size="2" weight="medium">
               Email
             </Text>
@@ -126,6 +127,7 @@ const ElegantContactForm: React.FC = () => {
             </Text>
           </label>
           <TextField.Root
+            id="contact-email"
             placeholder="your@email.com"
             type="email"
             required
@@ -138,7 +140,7 @@ const ElegantContactForm: React.FC = () => {
         </Flex>
 
         <Flex direction="column" gap="2">
-          <label className="flex gap-1">
+          <label className="flex gap-1" htmlFor="contact-company">
             <Text as="span" size="2" weight="medium">
               Company or Organization
             </Text>
@@ -147,6 +149,7 @@ const ElegantContactForm: React.FC = () => {
             </Text>
           </label>
           <TextField.Root
+            id="contact-company"
             placeholder="Your company"
             type="text"
             value={formData.company}
@@ -158,7 +161,7 @@ const ElegantContactForm: React.FC = () => {
         </Flex>
 
         <Flex direction="column" gap="2">
-          <label className="flex gap-1">
+          <label className="flex gap-1" htmlFor="contact-service">
             <Text as="span" size="2" weight="medium">
               What are you interested in?
             </Text>
@@ -173,7 +176,7 @@ const ElegantContactForm: React.FC = () => {
             }
             disabled={isSubmitting}
           >
-            <Select.Trigger />
+            <Select.Trigger id="contact-service" />
             <Select.Content>
               <Select.Item value="consulting">Technical Consulting</Select.Item>
               <Select.Item value="architecture">
@@ -193,7 +196,7 @@ const ElegantContactForm: React.FC = () => {
         </Flex>
 
         <Flex direction="column" gap="2">
-          <label className="flex gap-1">
+          <label className="flex gap-1" htmlFor="contact-message">
             <Text as="span" size="2" weight="medium">
               Tell me about your project or challenge
             </Text>
@@ -202,6 +205,7 @@ const ElegantContactForm: React.FC = () => {
             </Text>
           </label>
           <TextArea
+            id="contact-message"
             placeholder="What's on your mind? Share any context, timeline, or specific goals..."
             required
             rows={6}
