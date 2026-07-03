@@ -54,7 +54,7 @@ These are documented in `.env.example`.
 | `npm run dev` | `next dev --experimental-https` | Runs the Next.js dev server locally over HTTPS with hot reload. |
 | `npm run build` | `next build` | Produces an optimized production build. |
 | `npm run start` | `node server.js` | Serves the production build through the custom Express server. |
-| `npm run lint` | `next lint` | Lints the codebase with ESLint (`next/core-web-vitals`). |
+| `npm run lint` | `next lint` | Lints the codebase with ESLint (`next/core-web-vitals`, `plugin:jsx-a11y/recommended`). |
 | `npm run verify` | `tsc --noEmit && next lint` | Type-checks the project, then lints it. Useful as a single pre-commit / CI sanity check. |
 
 ## Screenshots
