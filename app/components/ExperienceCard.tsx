@@ -102,8 +102,27 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     })
     .filter((img) => img.imageUrl);
 
+  const href = companyUrl || `/experiences/${slug}`;
+  const isExternalLink = companyUrl ? true : false;
+
   const cardContent = (
     <div className="relative group py-8 border-b border-gray-border">
+      {isExternalLink ? (
+        <Link
+          href={companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute inset-0 z-0"
+          aria-label={`${company || titleText} (opens in a new tab)`}
+        />
+      ) : (
+        <NextLink
+          href={href}
+          className="absolute inset-0 z-0"
+          aria-label={`View experience: ${role || titleText}`}
+        />
+      )}
+
       <div className="absolute -left-8 top-9 w-4 h-4 flex items-center justify-center">
         {isActive ? (
           <>
@@ -118,7 +137,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         )}
       </div>
 
-      <Box className="hover:opacity-80 transition-opacity cursor-pointer">
+      <Box className="group-hover:opacity-80 transition-opacity cursor-pointer">
         <Flex direction="column" gap="2" mb="3">
           <Heading as="h3" size="5" className="text-gray-text-contrast">
             {role || titleText}
@@ -130,7 +149,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                 <Flex
                   align="center"
                   gap="1"
-                  className="text-cyan-9 cursor-pointer hover:text-cyan-10 transition-colors"
+                  className="relative z-10 text-cyan-9 cursor-pointer hover:text-cyan-10 transition-colors"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open(companyUrl, "_blank");
@@ -185,7 +204,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
                   setSelectedImageIndex(index);
                   setDialogOpen(true);
                 }}
-                className="flex items-center gap-2 p-0 border-0 bg-transparent cursor-pointer hover:opacity-80 transition-opacity"
+                className="relative z-10 flex items-center gap-2 p-0 border-0 bg-transparent cursor-pointer hover:opacity-80 transition-opacity"
                 aria-label={`Open gallery image ${index + 1}`}
               >
                 <Image
@@ -204,21 +223,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     </div>
   );
 
-  const href = companyUrl || `/experiences/${slug}`;
-  const isExternalLink = companyUrl ? true : false;
-
   return (
     <div>
-      {isExternalLink ? (
-        <div
-          onClick={() => window.open(companyUrl, "_blank")}
-          className="cursor-pointer"
-        >
-          {cardContent}
-        </div>
-      ) : (
-        <NextLink href={href}>{cardContent}</NextLink>
-      )}
+      {cardContent}
       {galleryImages.length > 0 && (
         <GalleryImageDialog
           images={galleryImages}

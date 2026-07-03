@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
 interface MatrixRainProps {
   className?: string;
@@ -12,6 +13,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
   opacity = 0.1,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,6 +24,12 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    if (prefersReducedMotion) {
+      // Respect the user's motion preference: leave the canvas blank
+      // instead of running the continuous requestAnimationFrame loop.
+      return;
+    }
 
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[];:<>?/|\\";
     const fontSize = 14;
@@ -74,11 +82,12 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
     };
-  }, [opacity]);
+  }, [opacity, prefersReducedMotion]);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
       style={{ opacity }}
     />
