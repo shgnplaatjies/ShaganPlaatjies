@@ -1,3 +1,7 @@
+// next/og's ImageResponse renders via Satori, which only supports literal
+// inline style values - no Tailwind classes, Radix components, or CSS custom
+// properties. Colors are pulled from app/lib/colors.ts and used as plain
+// hex values rather than the usual utility classes.
 import { ImageResponse } from "next/og";
 import { DarkBackgroundColor, DarkColorValues } from "./lib/colors";
 
