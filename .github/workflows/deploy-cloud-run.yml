@@ -1,0 +1,94 @@
+name: Deploy to Cloud Run
+
+# Manual trigger only for now. Flip this to `push: branches: ["main"]` once
+# the captain has provisioned a real GCP project and configured the
+# vars/secrets referenced in the `deploy` job below (GCP_PROJECT_ID,
+# GCP_REGION, GCP_ARTIFACT_REPOSITORY, CLOUD_RUN_SERVICE,
+# GCP_WORKLOAD_IDENTITY_PROVIDER, GCP_DEPLOY_SERVICE_ACCOUNT) - until then,
+# every push to main would just fail at the auth step since none of that
+# infrastructure exists yet. deploy-to-cpanel.yml remains the live
+# deployment path until DNS is explicitly cut over in a later phase.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cloud-run
+  cancel-in-progress: false
+
+jobs:
+  verify-and-build:
+    name: Verify & Build
+    runs-on: ubuntu-latest
+
+    env:
+      ALLOWED_ORIGIN: "http://localhost:3000"
+      WP_DOMAIN: "example.com"
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify (typecheck + lint)
+        run: npm run verify
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: Build image, push, and deploy
+    needs: verify-and-build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      GCP_REGION: ${{ vars.GCP_REGION }}
+      IMAGE: "${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REPOSITORY }}/${{ vars.CLOUD_RUN_SERVICE }}"
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      # OIDC federation - no long-lived JSON key secret. Requires a workload
+      # identity pool/provider and a service account with
+      # roles/artifactregistry.writer + roles/run.developer, trust-bound to
+      # this repo, set up once the GCP project exists (see terraform/).
+      - name: Authenticate to GCP via OIDC
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
+
+      - name: Build image
+        run: docker build -t "${IMAGE}:${{ github.sha }}" -t "${IMAGE}:latest" .
+
+      - name: Push image
+        run: |
+          docker push "${IMAGE}:${{ github.sha }}"
+          docker push "${IMAGE}:latest"
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ vars.CLOUD_RUN_SERVICE }}
+          region: ${{ env.GCP_REGION }}
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          image: "${{ env.IMAGE }}:${{ github.sha }}"

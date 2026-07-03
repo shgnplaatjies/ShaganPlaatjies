@@ -1,0 +1,11 @@
+# Copy to terraform.tfvars and fill in real values once a GCP project
+# exists. Never commit the filled-in file - terraform/.gitignore blanket-
+# ignores terraform.tfvars (with an explicit exception for this file).
+
+project_id = "REPLACE_WITH_REAL_PROJECT_ID"
+
+# Supplied by the deploy workflow after its first image push; any non-empty
+# value works for `terraform validate`/`plan` before that.
+container_image = "africa-south1-docker.pkg.dev/REPLACE_WITH_REAL_PROJECT_ID/shaganplaatjies/shaganplaatjies:latest"
+
+wp_domain = "blog.shaganplaatjies.co.za"

@@ -31,9 +31,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Resolve NODE_DIR for cnad
-        run: echo "NODE_DIR=$(dirname $(dirname $(which npm)))" >> "$GITHUB_ENV"
-
       - name: Run Playwright tests
         run: npm run test:e2e
 

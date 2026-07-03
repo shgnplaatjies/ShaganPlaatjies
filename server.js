@@ -1,6 +1,5 @@
 const express = require("express");
 const nextjs = require("next");
-const cnad = require("@bitc/cnad");
 const https = require("https");
 const dotenv = require("dotenv");
 
@@ -8,10 +7,6 @@ dotenv.config();
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const env = process.env.NODE_ENV;
-
-cnad.config(process.env.NODE_DIR);
-cnad.watch([process.env.RESTART_FILE_PATH]);
-cnad.start();
 
 const httpsOptions = {
   key: process.env.SSL_CERT_KEY,

@@ -21,7 +21,7 @@ It is a Next.js 15 App Router application with a custom Express server, styled a
 | Layer | Technology |
 | --- | --- |
 | Framework | [Next.js 15](https://nextjs.org/) (App Router) |
-| Server | Custom [Express](https://expressjs.com/) server (`server.js`), process-managed with [PM2](https://pm2.keymetrics.io/) in production |
+| Server | Custom [Express](https://expressjs.com/) server (`server.js`) |
 | Styling | [Tailwind CSS](https://tailwindcss.com/) |
 | UI primitives | [Radix UI](https://www.radix-ui.com/) |
 | Animation | [Framer Motion](https://www.framer.com/motion/) and [GSAP](https://gsap.com/) |
@@ -62,7 +62,7 @@ These are documented in `.env.example`.
 ## Testing
 
 End-to-end tests live under `e2e/` and run with [Playwright](https://playwright.dev/).
-`npm run test:e2e` builds the app and serves it through `server.js` (the same production entrypoint used in deployment), so it requires `NODE_DIR` to be set - see `AGENTS.md` for why and how.
+`npm run test:e2e` builds the app and serves it through `server.js` (the same production entrypoint used in deployment).
 The suite is wired up as a manually-triggered GitHub Actions workflow (`.github/workflows/e2e.yml`) rather than a PR gate, since the smoke tests hit the real, live WordPress backend.
 
 ## Screenshots

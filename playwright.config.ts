@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// server.js (our custom Express/PM2 entrypoint) only serves plain HTTP when
+// server.js (our custom Express entrypoint) only serves plain HTTP when
 // NODE_ENV=production - otherwise it takes the local-SSL branch and expects
 // dev certs. We pin a fixed port here (rather than relying on whatever
 // APP_PORT happens to be in .env.production) so baseURL always matches the
