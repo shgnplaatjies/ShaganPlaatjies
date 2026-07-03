@@ -1,0 +1,46 @@
+name: E2E tests
+
+# Manual trigger only. This suite hits the real, live WordPress backend
+# (WP_DOMAIN) for the smoke tests, so it's deliberately kept out of the
+# PR-blocking gate - a WordPress hiccup shouldn't fail every PR.
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    env:
+      WP_DOMAIN: staging.blog.shaganplaatjies.co.za
+      WP_JSON_API_URI: /wp-json/wp/v2
+      WP_POSTS_URI: /wp-json/wp/v2/posts
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Resolve NODE_DIR for cnad
+        run: echo "NODE_DIR=$(dirname $(dirname $(which npm)))" >> "$GITHUB_ENV"
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
