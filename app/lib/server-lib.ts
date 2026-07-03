@@ -156,29 +156,52 @@ export const fetchWpMediaById = async (
   }
 };
 
-export const fetchWpPosts = async (): Promise<WpPostApiResponse[] | false> => {
+async function fetchAllWpPages<T>(
+  baseUri: string,
+  resourceLabel: string
+): Promise<T[] | false> {
   try {
-    const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
+    const separator = baseUri.includes("?") ? "&" : "?";
+    const items: T[] = [];
+    let page = 1;
+    let totalPages = 1;
 
-    if (!process.env.WP_DOMAIN) {
-      console.error('[WP API] WP_DOMAIN environment variable is not set');
-      return false;
-    }
+    do {
+      const pageUri = `${baseUri}${separator}per_page=100&page=${page}`;
+      const res = await fetch(pageUri, {
+        next: { revalidate: STANDARD_CACHE_TTL },
+      });
 
-    const res = await fetch(wpPostsUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
+      if (!res.ok) {
+        console.error(`[WP API] ${resourceLabel} fetch failed with status ${res.status}: ${pageUri}`);
+        return false;
+      }
 
-    if (!res.ok) {
-      console.error(`[WP API] Posts fetch failed with status ${res.status}: ${wpPostsUri}`);
-      return false;
-    }
+      items.push(...((await res.json()) as T[]));
 
-    return await res.json();
+      if (page === 1) {
+        totalPages = Number(res.headers.get("X-WP-TotalPages")) || 1;
+      }
+
+      page += 1;
+    } while (page <= totalPages);
+
+    return items;
   } catch (error) {
-    console.error('[WP API] Error fetching posts:', error instanceof Error ? error.message : String(error));
+    console.error(`[WP API] Error fetching ${resourceLabel}:`, error instanceof Error ? error.message : String(error));
     return false;
   }
+}
+
+export const fetchWpPosts = async (): Promise<WpPostApiResponse[] | false> => {
+  if (!process.env.WP_DOMAIN) {
+    console.error('[WP API] WP_DOMAIN environment variable is not set');
+    return false;
+  }
+
+  const wpPostsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_POSTS_URI}`;
+
+  return fetchAllWpPages<WpPostApiResponse>(wpPostsUri, "Posts");
 };
 
 const fetchWpPostById = async (
@@ -237,28 +260,14 @@ export const fetchWpPost = async (target: string | number) => {
 export const fetchAllWpProjects = async (): Promise<
   WpProjectApiResponse[] | false
 > => {
-  try {
-    const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
-
-    if (!process.env.WP_DOMAIN) {
-      console.error('[WP API] WP_DOMAIN environment variable is not set');
-      return false;
-    }
-
-    const res = await fetch(wpProjectsUri, {
-      next: { revalidate: STANDARD_CACHE_TTL },
-    });
-
-    if (!res.ok) {
-      console.error(`[WP API] All projects fetch failed with status ${res.status}: ${wpProjectsUri}`);
-      return false;
-    }
-
-    return await res.json();
-  } catch (error) {
-    console.error('[WP API] Error fetching all projects:', error instanceof Error ? error.message : String(error));
+  if (!process.env.WP_DOMAIN) {
+    console.error('[WP API] WP_DOMAIN environment variable is not set');
     return false;
   }
+
+  const wpProjectsUri = `https://${process.env.WP_DOMAIN}${process.env.WP_JSON_API_URI}/projects`;
+
+  return fetchAllWpPages<WpProjectApiResponse>(wpProjectsUri, "All projects");
 };
 
 export const fetchWpProjects = async (): Promise<

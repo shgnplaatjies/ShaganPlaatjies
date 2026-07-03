@@ -1,17 +1,39 @@
 "use server";
 
 import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
 import { fetchWpProject, fetchWpMediaById } from "../../lib/server-lib";
 import { WORDPRESS_CATEGORIES } from "../../lib/constants";
+import { buildWpPageMetadata } from "../../lib/buildWpPageMetadata";
 
 interface ExperiencePageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ExperiencePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await fetchWpProject(slug);
+
+  if (
+    !project ||
+    !project.categories?.includes(WORDPRESS_CATEGORIES.WORK_EXPERIENCE.id)
+  ) {
+    return {
+      title: "Experience Not Found",
+    };
+  }
+
+  const title = project.meta._project_role || project.title.rendered;
+
+  return buildWpPageMetadata(project, title);
 }
 
 const formatDate = (dateString: string, format: string = "mm/yyyy"): string => {

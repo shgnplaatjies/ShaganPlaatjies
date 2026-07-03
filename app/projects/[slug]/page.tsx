@@ -1,16 +1,33 @@
 "use server";
 
 import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostContent from "../../components/PostContent";
 import { fetchWpProject, fetchWpMediaById } from "../../lib/server-lib";
+import { buildWpPageMetadata } from "../../lib/buildWpPageMetadata";
 
 interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await fetchWpProject(slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return buildWpPageMetadata(project, project.title.rendered);
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

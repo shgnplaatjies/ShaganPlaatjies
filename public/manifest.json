@@ -1,0 +1,21 @@
+{
+  "name": "Shagan Plaatjies",
+  "short_name": "Shagan Plaatjies",
+  "description": "My slice of the silicone sea, welcome to my portfolio!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1619",
+  "theme_color": "#0FA3BF",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
