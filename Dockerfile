@@ -32,6 +32,10 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY server.js next.config.mjs ./
 
+RUN chown -R node:node /app
+
+USER node
+
 EXPOSE 8080
 
 CMD ["node", "server.js"]

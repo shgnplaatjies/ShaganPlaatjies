@@ -8,6 +8,13 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const env = process.env.NODE_ENV;
 
+if (process.env.NODE_DIR) {
+  const cnad = require("@bitc/cnad");
+  cnad.config(process.env.NODE_DIR);
+  cnad.watch([process.env.RESTART_FILE_PATH]);
+  cnad.start();
+}
+
 const httpsOptions = {
   key: process.env.SSL_CERT_KEY,
   cert: process.env.SSL_CERT_CRT,
