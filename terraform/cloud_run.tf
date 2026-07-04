@@ -75,7 +75,7 @@ resource "google_cloud_run_v2_service" "app" {
 }
 
 # Public site: anyone can invoke the service directly (in addition to
-# whatever traffic arrives via the custom domain mapping in dns.tf).
+# whatever traffic arrives via the load balancer in load_balancer.tf).
 resource "google_cloud_run_v2_service_iam_member" "public_invoker" {
   name     = google_cloud_run_v2_service.app.name
   location = google_cloud_run_v2_service.app.location

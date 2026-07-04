@@ -7,44 +7,14 @@ resource "google_dns_managed_zone" "primary" {
   description = "Managed zone for ${var.domain_name}."
 }
 
-# Custom domain mapping for the Cloud Run service. This requires the domain
-# to already be verified for this GCP project via Google Search Console
-# (https://search.google.com/search-console) - that one-time ownership
-# proof can't be automated by Terraform.
-resource "google_cloud_run_domain_mapping" "app" {
-  location = var.region
-  name     = var.domain_name
-
-  metadata {
-    namespace = var.project_id
-  }
-
-  spec {
-    route_name = google_cloud_run_v2_service.app.name
-  }
-}
-
-# The records Google issues for the mapping (google_cloud_run_domain_mapping
-# .app.status[0].resource_records) are only known once that resource has
-# actually been created, so on a from-scratch apply the for_each keys below
-# aren't knowable at plan time. Apply in two passes, as Google's own
-# Terraform guidance for this resource recommends:
-#   terraform apply -target=google_cloud_run_domain_mapping.app
-#   terraform apply
-# the first pass creates the mapping and populates its status; the second
-# creates these DNS records from that now-known status.
-locals {
-  domain_mapping_rrdata_by_type = {
-    for rr in google_cloud_run_domain_mapping.app.status[0].resource_records :
-    rr.type => rr.rrdata...
-  }
-}
-
-resource "google_dns_record_set" "domain_mapping" {
-  for_each     = local.domain_mapping_rrdata_by_type
+# Points the apex domain at the load balancer's static IP (see
+# load_balancer.tf). Unlike google_cloud_run_domain_mapping, this IP is a
+# plain resource attribute rather than a for_each key, so it resolves in a
+# single apply with no two-pass workaround.
+resource "google_dns_record_set" "app" {
   name         = google_dns_managed_zone.primary.dns_name
   managed_zone = google_dns_managed_zone.primary.name
-  type         = each.key
+  type         = "A"
   ttl          = 300
-  rrdatas      = each.value
+  rrdatas      = [google_compute_global_address.app.address]
 }

@@ -4,7 +4,7 @@ variable "project_id" {
 }
 
 variable "region" {
-  description = "GCP region for the Cloud Run service, Artifact Registry repository, and domain mapping. africa-south1 (Johannesburg) is closest to shaganplaatjies.co.za's audience."
+  description = "GCP region for the Cloud Run service, Artifact Registry repository, and the load balancer's serverless NEG backend. africa-south1 (Johannesburg) is closest to shaganplaatjies.co.za's audience."
   type        = string
   default     = "africa-south1"
 }

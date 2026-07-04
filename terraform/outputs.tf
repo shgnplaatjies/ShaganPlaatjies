@@ -18,6 +18,11 @@ output "dns_managed_zone_name_servers" {
   value       = google_dns_managed_zone.primary.name_servers
 }
 
+output "load_balancer_ip" {
+  description = "Static IP address of the global external HTTPS load balancer that fronts the Cloud Run service. google_dns_record_set.app points the apex domain at this address."
+  value       = google_compute_global_address.app.address
+}
+
 output "resend_api_key_secret_id" {
   description = "Secret Manager secret ID to populate out-of-band, e.g.: gcloud secrets versions add <this value> --data-file=-"
   value       = google_secret_manager_secret.resend_api_key.secret_id
