@@ -12,6 +12,17 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+# NEXT_PUBLIC_* vars are inlined into the client bundle at `next build` time,
+# so they must be supplied here as build args - setting them as Cloud Run env
+# vars later (terraform/cloud_run.tf) would have no effect on already-built
+# output.
+ARG NEXT_PUBLIC_BLOG_NAME
+ARG NEXT_PUBLIC_BLOG_DESCRIPTION
+ARG NEXT_PUBLIC_BLOG_URL
+ENV NEXT_PUBLIC_BLOG_NAME=${NEXT_PUBLIC_BLOG_NAME}
+ENV NEXT_PUBLIC_BLOG_DESCRIPTION=${NEXT_PUBLIC_BLOG_DESCRIPTION}
+ENV NEXT_PUBLIC_BLOG_URL=${NEXT_PUBLIC_BLOG_URL}
+
 COPY . .
 RUN npm run build
 

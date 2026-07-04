@@ -4,9 +4,10 @@ name: Deploy to Cloud Run
 # the captain has provisioned a real GCP project and configured the
 # vars/secrets referenced in the `deploy` job below (GCP_PROJECT_ID,
 # GCP_REGION, GCP_ARTIFACT_REPOSITORY, CLOUD_RUN_SERVICE,
-# GCP_WORKLOAD_IDENTITY_PROVIDER, GCP_DEPLOY_SERVICE_ACCOUNT) - until then,
-# every push to main would just fail at the auth step since none of that
-# infrastructure exists yet. deploy-to-cpanel.yml remains the live
+# GCP_WORKLOAD_IDENTITY_PROVIDER, GCP_DEPLOY_SERVICE_ACCOUNT,
+# NEXT_PUBLIC_BLOG_NAME, NEXT_PUBLIC_BLOG_DESCRIPTION, NEXT_PUBLIC_BLOG_URL) -
+# until then, every push to main would just fail at the auth step since none
+# of that infrastructure exists yet. deploy-to-cpanel.yml remains the live
 # deployment path until DNS is explicitly cut over in a later phase.
 on:
   workflow_dispatch:
@@ -78,7 +79,12 @@ jobs:
         run: gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
 
       - name: Build image
-        run: docker build -t "${IMAGE}:${{ github.sha }}" -t "${IMAGE}:latest" .
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_BLOG_NAME="${{ vars.NEXT_PUBLIC_BLOG_NAME }}" \
+            --build-arg NEXT_PUBLIC_BLOG_DESCRIPTION="${{ vars.NEXT_PUBLIC_BLOG_DESCRIPTION }}" \
+            --build-arg NEXT_PUBLIC_BLOG_URL="${{ vars.NEXT_PUBLIC_BLOG_URL }}" \
+            -t "${IMAGE}:${{ github.sha }}" -t "${IMAGE}:latest" .
 
       - name: Push image
         run: |
