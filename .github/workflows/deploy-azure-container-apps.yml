@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ALLOWED_ORIGIN: "http://localhost:3000"
-      WP_DOMAIN: "example.com"
+      ALLOWED_ORIGIN: ${{ secrets.ALLOWED_ORIGIN }}
+      WP_DOMAIN: ${{ secrets.WP_DOMAIN }}
 
     steps:
       - name: Clone repository
