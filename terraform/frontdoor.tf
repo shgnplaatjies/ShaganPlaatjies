@@ -30,13 +30,6 @@ resource "azurerm_cdn_frontdoor_origin_group" "app" {
     sample_size                 = 4
     successful_samples_required = 3
   }
-
-  health_probe {
-    path                = "/"
-    protocol            = "Https"
-    request_type        = "HEAD"
-    interval_in_seconds = 100
-  }
 }
 
 # The Container App's own *.azurecontainerapps.io FQDN, reached over HTTPS
