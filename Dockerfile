@@ -15,13 +15,19 @@ RUN npm ci
 # NEXT_PUBLIC_* vars are inlined into the client bundle at `next build` time,
 # so they must be supplied here as build args - setting them as Cloud Run env
 # vars later (terraform/cloud_run.tf) would have no effect on already-built
-# output.
+# output. ALLOWED_ORIGIN and WP_DOMAIN are read the same way by
+# next.config.mjs's headers()/images.remotePatterns, so they need the same
+# treatment even though they lack the NEXT_PUBLIC_ prefix.
 ARG NEXT_PUBLIC_BLOG_NAME
 ARG NEXT_PUBLIC_BLOG_DESCRIPTION
 ARG NEXT_PUBLIC_BLOG_URL
+ARG ALLOWED_ORIGIN
+ARG WP_DOMAIN
 ENV NEXT_PUBLIC_BLOG_NAME=${NEXT_PUBLIC_BLOG_NAME}
 ENV NEXT_PUBLIC_BLOG_DESCRIPTION=${NEXT_PUBLIC_BLOG_DESCRIPTION}
 ENV NEXT_PUBLIC_BLOG_URL=${NEXT_PUBLIC_BLOG_URL}
+ENV ALLOWED_ORIGIN=${ALLOWED_ORIGIN}
+ENV WP_DOMAIN=${WP_DOMAIN}
 
 COPY . .
 RUN npm run build
