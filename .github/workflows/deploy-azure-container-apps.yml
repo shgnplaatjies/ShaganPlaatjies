@@ -1,0 +1,101 @@
+name: Deploy to Azure Container Apps
+
+# Manual trigger only for now. Flip this to `push: branches: ["main"]` once
+# the captain has provisioned a real Azure subscription and configured the
+# vars/secrets referenced in the `deploy` job below (AZURE_SUBSCRIPTION_ID,
+# AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_RESOURCE_GROUP,
+# AZURE_CONTAINER_REGISTRY, AZURE_CONTAINER_APP_NAME, NEXT_PUBLIC_BLOG_NAME,
+# NEXT_PUBLIC_BLOG_DESCRIPTION, NEXT_PUBLIC_BLOG_URL, ALLOWED_ORIGIN,
+# WP_DOMAIN) - until then, every push to main would just fail at the auth
+# step since none of that infrastructure exists yet. deploy-to-cpanel.yml
+# remains the live deployment path until DNS is explicitly cut over in a
+# later phase.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-azure-container-apps
+  cancel-in-progress: false
+
+jobs:
+  verify-and-build:
+    name: Verify & Build
+    runs-on: ubuntu-latest
+
+    env:
+      ALLOWED_ORIGIN: "http://localhost:3000"
+      WP_DOMAIN: "example.com"
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify (typecheck + lint)
+        run: npm run verify
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: Build image, push, and deploy
+    needs: verify-and-build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      AZURE_CONTAINER_REGISTRY: ${{ vars.AZURE_CONTAINER_REGISTRY }}
+      AZURE_CONTAINER_APP_NAME: ${{ vars.AZURE_CONTAINER_APP_NAME }}
+      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+      IMAGE: "${{ vars.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ vars.AZURE_CONTAINER_APP_NAME }}"
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      # OIDC federation - no client secret. Requires the user-assigned
+      # identity + federated credential set up in terraform/oidc.tf, trust-
+      # bound to this repo/branch, created once the Azure subscription
+      # exists (see terraform/).
+      - name: Authenticate to Azure via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Log in to Azure Container Registry
+        run: az acr login --name "${AZURE_CONTAINER_REGISTRY}"
+
+      - name: Build image
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_BLOG_NAME="${{ vars.NEXT_PUBLIC_BLOG_NAME }}" \
+            --build-arg NEXT_PUBLIC_BLOG_DESCRIPTION="${{ vars.NEXT_PUBLIC_BLOG_DESCRIPTION }}" \
+            --build-arg NEXT_PUBLIC_BLOG_URL="${{ vars.NEXT_PUBLIC_BLOG_URL }}" \
+            --build-arg ALLOWED_ORIGIN="${{ secrets.ALLOWED_ORIGIN }}" \
+            --build-arg WP_DOMAIN="${{ secrets.WP_DOMAIN }}" \
+            -t "${IMAGE}:${{ github.sha }}" -t "${IMAGE}:latest" .
+
+      - name: Push image
+        run: |
+          docker push "${IMAGE}:${{ github.sha }}"
+          docker push "${IMAGE}:latest"
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name "${AZURE_CONTAINER_APP_NAME}" \
+            --resource-group "${AZURE_RESOURCE_GROUP}" \
+            --image "${IMAGE}:${{ github.sha }}"

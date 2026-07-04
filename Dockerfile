@@ -13,9 +13,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # NEXT_PUBLIC_* vars are inlined into the client bundle at `next build` time,
-# so they must be supplied here as build args - setting them as Cloud Run env
-# vars later (terraform/cloud_run.tf) would have no effect on already-built
-# output. ALLOWED_ORIGIN and WP_DOMAIN are read the same way by
+# so they must be supplied here as build args - setting them as Container App
+# env vars later (terraform/container_app.tf) would have no effect on
+# already-built output. ALLOWED_ORIGIN and WP_DOMAIN are read the same way by
 # next.config.mjs's headers()/images.remotePatterns, so they need the same
 # treatment even though they lack the NEXT_PUBLIC_ prefix.
 ARG NEXT_PUBLIC_BLOG_NAME
@@ -36,10 +36,9 @@ FROM node:20-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-# Cloud Run requires the container to listen on the port it injects via the
-# PORT env var (8080 by default), but server.js reads APP_PORT - so this
-# must match the container_port configured on the Cloud Run service in
-# terraform/.
+# Azure Container Apps has no injected PORT convention - it just proxies to
+# whatever ingress.target_port is configured on the Container App, so this
+# must match the target_port configured in terraform/container_app.tf.
 ENV APP_PORT=8080
 
 COPY package.json package-lock.json ./

@@ -1,59 +1,70 @@
-variable "project_id" {
-  description = "GCP project ID that hosts every resource in this module. No default - must be supplied once a real project exists."
+variable "subscription_id" {
+  description = "Azure subscription ID that hosts every resource in this module. No default - must be supplied once a real subscription exists."
   type        = string
 }
 
-variable "region" {
-  description = "GCP region for the Cloud Run service, Artifact Registry repository, and the load balancer's serverless NEG backend. africa-south1 (Johannesburg) is closest to shaganplaatjies.co.za's audience."
+variable "tenant_id" {
+  description = "Azure AD tenant ID that owns the subscription and the GitHub Actions OIDC federated identity. No default - must be supplied once a real tenant exists."
   type        = string
-  default     = "africa-south1"
 }
 
-variable "domain_name" {
-  description = "Apex domain served by this deployment. The Cloud DNS zone created here takes full delegation for it, not just verification records."
+variable "location" {
+  description = "Azure region for every resource in this module. South Africa North is closest to shaganplaatjies.co.za's audience."
   type        = string
-  default     = "shaganplaatjies.co.za"
+  default     = "South Africa North"
 }
 
-variable "service_name" {
-  description = "Name of the Cloud Run service."
+variable "resource_group_name" {
+  description = "Name of the resource group that holds every resource in this module."
   type        = string
   default     = "shaganplaatjies"
 }
 
-variable "artifact_repository_id" {
-  description = "Artifact Registry repository ID that stores the app's container images."
+variable "domain_name" {
+  description = "Apex domain served by this deployment. The Azure DNS zone created here takes full delegation for it, not just verification records."
+  type        = string
+  default     = "shaganplaatjies.co.za"
+}
+
+variable "app_name" {
+  description = "Name of the Container App and the prefix used for related resource names."
+  type        = string
+  default     = "shaganplaatjies"
+}
+
+variable "container_registry_name" {
+  description = "Name of the Azure Container Registry that stores the app's container images. Must be globally unique and alphanumeric only (no hyphens)."
   type        = string
   default     = "shaganplaatjies"
 }
 
 variable "container_image" {
-  description = "Fully-qualified image reference to deploy, e.g. \"africa-south1-docker.pkg.dev/<project_id>/<artifact_repository_id>/shaganplaatjies:<tag>\". Supplied by the deploy workflow after it pushes a new image - no default, since no image exists until the first build."
+  description = "Fully-qualified image reference to deploy, e.g. \"shaganplaatjies.azurecr.io/shaganplaatjies:<tag>\". Supplied by the deploy workflow after it pushes a new image - no default, since no image exists until the first build."
   type        = string
 }
 
-variable "min_instance_count" {
-  description = "Minimum Cloud Run instance count. 0 gives true scale-to-zero; cold starts are acceptable for this low-traffic site."
+variable "min_replicas" {
+  description = "Minimum Container App replica count. 0 gives true scale-to-zero; cold starts are acceptable for this low-traffic site."
   type        = number
   default     = 0
 }
 
-variable "max_instance_count" {
-  description = "Maximum Cloud Run instance count."
+variable "max_replicas" {
+  description = "Maximum Container App replica count."
   type        = number
   default     = 2
 }
 
 variable "container_cpu" {
-  description = "CPU limit for the Cloud Run container."
-  type        = string
-  default     = "1"
+  description = "vCPU allocation for the Container App (must be a value from Azure Container Apps' supported cpu/memory combinations)."
+  type        = number
+  default     = 0.5
 }
 
 variable "container_memory" {
-  description = "Memory limit for the Cloud Run container."
+  description = "Memory allocation for the Container App (must pair with container_cpu per Azure Container Apps' supported combinations)."
   type        = string
-  default     = "512Mi"
+  default     = "1Gi"
 }
 
 variable "allowed_origin" {
@@ -79,8 +90,20 @@ variable "wp_posts_uri" {
   default     = "/wp-json/wp/v2/posts"
 }
 
-variable "resend_api_key_secret_id" {
-  description = "Secret Manager secret ID that stores the Resend API key (RESEND_API_KEY). Terraform creates the secret container and IAM binding only - populate the value out-of-band (e.g. `gcloud secrets versions add <id> --data-file=-`) so the key never enters Terraform state."
+variable "resend_api_key_secret_name" {
+  description = "Key Vault secret name that stores the Resend API key (RESEND_API_KEY). Terraform creates the secret container only, with its value ignored after creation - populate the real value out-of-band (e.g. `az keyvault secret set --name <this value> --vault-name <key_vault_name> --value ...`) so the key is never driven by a Terraform-managed value in this repo's history."
   type        = string
   default     = "resend-api-key"
+}
+
+variable "github_repository" {
+  description = "GitHub \"owner/repo\" that is trusted to assume the deploy identity via OIDC."
+  type        = string
+  default     = "shgnplaatjies/ShaganPlaatjies"
+}
+
+variable "github_branches" {
+  description = "Branches (mirroring deploy-to-cpanel.yml's main/stg split) that are each granted their own federated identity credential for GitHub Actions OIDC."
+  type        = list(string)
+  default     = ["main", "stg"]
 }
