@@ -9,8 +9,8 @@ output "container_registry_login_server" {
 }
 
 output "dns_zone_name_servers" {
-  description = "Name servers to configure at the domain registrar to delegate shaganplaatjies.co.za to this Azure DNS zone."
-  value       = azurerm_dns_zone.primary.name_servers
+  description = "Name servers to configure at the domain registrar to delegate shaganplaatjies.co.za to this Azure DNS zone. Null until enable_custom_domain = true (see variables.tf)."
+  value       = var.enable_custom_domain ? azurerm_dns_zone.primary[0].name_servers : null
 }
 
 output "resend_api_key_secret_name" {
@@ -26,4 +26,9 @@ output "key_vault_name" {
 output "deploy_identity_client_id" {
   description = "Client ID of the user-assigned identity that deploy-azure-container-apps.yml authenticates as via OIDC (azure/login's client-id input)."
   value       = azurerm_user_assigned_identity.deploy.client_id
+}
+
+output "frontdoor_endpoint_host_name" {
+  description = "Default *.azurefd.net host name of the Front Door endpoint fronting the Container App - useful for testing the route before the apex DNS alias/certificate finish provisioning. Null until enable_custom_domain = true (see variables.tf)."
+  value       = var.enable_custom_domain ? azurerm_cdn_frontdoor_endpoint.app[0].host_name : null
 }

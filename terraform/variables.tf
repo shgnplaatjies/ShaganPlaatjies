@@ -26,6 +26,12 @@ variable "domain_name" {
   default     = "shaganplaatjies.co.za"
 }
 
+variable "enable_custom_domain" {
+  description = "Whether to create the DNS zone, apex DNS records, and Front Door custom-domain resources for domain_name. False for the first apply, which stands up the app reachable only via the Container App's own default FQDN (no registrar access needed) - flip to true for a later apply once DNS delegation access for domain_name exists again."
+  type        = bool
+  default     = false
+}
+
 variable "app_name" {
   description = "Name of the Container App and the prefix used for related resource names."
   type        = string
