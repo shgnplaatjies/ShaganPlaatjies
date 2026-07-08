@@ -4,6 +4,7 @@ import PortfolioPageWrapper from "./PortfolioPageWrapper";
 import SummarySection from "../sections/SummarySection";
 import ExperienceSection from "../sections/ExperienceSection";
 import ProjectsSection from "../sections/ProjectsSection";
+import MusicSection from "../sections/MusicSection";
 import BlogSection from "../sections/BlogSection";
 import ResumeSection from "../sections/ResumeSection";
 import { ConclusionSection } from "./ConclusionSection";
@@ -13,6 +14,7 @@ const sections = [
   { id: "summary", label: "Summary" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "music", label: "Music" },
   { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
@@ -31,6 +33,10 @@ const PortfolioPage: React.FC = () => {
 
         <div id="projects" className="mt-20 scroll-mt-20">
           <ProjectsSection />
+        </div>
+
+        <div id="music" className="mt-20 scroll-mt-20">
+          <MusicSection />
         </div>
 
         <div id="blog" className="mt-20 scroll-mt-20">
