@@ -2,12 +2,8 @@
 # verification records - point the registrar's name servers at
 # dns_zone_name_servers (see outputs.tf) to complete the cutover.
 #
-# Gated behind enable_custom_domain (default false): the captain doesn't
-# currently have registrar access (domain_name is mid-transfer away from
-# cPanel hosting), so the first apply stands up only the core app infra,
-# reachable via the Container App's own default FQDN. This zone - and every
-# other domain-dependent resource in this file and frontdoor.tf - gets
-# created in a later apply once registrar/DNS delegation access is back.
+# TODO: apply with enable_custom_domain=true once registrar/DNS delegation
+# access for domain_name is available.
 resource "azurerm_dns_zone" "primary" {
   count               = var.enable_custom_domain ? 1 : 0
   name                = var.domain_name

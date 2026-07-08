@@ -16,7 +16,7 @@ export type BlogPostExcerpt = {
   modifiedGmt: string;
   slug: string;
   status: string;
-  link?: string; // url (deprecated - using slug now)
+  link?: string; // url
   titleRendered: string;
   featuredMedia?: string; // url
   categories?: string[];
@@ -271,7 +271,6 @@ const ProjectCard: React.FC<{
   const gallery = meta?._project_gallery;
   const galleryCaptionsJson = meta?._project_gallery_captions;
 
-  // Parse gallery captions from JSON
   let galleryCaptions: Record<string, string> = {};
   if (galleryCaptionsJson) {
     try {
@@ -281,10 +280,8 @@ const ProjectCard: React.FC<{
     }
   }
 
-  // Get gallery image IDs
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
-  // Build gallery images for dialog
   const galleryImages = galleryIds
     .map((idStr) => {
       const mediaId = parseInt(idStr, 10);

@@ -11,9 +11,5 @@ container_image = "shaganplaatjies.azurecr.io/shaganplaatjies:latest"
 
 wp_domain = "blog.shaganplaatjies.co.za"
 
-# Leave false for the first apply: it stands up the app reachable only via
-# the Container App's own default FQDN, with no DNS zone, apex records, or
-# Front Door resources - none of which need registrar access. Flip to true
-# for a later apply, once DNS delegation access for domain_name exists
-# again, to create the DNS zone/apex alias/Front Door custom domain.
+# TODO: flip to true once DNS delegation access for domain_name exists again.
 # enable_custom_domain = true

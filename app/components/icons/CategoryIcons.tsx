@@ -55,7 +55,6 @@ const CategoryIcon: React.FC<CategoryIconProps> = ({
 
 export default CategoryIcon;
 
-// Export individual icons for direct use
 export const AboutIcon = PersonIcon;
 export const CareerIcon = TimerIcon;
 export const SkillsIcon = StackIcon;

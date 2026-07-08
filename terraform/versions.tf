@@ -12,10 +12,7 @@ terraform {
     }
   }
 
-  # Intentionally no backend block. This phase ships local-state Terraform
-  # for review only - nothing here has been applied against a real Azure
-  # subscription. Configure a remote (azurerm storage account) backend once
-  # a subscription exists and the captain decides on a state storage account.
+  # TODO: configure a remote (azurerm storage account) backend.
 }
 
 provider "azurerm" {

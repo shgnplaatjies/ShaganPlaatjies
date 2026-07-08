@@ -34,7 +34,6 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
 
   useEffect(() => {
     setMounted(true);
-    // Read initial theme
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
     if (saved) {
       setTheme(saved);
@@ -45,7 +44,6 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
       setTheme(prefersDark ? "dark" : "light");
     }
 
-    // Listen for theme changes
     const observer = new MutationObserver(() => {
       const isDark = document.documentElement.classList.contains("dark");
       setTheme(isDark ? "dark" : "light");

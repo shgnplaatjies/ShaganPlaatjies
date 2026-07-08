@@ -77,7 +77,6 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const titleText = typeof title === "string" ? title : title.rendered;
   const galleryIds = gallery ? gallery.split(",").map((id) => id.trim()) : [];
 
-  // Parse gallery captions from JSON
   let galleryCaptions: Record<string, string> = {};
   if (galleryCaptionsJson) {
     try {
@@ -87,7 +86,6 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     }
   }
 
-  // Build gallery images for dialog
   const galleryImages = galleryIds
     .map((idStr) => {
       const mediaId = parseInt(idStr, 10);
