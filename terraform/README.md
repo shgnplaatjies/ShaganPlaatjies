@@ -2,8 +2,8 @@
 
 Root module for running ShaganPlaatjies on Azure Container Apps instead of cPanel.
 
-This is Phase 1 of the migration: reviewable infrastructure code only.
-Nothing here has been applied against a real Azure subscription - no subscription ID, tenant ID, or credentials exist for this yet.
+This is Phase 1 of the migration: infrastructure code for the app's Azure footprint.
+The core app infra (`enable_custom_domain = false`, see "Two-phase apply" below) has been applied against a real Azure subscription - confirmed by `deploy-azure-container-apps.yml`'s successful `workflow_dispatch` run. The DNS/Front Door custom-domain phase is still pending registrar access.
 `deploy-to-cpanel.yml` keeps running the live site until a later phase explicitly cuts DNS over.
 
 The target was originally GCP Cloud Run; the captain switched it to Azure Container Apps for career/market skill transferability reasons after a follow-up investigation found the two tied on technical fit and cost for this workload.
@@ -22,7 +22,7 @@ The target was originally GCP Cloud Run; the captain switched it to Azure Contai
 
 ## Prerequisites before a real apply
 
-1. A real Azure subscription ID and tenant ID (currently unset - see `variables.tf`'s `subscription_id`/`tenant_id`).
+1. A real Azure subscription ID and tenant ID - see `variables.tf`'s `subscription_id`/`tenant_id` (populated via a gitignored `terraform.tfvars`, not this repo).
 2. At least one image already pushed to the Container Registry, since `container_image` has no default.
 3. A populated `terraform.tfvars` (copy `terraform.tfvars.example`).
 4. Whoever runs `terraform apply` needs enough Azure AD/RBAC privilege to create role assignments and app registrations-equivalent objects (user-assigned identities, federated credentials) - typically Owner or User Access Administrator + Application Administrator at the subscription/tenant level.
@@ -31,7 +31,7 @@ The target was originally GCP Cloud Run; the captain switched it to Azure Contai
 
 The captain doesn't currently have registrar access for `shaganplaatjies.co.za` (it's mid-transfer away from cPanel hosting), so this module applies in two phases rather than all at once:
 
-- **Phase 1** (`enable_custom_domain = false`, the default): creates only the core app infra - resource group, registry, log analytics workspace, Container App environment + Container App (reachable via its own default `*.azurecontainerapps.io` FQDN and automatic HTTPS, see `container_app_default_fqdn` in `outputs.tf`), the two user-assigned identities, and Key Vault. Nothing touches DNS or Front Door, so nothing needs registrar access.
+- **Phase 1** (`enable_custom_domain = false`, the default): creates only the core app infra - resource group, registry, log analytics workspace, Container App environment + Container App (reachable via its own default `*.azurecontainerapps.io` FQDN and automatic HTTPS, see `container_app_default_fqdn` in `outputs.tf`), the two user-assigned identities, and Key Vault. Nothing touches DNS or Front Door, so nothing needs registrar access. Already applied against a real Azure subscription, confirmed by `deploy-azure-container-apps.yml`'s successful `workflow_dispatch` run.
 - **Phase 2** (`enable_custom_domain = true`): once DNS delegation access for `shaganplaatjies.co.za` exists again, additionally creates the `azurerm_dns_zone`, the apex DNS records, and every Front Door resource in `frontdoor.tf` - see "Apex domain: fronted by Azure Front Door" below for what that phase creates.
 
 `dns_zone_name_servers` and `frontdoor_endpoint_host_name` (`outputs.tf`) are `null` until phase 2 runs. Note `locals.tf`'s `allowed_origin` still defaults to `https://shaganplaatjies.co.za` regardless of phase - during phase 1 the app is actually reachable at its default FQDN, not that origin, which is expected until phase 2 cuts the domain over.

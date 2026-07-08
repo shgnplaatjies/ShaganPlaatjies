@@ -1,16 +1,15 @@
 name: Deploy to Azure Container Apps
 
-# Manual trigger only for now. Flip this to `push: branches: ["main"]` once
-# the captain has provisioned a real Azure subscription and configured the
-# vars/secrets referenced in the `deploy` job below (AZURE_SUBSCRIPTION_ID,
-# AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_RESOURCE_GROUP,
-# AZURE_CONTAINER_REGISTRY, AZURE_CONTAINER_APP_NAME, NEXT_PUBLIC_BLOG_NAME,
-# NEXT_PUBLIC_BLOG_DESCRIPTION, NEXT_PUBLIC_BLOG_URL, ALLOWED_ORIGIN,
-# WP_DOMAIN) - until then, every push to main would just fail at the auth
-# step since none of that infrastructure exists yet. deploy-to-cpanel.yml
-# remains the live deployment path until DNS is explicitly cut over in a
-# later phase.
+# Continuous deployment is live: the Azure infrastructure is provisioned and
+# a manual workflow_dispatch run has already succeeded end to end, so every
+# push to main now also deploys here. deploy-to-cpanel.yml remains the
+# separate, currently-still-live production deploy path until DNS is
+# explicitly cut over in a later phase - both workflows running on every
+# push to main is expected until then. workflow_dispatch is kept for manual
+# re-runs and rollback-redeploys.
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
 
 concurrency:
