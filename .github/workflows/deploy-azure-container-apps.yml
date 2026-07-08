@@ -1,12 +1,5 @@
 name: Deploy to Azure Container Apps
 
-# Continuous deployment is live: the Azure infrastructure is provisioned and
-# a manual workflow_dispatch run has already succeeded end to end, so every
-# push to main now also deploys here. deploy-to-cpanel.yml remains the
-# separate, currently-still-live production deploy path until DNS is
-# explicitly cut over in a later phase - both workflows running on every
-# push to main is expected until then. workflow_dispatch is kept for manual
-# re-runs and rollback-redeploys.
 on:
   push:
     branches: ["main"]
