@@ -16,6 +16,14 @@ In a minimal sandbox with no system Chromium deps and no root access, `apt-get d
 
 `PortfolioPageContent` renders its children twice (a desktop wrapper and a mobile wrapper, toggled by CSS), so every `data-testid` in `ElegantContactForm` exists twice in the DOM at once. Any Playwright selector built on these testids needs `.first()` to land on the visible desktop copy under the default viewport.
 
+## Homepage "About" anchor and CTA links
+
+The homepage (`/`) has no dedicated About page - the "About" content is `SummarySection` (`app/sections/SummarySection.tsx`), rendered inside `PortfolioPage.tsx` wrapped in `<div id="summary">`. That id is the only stable anchor for "About Me" CTAs. `/experience` and `/projects` render through `GenericContentPage`/`GenericLandingSection` instead of `PortfolioPage`, so they don't have a `#summary` element of their own - CTAs on those pages must link to `/#summary` (cross-page + hash), while CTAs rendered on the homepage itself can use the bare `#summary` fragment.
+
+`app/sections/LandingSection.tsx` (a homepage-hero-shaped component distinct from `GenericLandingSection`) is not imported anywhere in the app as of this writing - `app/page.tsx` renders `PortfolioPage`, which uses `SummarySection` directly and never references `LandingSection`. It was still updated as part of the `/about` 404 link fix since it's plausibly a live artifact of a prior homepage layout, but if it's confirmed dead in a future pass, it's a deletion candidate like `ProjectsSection.tsx` was.
+
+`app/experience/sections/ProjectsSection.tsx` (despite the name, exported `AboutSection`) was dead code - never imported anywhere - and has been deleted.
+
 ## Deployment (cPanel to Azure Container Apps migration)
 
 The app is migrating off cPanel to Azure Container Apps (ACA). The target was originally GCP Cloud Run; the captain switched it to Azure after a follow-up investigation found the two tied on technical fit and cost for this workload, with career/market skill transferability breaking the tie toward Azure. `deploy-to-cpanel.yml` is still the live deployment path (triggers on push to `main`/`stg`); `deploy-azure-container-apps.yml` now also triggers on push to `main` (continuous deployment) since the Azure infrastructure is provisioned and a manual `workflow_dispatch` run has already succeeded end to end - `workflow_dispatch` is kept alongside it for manual re-runs/rollback-redeploys. Both workflows run on every push to `main` for now; that is expected, not a bug. Nothing gets cut over until DNS is explicitly repointed in a later phase.
