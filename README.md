@@ -13,6 +13,7 @@ It is a Next.js 15 App Router application with a custom Express server, styled a
 - **Blog** - posts are authored in WordPress and pulled in as a headless CMS, then rendered as native Next.js pages at `/blog`.
 - **Projects** - a project showcase at `/projects`, with individual project detail pages.
 - **Experience timeline** - a work history / experience section at `/experience`.
+- **Live-coded music** - a Strudel-powered music section on the homepage that plays a live-coded pattern (`app/lib/strudel/first-song.str`) through the Web Audio API, muted by default with a play/stop control.
 - **Contact form** - a contact form backed by a Next.js API route (`app/api/contact`) that sends email via Resend.
 - **SEO/discovery metadata** - Open Graph and Twitter card metadata (including generated OG images and a favicon via `app/opengraph-image.tsx` and `app/icon.tsx`), a dynamic `sitemap.xml`, `robots.txt`, and a web app manifest.
 
@@ -25,6 +26,7 @@ It is a Next.js 15 App Router application with a custom Express server, styled a
 | Styling | [Tailwind CSS](https://tailwindcss.com/) |
 | UI primitives | [Radix UI](https://www.radix-ui.com/) |
 | Animation | [Framer Motion](https://www.framer.com/motion/) and [GSAP](https://gsap.com/) |
+| Music | [Strudel](https://strudel.cc/) (`@strudel/core`, `@strudel/mini`, `@strudel/transpiler`, `@strudel/webaudio`) for live-coded pattern playback via the Web Audio API |
 | Email | [Resend](https://resend.com/) (contact form + React Email templates) |
 | Content | [WordPress](https://wordpress.org/) as a headless CMS for blog posts |
 
