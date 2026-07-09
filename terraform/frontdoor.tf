@@ -4,10 +4,8 @@
 # Front Door endpoint (see dns.tf's azurerm_dns_a_record.app), which a
 # literal CNAME at the apex cannot do. See README.md for the full rationale.
 #
-# Every resource here is gated behind enable_custom_domain (default false,
-# see variables.tf and dns.tf) - the first apply stands up only the core app
-# infra, reachable via the Container App's own default FQDN, since the
-# captain doesn't currently have registrar access for domain_name.
+# TODO: apply with enable_custom_domain=true once registrar/DNS delegation
+# access for domain_name is available (see variables.tf and dns.tf).
 resource "azurerm_cdn_frontdoor_profile" "app" {
   count               = var.enable_custom_domain ? 1 : 0
   name                = "${var.app_name}-fd"
