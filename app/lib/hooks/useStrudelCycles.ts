@@ -131,6 +131,13 @@ export const useStrudelCycles = (strudelPattern: string) => {
   }, [isActive]);
 
   useEffect(() => {
+    if (!isActive) {
+      replRef.current?.stop();
+      setStatus((prev) => (prev === "playing" || prev === "loading" ? "stopped" : prev));
+    }
+  }, [isActive]);
+
+  useEffect(() => {
     return () => {
       replRef.current?.stop();
     };
