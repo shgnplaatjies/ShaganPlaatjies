@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { repl, evalScope } from "@strudel/core";
 import * as core from "@strudel/core";
 import * as mini from "@strudel/mini";
@@ -22,7 +22,12 @@ let scopeReady: Promise<void> | null = null;
 const ensureScope = () => {
   if (!scopeReady) {
     miniAllStrings();
-    scopeReady = Promise.all([evalScope(core, mini), registerSynthSounds()]).then(() => undefined);
+    scopeReady = Promise.all([evalScope(core, mini), registerSynthSounds()])
+      .then(() => undefined)
+      .catch((err) => {
+        scopeReady = null;
+        throw err;
+      });
   }
   return scopeReady;
 };
@@ -66,6 +71,12 @@ export const useStrudelCycles = (strudelPattern: string) => {
   const stop = useCallback(() => {
     replRef.current?.stop();
     setStatus("stopped");
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      replRef.current?.stop();
+    };
   }, []);
 
   return { status, error, start, stop };
