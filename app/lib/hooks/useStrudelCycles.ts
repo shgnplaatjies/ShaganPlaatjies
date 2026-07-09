@@ -32,12 +32,28 @@ const ensureScope = () => {
   return scopeReady;
 };
 
-// PortfolioPageContent renders its children twice at once (a desktop wrapper and a
-// mobile wrapper, toggled by CSS display, not mount state), so MusicSection mounts two
-// concurrent useStrudelCycles instances. Only the first one to mount is allowed to own
-// the shared AudioContext/scheduler; every later concurrent instance stays inert so a
-// window resize across the sm breakpoint can't create two overlapping schedulers.
-let activeInstanceId: symbol | null = null;
+// PortfolioPageContent renders its children twice at once (a desktop wrapper - the
+// "hidden sm:flex" div - and a mobile wrapper - the "sm:hidden flex" div - toggled by
+// CSS display, not mount state), so MusicSection mounts two concurrent
+// useStrudelCycles instances. React commits effects in JSX/DOM order, so the desktop
+// subtree's effect always fires first and the mobile subtree's always second; that
+// mount order is used only to tell the two instances apart, not to decide who's
+// "active". Ownership of the shared AudioContext/scheduler is instead decided by
+// window.matchMedia("(min-width: 640px)") - the same breakpoint PortfolioPageContent
+// uses - re-evaluated on every "change" event and whenever an instance (re)registers,
+// so whichever copy is actually visible at the current viewport width owns playback
+// and the other renders inert.
+const SM_BREAKPOINT_QUERY = "(min-width: 640px)";
+
+let registeredInstanceIds: symbol[] = [];
+const ownershipListeners = new Set<() => void>();
+
+const notifyOwnershipListeners = () => {
+  ownershipListeners.forEach((listener) => listener());
+};
+
+const getViewportQuery = () =>
+  typeof window !== "undefined" ? window.matchMedia(SM_BREAKPOINT_QUERY) : null;
 
 export const useStrudelCycles = (strudelPattern: string) => {
   const instanceIdRef = useRef<symbol | null>(null);
@@ -51,15 +67,27 @@ export const useStrudelCycles = (strudelPattern: string) => {
   const replRef = useRef<StrudelRepl | null>(null);
 
   useEffect(() => {
-    const id = instanceIdRef.current;
-    if (activeInstanceId === null) {
-      activeInstanceId = id;
-      setIsActive(true);
-    }
+    const id = instanceIdRef.current!;
+    registeredInstanceIds.push(id);
+
+    const mediaQuery = getViewportQuery();
+    const evaluateActive = () => {
+      const isDesktopViewport = mediaQuery ? mediaQuery.matches : true;
+      const desktopOwnerId = registeredInstanceIds[0] ?? null;
+      const mobileOwnerId = registeredInstanceIds[1] ?? desktopOwnerId;
+      const activeOwnerId = isDesktopViewport ? desktopOwnerId : mobileOwnerId;
+      setIsActive(activeOwnerId === id);
+    };
+
+    ownershipListeners.add(evaluateActive);
+    notifyOwnershipListeners();
+    mediaQuery?.addEventListener("change", evaluateActive);
+
     return () => {
-      if (activeInstanceId === id) {
-        activeInstanceId = null;
-      }
+      registeredInstanceIds = registeredInstanceIds.filter((existing) => existing !== id);
+      ownershipListeners.delete(evaluateActive);
+      mediaQuery?.removeEventListener("change", evaluateActive);
+      notifyOwnershipListeners();
     };
   }, []);
 
