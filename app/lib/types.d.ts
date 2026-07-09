@@ -25,7 +25,6 @@ declare module "@strudel/transpiler" {
 
 declare module "@strudel/webaudio" {
   export function getAudioContext(): AudioContext;
-  export function initAudioOnFirstClick(): void;
   export function registerSynthSounds(): Promise<void>;
   export const webaudioOutput: any;
 }

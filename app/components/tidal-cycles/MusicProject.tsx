@@ -15,7 +15,7 @@ const statusLabel: Record<string, string> = {
 };
 
 const MusicProject: React.FC<MusicProjectProps> = ({ code }) => {
-  const { status, error, start, stop } = useStrudelCycles(code);
+  const { status, error, start, stop, isActive } = useStrudelCycles(code);
   const isPlaying = status === "playing" || status === "loading";
 
   return (
@@ -30,12 +30,12 @@ const MusicProject: React.FC<MusicProjectProps> = ({ code }) => {
             type="button"
             data-testid="strudel-toggle-button"
             onClick={() => (isPlaying ? stop() : start())}
-            disabled={status === "loading"}
+            disabled={!isActive || status === "loading"}
           >
             {isPlaying ? "Stop" : "Play"}
           </Button>
           <Text as="p" size="2" className="opacity-70" data-testid="strudel-status">
-            {statusLabel[status] ?? status}
+            {isActive ? statusLabel[status] ?? status : "Unavailable in this view"}
           </Text>
         </Flex>
 
