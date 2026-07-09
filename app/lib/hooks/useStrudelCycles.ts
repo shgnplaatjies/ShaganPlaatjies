@@ -64,6 +64,7 @@ export const useStrudelCycles = (strudelPattern: string) => {
   const [status, setStatus] = useState<StrudelPlaybackStatus>("idle");
   const [error, setError] = useState<string | null>(null);
   const [isActive, setIsActive] = useState(false);
+  const isActiveRef = useRef(false);
   const replRef = useRef<StrudelRepl | null>(null);
 
   useEffect(() => {
@@ -76,7 +77,9 @@ export const useStrudelCycles = (strudelPattern: string) => {
       const desktopOwnerId = registeredInstanceIds[0] ?? null;
       const mobileOwnerId = registeredInstanceIds[1] ?? desktopOwnerId;
       const activeOwnerId = isDesktopViewport ? desktopOwnerId : mobileOwnerId;
-      setIsActive(activeOwnerId === id);
+      const active = activeOwnerId === id;
+      isActiveRef.current = active;
+      setIsActive(active);
     };
 
     ownershipListeners.add(evaluateActive);
@@ -103,26 +106,37 @@ export const useStrudelCycles = (strudelPattern: string) => {
   }, []);
 
   const start = useCallback(async () => {
-    if (!isActive) return;
+    if (!isActiveRef.current) return;
+
+    const bailIfInactive = () => {
+      if (isActiveRef.current) return false;
+      replRef.current?.stop();
+      setStatus("stopped");
+      return true;
+    };
 
     try {
       setStatus("loading");
       setError(null);
 
       await ensureScope();
+      if (bailIfInactive()) return;
 
       const audioContext = getAudioContext();
       if (audioContext.state !== "running") {
         await audioContext.resume();
       }
+      if (bailIfInactive()) return;
 
       await getRepl().evaluate(strudelPattern);
+      if (bailIfInactive()) return;
+
       setStatus("playing");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       setStatus("error");
     }
-  }, [strudelPattern, getRepl, isActive]);
+  }, [strudelPattern, getRepl]);
 
   const stop = useCallback(() => {
     if (!isActive) return;
