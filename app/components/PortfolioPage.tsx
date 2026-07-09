@@ -1,6 +1,7 @@
 import React from "react";
 import PortfolioPageContent from "./PortfolioPageContent";
 import PortfolioPageWrapper from "./PortfolioPageWrapper";
+import { LandingSection } from "../sections/LandingSection";
 import SummarySection from "../sections/SummarySection";
 import ExperienceSection from "../sections/ExperienceSection";
 import ProjectsSection from "../sections/ProjectsSection";
@@ -21,7 +22,9 @@ const PortfolioPage: React.FC = () => {
   return (
     <PortfolioPageWrapper>
       <PortfolioPageContent sections={sections}>
-        <div id="summary">
+        <LandingSection />
+
+        <div id="summary" className="mt-20 scroll-mt-20">
           <SummarySection />
         </div>
 
