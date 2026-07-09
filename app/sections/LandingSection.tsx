@@ -28,7 +28,7 @@ const LandingSection: React.FC = () => {
         >
           I build software for global entertainment platforms, leading technical delivery from architecture through production.
         </Text>
-        <CTAButton href="/about" text="About Me" />
+        <CTAButton href="#summary" text="About Me" />
       </Flex>
     </Section>
   );

@@ -27,7 +27,7 @@ const GenericLandingSection: React.FC<GenericLandingSectionProps> = ({ descripti
         <Text wrap="balance" as="p" size="2" className="py-4 opacity-80" align="center">
           {description}
         </Text>
-        <CTAButton href="/about" text="About Me" />
+        <CTAButton href="/#summary" text="About Me" />
       </Flex>
     </Section>
   );
