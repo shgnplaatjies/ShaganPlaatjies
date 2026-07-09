@@ -100,6 +100,35 @@ function useIsRootVisible(ref: React.RefObject<HTMLElement | null>): boolean {
   return visible;
 }
 
+// Tailwind's default `sm` breakpoint - matches the `hidden sm:block` /
+// `block sm:hidden` wrapper pair below that switches between the desktop
+// and mobile SVG layouts.
+const DESKTOP_MEDIA_QUERY = "(min-width: 640px)";
+
+// Tracks which SVG layout is currently visible via a ref (not state) kept
+// current by a `matchMedia` "change" listener, which only fires when the
+// breakpoint is actually crossed. The per-frame rAF loop reads this ref
+// directly instead of `element.offsetParent`, which would force a
+// synchronous layout flush on every frame right after the same loop's
+// `setAttribute("cx"/"cy", ...)` calls invalidate layout.
+function useIsDesktopViewportRef(): React.MutableRefObject<boolean> {
+  const isDesktopRef = useRef(
+    typeof window !== "undefined" ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches : true
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia(DESKTOP_MEDIA_QUERY);
+    const update = () => {
+      isDesktopRef.current = mql.matches;
+    };
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+
+  return isDesktopRef;
+}
+
 const monoFont = { fontFamily: "var(--font-space-mono)" };
 
 interface TopologySvgProps {
@@ -273,8 +302,8 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const desktopWrapperRef = useRef<HTMLDivElement | null>(null);
   const isRootVisible = useIsRootVisible(rootRef);
+  const isDesktopViewportRef = useIsDesktopViewportRef();
 
   const laidOutNodesDesktop = useMemo(() => layoutNodesDesktop(nodes), [nodes]);
   const laidOutNodesMobile = useMemo(() => layoutNodesMobile(nodes), [nodes]);
@@ -324,7 +353,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
       const dt = Math.min(64, now - last) / 1000;
       last = now;
 
-      const isDesktopVisible = desktopWrapperRef.current?.offsetParent !== null;
+      const isDesktopVisible = isDesktopViewportRef.current;
       const pathRefs = isDesktopVisible ? pathRefsDesktop : pathRefsMobile;
       const packetRefs = isDesktopVisible ? packetRefsDesktop : packetRefsMobile;
 
@@ -348,7 +377,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
     animationFrameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [nodes, prefersReducedMotion, isRootVisible]);
+  }, [nodes, prefersReducedMotion, isRootVisible, isDesktopViewportRef]);
 
   const [utcClock, setUtcClock] = useState<string | null>(null);
   useEffect(() => {
@@ -406,7 +435,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
         Live — career topology, {activeSinceYear ?? "2020"}–present
       </div>
 
-      <div ref={desktopWrapperRef} className="hidden sm:block">
+      <div className="hidden sm:block">
         <TopologySvg
           className="w-full h-auto"
           viewBox={DESKTOP_VIEWBOX}
