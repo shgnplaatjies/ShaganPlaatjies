@@ -36,6 +36,8 @@ const DESKTOP_VIEWBOX: ViewBox = { width: 1120, height: 420 };
 const MOBILE_VIEWBOX: ViewBox = { width: 420, height: 820 };
 const DESKTOP_CENTER: Point = { x: DESKTOP_VIEWBOX.width / 2, y: DESKTOP_VIEWBOX.height / 2 };
 const MOBILE_CENTER: Point = { x: MOBILE_VIEWBOX.width / 2, y: 66 };
+const DESKTOP_CENTER_RADIUS = 46;
+const MOBILE_CENTER_RADIUS = 40;
 const PACKET_COLORS = ["var(--cyan-9)", "var(--amber-9)"];
 
 // Desktop spreads employers around the center node on an ellipse (mirrors
@@ -80,23 +82,188 @@ function truncate(text: string, maxLength: number): string {
   return `${text.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
-function useIsMobile(): boolean {
-  const [isMobile, setIsMobile] = useState(false);
+// Detects whether `ref`'s element is actually painted (not `display:none`
+// behind a hidden Tailwind breakpoint wrapper, e.g. PortfolioPageContent's
+// duplicated desktop/mobile nav wrappers). Used to fully stop this
+// component's rAF/interval loops when its copy is the hidden one, rather
+// than burning CPU on invisible DOM.
+function useIsRootVisible(ref: React.RefObject<HTMLElement | null>): boolean {
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 640px)");
-    setIsMobile(mediaQuery.matches);
+    const check = () => setVisible(ref.current?.offsetParent !== null);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [ref]);
 
-    const handleChange = (event: MediaQueryListEvent) =>
-      setIsMobile(event.matches);
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
-  return isMobile;
+  return visible;
 }
 
 const monoFont = { fontFamily: "var(--font-space-mono)" };
+
+interface TopologySvgProps {
+  className: string;
+  viewBox: ViewBox;
+  center: Point;
+  centerRadius: number;
+  centerLabel: string;
+  centerSub: string;
+  laidOutNodes: LaidOutNode[];
+  isMobileLayout: boolean;
+  pathRefs: React.MutableRefObject<(SVGPathElement | null)[]>;
+  packetRefs: React.MutableRefObject<(SVGCircleElement | null)[]>;
+}
+
+const TopologySvg: React.FC<TopologySvgProps> = ({
+  className,
+  viewBox,
+  center,
+  centerRadius,
+  centerLabel,
+  centerSub,
+  laidOutNodes,
+  isMobileLayout,
+  pathRefs,
+  packetRefs,
+}) => (
+  <svg
+    viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
+    className={className}
+    role="img"
+    aria-label={`Career topology diagram: ${centerLabel} connected to ${laidOutNodes
+      .map((node) => node.label)
+      .join(", ")}`}
+  >
+    <g>
+      {laidOutNodes.map((node, i) => {
+        const bend = i % 2 === 0 ? -40 : 40;
+        const mx = (center.x + node.x) / 2 + bend;
+        const my = (center.y + node.y) / 2;
+        return (
+          <path
+            key={node.id}
+            ref={(el) => {
+              pathRefs.current[i] = el;
+            }}
+            d={`M ${center.x} ${center.y} Q ${mx} ${my} ${node.x} ${node.y}`}
+            fill="none"
+            style={{ stroke: "var(--gray-6)" }}
+            strokeWidth={1.5}
+          />
+        );
+      })}
+    </g>
+
+    <g>
+      {laidOutNodes.map((node, i) => (
+        <circle
+          key={node.id}
+          ref={(el) => {
+            packetRefs.current[i] = el;
+          }}
+          r={3.2}
+          style={{ fill: PACKET_COLORS[i % PACKET_COLORS.length] }}
+        />
+      ))}
+    </g>
+
+    <g>
+      <circle
+        cx={center.x}
+        cy={center.y}
+        r={centerRadius}
+        style={{ fill: "var(--gray-2)", stroke: "var(--cyan-9)" }}
+        strokeWidth={1.5}
+      />
+      <circle
+        cx={center.x}
+        cy={center.y}
+        r={centerRadius - 8}
+        fill="none"
+        style={{ stroke: "var(--cyan-9)" }}
+        strokeWidth={1}
+        opacity={0.35}
+      />
+      <text
+        x={center.x}
+        y={center.y - 2}
+        textAnchor="middle"
+        style={{ fill: "var(--gray-12)", fontWeight: 600, fontSize: 12.5, ...monoFont }}
+      >
+        {centerLabel}
+      </text>
+      <text
+        x={center.x}
+        y={center.y + 14}
+        textAnchor="middle"
+        style={{ fill: "var(--gray-9)", fontSize: 9.5, ...monoFont }}
+      >
+        {centerSub}
+      </text>
+    </g>
+
+    <g>
+      {laidOutNodes.map((node) => {
+        const anchor = isMobileLayout
+          ? "middle"
+          : node.x < center.x - 1
+          ? "end"
+          : node.x > center.x + 1
+          ? "start"
+          : "middle";
+        const tx = isMobileLayout
+          ? node.x
+          : node.x < center.x - 1
+          ? node.x - node.r - 10
+          : node.x > center.x + 1
+          ? node.x + node.r + 10
+          : node.x;
+        const ty = isMobileLayout
+          ? node.y + node.r + 18
+          : node.y < center.y
+          ? node.y - node.r - 20
+          : node.y + node.r + 22;
+        const labelMax = isMobileLayout ? 20 : 22;
+        const subMax = isMobileLayout ? 24 : 26;
+        const labelFontSize = isMobileLayout ? 12.5 : 11;
+        const subFontSize = isMobileLayout ? 10.5 : 9.5;
+        const subText = truncate(
+          [formatYearRange(node), node.sub].filter(Boolean).join(" · "),
+          subMax
+        );
+
+        return (
+          <g key={node.id}>
+            <circle
+              cx={node.x}
+              cy={node.y}
+              r={node.r}
+              style={{ fill: "var(--gray-1)", stroke: "var(--gray-7)" }}
+              strokeWidth={1.5}
+            />
+            <text
+              x={tx}
+              y={ty}
+              textAnchor={anchor}
+              style={{ fill: "var(--gray-11)", fontSize: labelFontSize, ...monoFont }}
+            >
+              {truncate(node.label.toUpperCase(), labelMax)}
+            </text>
+            <text
+              x={tx}
+              y={ty + 13}
+              textAnchor={anchor}
+              style={{ fill: "var(--gray-9)", fontSize: subFontSize, ...monoFont }}
+            >
+              {subText}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  </svg>
+);
 
 const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
   nodes,
@@ -104,30 +271,32 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
   centerSub = "Software Engineer",
 }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
-  const viewBox = isMobile ? MOBILE_VIEWBOX : DESKTOP_VIEWBOX;
-  const center = isMobile ? MOBILE_CENTER : DESKTOP_CENTER;
-  const centerRadius = isMobile ? 40 : 46;
 
-  const laidOutNodes = useMemo(
-    () => (isMobile ? layoutNodesMobile(nodes) : layoutNodesDesktop(nodes)),
-    [nodes, isMobile]
-  );
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const desktopWrapperRef = useRef<HTMLDivElement | null>(null);
+  const isRootVisible = useIsRootVisible(rootRef);
 
-  const pathRefs = useRef<(SVGPathElement | null)[]>([]);
-  const packetRefs = useRef<(SVGCircleElement | null)[]>([]);
+  const laidOutNodesDesktop = useMemo(() => layoutNodesDesktop(nodes), [nodes]);
+  const laidOutNodesMobile = useMemo(() => layoutNodesMobile(nodes), [nodes]);
+
+  const pathRefsDesktop = useRef<(SVGPathElement | null)[]>([]);
+  const packetRefsDesktop = useRef<(SVGCircleElement | null)[]>([]);
+  const pathRefsMobile = useRef<(SVGPathElement | null)[]>([]);
+  const packetRefsMobile = useRef<(SVGCircleElement | null)[]>([]);
 
   useEffect(() => {
-    const packets = laidOutNodes.map((_, i) => ({
+    if (!isRootVisible) return;
+
+    const packets = nodes.map(() => ({
       t: Math.random(),
       speed: 0.15 + Math.random() * 0.12,
       dir: Math.random() > 0.5 ? 1 : -1,
     }));
 
-    if (prefersReducedMotion) {
-      // Freeze each packet at its edge's midpoint instead of running the
-      // continuous requestAnimationFrame loop, mirroring MatrixRain's
-      // reduced-motion handling (app/components/MatrixRain.tsx).
+    const freezeAt = (
+      pathRefs: React.MutableRefObject<(SVGPathElement | null)[]>,
+      packetRefs: React.MutableRefObject<(SVGCircleElement | null)[]>
+    ) => {
       packets.forEach((_, i) => {
         const path = pathRefs.current[i];
         const el = packetRefs.current[i];
@@ -137,6 +306,14 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
           el.setAttribute("cy", String(point.y));
         }
       });
+    };
+
+    if (prefersReducedMotion) {
+      // Freeze each packet at its edge's midpoint instead of running the
+      // continuous requestAnimationFrame loop, mirroring MatrixRain's
+      // reduced-motion handling (app/components/MatrixRain.tsx).
+      freezeAt(pathRefsDesktop, packetRefsDesktop);
+      freezeAt(pathRefsMobile, packetRefsMobile);
       return;
     }
 
@@ -146,6 +323,10 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     const animate = (now: number) => {
       const dt = Math.min(64, now - last) / 1000;
       last = now;
+
+      const isDesktopVisible = desktopWrapperRef.current?.offsetParent !== null;
+      const pathRefs = isDesktopVisible ? pathRefsDesktop : pathRefsMobile;
+      const packetRefs = isDesktopVisible ? packetRefsDesktop : packetRefsMobile;
 
       packets.forEach((packet, i) => {
         const path = pathRefs.current[i];
@@ -167,10 +348,12 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
     animationFrameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [laidOutNodes, prefersReducedMotion]);
+  }, [nodes, prefersReducedMotion, isRootVisible]);
 
   const [utcClock, setUtcClock] = useState<string | null>(null);
   useEffect(() => {
+    if (!isRootVisible) return;
+
     const tick = () => {
       const now = new Date();
       const hh = String(now.getUTCHours()).padStart(2, "0");
@@ -181,17 +364,17 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isRootVisible]);
 
   const earliestStart = useMemo(() => getEarliestStartDate(nodes), [nodes]);
   const [uptime, setUptime] = useState<string | null>(null);
   useEffect(() => {
-    if (!earliestStart) return;
+    if (!isRootVisible || !earliestStart) return;
     const tick = () => setUptime(formatUptime(earliestStart, new Date()));
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [earliestStart]);
+  }, [earliestStart, isRootVisible]);
 
   const currentNode = useMemo(() => getCurrentNode(nodes), [nodes]);
   const activeSinceYear = earliestStart ? earliestStart.getUTCFullYear() : null;
@@ -205,6 +388,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
   return (
     <div
+      ref={rootRef}
       className="relative rounded-xl border overflow-hidden"
       style={{ borderColor: "var(--gray-6)", backgroundColor: "var(--gray-1)" }}
     >
@@ -222,142 +406,34 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
         Live — career topology, {activeSinceYear ?? "2020"}–present
       </div>
 
-      <svg
-        viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
-        className="block w-full h-auto"
-        role="img"
-        aria-label={`Career topology diagram: ${centerLabel} connected to ${nodes
-          .map((node) => node.label)
-          .join(", ")}`}
-      >
-        <g>
-          {laidOutNodes.map((node, i) => {
-            const bend = i % 2 === 0 ? -40 : 40;
-            const mx = (center.x + node.x) / 2 + bend;
-            const my = (center.y + node.y) / 2;
-            return (
-              <path
-                key={node.id}
-                ref={(el) => {
-                  pathRefs.current[i] = el;
-                }}
-                d={`M ${center.x} ${center.y} Q ${mx} ${my} ${node.x} ${node.y}`}
-                fill="none"
-                style={{ stroke: "var(--gray-6)" }}
-                strokeWidth={1.5}
-              />
-            );
-          })}
-        </g>
-
-        <g>
-          {laidOutNodes.map((node, i) => (
-            <circle
-              key={node.id}
-              ref={(el) => {
-                packetRefs.current[i] = el;
-              }}
-              r={3.2}
-              style={{ fill: PACKET_COLORS[i % PACKET_COLORS.length] }}
-            />
-          ))}
-        </g>
-
-        <g>
-          <circle
-            cx={center.x}
-            cy={center.y}
-            r={centerRadius}
-            style={{ fill: "var(--gray-2)", stroke: "var(--cyan-9)" }}
-            strokeWidth={1.5}
-          />
-          <circle
-            cx={center.x}
-            cy={center.y}
-            r={centerRadius - 8}
-            fill="none"
-            style={{ stroke: "var(--cyan-9)" }}
-            strokeWidth={1}
-            opacity={0.35}
-          />
-          <text
-            x={center.x}
-            y={center.y - 2}
-            textAnchor="middle"
-            style={{ fill: "var(--gray-12)", fontWeight: 600, fontSize: 12.5, ...monoFont }}
-          >
-            {centerLabel}
-          </text>
-          <text
-            x={center.x}
-            y={center.y + 14}
-            textAnchor="middle"
-            style={{ fill: "var(--gray-9)", fontSize: 9.5, ...monoFont }}
-          >
-            {centerSub}
-          </text>
-        </g>
-
-        <g>
-          {laidOutNodes.map((node) => {
-            const anchor = isMobile
-              ? "middle"
-              : node.x < center.x - 1
-              ? "end"
-              : node.x > center.x + 1
-              ? "start"
-              : "middle";
-            const tx = isMobile
-              ? node.x
-              : node.x < center.x - 1
-              ? node.x - node.r - 10
-              : node.x > center.x + 1
-              ? node.x + node.r + 10
-              : node.x;
-            const ty = isMobile
-              ? node.y + node.r + 18
-              : node.y < center.y
-              ? node.y - node.r - 20
-              : node.y + node.r + 22;
-            const labelMax = isMobile ? 20 : 22;
-            const subMax = isMobile ? 24 : 26;
-            const labelFontSize = isMobile ? 12.5 : 11;
-            const subFontSize = isMobile ? 10.5 : 9.5;
-            const subText = truncate(
-              [formatYearRange(node), node.sub].filter(Boolean).join(" · "),
-              subMax
-            );
-
-            return (
-              <g key={node.id}>
-                <circle
-                  cx={node.x}
-                  cy={node.y}
-                  r={node.r}
-                  style={{ fill: "var(--gray-1)", stroke: "var(--gray-7)" }}
-                  strokeWidth={1.5}
-                />
-                <text
-                  x={tx}
-                  y={ty}
-                  textAnchor={anchor}
-                  style={{ fill: "var(--gray-11)", fontSize: labelFontSize, ...monoFont }}
-                >
-                  {truncate(node.label.toUpperCase(), labelMax)}
-                </text>
-                <text
-                  x={tx}
-                  y={ty + 13}
-                  textAnchor={anchor}
-                  style={{ fill: "var(--gray-9)", fontSize: subFontSize, ...monoFont }}
-                >
-                  {subText}
-                </text>
-              </g>
-            );
-          })}
-        </g>
-      </svg>
+      <div ref={desktopWrapperRef} className="hidden sm:block">
+        <TopologySvg
+          className="w-full h-auto"
+          viewBox={DESKTOP_VIEWBOX}
+          center={DESKTOP_CENTER}
+          centerRadius={DESKTOP_CENTER_RADIUS}
+          centerLabel={centerLabel}
+          centerSub={centerSub}
+          laidOutNodes={laidOutNodesDesktop}
+          isMobileLayout={false}
+          pathRefs={pathRefsDesktop}
+          packetRefs={packetRefsDesktop}
+        />
+      </div>
+      <div className="block sm:hidden">
+        <TopologySvg
+          className="w-full h-auto"
+          viewBox={MOBILE_VIEWBOX}
+          center={MOBILE_CENTER}
+          centerRadius={MOBILE_CENTER_RADIUS}
+          centerLabel={centerLabel}
+          centerSub={centerSub}
+          laidOutNodes={laidOutNodesMobile}
+          isMobileLayout={true}
+          pathRefs={pathRefsMobile}
+          packetRefs={packetRefsMobile}
+        />
+      </div>
 
       <div
         className="grid grid-cols-2 sm:grid-cols-4 border-t"
