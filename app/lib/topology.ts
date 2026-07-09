@@ -16,7 +16,8 @@ export interface TopologyNode {
  * WordPress-backed experience API returns nothing (WP_DOMAIN unset, or WP
  * unreachable - the same failure mode ExperienceSection.tsx silently returns
  * null for). Dates are year-precision approximations of his real tenure at
- * each company; see AGENTS.md's "Hero topology data" note.
+ * each company; see AGENTS.md's "The Live System hero (career topology
+ * dashboard)" note.
  */
 export const FALLBACK_TOPOLOGY_NODES: TopologyNode[] = [
   {
