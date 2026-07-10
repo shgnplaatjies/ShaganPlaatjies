@@ -10,20 +10,12 @@ import BlogSection from "../sections/BlogSection";
 import ResumeSection from "../sections/ResumeSection";
 import { ConclusionSection } from "./ConclusionSection";
 import ContactSection from "../sections/ContactSection";
-
-const sections = [
-  { id: "summary", label: "Summary" },
-  { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
-  { id: "music", label: "Music" },
-  { id: "blog", label: "Blog" },
-  { id: "contact", label: "Contact" },
-];
+import { PORTFOLIO_NAV_SECTIONS } from "../lib/constants";
 
 const PortfolioPage: React.FC = () => {
   return (
     <PortfolioPageWrapper>
-      <PortfolioPageContent sections={sections}>
+      <PortfolioPageContent sections={PORTFOLIO_NAV_SECTIONS}>
         <LandingSection />
 
         <div id="summary" className="mt-20 scroll-mt-20">

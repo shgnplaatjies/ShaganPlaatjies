@@ -3,7 +3,7 @@ import { OrbColorOnPageType, OrbColorOnPagesConfig } from "@/app/lib/constants";
 import { Flex, Theme } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import Header from "../../Header";
+import StatusBar from "../../StatusBar";
 import MatrixRain from "../../MatrixRain";
 import AnimatedGrid from "../../AnimatedGrid";
 import MouseGlowEffect from "../../MouseGlowEffect";
@@ -48,7 +48,7 @@ const MainLayoutClient: React.FC<{
       <AnimatedGrid opacity={0.3} gridSize={40} />
       <MatrixRain opacity={0.02} />
       <Flex className="flex flex-col flex-grow w-full h-full backdrop-blur-3xl relative z-10 bg-transparent">
-        <Header className="h-auto py-4 flex place-content-center border-b border-gray-border" />
+        <StatusBar />
 
         <main className="flex flex-grow flex-row overflow-hidden w-full h-full">
           {children}
