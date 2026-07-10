@@ -4,7 +4,7 @@ Root module for running ShaganPlaatjies on Azure Container Apps instead of cPane
 
 This is Phase 1 of the migration: infrastructure code for the app's Azure footprint.
 The core app infra (`enable_custom_domain = false`, see "Two-phase apply" below) has been applied against a real Azure subscription - confirmed by `deploy-azure-container-apps.yml`'s successful `workflow_dispatch` run. The DNS/Front Door custom-domain phase is still pending registrar access.
-`deploy-to-cpanel.yml` keeps running the live site until a later phase explicitly cuts DNS over.
+The legacy cPanel FTP deploy workflow has been removed (Azure is now the only CI/CD deployment target); the live site still resolves to the cPanel host until DNS is explicitly cut over in a later phase.
 
 The target was originally GCP Cloud Run; the captain switched it to Azure Container Apps for career/market skill transferability reasons after a follow-up investigation found the two tied on technical fit and cost for this workload.
 
@@ -18,7 +18,7 @@ The target was originally GCP Cloud Run; the captain switched it to Azure Contai
 - `azurerm_dns_zone` for `shaganplaatjies.co.za` - full zone delegation, not just verification records. **Gated behind `var.enable_custom_domain` (default `false`) - see "Two-phase apply" below.**
 - `azurerm_cdn_frontdoor_profile`/`_endpoint`/`_origin_group`/`_origin`/`_route` (Azure Front Door Standard) fronting the Container App, plus `azurerm_cdn_frontdoor_custom_domain` (+ `_custom_domain_association`) binding `shaganplaatjies.co.za` to it with a Front-Door-managed, auto-renewing certificate. TLS and the custom domain terminate at Front Door, not the Container App - see "Apex domain: fronted by Azure Front Door" below. **Also gated behind `var.enable_custom_domain`.**
 - `azurerm_dns_a_record` aliasing the zone apex directly at the Front Door endpoint, plus the `azurerm_dns_txt_record` Front Door's custom-domain validation needs. **Also gated behind `var.enable_custom_domain`.**
-- A second, separate `azurerm_user_assigned_identity` plus one `azurerm_federated_identity_credential` per branch in `var.github_branches` (default `["main", "stg"]`, mirroring `deploy-to-cpanel.yml`'s branch split) for GitHub Actions OIDC - no client secret ever stored in GitHub.
+- A second, separate `azurerm_user_assigned_identity` plus one `azurerm_federated_identity_credential` per branch in `var.github_branches` (default `["main", "stg"]`) for GitHub Actions OIDC - no client secret ever stored in GitHub.
 
 ## Prerequisites before a real apply
 

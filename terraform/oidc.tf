@@ -7,9 +7,9 @@ resource "azurerm_user_assigned_identity" "deploy" {
   location            = azurerm_resource_group.app.location
 }
 
-# One federated credential per branch, mirroring deploy-to-cpanel.yml's
-# main/stg split (var.github_branches) - each subject claim trusts only
-# workflow runs triggered from that exact branch ref in this exact repo.
+# One federated credential per branch (var.github_branches) - each subject
+# claim trusts only workflow runs triggered from that exact branch ref in
+# this exact repo.
 resource "azurerm_federated_identity_credential" "deploy" {
   for_each = toset(var.github_branches)
 
