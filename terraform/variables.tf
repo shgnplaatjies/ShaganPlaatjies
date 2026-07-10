@@ -109,7 +109,7 @@ variable "github_repository" {
 }
 
 variable "github_branches" {
-  description = "Branches (mirroring deploy-to-cpanel.yml's main/stg split) that are each granted their own federated identity credential for GitHub Actions OIDC."
+  description = "Branches that are each granted their own federated identity credential for GitHub Actions OIDC."
   type        = list(string)
   default     = ["main", "stg"]
 }
