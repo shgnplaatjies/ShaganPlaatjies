@@ -11,10 +11,10 @@ const GenericContentPage: React.FC<GenericContentPageProps> = ({
   contentComponent,
 }) => {
   return (
-    <>
+    <div className="w-full min-w-0 flex-1 overflow-y-auto overflow-x-hidden">
       <GenericLandingSection description={landingDescription} />
       {contentComponent}
-    </>
+    </div>
   );
 };
 
