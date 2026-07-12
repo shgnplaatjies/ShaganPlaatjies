@@ -24,6 +24,15 @@ export const NAV_LINKS = {
   projects: { href: "/projects", label: "Projects" },
 };
 
+export const PORTFOLIO_NAV_SECTIONS = [
+  { id: "summary", label: "Summary" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "music", label: "Music" },
+  { id: "blog", label: "Blog" },
+  { id: "contact", label: "Contact" },
+];
+
 export type OrbColorOnPageType = {
   path: string;
   color: string;

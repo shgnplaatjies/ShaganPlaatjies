@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   MoonIcon,
   SunIcon,
@@ -8,8 +10,8 @@ import {
   LinkedInLogoIcon,
   EnvelopeClosedIcon,
 } from "@radix-ui/react-icons";
-import { Heading, Text, Box, Flex } from "@radix-ui/themes";
 import { SOCIAL_LINKS } from "@/app/lib/constants";
+import StylizedTextLogo from "./StylizedTextLogo";
 
 interface Section {
   id: string;
@@ -18,19 +20,26 @@ interface Section {
 
 interface PortfolioNavProps {
   sections: Section[];
-  activeSection: string;
-  onSectionChange: (sectionId: string) => void;
-  scrollProgress: number;
+  activeSection?: string;
+  onSectionChange?: (sectionId: string) => void;
 }
+
+// Sections with a dedicated route navigate there directly; the rest are
+// homepage-anchor sections, reached via "/#id" from any page.
+const PAGE_ROUTES: Record<string, string> = {
+  experience: "/experience",
+  projects: "/projects",
+};
 
 const PortfolioNav: React.FC<PortfolioNavProps> = ({
   sections,
   activeSection,
   onSectionChange,
-  scrollProgress,
 }) => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const isLinkMode = !onSectionChange;
 
   useEffect(() => {
     setMounted(true);
@@ -69,123 +78,131 @@ const PortfolioNav: React.FC<PortfolioNavProps> = ({
     setTheme(newTheme);
   };
 
-  return (
-    <nav className="w-full sm:w-1/4 sm:h-full flex-shrink-0 sm:border-r border-gray-border px-4 sm:px-8 py-6 sm:py-8 overflow-y-auto sm:overflow-hidden bg-transparent flex flex-col sm:justify-between">
-      <header className="mb-3 sm:mb-0">
-        <Heading as="h1" size="8" className="text-gray-text-contrast">Shagan Plaatjies</Heading>
-        <Text as="p" size="2" className="mt-2 text-gray-solid-hover">
-          Software Engineer & Product Lead
-        </Text>
-      </header>
+  const isSectionActive = (id: string) =>
+    isLinkMode ? pathname === PAGE_ROUTES[id] : activeSection === id;
 
-      <ul className="hidden sm:block space-y-3 sm:mt-0 sm:py-8">
-        {sections.map((section, index) => (
-          <li key={section.id}>
-            <a
-              href={`#${section.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                onSectionChange(section.id);
+  const itemClassName = (active: boolean) =>
+    `group flex items-center gap-2.5 rounded-md border px-2.5 py-2 text-[13px] whitespace-nowrap transition-colors ${
+      active
+        ? "border-[var(--ops-line)] text-[var(--ops-fg-0)]"
+        : "border-transparent text-[var(--ops-fg-1)] hover:border-[var(--ops-line)] hover:text-[var(--ops-fg-0)]"
+    }`;
+
+  const itemStyle = (active: boolean): React.CSSProperties | undefined =>
+    active
+      ? { backgroundColor: "color-mix(in srgb, var(--ops-accent) 8%, transparent)" }
+      : undefined;
+
+  const renderThemeToggle = (showLabel: boolean, size: string) => (
+    <button
+      onClick={toggleTheme}
+      title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      className="flex items-center gap-2 text-[var(--ops-fg-1)] transition-colors hover:text-[var(--ops-fg-0)]"
+      aria-label="Toggle theme"
+    >
+      {mounted && theme === "dark" ? (
+        <MoonIcon width={size} height={size} />
+      ) : (
+        <SunIcon width={size} height={size} />
+      )}
+      {showLabel && <span className="text-[11px]">{mounted ? theme : ""}</span>}
+    </button>
+  );
+
+  return (
+    <nav className="flex w-full flex-shrink-0 flex-col border-[var(--ops-line)] bg-[var(--ops-bg)] px-4 py-4 font-mono sm:h-full sm:w-64 sm:justify-between sm:overflow-hidden sm:border-r sm:px-5 sm:py-6">
+      <div className="flex items-center justify-between gap-3 sm:block">
+        <div>
+          <StylizedTextLogo size="4" />
+          <p className="mt-1 hidden text-[11px] tracking-wide text-[var(--ops-fg-2)] sm:block">
+            Software Engineer &amp; Product Lead
+          </p>
+        </div>
+        <div className="sm:hidden">{renderThemeToggle(false, "18")}</div>
+      </div>
+
+      <ul className="-mx-1 mt-3 flex flex-row gap-1 overflow-x-auto px-1 sm:mx-0 sm:mt-6 sm:flex-col sm:overflow-visible sm:px-0 sm:py-6">
+        {sections.map((section) => {
+          const active = isSectionActive(section.id);
+          const dot = (
+            <span
+              className="h-[5px] w-[5px] flex-shrink-0 rounded-full"
+              style={{
+                backgroundColor: active ? "var(--ops-accent)" : "var(--ops-line-bright)",
+                boxShadow: active ? "0 0 6px var(--ops-accent)" : "none",
               }}
-              className="group flex items-center py-3"
-              onMouseEnter={(e) => {
-                const div = e.currentTarget.querySelector(
-                  ".nav-indicator"
-                ) as HTMLElement;
-                if (div) {
-                  div.style.width = "40px";
-                  div.style.backgroundColor = "var(--gray-12)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                const div = e.currentTarget.querySelector(
-                  ".nav-indicator"
-                ) as HTMLElement;
-                if (div && activeSection !== section.id) {
-                  div.style.width = "24px";
-                  div.style.backgroundColor = "var(--gray-10)";
-                }
-              }}
-            >
-              <div
-                className="nav-indicator mr-4 transition-all duration-500 ease-in-out"
-                style={{
-                  height: "1px",
-                  width: activeSection === section.id ? "40px" : "24px",
-                  backgroundColor:
-                    activeSection === section.id
-                      ? "var(--gray-12)"
-                      : "var(--gray-10)",
-                }}
-              />
-              <Text
-                className={`transition-colors ${
-                  activeSection === section.id
-                    ? "text-gray-text-contrast"
-                    : "text-gray-solid-hover group-hover:text-gray-text-contrast"
-                }`}
-              >
-                {section.label}
-              </Text>
-            </a>
-          </li>
-        ))}
+              aria-hidden="true"
+            />
+          );
+          const label = <span className="sr-only sm:not-sr-only">{section.label}</span>;
+
+          return (
+            <li key={section.id} className="flex-shrink-0">
+              {isLinkMode ? (
+                <Link
+                  href={PAGE_ROUTES[section.id] ?? `/#${section.id}`}
+                  className={itemClassName(active)}
+                  style={itemStyle(active)}
+                >
+                  {dot}
+                  {label}
+                </Link>
+              ) : (
+                <a
+                  href={`#${section.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSectionChange!(section.id);
+                  }}
+                  className={itemClassName(active)}
+                  style={itemStyle(active)}
+                >
+                  {dot}
+                  {label}
+                </a>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
-      <Flex direction="column" gap="4" className="sm:gap-6">
-        <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border">
-          <Text size="1" className="text-gray-border-active mb-3">LINKS</Text>
-          <ul className="flex gap-4 text-gray-solid-hover">
-            <li>
-              <a
-                href={SOCIAL_LINKS.github}
-                title="GitHub"
-                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
-              >
-                <GitHubLogoIcon width="20" height="20" />
-              </a>
-            </li>
-            <li>
-              <a
-                href={SOCIAL_LINKS.linkedin}
-                title="LinkedIn"
-                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
-              >
-                <LinkedInLogoIcon width="20" height="20" />
-              </a>
-            </li>
-            <li>
-              <a
-                href={SOCIAL_LINKS.email}
-                title="Email"
-                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
-              >
-                <EnvelopeClosedIcon width="20" height="20" />
-              </a>
-            </li>
-          </ul>
-        </Box>
+      <div className="mt-3 flex items-center justify-between gap-4 border-t border-[var(--ops-line)] pt-3 sm:mt-0 sm:flex-col sm:items-stretch sm:gap-4 sm:pt-4">
+        <div>
+          <p className="mb-2 hidden text-[10px] uppercase tracking-widest text-[var(--ops-fg-2)] sm:block">
+            Links
+          </p>
+          <div className="flex gap-4 text-[var(--ops-fg-1)]">
+            <a
+              href={SOCIAL_LINKS.github}
+              title="GitHub"
+              className="transition-colors hover:text-[var(--ops-fg-0)]"
+            >
+              <GitHubLogoIcon width="18" height="18" />
+            </a>
+            <a
+              href={SOCIAL_LINKS.linkedin}
+              title="LinkedIn"
+              className="transition-colors hover:text-[var(--ops-fg-0)]"
+            >
+              <LinkedInLogoIcon width="18" height="18" />
+            </a>
+            <a
+              href={SOCIAL_LINKS.email}
+              title="Email"
+              className="transition-colors hover:text-[var(--ops-fg-0)]"
+            >
+              <EnvelopeClosedIcon width="18" height="18" />
+            </a>
+          </div>
+        </div>
 
-        <Box className="pt-2 sm:pt-0 sm:border-t sm:border-gray-border">
-          <Text size="1" className="text-gray-border-active mb-3">THEME</Text>
-          <ul className="flex gap-4 text-gray-solid-hover">
-            <li>
-              <button
-                onClick={toggleTheme}
-                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                className="hover:text-gray-text-contrast transition-all duration-300 ease-in-out hover:scale-110"
-                aria-label="Toggle theme"
-              >
-                {mounted && theme === "dark" ? (
-                  <MoonIcon width="20" height="20" />
-                ) : (
-                  <SunIcon width="20" height="20" />
-                )}
-              </button>
-            </li>
-          </ul>
-        </Box>
-      </Flex>
+        <div className="hidden sm:block">
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-[var(--ops-fg-2)]">
+            Theme
+          </p>
+          {renderThemeToggle(true, "18")}
+        </div>
+      </div>
     </nav>
   );
 };

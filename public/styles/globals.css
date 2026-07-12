@@ -42,6 +42,42 @@ body {
   --heading-font-family: var(--font-chakra-petch);
 }
 
+/*
+ * Ops Console chrome tokens (nav rail + status bar).
+ * Light values reuse the existing Radix gray/cyan scale so the light theme
+ * toggle keeps working unchanged; dark values are the near-black palette
+ * from the approved Ops Console prototype (data/homepage-composition-r7).
+ */
+:root {
+  --ops-bg: var(--gray-1);
+  --ops-line: color-mix(in srgb, var(--gray-6) 60%, transparent);
+  --ops-line-bright: color-mix(in srgb, var(--gray-8) 60%, transparent);
+  --ops-fg-0: var(--gray-12);
+  --ops-fg-1: var(--gray-11);
+  --ops-fg-2: var(--gray-9);
+  --ops-accent: var(--cyan-9);
+}
+
+/*
+ * Scoped to html.dark specifically (not a bare ".dark" class selector):
+ * Radix Themes' own Theme wrapper divs carry "radix-themes dark"/"radix-themes
+ * light" internally for their own palette scoping, unrelated to the site's
+ * light/dark toggle (which only ever touches document.documentElement's
+ * classList). A bare ".dark" selector here would also match those inner
+ * Radix wrapper divs - since the root layout's outermost Theme is
+ * permanently appearance="dark", that made this chrome render dark even
+ * while the toggle was set to light.
+ */
+html.dark {
+  --ops-bg: #050708;
+  --ops-line: #1c262a;
+  --ops-line-bright: #2a383e;
+  --ops-fg-0: #eaf2f1;
+  --ops-fg-1: #9fb0ae;
+  --ops-fg-2: #5c706e;
+  --ops-accent: #4dd6c4;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
