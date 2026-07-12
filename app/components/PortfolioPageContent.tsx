@@ -11,6 +11,7 @@ interface Section {
 
 interface PortfolioPageContentProps {
   sections: Section[];
+  hero: ReactNode;
   children: ReactNode;
 }
 
@@ -23,7 +24,7 @@ const getVisibleElementById = (id: string): HTMLElement | null => {
   return Array.from(matches).find((el) => el.offsetParent !== null) ?? matches[0] ?? null;
 };
 
-const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, children }) => {
+const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, hero, children }) => {
   const [activeSection, setActiveSection] = useState<string>('summary');
 
   useScrollDelegation('.portfolio-scroll-container');
@@ -60,6 +61,7 @@ const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, c
         <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} />
 
         <div className="portfolio-scroll-container flex-1 overflow-y-auto overflow-x-hidden">
+          {hero}
           <div className="px-8 md:px-12 py-8 max-w-4xl mx-auto">
             {children}
           </div>
@@ -71,6 +73,7 @@ const PortfolioPageContent: React.FC<PortfolioPageContentProps> = ({ sections, c
           <PortfolioNav sections={sections} activeSection={activeSection} onSectionChange={handleSectionChange} />
         </div>
         <div className="flex-1 overflow-y-auto portfolio-scroll-container">
+          {hero}
           <div className="px-4 py-6 max-w-4xl mx-auto">
             {children}
           </div>

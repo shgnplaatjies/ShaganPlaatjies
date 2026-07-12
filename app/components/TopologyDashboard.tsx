@@ -1,14 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-import {
-  TopologyNode,
-  formatUptime,
-  formatYearRange,
-  getCurrentNode,
-  getEarliestStartDate,
-} from "../lib/topology";
+import { TopologyNode, formatYearRange } from "../lib/topology";
 
 export interface TopologyDashboardProps {
   nodes: TopologyNode[];
@@ -22,7 +16,7 @@ interface LaidOutNode extends TopologyNode {
   r: number;
 }
 
-interface ViewBox {
+interface Size {
   width: number;
   height: number;
 }
@@ -32,22 +26,48 @@ interface Point {
   y: number;
 }
 
-const DESKTOP_VIEWBOX: ViewBox = { width: 1120, height: 420 };
-const MOBILE_VIEWBOX: ViewBox = { width: 420, height: 820 };
-const DESKTOP_CENTER: Point = { x: DESKTOP_VIEWBOX.width / 2, y: DESKTOP_VIEWBOX.height / 2 };
-const MOBILE_CENTER: Point = { x: MOBILE_VIEWBOX.width / 2, y: 66 };
-const DESKTOP_CENTER_RADIUS = 46;
-const MOBILE_CENTER_RADIUS = 40;
-const PACKET_COLORS = ["var(--cyan-9)", "var(--amber-9)"];
+interface ActiveNode {
+  node: TopologyNode;
+  x: number;
+  y: number;
+}
 
-// Desktop spreads employers around the center node on an ellipse (mirrors
-// the systems-dashboard prototype). Mobile viewports are too narrow for
-// left/right label text at any employer-name length, so nodes stack in a
-// vertical column instead, with labels centered below each node.
-function layoutNodesDesktop(nodes: TopologyNode[]): LaidOutNode[] {
-  const { x: cx, y: cy } = DESKTOP_CENTER;
-  const rx = DESKTOP_VIEWBOX.width / 2 - 230;
-  const ry = DESKTOP_VIEWBOX.height / 2 - 90;
+const FALLBACK_SIZE: Size = { width: 1200, height: 700 };
+const NODE_RADIUS = 34;
+const LABEL_RESERVE_X = 130; // px reserved beyond a node's radius for its label text
+const LABEL_RESERVE_Y = 34;
+const STACK_ASPECT_THRESHOLD = 0.85; // below this width/height ratio, stack nodes vertically instead of on an ellipse
+const PACKET_COLORS = ["var(--ops-accent)", "var(--amber-9)"];
+
+// Biased right of true center, away from the HUD text column (which is
+// left-aligned, max-w-2xl) so the hub/ellipse has more clearance from the
+// headline at narrower desktop widths, where the HUD column takes up a
+// larger share of the available space.
+const ELLIPSE_CENTER_X_FRACTION = 0.62;
+
+function ellipseCenter(size: Size): Point {
+  return { x: size.width * ELLIPSE_CENTER_X_FRACTION, y: size.height * 0.5 };
+}
+
+function stackCenter(size: Size): Point {
+  return { x: size.width / 2, y: size.height * 0.14 };
+}
+
+// The diagram's viewBox always matches the wrapper's real measured size (see
+// useMeasuredSize below), so `preserveAspectRatio="xMidYMid slice"` never
+// actually has scale-mismatched geometry to crop - it only kicks in for the
+// brief window before the first measurement. Node/label positions are then
+// derived from that measured width/height with explicit pixel margins
+// (LABEL_RESERVE_*), not fixed percentages, so the layout self-adjusts and
+// stays clear of the edges at any real viewport's aspect ratio - the
+// clipping risk this replaces used to come from a hardcoded viewBox size
+// mismatched against whatever aspect ratio the browser actually rendered.
+function layoutEllipse(nodes: TopologyNode[], size: Size, center: Point): LaidOutNode[] {
+  const { x: cx, y: cy } = center;
+  const maxRx = Math.min(cx, size.width - cx) - NODE_RADIUS - LABEL_RESERVE_X;
+  const maxRy = Math.min(cy, size.height - cy) - NODE_RADIUS - LABEL_RESERVE_Y;
+  const rx = Math.max(70, maxRx);
+  const ry = Math.max(70, maxRy);
   const count = Math.max(nodes.length, 1);
   const startAngle = -90 - 180 / count;
 
@@ -57,29 +77,26 @@ function layoutNodesDesktop(nodes: TopologyNode[]): LaidOutNode[] {
       ...node,
       x: cx + rx * Math.cos(angle),
       y: cy + ry * Math.sin(angle),
-      r: 34,
+      r: NODE_RADIUS,
     };
   });
 }
 
-function layoutNodesMobile(nodes: TopologyNode[]): LaidOutNode[] {
-  const { x: cx } = MOBILE_CENTER;
-  const topY = 190;
-  const bottomY = MOBILE_VIEWBOX.height - 60;
+function layoutStack(nodes: TopologyNode[], size: Size, center: Point): LaidOutNode[] {
+  const { x: cx } = center;
+  const nodeR = Math.min(NODE_RADIUS - 6, size.width * 0.09);
+  const topY = size.height * 0.3;
+  const bottomY = size.height - Math.max(LABEL_RESERVE_Y * 2, size.height * 0.12);
   const count = Math.max(nodes.length, 1);
   const step = count > 1 ? (bottomY - topY) / (count - 1) : 0;
+  const swing = Math.min(size.width * 0.16, 60);
 
   return nodes.map((node, i) => ({
     ...node,
-    x: cx + (i % 2 === 0 ? -50 : 50),
+    x: cx + (i % 2 === 0 ? -swing : swing),
     y: topY + step * i,
-    r: 28,
+    r: nodeR,
   }));
-}
-
-function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
 // Detects whether `ref`'s element is actually painted (not `display:none`
@@ -100,199 +117,34 @@ function useIsRootVisible(ref: React.RefObject<HTMLElement | null>): boolean {
   return visible;
 }
 
-// Tailwind's default `sm` breakpoint - matches the `hidden sm:block` /
-// `block sm:hidden` wrapper pair below that switches between the desktop
-// and mobile SVG layouts.
-const DESKTOP_MEDIA_QUERY = "(min-width: 640px)";
+// Tracks `ref`'s real rendered box size via ResizeObserver so the SVG's
+// viewBox can always match it exactly - see the layoutEllipse comment above
+// for why this is what actually neutralizes the full-bleed "slice" cropping
+// risk, rather than just picking a bigger static viewBox.
+function useMeasuredSize(ref: React.RefObject<HTMLElement | null>): Size {
+  const [size, setSize] = useState<Size>(FALLBACK_SIZE);
 
-// Tracks which SVG layout is currently visible via a ref (not state) kept
-// current by a `matchMedia` "change" listener, which only fires when the
-// breakpoint is actually crossed. The per-frame rAF loop reads this ref
-// directly instead of `element.offsetParent`, which would force a
-// synchronous layout flush on every frame right after the same loop's
-// `setAttribute("cx"/"cy", ...)` calls invalidate layout.
-function useIsDesktopViewportRef(): React.MutableRefObject<boolean> {
-  const isDesktopRef = useRef(
-    typeof window !== "undefined" ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches : true
-  );
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  useEffect(() => {
-    const mql = window.matchMedia(DESKTOP_MEDIA_QUERY);
     const update = () => {
-      isDesktopRef.current = mql.matches;
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setSize({ width: rect.width, height: rect.height });
+      }
     };
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
 
-  return isDesktopRef;
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref]);
+
+  return size;
 }
 
 const monoFont = { fontFamily: "var(--font-space-mono)" };
-
-interface TopologySvgProps {
-  className: string;
-  viewBox: ViewBox;
-  center: Point;
-  centerRadius: number;
-  centerLabel: string;
-  centerSub: string;
-  laidOutNodes: LaidOutNode[];
-  isMobileLayout: boolean;
-  pathRefs: React.MutableRefObject<(SVGPathElement | null)[]>;
-  packetRefs: React.MutableRefObject<(SVGCircleElement | null)[]>;
-}
-
-const TopologySvg: React.FC<TopologySvgProps> = ({
-  className,
-  viewBox,
-  center,
-  centerRadius,
-  centerLabel,
-  centerSub,
-  laidOutNodes,
-  isMobileLayout,
-  pathRefs,
-  packetRefs,
-}) => (
-  <svg
-    viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
-    className={className}
-    role="img"
-    aria-label={`Career topology diagram: ${centerLabel} connected to ${laidOutNodes
-      .map((node) => node.label)
-      .join(", ")}`}
-  >
-    <g>
-      {laidOutNodes.map((node, i) => {
-        const bend = i % 2 === 0 ? -40 : 40;
-        const mx = (center.x + node.x) / 2 + bend;
-        const my = (center.y + node.y) / 2;
-        return (
-          <path
-            key={node.id}
-            ref={(el) => {
-              pathRefs.current[i] = el;
-            }}
-            d={`M ${center.x} ${center.y} Q ${mx} ${my} ${node.x} ${node.y}`}
-            fill="none"
-            style={{ stroke: "var(--gray-6)" }}
-            strokeWidth={1.5}
-          />
-        );
-      })}
-    </g>
-
-    <g>
-      {laidOutNodes.map((node, i) => (
-        <circle
-          key={node.id}
-          ref={(el) => {
-            packetRefs.current[i] = el;
-          }}
-          r={3.2}
-          style={{ fill: PACKET_COLORS[i % PACKET_COLORS.length] }}
-        />
-      ))}
-    </g>
-
-    <g>
-      <circle
-        cx={center.x}
-        cy={center.y}
-        r={centerRadius}
-        style={{ fill: "var(--gray-2)", stroke: "var(--cyan-9)" }}
-        strokeWidth={1.5}
-      />
-      <circle
-        cx={center.x}
-        cy={center.y}
-        r={centerRadius - 8}
-        fill="none"
-        style={{ stroke: "var(--cyan-9)" }}
-        strokeWidth={1}
-        opacity={0.35}
-      />
-      <text
-        x={center.x}
-        y={center.y - 2}
-        textAnchor="middle"
-        style={{ fill: "var(--gray-12)", fontWeight: 600, fontSize: 12.5, ...monoFont }}
-      >
-        {centerLabel}
-      </text>
-      <text
-        x={center.x}
-        y={center.y + 14}
-        textAnchor="middle"
-        style={{ fill: "var(--gray-9)", fontSize: 9.5, ...monoFont }}
-      >
-        {centerSub}
-      </text>
-    </g>
-
-    <g>
-      {laidOutNodes.map((node) => {
-        const anchor = isMobileLayout
-          ? "middle"
-          : node.x < center.x - 1
-          ? "end"
-          : node.x > center.x + 1
-          ? "start"
-          : "middle";
-        const tx = isMobileLayout
-          ? node.x
-          : node.x < center.x - 1
-          ? node.x - node.r - 10
-          : node.x > center.x + 1
-          ? node.x + node.r + 10
-          : node.x;
-        const ty = isMobileLayout
-          ? node.y + node.r + 18
-          : node.y < center.y
-          ? node.y - node.r - 20
-          : node.y + node.r + 22;
-        const labelMax = isMobileLayout ? 20 : 22;
-        const subMax = isMobileLayout ? 24 : 26;
-        const labelFontSize = isMobileLayout ? 12.5 : 11;
-        const subFontSize = isMobileLayout ? 10.5 : 9.5;
-        const subText = truncate(
-          [formatYearRange(node), node.sub].filter(Boolean).join(" · "),
-          subMax
-        );
-
-        return (
-          <g key={node.id}>
-            <circle
-              cx={node.x}
-              cy={node.y}
-              r={node.r}
-              style={{ fill: "var(--gray-1)", stroke: "var(--gray-7)" }}
-              strokeWidth={1.5}
-            />
-            <text
-              x={tx}
-              y={ty}
-              textAnchor={anchor}
-              style={{ fill: "var(--gray-11)", fontSize: labelFontSize, ...monoFont }}
-            >
-              {truncate(node.label.toUpperCase(), labelMax)}
-            </text>
-            <text
-              x={tx}
-              y={ty + 13}
-              textAnchor={anchor}
-              style={{ fill: "var(--gray-9)", fontSize: subFontSize, ...monoFont }}
-            >
-              {subText}
-            </text>
-          </g>
-        );
-      })}
-    </g>
-  </svg>
-);
 
 const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
   nodes,
@@ -303,15 +155,22 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const isRootVisible = useIsRootVisible(rootRef);
-  const isDesktopViewportRef = useIsDesktopViewportRef();
+  const size = useMeasuredSize(rootRef);
 
-  const laidOutNodesDesktop = useMemo(() => layoutNodesDesktop(nodes), [nodes]);
-  const laidOutNodesMobile = useMemo(() => layoutNodesMobile(nodes), [nodes]);
+  const isStack = size.width / size.height < STACK_ASPECT_THRESHOLD;
+  const center = useMemo(
+    () => (isStack ? stackCenter(size) : ellipseCenter(size)),
+    [size, isStack]
+  );
+  const centerRadius = isStack ? 32 : 44;
 
-  const pathRefsDesktop = useRef<(SVGPathElement | null)[]>([]);
-  const packetRefsDesktop = useRef<(SVGCircleElement | null)[]>([]);
-  const pathRefsMobile = useRef<(SVGPathElement | null)[]>([]);
-  const packetRefsMobile = useRef<(SVGCircleElement | null)[]>([]);
+  const laidOutNodes = useMemo(
+    () => (isStack ? layoutStack(nodes, size, center) : layoutEllipse(nodes, size, center)),
+    [nodes, size, isStack, center]
+  );
+
+  const pathRefs = useRef<(SVGPathElement | null)[]>([]);
+  const packetRefs = useRef<(SVGCircleElement | null)[]>([]);
 
   useEffect(() => {
     if (!isRootVisible) return;
@@ -322,10 +181,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
       dir: Math.random() > 0.5 ? 1 : -1,
     }));
 
-    const freezeAt = (
-      pathRefs: React.MutableRefObject<(SVGPathElement | null)[]>,
-      packetRefs: React.MutableRefObject<(SVGCircleElement | null)[]>
-    ) => {
+    const freezeAtMidpoint = () => {
       packets.forEach((_, i) => {
         const path = pathRefs.current[i];
         const el = packetRefs.current[i];
@@ -338,11 +194,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     };
 
     if (prefersReducedMotion) {
-      // Freeze each packet at its edge's midpoint instead of running the
-      // continuous requestAnimationFrame loop, mirroring MatrixRain's
-      // reduced-motion handling (app/components/MatrixRain.tsx).
-      freezeAt(pathRefsDesktop, packetRefsDesktop);
-      freezeAt(pathRefsMobile, packetRefsMobile);
+      freezeAtMidpoint();
       return;
     }
 
@@ -352,10 +204,6 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     const animate = (now: number) => {
       const dt = Math.min(64, now - last) / 1000;
       last = now;
-
-      const isDesktopVisible = isDesktopViewportRef.current;
-      const pathRefs = isDesktopVisible ? pathRefsDesktop : pathRefsMobile;
-      const packetRefs = isDesktopVisible ? packetRefsDesktop : packetRefsMobile;
 
       packets.forEach((packet, i) => {
         const path = pathRefs.current[i];
@@ -377,138 +225,203 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
     animationFrameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [nodes, prefersReducedMotion, isRootVisible, isDesktopViewportRef]);
+  }, [nodes, prefersReducedMotion, isRootVisible, laidOutNodes.length]);
 
-  const [utcClock, setUtcClock] = useState<string | null>(null);
-  useEffect(() => {
-    if (!isRootVisible) return;
+  // Ambient labels stay minimal (company name only) - full company/dates/role
+  // text is only ever shown in this on-demand detail card, positioned at the
+  // desktop cursor (hover) or the tapped node (touch), never baked onto the
+  // faded background itself.
+  const [activeNode, setActiveNode] = useState<ActiveNode | null>(null);
 
-    const tick = () => {
-      const now = new Date();
-      const hh = String(now.getUTCHours()).padStart(2, "0");
-      const mm = String(now.getUTCMinutes()).padStart(2, "0");
-      const ss = String(now.getUTCSeconds()).padStart(2, "0");
-      setUtcClock(`${hh}:${mm}:${ss} UTC`);
+  // Clamped to the diagram's own box (not just offset from the pointer) so
+  // the card never spills past the bottom/right edge of the HUD area - most
+  // visibly for nodes laid out near the bottom of the ellipse/stack.
+  const CARD_WIDTH = 240;
+  const CARD_HEIGHT = 70;
+  const positionFromEvent = (clientX: number, clientY: number): Point => {
+    const rect = rootRef.current?.getBoundingClientRect();
+    const rawX = (clientX ?? 0) - (rect?.left ?? 0) + 16;
+    const rawY = (clientY ?? 0) - (rect?.top ?? 0) + 12;
+    return {
+      x: rect ? Math.min(rawX, rect.width - CARD_WIDTH - 8) : rawX,
+      y: rect ? Math.min(rawY, rect.height - CARD_HEIGHT - 8) : rawY,
     };
-    tick();
-    const interval = setInterval(tick, 1000);
-    return () => clearInterval(interval);
-  }, [isRootVisible]);
+  };
 
-  const earliestStart = useMemo(() => getEarliestStartDate(nodes), [nodes]);
-  const [uptime, setUptime] = useState<string | null>(null);
+  const handlePointerEnter = (node: TopologyNode, e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    setActiveNode({ node, ...positionFromEvent(e.clientX, e.clientY) });
+  };
+  const handlePointerMove = (node: TopologyNode, e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    setActiveNode({ node, ...positionFromEvent(e.clientX, e.clientY) });
+  };
+  const handlePointerLeaveNode = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    setActiveNode(null);
+  };
+  const handlePointerUp = (node: TopologyNode, e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") return;
+    setActiveNode((prev) =>
+      prev?.node.id === node.id ? null : { node, ...positionFromEvent(e.clientX, e.clientY) }
+    );
+  };
+
+  // Tap-to-dismiss: a touch tap outside any node clears a pinned detail card.
   useEffect(() => {
-    if (!isRootVisible || !earliestStart) return;
-    const tick = () => setUptime(formatUptime(earliestStart, new Date()));
-    tick();
-    const interval = setInterval(tick, 1000);
-    return () => clearInterval(interval);
-  }, [earliestStart, isRootVisible]);
-
-  const currentNode = useMemo(() => getCurrentNode(nodes), [nodes]);
-  const activeSinceYear = earliestStart ? earliestStart.getUTCFullYear() : null;
-
-  const stats: { label: string; value: string; tone?: "accent" | "warn" }[] = [
-    { label: "Career uptime", value: uptime ?? "computing…", tone: "accent" },
-    { label: "Employers", value: String(nodes.length) },
-    { label: "Active since", value: activeSinceYear ? String(activeSinceYear) : "–" },
-    { label: "Currently", value: currentNode?.label ?? "–", tone: "warn" },
-  ];
+    if (!activeNode) return;
+    const dismissIfOutside = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") return;
+      const target = e.target as Element | null;
+      if (!target?.closest("[data-topology-node]")) setActiveNode(null);
+    };
+    document.addEventListener("pointerdown", dismissIfOutside);
+    return () => document.removeEventListener("pointerdown", dismissIfOutside);
+  }, [activeNode]);
 
   return (
-    <div
-      ref={rootRef}
-      className="relative rounded-xl border overflow-hidden"
-      style={{ borderColor: "var(--gray-6)", backgroundColor: "var(--gray-1)" }}
-    >
-      <div
-        className="flex items-center gap-2 px-4 sm:px-5 pt-4 pb-2 text-[11px] uppercase tracking-wider"
-        style={{ color: "var(--gray-9)", ...monoFont }}
+    <div ref={rootRef} className="absolute inset-0 z-0">
+      <svg
+        viewBox={`0 0 ${size.width} ${size.height}`}
+        preserveAspectRatio="xMidYMid slice"
+        className="h-full w-full"
+        aria-hidden="true"
       >
-        <span
-          className={`inline-block w-[7px] h-[7px] rounded-full flex-shrink-0 ${
-            prefersReducedMotion ? "" : "animate-pulse"
-          }`}
-          style={{ backgroundColor: "var(--red-9)" }}
-          aria-hidden="true"
-        />
-        Live — career topology, {activeSinceYear ?? "2020"}–present
-      </div>
-
-      <div className="hidden sm:block">
-        <TopologySvg
-          className="w-full h-auto"
-          viewBox={DESKTOP_VIEWBOX}
-          center={DESKTOP_CENTER}
-          centerRadius={DESKTOP_CENTER_RADIUS}
-          centerLabel={centerLabel}
-          centerSub={centerSub}
-          laidOutNodes={laidOutNodesDesktop}
-          isMobileLayout={false}
-          pathRefs={pathRefsDesktop}
-          packetRefs={packetRefsDesktop}
-        />
-      </div>
-      <div className="block sm:hidden">
-        <TopologySvg
-          className="w-full h-auto"
-          viewBox={MOBILE_VIEWBOX}
-          center={MOBILE_CENTER}
-          centerRadius={MOBILE_CENTER_RADIUS}
-          centerLabel={centerLabel}
-          centerSub={centerSub}
-          laidOutNodes={laidOutNodesMobile}
-          isMobileLayout={true}
-          pathRefs={pathRefsMobile}
-          packetRefs={packetRefsMobile}
-        />
-      </div>
-
-      <div
-        className="grid grid-cols-2 sm:grid-cols-4 border-t"
-        style={{ borderColor: "var(--gray-6)" }}
-      >
-        {stats.map((stat, i) => {
-          const mobileRight = i === 0 || i === 2;
-          const desktopRight = i !== 3;
-          return (
-            <div
-              key={stat.label}
-              className={`px-4 sm:px-5 py-4 ${mobileRight ? "border-r" : ""} ${
-                desktopRight ? "sm:border-r" : "sm:border-r-0"
-              } ${i >= 2 ? "border-t sm:border-t-0" : ""}`}
-              style={{ borderColor: "var(--gray-6)", ...monoFont }}
-            >
-              <div
-                className="text-[10px] uppercase tracking-wider mb-2"
-                style={{ color: "var(--gray-9)" }}
-              >
-                {stat.label}
-              </div>
-              <div
-                className="text-base sm:text-lg font-semibold truncate"
-                style={{
-                  color:
-                    stat.tone === "accent"
-                      ? "var(--cyan-11)"
-                      : stat.tone === "warn"
-                      ? "var(--amber-11)"
-                      : "var(--gray-12)",
+        <g>
+          {laidOutNodes.map((node, i) => {
+            const bend = i % 2 === 0 ? -40 : 40;
+            const mx = (center.x + node.x) / 2 + bend;
+            const my = (center.y + node.y) / 2;
+            return (
+              <path
+                key={node.id}
+                ref={(el) => {
+                  pathRefs.current[i] = el;
                 }}
-              >
-                {stat.value}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+                d={`M ${center.x} ${center.y} Q ${mx} ${my} ${node.x} ${node.y}`}
+                fill="none"
+                style={{ stroke: "var(--ops-line-bright)" }}
+                strokeWidth={1.2}
+              />
+            );
+          })}
+        </g>
 
-      <div
-        className="px-4 sm:px-5 py-2 text-right text-[11px]"
-        style={{ color: "var(--gray-8)", ...monoFont }}
-      >
-        {utcClock ?? "--:--:-- UTC"}
-      </div>
+        <g>
+          {laidOutNodes.map((node, i) => (
+            <circle
+              key={node.id}
+              ref={(el) => {
+                packetRefs.current[i] = el;
+              }}
+              r={3.2}
+              style={{ fill: PACKET_COLORS[i % PACKET_COLORS.length] }}
+            />
+          ))}
+        </g>
+
+        <g>
+          <circle
+            cx={center.x}
+            cy={center.y}
+            r={centerRadius}
+            fill="none"
+            style={{ stroke: "var(--ops-accent)" }}
+            strokeWidth={1.4}
+          />
+          <text
+            x={center.x}
+            y={center.y - 2}
+            textAnchor="middle"
+            style={{ fill: "var(--ops-fg-0)", fontWeight: 600, fontSize: 12.5, ...monoFont }}
+          >
+            {centerLabel}
+          </text>
+          <text
+            x={center.x}
+            y={center.y + 14}
+            textAnchor="middle"
+            style={{ fill: "var(--ops-fg-2)", fontSize: 9.5, ...monoFont }}
+          >
+            {centerSub}
+          </text>
+        </g>
+
+        <g>
+          {laidOutNodes.map((node) => {
+            const active = activeNode?.node.id === node.id;
+            const anchor = isStack
+              ? "middle"
+              : node.x < center.x - 1
+              ? "end"
+              : node.x > center.x + 1
+              ? "start"
+              : "middle";
+            const tx = isStack
+              ? node.x
+              : node.x < center.x - 1
+              ? node.x - node.r - 10
+              : node.x > center.x + 1
+              ? node.x + node.r + 10
+              : node.x;
+            const ty = isStack ? node.y + node.r + 18 : node.y < center.y ? node.y - node.r - 14 : node.y + node.r + 20;
+
+            return (
+              <g
+                key={node.id}
+                data-topology-node={node.id}
+                style={{ cursor: "pointer", pointerEvents: "auto" }}
+                onPointerEnter={(e) => handlePointerEnter(node, e)}
+                onPointerMove={(e) => handlePointerMove(node, e)}
+                onPointerLeave={handlePointerLeaveNode}
+                onPointerUp={(e) => handlePointerUp(node, e)}
+              >
+                <circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.r}
+                  fill="none"
+                  style={{ stroke: active ? "var(--ops-accent)" : "var(--ops-line-bright)" }}
+                  strokeWidth={1.4}
+                />
+                <text
+                  x={tx}
+                  y={ty}
+                  textAnchor={anchor}
+                  style={{
+                    fill: active ? "var(--ops-fg-0)" : "var(--ops-fg-2)",
+                    fontSize: isStack ? 11.5 : 10.5,
+                    letterSpacing: "0.04em",
+                    ...monoFont,
+                  }}
+                >
+                  {node.label.toUpperCase()}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+      </svg>
+
+      {activeNode && (
+        <div
+          className="pointer-events-none absolute z-10 max-w-[240px] rounded-md border px-3.5 py-2.5 text-[11.5px] shadow-lg"
+          style={{
+            left: activeNode.x,
+            top: activeNode.y,
+            borderColor: "var(--ops-line-bright)",
+            backgroundColor: "var(--ops-bg)",
+            color: "var(--ops-fg-1)",
+            boxShadow: "0 12px 30px rgba(0,0,0,0.35)",
+            ...monoFont,
+          }}
+        >
+          <div className="mb-1 text-[12.5px] font-semibold" style={{ color: "var(--ops-fg-0)" }}>
+            {activeNode.node.label}
+          </div>
+          {[formatYearRange(activeNode.node), activeNode.node.sub].filter(Boolean).join(" · ")}
+        </div>
+      )}
     </div>
   );
 };
