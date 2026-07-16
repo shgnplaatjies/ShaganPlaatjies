@@ -39,6 +39,25 @@ const LABEL_RESERVE_Y = 34;
 const STACK_ASPECT_THRESHOLD = 0.85; // below this width/height ratio, stack nodes vertically instead of on an ellipse
 const PACKET_COLORS = ["var(--ops-accent)", "var(--amber-9)"];
 
+// Real WordPress-backed company/role strings can be arbitrarily long, unlike
+// the short static fallback nodes used for all manual verification of this
+// component - ambient background labels must stay capped so they can't
+// overflow the diagram's own layout margins (LABEL_RESERVE_X/Y). The hover/
+// tap detail card is exempt: it renders the full, untruncated text.
+function truncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
+}
+
+// Full, untruncated node description shared by the on-demand detail card,
+// the aria-live announcement, and the always-present sr-only node list, so
+// keyboard/screen-reader users get the same information sighted mouse/touch
+// users get from hovering or tapping.
+function describeNode(node: TopologyNode): string {
+  const detail = [formatYearRange(node), node.sub].filter(Boolean).join(", ");
+  return detail ? `${node.label}, ${detail}` : node.label;
+}
+
 // Biased right of true center, away from the HUD text column (which is
 // left-aligned, max-w-2xl) so the hub/ellipse has more clearance from the
 // headline at narrower desktop widths, where the HUD column takes up a
@@ -267,6 +286,16 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     );
   };
 
+  // Keyboard equivalent of hover: tabbing onto a node reveals the same detail
+  // card a mouse hover would, positioned at the node's own screen location
+  // (there's no pointer coordinate to reuse for a focus event); tabbing away
+  // dismisses it, mirroring pointer-leave.
+  const handleNodeFocus = (node: TopologyNode, e: React.FocusEvent<SVGGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setActiveNode({ node, ...positionFromEvent(rect.left + rect.width / 2, rect.top + rect.height / 2) });
+  };
+  const handleNodeBlur = () => setActiveNode(null);
+
   // Tap-to-dismiss: a touch tap outside any node clears a pinned detail card.
   useEffect(() => {
     if (!activeNode) return;
@@ -279,15 +308,33 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
     return () => document.removeEventListener("pointerdown", dismissIfOutside);
   }, [activeNode]);
 
+  // positionFromEvent's clamp only has CARD_WIDTH/CARD_HEIGHT to go on before
+  // the card has ever rendered - a reasonable first-paint estimate, but the
+  // card's real height varies with real (untruncated) company/role text
+  // length. Re-clamp against the card's actual measured box once it's in the
+  // DOM so it can never render past the diagram's own edge for long text.
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    if (!activeNode || !cardRef.current || !rootRef.current) return;
+    const cardRect = cardRef.current.getBoundingClientRect();
+    const rootRect = rootRef.current.getBoundingClientRect();
+    const maxX = Math.max(0, rootRect.width - cardRect.width - 8);
+    const maxY = Math.max(0, rootRect.height - cardRect.height - 8);
+    const clampedX = Math.min(activeNode.x, maxX);
+    const clampedY = Math.min(activeNode.y, maxY);
+    if (clampedX !== activeNode.x || clampedY !== activeNode.y) {
+      setActiveNode((prev) => (prev ? { ...prev, x: clampedX, y: clampedY } : prev));
+    }
+  }, [activeNode]);
+
   return (
     <div ref={rootRef} className="absolute inset-0 z-0">
       <svg
         viewBox={`0 0 ${size.width} ${size.height}`}
         preserveAspectRatio="xMidYMid slice"
         className="h-full w-full"
-        aria-hidden="true"
       >
-        <g>
+        <g aria-hidden="true">
           {laidOutNodes.map((node, i) => {
             const bend = i % 2 === 0 ? -40 : 40;
             const mx = (center.x + node.x) / 2 + bend;
@@ -307,7 +354,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
           })}
         </g>
 
-        <g>
+        <g aria-hidden="true">
           {laidOutNodes.map((node, i) => (
             <circle
               key={node.id}
@@ -320,7 +367,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
           ))}
         </g>
 
-        <g>
+        <g aria-hidden="true">
           <circle
             cx={center.x}
             cy={center.y}
@@ -365,22 +412,29 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
               ? node.x + node.r + 10
               : node.x;
             const ty = isStack ? node.y + node.r + 18 : node.y < center.y ? node.y - node.r - 14 : node.y + node.r + 20;
+            const labelMax = isStack ? 20 : 22;
 
             return (
               <g
                 key={node.id}
                 data-topology-node={node.id}
+                role="button"
+                tabIndex={0}
+                aria-label={describeNode(node)}
                 style={{ cursor: "pointer", pointerEvents: "auto" }}
                 onPointerEnter={(e) => handlePointerEnter(node, e)}
                 onPointerMove={(e) => handlePointerMove(node, e)}
                 onPointerLeave={handlePointerLeaveNode}
                 onPointerUp={(e) => handlePointerUp(node, e)}
+                onFocus={(e) => handleNodeFocus(node, e)}
+                onBlur={handleNodeBlur}
               >
                 <circle
                   cx={node.x}
                   cy={node.y}
                   r={node.r}
                   fill="none"
+                  aria-hidden="true"
                   style={{ stroke: active ? "var(--ops-accent)" : "var(--ops-line-bright)" }}
                   strokeWidth={1.4}
                 />
@@ -388,6 +442,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
                   x={tx}
                   y={ty}
                   textAnchor={anchor}
+                  aria-hidden="true"
                   style={{
                     fill: active ? "var(--ops-fg-0)" : "var(--ops-fg-2)",
                     fontSize: isStack ? 11.5 : 10.5,
@@ -395,7 +450,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
                     ...monoFont,
                   }}
                 >
-                  {node.label.toUpperCase()}
+                  {truncate(node.label.toUpperCase(), labelMax)}
                 </text>
               </g>
             );
@@ -405,6 +460,8 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
 
       {activeNode && (
         <div
+          ref={cardRef}
+          aria-hidden="true"
           className="pointer-events-none absolute z-10 max-w-[240px] rounded-md border px-3.5 py-2.5 text-[11.5px] shadow-lg"
           style={{
             left: activeNode.x,
@@ -422,6 +479,16 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
           {[formatYearRange(activeNode.node), activeNode.node.sub].filter(Boolean).join(" · ")}
         </div>
       )}
+
+      <div aria-live="polite" className="sr-only">
+        {activeNode ? describeNode(activeNode.node) : ""}
+      </div>
+
+      <ul className="sr-only">
+        {nodes.map((node) => (
+          <li key={node.id}>{describeNode(node)}</li>
+        ))}
+      </ul>
     </div>
   );
 };
