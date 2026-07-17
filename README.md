@@ -74,7 +74,7 @@ The suite is wired up as a manually-triggered GitHub Actions workflow (`.github/
 
 ![Home page](docs/screenshots/home.png)
 
-The home page renders as a desktop-style window with a sidebar navigation menu, matching the "desktop OS" theme described above, opening with the Live System hero's career-topology dashboard.
+The home page renders as a desktop-style window with a sidebar navigation menu, matching the "desktop OS" theme described above, opening with the Live System hero's ambient career-topology diagram.
 The topology shown above was captured in a sandboxed environment without network access to the WordPress instance, so it falls back to a static seed of real employers rather than live WordPress-sourced data.
 
 ### Projects
