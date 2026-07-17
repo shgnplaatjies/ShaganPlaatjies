@@ -15,9 +15,7 @@ import { PORTFOLIO_NAV_SECTIONS } from "../lib/constants";
 const PortfolioPage: React.FC = () => {
   return (
     <PortfolioPageWrapper>
-      <PortfolioPageContent sections={PORTFOLIO_NAV_SECTIONS}>
-        <LandingSection />
-
+      <PortfolioPageContent sections={PORTFOLIO_NAV_SECTIONS} hero={<LandingSection />}>
         <div id="summary" className="mt-20 scroll-mt-20">
           <SummarySection />
         </div>

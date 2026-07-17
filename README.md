@@ -9,7 +9,7 @@ It is a Next.js 15 App Router application with a custom Express server, styled a
 
 ### Features
 
-- **Live System hero** - the homepage and the `/experience`/`/projects` pages open with an animated SVG career-topology dashboard: real work-history data (fetched from WordPress, with a static fallback) rendered as nodes orbiting a center node, plus a stat strip of career-uptime and employer metrics.
+- **Live System hero** - the homepage and the `/experience`/`/projects` pages open with a full-bleed ambient SVG career-topology diagram behind the hero text: real work-history data (fetched from WordPress, with a static fallback) rendered as nodes orbiting a center node, hoverable/tappable for a per-employer detail card, plus a footer ticker of career-uptime and employer metrics.
 - **Desktop OS themed UI** - sections are rendered as window cards (with window chrome and controls) on a desktop-style canvas, animated with Framer Motion and GSAP.
 - **Blog** - posts are authored in WordPress and pulled in as a headless CMS, then rendered as native Next.js pages at `/blog`.
 - **Projects** - a project showcase at `/projects`, with individual project detail pages.
@@ -74,7 +74,7 @@ The suite is wired up as a manually-triggered GitHub Actions workflow (`.github/
 
 ![Home page](docs/screenshots/home.png)
 
-The home page renders as a desktop-style window with a sidebar navigation menu, matching the "desktop OS" theme described above, opening with the Live System hero's career-topology dashboard.
+The home page renders as a desktop-style window with a sidebar navigation menu, matching the "desktop OS" theme described above, opening with the Live System hero's ambient career-topology diagram.
 The topology shown above was captured in a sandboxed environment without network access to the WordPress instance, so it falls back to a static seed of real employers rather than live WordPress-sourced data.
 
 ### Projects
