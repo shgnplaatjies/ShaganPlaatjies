@@ -421,7 +421,7 @@ const TopologyDashboard: React.FC<TopologyDashboardProps> = ({
                 role="button"
                 tabIndex={0}
                 aria-label={describeNode(node)}
-                style={{ cursor: "pointer", pointerEvents: "auto" }}
+                style={{ cursor: "pointer", pointerEvents: "all" }}
                 onPointerEnter={(e) => handlePointerEnter(node, e)}
                 onPointerMove={(e) => handlePointerMove(node, e)}
                 onPointerLeave={handlePointerLeaveNode}
